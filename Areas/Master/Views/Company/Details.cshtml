@@ -1,0 +1,164 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.CompanyViewModel
+
+@{
+    // This is a partial view intended to be loaded into a modal body.
+    // No layout is specified.
+}
+
+<div class="modal-body">
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Company Information</h6>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Company Name:</div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-building"></i></span>
+                        <input type="text" class="form-control" value="@Model.CompanyName" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">NTN:</div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-id-card"></i></span>
+                        <input type="text" class="form-control" value="@(Model.NTN ?? "N/A")" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Company Address:</div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-map-marker-alt"></i></span>
+                        <input type="text" class="form-control" value="@(Model.CompanyAddress ?? "N/A")" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-cogs me-2"></i> Configuration & Accounts</h6>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Period Name:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.PeriodName ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Bank Account:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.BankAccountId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">AR Account:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.ARAccountId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">AP Account:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.APAccountId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Trip Revenue Acc:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.TripRevenueAccountId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Advance Account:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.AdvanceAccountId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Distance Threshold:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.DistanceThreshold?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Report Grace HRs:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.ReportGraceHRs?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">AR Period:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.ARPeriodId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">AP Period:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.APPeriodId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">GL Period:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.GLPeriodId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Ops Period:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.OpsPeriodId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-muted">Fuel Expense Acc:</div>
+                <div class="col-md-8"><input type="text" class="form-control" value="@(Model.FuelExpenseAccountId?.ToString() ?? "N/A")" readonly /></div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-toggle-on me-2"></i> Options</h6>
+    <div class="card-body bg-light rounded">
+        <div class="row">
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="EnableGL" disabled />
+                <label class="form-check-label" asp-for="EnableGL"></label>
+            </div>
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="EnablePartialDelivery" disabled />
+                <label class="form-check-label" asp-for="EnablePartialDelivery"></label>
+            </div>
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="RouteByConsignee" disabled />
+                <label class="form-check-label" asp-for="RouteByConsignee"></label>
+            </div>
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="SeparateFixedInvoice" disabled />
+                <label class="form-check-label" asp-for="SeparateFixedInvoice"></label>
+            </div>
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="IsMandatoryDriver2" disabled />
+                <label class="form-check-label" asp-for="IsMandatoryDriver2"></label>
+            </div>
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="AllowTrailer" disabled />
+                <label class="form-check-label" asp-for="AllowTrailer"></label>
+            </div>
+            <div class="col-md-4 mb-2 form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="IsActive" disabled />
+                <label class="form-check-label" asp-for="IsActive">@(Model.IsActive ? "Active" : "Inactive")</label>
+            </div>
+        </div>
+    </div>
+
+
+    <hr class="my-4" />
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-history me-2"></i> Audit Information</h6>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Created By:</div>
+        <div class="col-md-8">@Model.CreatedBy</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Created On:</div>
+        <div class="col-md-8">@(Model.CreatedOn?.ToString("dd MMM,yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Updated By:</div>
+        <div class="col-md-8">@(Model.UpdatedBy ?? "N/A")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Updated On:</div>
+        <div class="col-md-8">@(Model.UpdatedOn?.ToString("dd MMM,yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+    </div>
+</div>

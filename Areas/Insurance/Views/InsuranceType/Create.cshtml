@@ -1,0 +1,101 @@
+﻿@model ProcureToPay.Areas.Insurance.ViewModels.InsuranceTypeCreateEditViewModel
+@{
+    ViewData["Title"] = "Create Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Type
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "InsuranceType", new { area = "Insurance" })">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> InsuranceType Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="InsuranceType.TypeName" class="form-label">Type Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-user-tie"></i></span>
+                                    <input asp-for="InsuranceType.TypeName" class="form-control" placeholder="Enter client's full name" />
+                                </div>
+                                <span asp-validation-for="InsuranceType.TypeName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="InsuranceType.CompanyId" class="form-label">Company</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-city"></i></span>
+                                    <select asp-for="InsuranceType.CompanyId" asp-items="@Model.Companies" class="form-select">
+                                        <option value="">-- Select Company --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="InsuranceType.CompanyId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Required Documents Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-file-alt me-2"></i> Required Documents
+                        </h6>
+                        <button type="button"
+                                class="btn btn-outline-primary required-docs-btn"
+                                data-area="Insurance"
+                                data-controller="InsuranceType"
+                                data-action="LoadRequiredDocuments">
+                            <i class="fas fa-file-alt me-1"></i> Select Document
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted" id="selectedDocumentsSummary">No documents selected yet.</p>
+                        <div id="selectedDocumentsContainer" class="d-flex flex-wrap gap-2">
+                            @* JS will populate this *@
+                        </div>
+                        <input type="hidden" id="mainFormSelectedDocumentsJson" name="SelectedDocumentsJson" value="" />
+                        <span asp-validation-for="SelectedDocuments" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "InsuranceType", new { area = "Insurance" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create Type
+                    </button>
+                </div>
+            </form>
+        </div>
+        @await Html.PartialAsync("_RequiredDocumentModals")
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

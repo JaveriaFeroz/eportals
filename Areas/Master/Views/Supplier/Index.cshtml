@@ -1,0 +1,162 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.SupplierIndexViewModel
+
+@{
+    ViewData["Title"] = "Suppliers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+
+<div class="container-fluid px-4 py-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Master</a></li>
+        <li class="breadcrumb-item active">Suppliers</li>
+    </ol>
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-truck me-2"></i> Suppliers Management
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text" id="SupplierSearchIcon">
+                                <i class="fas fa-filter" style="font-size: 1rem;"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="supplierSearch" placeholder="Supplier Name or Type">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                            <option value="">All</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <button class="action-button create-user-text"
+                                    data-url="@Url.Action("Create", "Supplier", new { area = "Master" })"
+                                    style="background-color: #092963;">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Add New Supplier</span>
+                            </button>
+                            <a href="#" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-truck me-2 text-dark"></i>SUPPLIER NAME</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-tag me-2 text-dark"></i>SUPPLIER TYPE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-city me-2 text-dark"></i>CITY</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-toggle-on me-2 text-dark"></i>STATUS</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user-clock me-2 text-dark"></i>CREATED BY</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-history me-2 text-dark"></i>LAST UPDATED</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-cogs me-2 text-dark"></i>ACTIONS</div>
+            </div>
+
+            @if (Model.Suppliers.Any())
+            {
+                @foreach (var item in Model.Suppliers)
+                {
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" data-id="@item.SupplierId" tabindex="0">
+                        <div class="col-12 col-md-2 mb-2 mb-md-0">
+                            <strong class="fw-bold">@item.SupplierName</strong>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <span class="badge bg-info text-dark">@item.SupplierTypeName</span>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            @(item.CityName ?? "-")
+                        </div>
+                        <div class="col-6 col-md-1 text-md-center">
+                            @if (item.IsActive)
+                            {
+                                <span class="badge status-badge">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge status-badge bg-danger">Inactive</span>
+                            }
+                        </div>
+                        <div class="col-6 col-md-2 small text-muted">
+                            <div title="Created by"><i class="fas fa-user-plus me-1"></i> @item.CreatedBy</div>
+                            <div title="Created on"><i class="fas fa-calendar-alt me-1"></i> @item.CreatedOn.ToString("dd MMM yy")</div>
+                        </div>
+                        <div class="col-6 col-md-2 small text-muted">
+                            <div title="Updated by"><i class="fas fa-user-edit me-1"></i> @(item.UpdatedBy ?? "N/A")</div>
+                            <div title="Updated on"><i class="fas fa-calendar-alt me-1"></i> @(item.UpdatedOn?.ToString("dd MMM yy") ?? "N/A")</div>
+                        </div>
+                        <div class="col-12 col-md-1 d-flex justify-content-start justify-content-md-center gap-1 mt-2 mt-md-0">
+                            <button type="button" class="btn btn-sm text-warning edit-btn action-btn"
+                                    title="Edit" data-id="@item.SupplierId" data-area="Master" data-page="Supplier">
+                                <i class="fas fa-edit icon-warning"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm text-info details-btn action-btn"
+                                    title="Details" data-id="@item.SupplierId" data-area="Master" data-page="Supplier">
+                                <i class="fas fa-info-circle icon-info"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
+                                    title="Delete" data-id="@item.SupplierId" data-area="Master" data-page="Supplier" data-name="@item.SupplierName">
+                                <i class="fas fa-trash-alt icon-danger"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i>
+                        <br />
+                        No suppliers found.
+                    </div>
+                </div>
+            }
+
+        @* --- ADD THIS LINE --- *@
+        @await Html.PartialAsync("_SupplierModals")
+
+    </div>
+</div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

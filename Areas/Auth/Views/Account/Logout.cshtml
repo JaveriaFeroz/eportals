@@ -1,0 +1,23 @@
+﻿@* /Areas/Auth/Views/Auth/Logout.cshtml *@
+@{
+    ViewData["Title"] = "Log out";
+    Layout = "/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2>@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to log out?</p>
+                <form asp-area="Auth" asp-controller="Auth" asp-action="LogoutConfirmed" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">Log out</button>
+                    <a asp-area="Auth" asp-controller="Auth" asp-action="Login" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,286 @@
+﻿<div class="modal fade" id="branchEditModal" tabindex="-1" aria-labelledby="branchEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="branchEditModalLabel">
+                    <i class="fas fa-code-branch me-2"></i> Edit Branch
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="branchEditModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="branchDetailsModal" tabindex="-1" aria-labelledby="branchDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="branchDetailsModalLabel">
+                    <i class="fas fa-code-branch me-2"></i> Branch Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="branchDetailsModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="branchDeleteModal" tabindex="-1" aria-labelledby="branchDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="branchDeleteModalLabel">
+                    <i class="fas fa-building me-2"></i> Delete Branch: <span id="deleteModalBranchName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete branch <strong id="deleteModalBranchNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="branchDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the Branch Edit modal ---
+        function attachBranchEditFormSubmissionHandler() {
+            const editForm = document.getElementById('branchEditForm'); // Target the branch edit form
+            if (editForm) {
+                // Ensure no duplicate listeners by removing any existing ones
+                editForm.removeEventListener('submit', handleBranchEditFormSubmit);
+                editForm.addEventListener('submit', handleBranchEditFormSubmit);
+
+                // Re-parse client-side validation for dynamically loaded content
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #branchEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for branch form.");
+                }
+            } else {
+                console.warn("#branchEditForm not found when trying to attach handler.");
+            }
+        }
+
+        // --- Handler for the Branch Edit form submission (AJAX) ---
+        async function handleBranchEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for branch form. Not sending AJAX request.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type"); // Get content type to distinguish JSON/HTML
+                const branchEditModalBodyElement = document.getElementById('branchEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    // This is a JSON response (success or specific error)
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        // Success: close modal, show message, reload page
+                        const branchEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('branchEditModal'));
+                        if (branchEditModalInstance) {
+                            branchEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') { // Check if Toastr is available
+                            toastr.success(jsonResponse.message || "Branch updated successfully!");
+                        } else {
+                            console.log("Branch update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload(); // Reload to reflect changes
+                    } else {
+                        // JSON error: show message, keep modal open or close based on error type
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("Branch update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        // For critical errors (e.g., branch not found), you might want to close the modal
+                        const branchEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('branchEditModal'));
+                        if (branchEditModalInstance) {
+                            branchEditModalInstance.hide(); // Hide for critical errors
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    branchEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("Branch validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    setTimeout(attachBranchEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during branch form submission:', error);
+                branchEditModalBodyElement.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // --- Handler for Branch Delete form submission (AJAX) ---
+        async function handleBranchDeleteFormSubmit(event) {
+            event.preventDefault(); // Stop default form submission
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                // Assuming delete always returns JSON from the controller
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    // Success: close modal, show message, reload page
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "Branch deleted successfully!");
+                    } else {
+                        console.log("Branch deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload(); // Reload page to reflect deletion
+                } else {
+                    // Error: show message
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete branch.");
+                    } else {
+                        console.error("Branch delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during branch delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during branch deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during branch deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- Branch Modal Openers ---
+
+        // Edit Branch Modal Opener
+        document.querySelectorAll('.branch-edit-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = 'UserManagement'; // Fixed area for Branches
+                const page = 'Branches'; // Fixed page for Branches
+                const url = getUrl(area, page, 'Edit', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('branchEditModalBody').innerHTML = data;
+
+                    const branchEditModal = new bootstrap.Modal(document.getElementById('branchEditModal'));
+                    branchEditModal.show();
+
+                    // IMPORTANT: Now attach the form submission handler to the newly loaded form
+                    // Adding a small timeout can sometimes help Bootstrap modals fully render.
+                    setTimeout(attachBranchEditFormSubmissionHandler, 50);
+
+                } catch (error) {
+                    console.error('Error loading branch edit modal content:', error);
+                    document.getElementById('branchEditModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load branch edit form. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Branch Details Modal Opener
+        document.querySelectorAll('.branch-details-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = 'UserManagement'; // Fixed area for Branches
+                const page = 'Branches'; // Fixed page for Branches
+                const url = getUrl(area, page, 'Details', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('branchDetailsModalBody').innerHTML = data;
+                    new bootstrap.Modal(document.getElementById('branchDetailsModal')).show();
+                } catch (error) {
+                    console.error('Error loading branch details modal:', error);
+                    document.getElementById('branchDetailsModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load branch details. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Delete Branch Modal Opener
+        document.querySelectorAll('.branch-delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const branchName = this.getAttribute('data-branch-name'); // Assuming you'll add this data attribute
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                // If you want to display the branch name in the delete confirmation modal
+                const deleteModalBranchNameSpan = document.getElementById('deleteModalBranchName'); // Add this span in your modal
+                if (deleteModalBranchNameSpan) {
+                    deleteModalBranchNameSpan.textContent = branchName;
+                }
+                const deleteModalBranchNameConfirmSpan = document.getElementById('deleteModalBranchNameConfirm'); // Add this span in your modal
+                if (deleteModalBranchNameConfirmSpan) {
+                    deleteModalBranchNameConfirmSpan.textContent = branchName;
+                }
+
+
+                document.getElementById('branchDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('branchDeleteModal')).show();
+            });
+        });
+    }); // End DOMContentLoaded
+</script>

@@ -1,0 +1,159 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.ConsigneeCreateEditViewModel
+@{
+    ViewData["Title"] = "Create Consignee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" asp-area="">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Consignees</a></li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Consignee
+            </h5>
+        </div>
+        <div class="card-body p-4">
+            <form method="post" asp-action="Create">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                @* ==== Card 1: Basic Information ==== *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Basic Information</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.ConsigneeName" class="form-label">Consignee Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-user-tie fa-fw"></i></span>
+                                    <input asp-for="Consignee.ConsigneeName" class="form-control" placeholder="Enter consignee's full name" />
+                                </div>
+                                <span asp-validation-for="Consignee.ConsigneeName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.ClientId" class="form-label">Client</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-handshake fa-fw"></i></span>
+                                    <select asp-for="Consignee.ClientId" asp-items="@Model.Clients" class="form-select">
+                                        <option value="">-- Select Client --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Consignee.ClientId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.CompanyId" class="form-label">Company</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-building fa-fw"></i></span>
+                                    <select asp-for="Consignee.CompanyId" asp-items="@Model.Companies" class="form-select">
+                                        <option value="">-- Select Company --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Consignee.CompanyId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* ==== Card 2: Contact & Location ==== *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i> Contact & Location</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.ContactNo" class="form-label">Contact Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-phone-alt fa-fw"></i></span>
+                                    <input asp-for="Consignee.ContactNo" type="number" class="form-control" placeholder="e.g., 0300-1234567" />
+                                </div>
+                                <span asp-validation-for="Consignee.ContactNo" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.CityId" class="form-label">City</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-city fa-fw"></i></span>
+                                    <select asp-for="Consignee.CityId" asp-items="@Model.Cities" class="form-select">
+                                        <option value="">-- Select City --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Consignee.CityId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.Address" class="form-label">Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-map-marker-alt fa-fw"></i></span>
+                                    <input asp-for="Consignee.Address" class="form-control" placeholder="Enter full street address" />
+                                </div>
+                                <span asp-validation-for="Consignee.Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* ==== Card 3: Delivery Details ==== *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-truck-loading me-2"></i> Delivery Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.StandardKMs" class="form-label">Standard KMs</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-road fa-fw"></i></span>
+                                    <input asp-for="Consignee.StandardKMs" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                                </div>
+                                <span asp-validation-for="Consignee.StandardKMs" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.LastDeliveryKMs" class="form-label">Last Delivery KMs</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-route fa-fw"></i></span>
+                                    <input asp-for="Consignee.LastDeliveryKMs" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                                </div>
+                                <span asp-validation-for="Consignee.LastDeliveryKMs" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.LastDepartureDate" class="form-label">Last Departure Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt fa-fw"></i></span>
+                                    <input asp-for="Consignee.LastDepartureDate" type="date" class="form-control" />
+                                </div>
+                                <span asp-validation-for="Consignee.LastDepartureDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Consignee.LastDepartureDateTime" class="form-label">Last Departure Time</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt fa-fw"></i></span>
+                                    <input asp-for="Consignee.LastDepartureDateTime" type="time" class="form-control" />
+                                </div>
+                                <span asp-validation-for="Consignee.LastDepartureDateTime" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Back to List</a>
+                    <button type="submit" class="btn btn-primary px-4" style="background-color: #092963; color: white;">
+                        <i class="fas fa-save me-1"></i> Create Consignee
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

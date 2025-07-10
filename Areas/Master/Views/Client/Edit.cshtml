@@ -1,0 +1,221 @@
+﻿@model ProcureToPay.Areas.Master.Models.ClientCreateEditViewModel
+
+<div class="modal-body">
+    <form id="clientEditForm" method="post" asp-action="Edit" asp-controller="Client" asp-area="Master">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        @* Hidden input for the ClientId is crucial for the update *@
+        <input type="hidden" asp-for="Client.ClientId" />
+
+        @* ==== Card 1: Basic Information ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Basic Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Client.ClientName" class="form-label">Client Name <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-user-tie"></i></span>
+                            <input asp-for="Client.ClientName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Client.ClientName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Client.ShortName" class="form-label">Short Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-id-badge"></i></span>
+                            <input asp-for="Client.ShortName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Client.ShortName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* ==== Card 2: Contact & Location ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i> Contact & Location</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.ContactPerson" class="form-label">Contact Person</label>
+                        <input asp-for="Client.ContactPerson" class="form-control" />
+                        <span asp-validation-for="Client.ContactPerson" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.ContactNo" class="form-label">Contact Number</label>
+                        <input asp-for="Client.ContactNo" class="form-control" />
+                        <span asp-validation-for="Client.ContactNo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.Email" class="form-label">Email</label>
+                        <input asp-for="Client.Email" type="email" class="form-control" />
+                        <span asp-validation-for="Client.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label asp-for="Client.Address" class="form-label">Address</label>
+                        <input asp-for="Client.Address" class="form-control" />
+                        <span asp-validation-for="Client.Address" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.CityId" class="form-label">City</label>
+                        <select asp-for="Client.CityId" asp-items="@Model.Cities" class="form-select">
+                            <option value="">-- Select City --</option>
+                        </select>
+                        <span asp-validation-for="Client.CityId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Client.URL" class="form-label">Website URL</label>
+                        <input asp-for="Client.URL" class="form-control" />
+                        <span asp-validation-for="Client.URL" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* ==== Card 3, 4, 5, and 6 combined into tabs for better organization in a modal ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-briefcase me-2"></i> Additional Details</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.IndustryVerticalId" class="form-label">Industry Vertical</label>
+                        <select asp-for="Client.IndustryVerticalId" asp-items="@Model.IndustryVerticals" class="form-select">
+                            <option value="">-- Select Industry --</option>
+                        </select>
+                        <span asp-validation-for="Client.IndustryVerticalId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.CompanyId" class="form-label">Company</label>
+                        <select asp-for="Client.CompanyId" asp-items="@Model.Companies" class="form-select">
+                            <option value="">-- Select Company --</option>
+                        </select>
+                        <span asp-validation-for="Client.CompanyId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.ContractPeriod" class="form-label">Contract Period (Days)</label>
+                        <input asp-for="Client.ContractPeriod" type="number" class="form-control" />
+                        <span asp-validation-for="Client.ContractPeriod" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.PaymentModeId" class="form-label">Payment Mode</label>
+                        <select asp-for="Client.PaymentModeId" asp-items="@Model.PaymentModes" class="form-select">
+                            <option value="">-- Select Payment Mode --</option>
+                        </select>
+                        <span asp-validation-for="Client.PaymentModeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.CreditLimit" class="form-label">Credit Limit</label>
+                        <input asp-for="Client.CreditLimit" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Client.CreditLimit" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.CreditDays" class="form-label">Credit Days</label>
+                        <input asp-for="Client.CreditDays" type="number" class="form-control" />
+                        <span asp-validation-for="Client.CreditDays" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.RateTypeId" class="form-label">Rate Type</label>
+                        <select asp-for="Client.RateTypeId" asp-items="@Model.RateTypes" class="form-select">
+                            <option value="">-- Select Rate Type --</option>
+                        </select>
+                        <span asp-validation-for="Client.RateTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.TaxRate" class="form-label">Tax Rate (%)</label>
+                        <input asp-for="Client.TaxRate" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Client.TaxRate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.CWClientId" class="form-label">CW Client ID</label>
+                        <input asp-for="Client.CWClientId" class="form-control" />
+                        <span asp-validation-for="Client.CWClientId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.NTN" class="form-label">NTN</label>
+                        <input asp-for="Client.NTN" class="form-control" />
+                        <span asp-validation-for="Client.NTN" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.STRN" class="form-label">STRN</label>
+                        <input asp-for="Client.STRN" class="form-control" />
+                        <span asp-validation-for="Client.STRN" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Client.DetGraceHRs" class="form-label">Detention Grace (Hours)</label>
+                        <input asp-for="Client.DetGraceHRs" type="number" class="form-control" />
+                        <span asp-validation-for="Client.DetGraceHRs" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Client.IsActive">
+                            <label class="form-check-label" asp-for="Client.IsActive">Is Active</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Client.CategoryMandatory">
+                            <label class="form-check-label" asp-for="Client.CategoryMandatory">Category Mandatory</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Client.ProductMandatory">
+                            <label class="form-check-label" asp-for="Client.ProductMandatory">Product Mandatory</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* ==== Card 7: Invoice Formats ==== *@
+        @* <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-file-invoice me-2"></i> Invoice Formats</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @for (var i = 0; i < Model.InvoiceFormats.Count; i++)
+                    {
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input type="hidden" asp-for="InvoiceFormats[i].FormatId" />
+                                <input type="hidden" asp-for="InvoiceFormats[i].FormatName" />
+                                <input asp-for="InvoiceFormats[i].IsSelected" class="form-check-input" />
+                                <label asp-for="InvoiceFormats[i].IsSelected" class="form-check-label">
+                                    @Model.InvoiceFormats[i].FormatName
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div> *@
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                <i class="fas fa-save me-1" style="color: white;"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

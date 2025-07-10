@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Debug User Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1>User Management Debug</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Database Connection</h5>
+        </div>
+        <div class="card-body">
+            <p>Database Connection Status: <strong>@ViewBag.DbConnectionStatus</strong></p>
+            <p>Identity Service Status: <strong>@(ViewBag.IdentityEnabled ? "Available" : "Unavailable")</strong></p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Data Access</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <h6>Users Table</h6>
+                    <p>Accessible: <strong>@ViewBag.UserTableAccessible</strong></p>
+                    <p>Count: <strong>@ViewBag.UserCount</strong></p>
+                    @if (!ViewBag.UserTableAccessible)
+                    {
+                        <p class="text-danger">Error: @ViewBag.UserTableError</p>
+                    }
+                </div>
+                <div class="col-md-4">
+                    <h6>Roles Table</h6>
+                    <p>Accessible: <strong>@ViewBag.RoleTableAccessible</strong></p>
+                    <p>Count: <strong>@ViewBag.RoleCount</strong></p>
+                    @if (!ViewBag.RoleTableAccessible)
+                    {
+                        <p class="text-danger">Error: @ViewBag.RoleTableError</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>ViewBag Counts</h5>
+        </div>
+        <div class="card-body">
+            <p>Roles in ViewBag: <strong>@ViewBag.RolesCount</strong></p>
+            <p>Branches in ViewBag: <strong>@ViewBag.BranchesCount</strong></p>
+            <p>Departments in ViewBag: <strong>@ViewBag.DepartmentsCount</strong></p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Test User Creation</h5>
+        </div>
+        <div class="card-body">
+            <a href="@Url.Action("Create", "Users", new { area = "UserManagement" })" class="btn btn-primary">Go to Create User</a>
+        </div>
+    </div>
+</div>

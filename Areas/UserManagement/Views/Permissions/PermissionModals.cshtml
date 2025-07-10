@@ -1,0 +1,286 @@
+﻿<div class="modal fade" id="permissionEditModal" tabindex="-1" aria-labelledby="permissionEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="permissionEditModalLabel">
+                    <i class="fas fa-edit me-2"></i> Edit Permission
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="permissionEditModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="permissionDetailsModal" tabindex="-1" aria-labelledby="permissionDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="permissionDetailsModalLabel">
+                    <i class="fas fa-info-circle me-2"></i> Permission Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="permissionDetailsModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="permissionDeleteModal" tabindex="-1" aria-labelledby="permissionDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="permissionDeleteModalLabel">
+                    <i class="fas fa-key me-2"></i> Delete Permission: <span id="deleteModalPermissionName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete permission <strong id="deleteModalPermissionNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="permissionDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the Permission Edit modal ---
+        function attachPermissionEditFormSubmissionHandler() {
+            const editForm = document.getElementById('permissionEditForm'); // Target the permission edit form
+            if (editForm) {
+                // Ensure no duplicate listeners by removing any existing ones
+                editForm.removeEventListener('submit', handlePermissionEditFormSubmit);
+                editForm.addEventListener('submit', handlePermissionEditFormSubmit);
+
+                // Re-parse client-side validation for dynamically loaded content
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #permissionEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for permission form.");
+                }
+            } else {
+                console.warn("#permissionEditForm not found when trying to attach handler.");
+            }
+        }
+
+        // --- Handler for the Permission Edit form submission (AJAX) ---
+        async function handlePermissionEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for permission form. Not sending AJAX request.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type"); // Get content type to distinguish JSON/HTML
+                const permissionEditModalBodyElement = document.getElementById('permissionEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    // This is a JSON response (success or specific error)
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        // Success: close modal, show message, reload page
+                        const permissionEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('permissionEditModal'));
+                        if (permissionEditModalInstance) {
+                            permissionEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') { // Check if Toastr is available
+                            toastr.success(jsonResponse.message || "Permission updated successfully!");
+                        } else {
+                            console.log("Permission update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload(); // Reload to reflect changes
+                    } else {
+                        // JSON error: show message, keep modal open or close based on error type
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("Permission update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        // For critical errors (e.g., permission not found), you might want to close the modal
+                        const permissionEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('permissionEditModal'));
+                        if (permissionEditModalInstance) {
+                            permissionEditModalInstance.hide(); // Hide for critical errors
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    permissionEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("Permission validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    setTimeout(attachPermissionEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during permission form submission:', error);
+                permissionEditModalBodyElement.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // --- Handler for Permission Delete form submission (AJAX) ---
+        async function handlePermissionDeleteFormSubmit(event) {
+            event.preventDefault(); // Stop default form submission
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                // Assuming delete always returns JSON from the controller
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    // Success: close modal, show message, reload page
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "Permission deleted successfully!");
+                    } else {
+                        console.log("Permission deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload(); // Reload page to reflect deletion
+                } else {
+                    // Error: show message
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete permission.");
+                    } else {
+                        console.error("Permission delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during permission delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during permission deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during permission deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- Permission Modal Openers ---
+
+        // Edit Permission Modal Opener
+        document.querySelectorAll('.permission-edit-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = 'UserManagement'; // Fixed area for Permissions
+                const page = 'Permissions'; // Fixed page for Permissions
+                const url = getUrl(area, page, 'Edit', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('permissionEditModalBody').innerHTML = data;
+
+                    const permissionEditModal = new bootstrap.Modal(document.getElementById('permissionEditModal'));
+                    permissionEditModal.show();
+
+                    // IMPORTANT: Now attach the form submission handler to the newly loaded form
+                    // Adding a small timeout can sometimes help Bootstrap modals fully render.
+                    setTimeout(attachPermissionEditFormSubmissionHandler, 50);
+
+                } catch (error) {
+                    console.error('Error loading permission edit modal content:', error);
+                    document.getElementById('permissionEditModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load permission edit form. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Permission Details Modal Opener
+        document.querySelectorAll('.permission-details-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = 'UserManagement'; // Fixed area for Permissions
+                const page = 'Permissions'; // Fixed page for Permissions
+                const url = getUrl(area, page, 'Details', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('permissionDetailsModalBody').innerHTML = data;
+                    new bootstrap.Modal(document.getElementById('permissionDetailsModal')).show();
+                } catch (error) {
+                    console.error('Error loading permission details modal:', error);
+                    document.getElementById('permissionDetailsModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load permission details. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Delete Permission Modal Opener
+        document.querySelectorAll('.permission-delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const permissionName = this.getAttribute('data-permission-name'); // Assuming you'll add this data attribute
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                // If you want to display the permission name in the delete confirmation modal
+                const deleteModalPermissionNameSpan = document.getElementById('deleteModalPermissionName'); // Add this span in your modal
+                if (deleteModalPermissionNameSpan) {
+                    deleteModalPermissionNameSpan.textContent = permissionName;
+                }
+                const deleteModalPermissionNameConfirmSpan = document.getElementById('deleteModalPermissionNameConfirm'); // Add this span in your modal
+                if (deleteModalPermissionNameConfirmSpan) {
+                    deleteModalPermissionNameConfirmSpan.textContent = permissionName;
+                }
+
+
+                document.getElementById('permissionDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('permissionDeleteModal')).show();
+            });
+        });
+    }); // End DOMContentLoaded
+</script>

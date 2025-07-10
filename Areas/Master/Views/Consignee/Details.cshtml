@@ -1,0 +1,124 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.ConsigneeViewModel
+
+<div class="modal-body">
+
+    @* ==== Card 1: Basic Information ==== *@
+    <div class="card mb-4">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i>Basic Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">Consignee Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-user-tie fa-fw"></i></span>
+                        <div class="form-control bg-light">@Model.ConsigneeName</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">Client</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-handshake fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.ClientName ?? "N/A")</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">Company</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-building fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.CompanyName ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 2: Contact & Location ==== *@
+    <div class="card mb-4">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i>Contact & Location</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">Contact Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-phone-alt fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.ContactNo ?? "N/A")</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">City</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-city fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.CityName ?? "N/A")</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-map-marker-alt fa-fw"></i></span>
+                        <div class="form-control bg-light" style="min-height: 38px;">@(Model.Address ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 3: Delivery Details ==== *@
+    <div class="card mb-4">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-truck-loading me-2"></i>Delivery Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-muted">Standard KMs</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-road fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.StandardKMs.HasValue ? Model.StandardKMs.Value.ToString("N2") : "N/A")</div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-muted">Last Delivery KMs</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-route fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.LastDeliveryKMs.ToString("N2"))</div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-muted">Last Departure Date</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-day fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.LastDepartureDate?.ToString("dd MMM, yyyy") ?? "N/A")</div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-muted">Last Departure Time</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-clock fa-fw"></i></span>
+                        <div class="form-control bg-light">@(Model.LastDepartureDateTime?.ToString("hh:mm tt") ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 4: Status ==== *@
+    <div class="card mb-3">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-toggle-on me-2"></i>Status</h6>
+        </div>
+        <div class="card-body">
+            <div class="form-check form-switch fs-5">
+                <input class="form-check-input" type="checkbox" asp-for="IsActive" disabled />
+                <label class="form-check-label ms-2" asp-for="IsActive">Is Active</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Close</button>
+</div>

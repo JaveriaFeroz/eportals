@@ -1,0 +1,1222 @@
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.sourcelink.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\appsettings.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.exe
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.deps.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ProcureToPay.pdb
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.build.ProcureToPay.props
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ProcureToPay.props
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ProcureToPay.props
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.dll
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\refint\ProcureToPay.dll
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.pdb
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+C:\Users\Juveria\source\repos\ProcureToPay\obj\Debug\net8.0\ref\ProcureToPay.dll
+C:\Users\Juveria\source\repos\ProcureToPay\bin\Debug\net8.0\libman.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.sourcelink.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\appsettings.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\libman.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.exe
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.deps.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ProcureToPay.pdb
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.build.ProcureToPay.props
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ProcureToPay.props
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ProcureToPay.props
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\refint\ProcureToPay.dll
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.pdb
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+C:\Users\Juveria\Desktop\Javeria's Stuff\Javeria\ProcureToPay\obj\Debug\net8.0\ref\ProcureToPay.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\appsettings.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\libman.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.exe
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.deps.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.pdb
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Humanizer.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.sourcelink.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets\msbuild.build.ProcureToPay.props
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ProcureToPay.props
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ProcureToPay.props
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\refint\ProcureToPay.dll
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.pdb
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+C:\Users\BS-User\Downloads\ProcureToPay\ProcureToPay-main\obj\Debug\net8.0\ref\ProcureToPay.dll
+D:\Projects\P2P\bin\Debug\net8.0\appsettings.Development.json
+D:\Projects\P2P\bin\Debug\net8.0\appsettings.json
+D:\Projects\P2P\bin\Debug\net8.0\libman.json
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.exe
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.deps.json
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.dll
+D:\Projects\P2P\bin\Debug\net8.0\ProcureToPay.pdb
+D:\Projects\P2P\bin\Debug\net8.0\Azure.Core.dll
+D:\Projects\P2P\bin\Debug\net8.0\Azure.Identity.dll
+D:\Projects\P2P\bin\Debug\net8.0\Humanizer.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\Projects\P2P\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Projects\P2P\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.ClientModel.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.CodeDom.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Memory.Data.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\Projects\P2P\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\Projects\P2P\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\P2P\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.sourcelink.json
+D:\Projects\P2P\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Projects\P2P\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+D:\Projects\P2P\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+D:\Projects\P2P\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\P2P\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\Projects\P2P\obj\Debug\net8.0\staticwebassets.development.json
+D:\Projects\P2P\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\Projects\P2P\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Projects\P2P\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.dll
+D:\Projects\P2P\obj\Debug\net8.0\refint\ProcureToPay.dll
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.pdb
+D:\Projects\P2P\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+D:\Projects\P2P\obj\Debug\net8.0\ref\ProcureToPay.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\appsettings.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\libman.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.exe
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.deps.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ProcureToPay.pdb
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Humanizer.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.sourcelink.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets\msbuild.ProcureToPay.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets\msbuild.build.ProcureToPay.props
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ProcureToPay.props
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ProcureToPay.props
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\refint\ProcureToPay.dll
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.pdb
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+C:\Users\BS-User\Downloads\P2P-master\P2P-master\obj\Debug\net8.0\ref\ProcureToPay.dll
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.dll
+D:\ProcureToPay-main\obj\Debug\net8.0\refint\ProcureToPay.dll
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.pdb
+D:\ProcureToPay-main\bin\Debug\net8.0\appsettings.Development.json
+D:\ProcureToPay-main\bin\Debug\net8.0\appsettings.json
+D:\ProcureToPay-main\bin\Debug\net8.0\libman.json
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.exe
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.deps.json
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ProcureToPay.pdb
+D:\ProcureToPay-main\bin\Debug\net8.0\Azure.Core.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Azure.Identity.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Humanizer.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.ClientModel.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.CodeDom.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Memory.Data.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\ProcureToPay-main\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\ProcureToPay-main\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\ProcureToPay-main\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\ProcureToPay-main\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\ProcureToPay-main\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\ProcureToPay-main\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+D:\ProcureToPay-main\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+D:\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.build.json
+D:\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.development.json
+D:\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\ProcureToPay-main\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+D:\ProcureToPay-main\obj\Debug\net8.0\ref\ProcureToPay.dll
+D:\ProcureToPay-main\obj\Debug\net8.0\ProcureToPay.sourcelink.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\appsettings.Development.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\appsettings.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\libman.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.exe
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.deps.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ProcureToPay.pdb
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Azure.Core.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Azure.Identity.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Humanizer.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.ClientModel.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.CodeDom.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Memory.Data.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\staticwebassets.development.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\refint\ProcureToPay.dll
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.pdb
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+D:\Projects\ProcureToPay-master\ProcureToPay-master\obj\Debug\net8.0\ref\ProcureToPay.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\appsettings.Development.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\appsettings.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\libman.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.staticwebassets.runtime.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.staticwebassets.endpoints.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.exe
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.deps.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.runtimeconfig.json
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ProcureToPay.pdb
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Azure.Core.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Azure.Identity.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Humanizer.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.ClientModel.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.CodeDom.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Memory.Data.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\ProcureToPay-Procurement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.csproj.AssemblyReference.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.AssemblyInfoInputs.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.AssemblyInfo.cs
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.csproj.CoreCompileInputs.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.MvcApplicationPartsAssemblyInfo.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.RazorAssemblyInfo.cs
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\scopedcss\bundle\ProcureToPay.styles.css
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\scopedcss\projectbundle\ProcureToPay.bundle.scp.css
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\staticwebassets.build.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\staticwebassets.development.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureT.3741D132.Up2Date
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.dll
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\refint\ProcureToPay.dll
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.pdb
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ref\ProcureToPay.dll

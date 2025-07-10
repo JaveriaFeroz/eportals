@@ -1,0 +1,107 @@
+[
+  {
+    "ContainingType": "Program\u002B\u003C\u003Ec",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_4",
+    "RelativePath": "",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProcureToPay.Areas.Master.Controllers.SupplierRateApiController",
+    "Method": "Get",
+    "RelativePath": "api/Master/SupplierRateApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProcureToPay.Areas.Master.Controllers.SupplierRateApiController",
+    "Method": "Post",
+    "RelativePath": "api/Master/SupplierRateApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "supplierRate",
+        "Type": "ProcureToPay.Areas.Master.ViewModels.SupplierRateViewModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProcureToPay.Areas.Master.Controllers.SupplierRateApiController",
+    "Method": "Put",
+    "RelativePath": "api/Master/SupplierRateApi/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "supplierRate",
+        "Type": "ProcureToPay.Areas.Master.ViewModels.SupplierRateViewModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProcureToPay.Areas.Master.Controllers.SupplierRateApiController",
+    "Method": "Delete",
+    "RelativePath": "api/Master/SupplierRateApi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProcureToPay.Areas.Master.Controllers.SupplierRateApiController",
+    "Method": "Get",
+    "RelativePath": "api/Master/SupplierRateApi/{supplierId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "supplierId",
+        "Type": "System.Int16",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProcureToPay.Areas.Master.Controllers.SupplierRateApiController",
+    "Method": "GetLookups",
+    "RelativePath": "api/Master/SupplierRateApi/GetLookups",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

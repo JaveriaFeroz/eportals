@@ -1,0 +1,263 @@
+﻿<!-- Role Edit Modal -->
+<div class="modal fade" id="roleEditModal" tabindex="-1" aria-labelledby="roleEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="card-header" style="background-color: #092963">
+                <h5 class="card-title text-white mb-0">
+                    <i class="fas fa-user-tag me-2"></i> Edit Role
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="roleEditModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Role Delete Modal -->
+<div class="modal fade" id="roleDeleteModal" tabindex="-1" aria-labelledby="roleDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="card-header" style="background-color: #092963">
+                <h5 class="card-title text-white mb-0">
+                    <i class="fas fa-user-tag me-2"></i> Delete Role: <span id="deleteModalRoleName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete role <strong id="deleteModalRoleNameConfirm"></strong>? This action cannot be undone.</p>
+                <form id="roleDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" id="roleToDeleteId" />
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Role Assign Modal -->
+<div class="modal fade" id="roleAssignModal" tabindex="-1" aria-labelledby="roleDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="card-header" style="background-color: #092963">
+                <h5 class="card-title text-white mb-0">
+                    <i class="fas fa-user-tag me-2"></i> Assign Role
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="roleAssignModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            // Ensure the ID is correctly appended or included in the query string based on action
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the Role Edit modal ---
+        function attachRoleEditFormSubmissionHandler() {
+            const editForm = document.getElementById('roleEditForm'); // Ensure your form inside the partial view has this ID
+            if (editForm) {
+                editForm.removeEventListener('submit', handleRoleEditFormSubmit); // Prevent duplicate listeners
+                editForm.addEventListener('submit', handleRoleEditFormSubmit);
+
+                // Re-parse client-side validation for the new form content
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator"); // Remove old validator data
+                    jQuery(editForm).removeData("unobtrusiveValidation"); // Remove old unobtrusive validation data
+                    jQuery.validator.unobtrusive.parse(editForm); // Parse new content
+                    console.log("Client-side validation re-parsed for #roleEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for role edit form.");
+                }
+            } else {
+                console.warn("#roleEditForm not found when trying to attach handler.");
+            }
+        }
+
+        // --- Handler for the Role Edit form submission ---
+        async function handleRoleEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for role edit form. Not sending AJAX request.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        // Include the anti-forgery token in the headers for Fetch API
+                        'RequestVerificationToken': formData.get('__RequestVerificationToken')
+                    }
+                });
+
+                // If the server returns a redirect, fetch will follow it, and response.ok might still be true.
+                // However, if it returns PartialView HTML, response.ok will be true, and we check content.
+                const responseText = await response.text();
+                const roleEditModalBodyElement = document.getElementById('roleEditModalBody');
+
+                // Check if the response is the modal form HTML (likely with validation errors)
+                // You might need to adjust the string check based on your partial view content.
+                // A better approach might be to check response.headers['Content-Type']
+                if (response.headers.get('Content-Type')?.includes('text/html') && responseText.includes('<form')) {
+                    roleEditModalBodyElement.innerHTML = responseText;
+                    console.log("Role validation errors received. Injecting form HTML into modal body.");
+                    attachRoleEditFormSubmissionHandler(); // Re-attach handler for the new content
+                } else if (response.ok) {
+                    // Assuming a successful update will not return HTML, but trigger a redirect or
+                    // a simple JSON success message if your controller allows it for AJAX.
+                    // Since your C# `Edit` action for roles is set up to return JSON success:
+                    const jsonResponse = JSON.parse(responseText);
+                    if (jsonResponse.success) {
+                        const roleEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('roleEditModal'));
+                        if (roleEditModalInstance) {
+                            roleEditModalInstance.hide();
+                        }
+                        // Optionally display a success message via a toast or alert before reloading
+                        // alert(jsonResponse.message); // Or use a nicer notification system
+
+                        console.log("Role update successful. Reloading page.");
+                        // Reload the page to reflect changes or redirect to Index
+                        window.location.reload(); // Simple reload
+                        // OR: window.location.href = `/${form.getAttribute('data-area') || 'UserManagement'}/${form.getAttribute('data-controller') || 'Roles'}/Index`;
+                    } else {
+                        // Handle server-side errors that result in success: false JSON
+                        alert('Error: ' + jsonResponse.message);
+                        console.error('Server-side error on role update:', jsonResponse.message);
+                        // Re-show form with errors if any
+                        roleEditModalBodyElement.innerHTML = responseText; // This assumes errors are injected back as HTML
+                        attachRoleEditFormSubmissionHandler();
+                    }
+                } else {
+                    // Handle HTTP errors (e.g., 404, 500)
+                    console.error('HTTP error during role form submission:', response.status, response.statusText);
+                    roleEditModalBodyElement.innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Server error: ${response.status} ${response.statusText}. Please try again.
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during role form submission:', error);
+                document.getElementById('roleEditModalBody').innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // --- Role Modal Openers ---
+
+        // Edit Role Modal Opener
+        document.querySelectorAll('.edit-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area') || 'UserManagement'; // Default to UserManagement
+                const page = this.getAttribute('data-page') || 'Roles';       // Default to Roles
+                const url = getUrl(area, page, 'Edit', id);
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.text();
+                    document.getElementById('roleEditModalBody').innerHTML = data;
+
+                    // Dynamically set data attributes on the form if it was loaded
+                    const loadedForm = document.getElementById('roleEditForm');
+                    if (loadedForm) {
+                        loadedForm.setAttribute('data-area', area);
+                        loadedForm.setAttribute('data-controller', page);
+                    }
+
+
+                    const roleEditModal = new bootstrap.Modal(document.getElementById('roleEditModal'));
+                    roleEditModal.show();
+
+                    // IMPORTANT: Now attach the form submission handler to the newly loaded form
+                    // Adding a small timeout can sometimes help Bootstrap modals fully render.
+                    setTimeout(attachRoleEditFormSubmissionHandler, 50);
+
+                } catch (error) {
+                    console.error('Error loading role edit modal content:', error);
+                    document.getElementById('roleEditModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load role edit form. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Delete Role Modal Opener
+        document.querySelectorAll('.delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area') || 'UserManagement';
+                const page = this.getAttribute('data-page') || 'Roles';
+                const roleName = this.getAttribute('data-role-name'); // Ensure your button has this attribute
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                // Set values in the delete confirmation modal
+                document.getElementById('roleToDeleteId').value = id; // Set the hidden input for the ID
+                document.getElementById('deleteModalRoleName').textContent = roleName;
+                document.getElementById('deleteModalRoleNameConfirm').textContent = roleName;
+
+                // The form's action will be set directly to the URL for submission
+                document.getElementById('roleDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('roleDeleteModal')).show();
+            });
+        });
+
+        // Assign Users Modal Opener
+        document.querySelectorAll('.assign-users-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area') || 'UserManagement';
+                const page = this.getAttribute('data-page') || 'Roles';
+                const url = getUrl(area, page, 'AssignUsers', id);
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.text();
+                    document.getElementById('roleAssignModalBody').innerHTML = data;
+                    new bootstrap.Modal(document.getElementById('roleAssignModal')).show();
+                    // If the AssignUsers partial view also has forms that need AJAX submission,
+                    // you'll need a similar attach handler pattern for them here.
+                } catch (error) {
+                    console.error('Error loading role assign users modal content:', error);
+                    document.getElementById('roleAssignModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load assign users form. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+    });
+</script>

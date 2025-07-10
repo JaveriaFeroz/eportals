@@ -1,0 +1,70 @@
+﻿@model List<ProcureToPay.Areas.UserManagement.Models.Role>
+@{
+    ViewData["Title"] = "Compare Role Permissions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Compare Role Permissions</h2>
+
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Roles
+        </a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-balance-scale"></i> Select Roles to Compare
+        </div>
+        <div class="card-body">
+            <form asp-action="CompareRoles" method="post">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Select at least 2 roles to compare their permissions.
+                </div>
+
+                <div class="row">
+                    @foreach (var role in Model)
+                    {
+                        <div class="col-md-4 col-lg-3 mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="role_@role.Id"
+                                       name="selectedRoles" value="@role.Id" />
+                                <label class="form-check-label" for="role_@role.Id">
+                                    @role.Name
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="fas fa-search"></i> Compare Selected Roles
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Show warning if less than 2 roles are selected
+            $('form').submit(function(e) {
+                var checkedCount = $('input[name="selectedRoles"]:checked').length;
+                if (checkedCount < 2) {
+                    e.preventDefault();
+                    alert('Please select at least 2 roles to compare.');
+                }
+            });
+        });
+    </script>
+}

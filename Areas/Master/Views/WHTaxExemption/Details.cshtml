@@ -1,0 +1,54 @@
+﻿@model ProcureToPay.Areas.Master.Models.WHTaxExemptionViewModel
+
+<div class="modal-body">
+
+    @* ==== Card 1: Basic Information ==== *@
+    <div class="card mb-3">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i>Basic Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">WHTaxExemption Name:</div>
+                        <div class="col-7">@Model.DateFrom</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Type Name:</div>
+                        <div class="col-7">@Model.DateTo</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Company Name:</div>
+                        <div class="col-7">@(Model.CompanyName ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 5: Audit Information ==== *@
+    <hr class="my-4" />
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-history me-2"></i> Audit Information</h6>
+    <div class="row mb-2">
+        <div class="col-md-3 text-muted">Created By:</div>
+        <div class="col-md-3">@Model.CreatedBy</div>
+        <div class="col-md-3 text-muted">Created On:</div>
+        <div class="col-md-3">@(Model.CreatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 text-muted">Updated By:</div>
+        <div class="col-md-3">@(Model.UpdatedBy ?? "N/A")</div>
+        <div class="col-md-3 text-muted">Updated On:</div>
+        <div class="col-md-3">@(Model.UpdatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>
+

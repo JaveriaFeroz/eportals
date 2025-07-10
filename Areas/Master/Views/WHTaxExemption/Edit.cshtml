@@ -1,0 +1,78 @@
+﻿@model ProcureToPay.Areas.Master.Models.WHTaxExemptionCreateEditViewModel
+
+<div class="modal-body">
+    <form id="whTaxExemptionsEditForm" method="post" asp-action="Edit" asp-controller="WHTaxExemption" asp-area="Master">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        @* Hidden input for the WHTaxExemptionId is crucial for the update *@
+        <input type="hidden" asp-for="WHTaxExemptions.ExemptionId" />
+
+        @* ==== Card 1: Basic Information ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Basic Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="WHTaxExemptions.DateFrom" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt"></i></span>
+                            <input asp-for="WHTaxExemptions.DateFrom" class="form-control" type="date" />
+                        </div>
+                        <span asp-validation-for="WHTaxExemptions.DateFrom" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="WHTaxExemptions.DateTo" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt"></i></span>
+                            <input asp-for="WHTaxExemptions.DateTo" class="form-control" type="date" />
+                        </div>
+                        <span asp-validation-for="WHTaxExemptions.DateTo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="WHTaxExemptions.CompanyId" class="form-label">Company</label>
+                        <select asp-for="WHTaxExemptions.CompanyId" asp-items="@Model.Companies" class="form-select">
+                            <option value="">-- Select Company --</option>
+                        </select>
+                        <span asp-validation-for="WHTaxExemptions.CompanyId" class="text-danger"></span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        @* ==== Card 2: Status ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i> Status</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="WHTaxExemptions.IsActive">
+                            <label class="form-check-label" asp-for="WHTaxExemptions.IsActive">Is Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                <i class="fas fa-save me-1" style="color: white;"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

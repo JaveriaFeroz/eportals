@@ -1,0 +1,204 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.CompanyViewModel
+@{
+    ViewData["Title"] = "Create Company";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Company
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "Company", new { area = "Master" })">
+                @Html.AntiForgeryToken()
+
+                @* Company Information Section *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Company Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="CompanyName" class="form-label">Company Name <span class="text-danger">*</span></label>
+                                <input asp-for="CompanyName" class="form-control" placeholder="Enter Company name" required />
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="CompanyAddress" class="form-label">Company Address</label>
+                                <input asp-for="CompanyAddress" class="form-control" placeholder="Enter Company address" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="NTN" class="form-label">NTN</label>
+                                <input asp-for="NTN" class="form-control" placeholder="Enter NTN" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* Configuration Section *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-cogs me-2"></i> Configuration
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PeriodName" class="form-label"></label>
+                                <input asp-for="PeriodName" class="form-control" placeholder="Enter Period Name" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="DistanceThreshold" class="form-label"></label>
+                                <input asp-for="DistanceThreshold" type="number" class="form-control" placeholder="Enter Distance Threshold" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="ReportGraceHRs" class="form-label"></label>
+                                <input asp-for="ReportGraceHRs" type="number" class="form-control" placeholder="Enter Report Grace Hours" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* Account Settings Section *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-book-reader me-2"></i> Account Settings
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="BankAccountId" class="form-label"></label>
+                                <input asp-for="BankAccountId" type="number" class="form-control" placeholder="Bank Account ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="ARPeriodId" class="form-label"></label>
+                                <input asp-for="ARPeriodId" type="number" class="form-control" placeholder="AR Period ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="ARAccountId" class="form-label"></label>
+                                <input asp-for="ARAccountId" type="number" class="form-control" placeholder="AR Account ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="APPeriodId" class="form-label"></label>
+                                <input asp-for="APPeriodId" type="number" class="form-control" placeholder="AP Period ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="APAccountId" class="form-label"></label>
+                                <input asp-for="APAccountId" type="number" class="form-control" placeholder="AP Account ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="GLPeriodId" class="form-label"></label>
+                                <input asp-for="GLPeriodId" type="number" class="form-control" placeholder="GL Period ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="OpsPeriodId" class="form-label"></label>
+                                <input asp-for="OpsPeriodId" type="number" class="form-control" placeholder="Ops Period ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="TripRevenueAccountId" class="form-label"></label>
+                                <input asp-for="TripRevenueAccountId" type="number" class="form-control" placeholder="Trip Revenue Account ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="FuelExpenseAccountId" class="form-label"></label>
+                                <input asp-for="FuelExpenseAccountId" type="number" class="form-control" placeholder="Fuel Expense Account ID" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="AdvanceAccountId" class="form-label"></label>
+                                <input asp-for="AdvanceAccountId" type="number" class="form-control" placeholder="Advance Account ID" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* Flags/Booleans Section *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-toggle-on me-2"></i> Options
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4 mb-2">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="EnableGL" class="form-check-input" type="checkbox">
+                                            <label asp-for="EnableGL" class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="EnablePartialDelivery" class="form-check-input" type="checkbox">
+                                            <label asp-for="EnablePartialDelivery" class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="RouteByConsignee" class="form-check-input" type="checkbox">
+                                            <label asp-for="RouteByConsignee" class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="SeparateFixedInvoice" class="form-check-input" type="checkbox">
+                                            <label asp-for="SeparateFixedInvoice" class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="IsMandatoryDriver2" class="form-check-input" type="checkbox">
+                                            <label asp-for="IsMandatoryDriver2" class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="AllowTrailer" class="form-check-input" type="checkbox">
+                                            <label asp-for="AllowTrailer" class="form-check-label"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "Company", new { area = "Master" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create Company
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

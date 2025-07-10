@@ -1,0 +1,35 @@
+﻿<div class="modal fade" id="requiredDocumentsModal" tabindex="-1" aria-labelledby="requiredDocumentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="requiredDocumentsModalLabel">
+                    <i class="fas fa-file-alt me-2"></i> Select Required Documents
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="requiredDocumentsModalBody">
+                @* Content will be loaded via AJAX here (e.g., from a partial view like RequiredDocument.cshtml) *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+       document.querySelectorAll('.required-docs-btn').forEach(button => {
+        button.addEventListener('click', async function () {
+            const area = this.getAttribute('data-area');
+            const controller = this.getAttribute('data-controller');
+            const action = this.getAttribute('data-action');
+            const url = `/${area}/${controller}/${action}`;
+
+            try {
+                const response = await fetch(url);
+                const html = await response.text();
+                document.getElementById('requiredDocumentsModalBody').innerHTML = html;
+                new bootstrap.Modal(document.getElementById('requiredDocumentsModal')).show();
+            } catch (error) {
+                toastr.error("Failed to load required documents.");
+            }
+        });
+    });
+</script>

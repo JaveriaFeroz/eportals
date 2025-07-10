@@ -1,0 +1,101 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.DetentionViewModel
+@{
+    ViewData["Title"] = "Create Detention";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Detention
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "Detention", new { area = "Master" })">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Detention Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="DetentionName" class="form-label">Detention Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-tasks"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="detentionNameInput"
+                                           name="DetentionName"
+                                           class="form-control"
+                                           placeholder="Enter detention name"
+                                           value="@Model?.DetentionName"
+                                           required />
+                                </div>
+                                @if (ViewData.ModelState["DetentionName"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["DetentionName"].Errors.First().ErrorMessage</span>
+                                }
+                                <div id="hrsThresholdError" class="text-danger" style="display: none;"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="HRsThreshold" class="form-label">Hours Threshold <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-hourglass-half"></i>
+                                    </span>
+                                    <input type="number"
+                                           id="hrsThreshold"
+                                           name="HRsThreshold"
+                                           class="form-control"
+                                           placeholder="e.g., 4"
+                                           step="0.1"
+                                           min="0.1"
+                                           value="@Model?.HRsThreshold"
+                                           required />
+                                </div>
+                                @if (ViewData.ModelState["HRsThreshold"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["HRsThreshold"].Errors.First().ErrorMessage</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "Detention", new { area = "Master" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create Detention
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

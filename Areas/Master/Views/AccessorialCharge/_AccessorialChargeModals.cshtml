@@ -1,0 +1,290 @@
+﻿@* This partial defines the modal structures and contains the JavaScript logic for them. *@
+
+<div class="modal fade" id="accessorialChargeEditModal" tabindex="-1" aria-labelledby="accessorialChargeEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="accessorialChargeEditModalLabel">
+                    <i class="fas fa-dollar-sign me-2"></i> Edit Accessorial Charge
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="accessorialChargeEditModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="accessorialChargeDetailsModal" tabindex="-1" aria-labelledby="accessorialChargeDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="accessorialChargeDetailsModalLabel">
+                    <i class="fas fa-dollar-sign me-2"></i> Accessorial Charge Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="accessorialChargeDetailsModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="accessorialChargeDeleteModal" tabindex="-1" aria-labelledby="accessorialChargeDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="branchDeleteModalLabel">
+                    <i class="fas fa-building me-2"></i> Delete Accessorial Charge: <span id="deleteModalChargeName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete accessorial charge <strong id="deleteModalChargeNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="accessorialChargeDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the AccessorialCharge Edit modal ---
+        function attachAccessorialChargeEditFormSubmissionHandler() {
+            const editForm = document.getElementById('accessorialChargeEditForm'); // Target the accessorialCharge edit form
+            if (editForm) {
+                // Ensure no duplicate listeners by removing any existing ones
+                editForm.removeEventListener('submit', handleAccessorialChargeEditFormSubmit);
+                editForm.addEventListener('submit', handleAccessorialChargeEditFormSubmit);
+
+                // Re-parse client-side validation for dynamically loaded content
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #accessorialChargeEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for accessorialCharge form.");
+                }
+            } else {
+                console.warn("#accessorialChargeEditForm not found when trying to attach handler.");
+            }
+        }
+
+        // --- Handler for the AccessorialCharge Edit form submission (AJAX) ---
+        async function handleAccessorialChargeEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for accessorialCharge form. Not sending AJAX request.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type"); // Get content type to distinguish JSON/HTML
+                const accessorialChargeEditModalBodyElement = document.getElementById('accessorialChargeEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    // This is a JSON response (success or specific error)
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        // Success: close modal, show message, reload page
+                        const accessorialChargeEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('accessorialChargeEditModal'));
+                        if (accessorialChargeEditModalInstance) {
+                            accessorialChargeEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') { // Check if Toastr is available
+                            toastr.success(jsonResponse.message || "AccessorialCharge updated successfully!");
+                        } else {
+                            console.log("AccessorialCharge update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload(); // Reload to reflect changes
+                    } else {
+                        // JSON error: show message, keep modal open or close based on error type
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("AccessorialCharge update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        // For critical errors (e.g., accessorialCharge not found), you might want to close the modal
+                        const accessorialChargeEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('accessorialChargeEditModal'));
+                        if (accessorialChargeEditModalInstance) {
+                            accessorialChargeEditModalInstance.hide(); // Hide for critical errors
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    accessorialChargeEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("AccessorialCharge validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    setTimeout(attachAccessorialChargeEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during accessorialCharge form submission:', error);
+                accessorialChargeEditModalBodyElement.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // --- Handler for AccessorialCharge Delete form submission (AJAX) ---
+        async function handleAccessorialChargeDeleteFormSubmit(event) {
+            event.preventDefault(); // Stop default form submission
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                // Assuming delete always returns JSON from the controller
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    // Success: close modal, show message, reload page
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "AccessorialCharge deleted successfully!");
+                    } else {
+                        console.log("AccessorialCharge deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload(); // Reload page to reflect deletion
+                } else {
+                    // Error: show message
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete accessorialCharge.");
+                    } else {
+                        console.error("AccessorialCharge delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during accessorialCharge delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during accessorialCharge deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during accessorialCharge deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- AccessorialCharge Modal Openers ---
+
+        // Edit AccessorialCharge Modal Opener
+        document.querySelectorAll('.edit-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area'); // Read from data attribute
+                const page = this.getAttribute('data-page'); // Read from data attribute
+                const url = getUrl(area, page, 'Edit', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('accessorialChargeEditModalBody').innerHTML = data;
+
+                    const accessorialChargeEditModal = new bootstrap.Modal(document.getElementById('accessorialChargeEditModal'));
+                    accessorialChargeEditModal.show();
+
+                    // IMPORTANT: Now attach the form submission handler to the newly loaded form
+                    // Adding a small timeout can sometimes help Bootstrap modals fully render.
+                    setTimeout(attachAccessorialChargeEditFormSubmissionHandler, 50);
+
+                } catch (error) {
+                    console.error('Error loading accessorialCharge edit modal content:', error);
+                    document.getElementById('accessorialChargeEditModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load accessorialCharge edit form. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // AccessorialCharge Details Modal Opener
+        document.querySelectorAll('.details-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area'); // Read from data attribute
+                const page = this.getAttribute('data-page'); // Read from data attribute
+                const url = getUrl(area, page, 'Details', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('accessorialChargeDetailsModalBody').innerHTML = data;
+                    new bootstrap.Modal(document.getElementById('accessorialChargeDetailsModal')).show();
+                } catch (error) {
+                    console.error('Error loading accessorialCharge details modal:', error);
+                    document.getElementById('accessorialChargeDetailsModalBody').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Failed to load accessorialCharge details. Please try again.
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Delete AccessorialCharge Modal Opener
+        document.querySelectorAll('.delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const accessorialChargeName = this.getAttribute('data-charge-name'); // Corrected data attribute name, matches Razor now
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                // If you want to display the accessorialCharge name in the delete confirmation modal
+                const deleteModalChargeNameSpan = document.getElementById('deleteModalChargeName');
+                if (deleteModalChargeNameSpan) {
+                    deleteModalChargeNameSpan.textContent = accessorialChargeName;
+                }
+                const deleteModalChargeNameConfirmSpan = document.getElementById('deleteModalChargeNameConfirm');
+                if (deleteModalChargeNameConfirmSpan) {
+                    deleteModalChargeNameConfirmSpan.textContent = accessorialChargeName;
+                }
+
+                document.getElementById('accessorialChargeDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('accessorialChargeDeleteModal')).show();
+            });
+        });
+    }); // End DOMContentLoaded
+</script>

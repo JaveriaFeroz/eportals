@@ -1,0 +1,280 @@
+﻿@* This partial defines the modal structures and JavaScript logic for Companys. *@
+
+<div class="modal fade" id="companyEditModal" tabindex="-1" aria-labelledby="companyEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="companyEditModalLabel">
+                    <i class="fas fa-map-marker-alt me-2"></i> Edit Company
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="companyEditModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="companyDetailsModal" tabindex="-1" aria-labelledby="companyDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="companyDetailsModalLabel">
+                    <i class="fas fa-info-circle me-2"></i> Company Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="companyDetailsModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="companyDeleteModal" tabindex="-1" aria-labelledby="companyDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="companyDeleteModalLabel">
+                    <i class="fas fa-trash-alt me-2"></i> Delete Company: <span id="deleteModalCompanyName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete company <strong id="deleteModalCompanyNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="companyDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- GLOBALIZED FUNCTION: to attach/re-attach form submission handler for the Company Edit modal ---
+        // This function should be accessible globally or from where it's needed after AJAX content loads.
+        // It's crucial it's not redefined every time it's called.
+        window.attachCompanyEditFormSubmissionHandler = function() { // Made global by attaching to window
+            const editForm = document.getElementById('companyEditForm');
+            if (editForm) {
+                editForm.removeEventListener('submit', handleCompanyEditFormSubmit);
+                editForm.addEventListener('submit', handleCompanyEditFormSubmit);
+
+                // Re-parse client-side validation
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #companyEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for company form.");
+                }
+            } else {
+                console.warn("#companyEditForm not found when trying to attach handler.");
+            }
+        };
+
+
+        // --- Handler for the Company Edit form submission (AJAX) ---
+        async function handleCompanyEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for company form. Not sending AJAX request.");
+                // Display validation errors on the form if not already visible
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type");
+                const companyEditModalBodyElement = document.getElementById('companyEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        const companyEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('companyEditModal'));
+                        if (companyEditModalInstance) {
+                            companyEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') {
+                            toastr.success(jsonResponse.message || "Company updated successfully!");
+                        } else {
+                            console.log("Company update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload();
+                    } else {
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("Company update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        const companyEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('companyEditModal'));
+                        if (companyEditModalInstance) {
+                            // Only hide for critical (non-validation) errors
+                            // For validation errors, we'll re-inject HTML, so don't hide
+                            if (response.status >= 500) { // If it's a server error
+                                companyEditModalInstance.hide();
+                            }
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    companyEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("Company validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    // IMPORTANT: Call the globalized function
+                    setTimeout(window.attachCompanyEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during company form submission:', error);
+                const companyEditModalBodyElement = document.getElementById('companyEditModalBody');
+                if (companyEditModalBodyElement) {
+                     companyEditModalBodyElement.innerHTML = `
+                         <div class="alert alert-danger" role="alert">
+                             A network or unexpected error occurred. Please check your connection and try again.
+                         </div>
+                     `;
+                }
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("A network or unexpected error occurred.");
+                }
+            }
+        }
+
+        // --- Handler for Company Delete form submission (AJAX) ---
+        async function handleCompanyDeleteFormSubmit(event) {
+            event.preventDefault();
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                if (!response.ok) { // Handles 4xx, 5xx status codes
+                    const errorJson = await response.json();
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(errorJson.message || "Failed to delete company with an error.");
+                    } else {
+                        console.error("Company delete failed: " + (errorJson.message || "An error occurred."));
+                    }
+                    return; // Stop here if there's a non-2xx response
+                }
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "Company deleted successfully!");
+                    } else {
+                        console.log("Company deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload();
+                } else {
+                    // This else block is less likely to be hit if !response.ok handles most errors.
+                    // It would only be for 200 OK responses where 'success' is explicitly false in JSON.
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete company.");
+                    } else {
+                        console.error("Company delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during company delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during company deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during company deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- Modal Openers (using data-page attribute for specificity) ---
+
+        // Edit Company Modal Opener
+        document.querySelectorAll('.edit-btn[data-page="Company"]').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'Company', 'Edit', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('companyEditModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('companyEditModal')).show();
+                    // Call the globalized function to attach handler
+                    setTimeout(window.attachCompanyEditFormSubmissionHandler, 50);
+                } catch (error) {
+                    toastr.error("Failed to load edit form.");
+                }
+            });
+        });
+
+        // Details Company Modal Opener
+        document.querySelectorAll('.details-btn[data-page="Company"]').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'Company', 'Details', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('companyDetailsModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('companyDetailsModal')).show();
+                } catch (error) {
+                    toastr.error("Failed to load details.");
+                }
+            });
+        });
+
+        // Delete Company Modal Opener
+        document.querySelectorAll('.delete-btn[data-page="Company"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const companyName = this.getAttribute('data-name');
+                const url = getUrl('Master', 'Company', 'Delete', id);
+
+                document.getElementById('deleteModalCompanyName').textContent = companyName;
+                document.getElementById('deleteModalCompanyNameConfirm').textContent = companyName;
+
+                const deleteForm = document.getElementById('companyDeleteForm');
+                deleteForm.setAttribute('action', url);
+
+                deleteForm.removeEventListener('submit', handleCompanyDeleteFormSubmit);
+                deleteForm.addEventListener('submit', handleCompanyDeleteFormSubmit);
+
+                new bootstrap.Modal(document.getElementById('companyDeleteModal')).show();
+            });
+        });
+    });
+</script>

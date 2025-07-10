@@ -1,0 +1,223 @@
+﻿<!-- User Edit Modal -->
+<div class="modal fade" id="userEditModal" tabindex="-1" aria-labelledby="userEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="card-header" style="background-color: #092963">
+                <h5 class="card-title text-white mb-0">
+                    <i class="fas fa-user-edit me-2"></i> Edit User
+                </h5>
+            </div>
+            <div class="modal-body" id="userEditModalBody">
+                <!-- The form content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Details Modal -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="card-header" style="background-color: #092963">
+                <h5 class="card-title text-white mb-0">
+                    <i class="fas fa-user me-2"></i> User Details
+                </h5>
+            </div>
+            <div class="modal-body" id="userDetailsModalBody">
+                <!-- The details content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="userDeleteModal" tabindex="-1" aria-labelledby="userDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="card-title text-white mb-0">
+                    <i class="fas fa-user-times me-2"></i> Delete User:&nbsp; <span id="deleteModalUsername"></span>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete user <strong id="deleteModalUsernameConfirm"></strong>?</p>
+                <form id="userDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            // Handle cases where ID is optional for the action URL (e.g., POST Edit without ID in route)
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the Edit modal ---
+        function attachEditFormSubmissionHandler() {
+            const editForm = document.getElementById('userEditForm'); // Get the form within the modal
+            if (editForm) {
+                // Remove any existing event listeners to prevent duplicates if this is called multiple times
+                // This is important because the HTML content is replaced, but listeners might persist if not handled.
+                editForm.removeEventListener('submit', handleEditFormSubmit);
+                // Add the new event listener
+                editForm.addEventListener('submit', handleEditFormSubmit);
+
+                // Re-parse client-side validation for the newly loaded form content
+                // This is CRUCIAL for dynamically loaded forms to have client-side validation working.
+                // Ensure jQuery, jQuery Validation, and jQuery Unobtrusive Validation are loaded.
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator"); // Clear old validation data
+                    jQuery(editForm).removeData("unobtrusiveValidation"); // Clear old unobtrusive validation data
+                    jQuery.validator.unobtrusive.parse(editForm); // Parse new content for validation rules
+                    console.log("Client-side validation re-parsed for #userEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work.");
+                }
+            } else {
+                console.warn("#userEditForm not found when trying to attach handler. Make sure the form has id='userEditForm'.");
+            }
+        }
+
+        // --- Handler for the Edit form submission ---
+        async function handleEditFormSubmit(event) {
+            event.preventDefault(); // <<< THIS IS THE KEY: STOP DEFAULT BROWSER NAVIGATION
+
+            const form = event.target;
+
+            // Perform client-side validation before sending AJAX request
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed. Not sending AJAX request.");
+                return; // Stop if client-side validation fails
+            }
+
+            const formData = new FormData(form); // Collect form data, including hidden fields and AntiForgeryToken
+
+            try {
+                const response = await fetch(form.action, { // Send POST request to the form's action URL
+                    method: form.method, // "post"
+                    body: formData, // FormData automatically sets Content-Type to multipart/form-data
+                });
+
+                const responseHtml = await response.text();
+
+                // Check if the server returned a full page redirect (common for success)
+                // This might happen if your C# returns RedirectToAction, and fetch follows the redirect.
+                // A more robust way for success is to return a JSON object from C# like { success: true, redirectUrl: "..." }
+                // For now, let's assume if it's not the modal HTML, it's a success redirect.
+                const userEditModalBodyElement = document.getElementById('userEditModalBody');
+
+                // A simple (but not foolproof) way to detect if the response is the modal's content HTML:
+                // Check if the response HTML contains the ID of the modal body or a characteristic element from your form.
+                if (responseHtml.includes('id="userEditModalBody"') || responseHtml.includes('<form id="userEditForm"')) {
+                    // It's the modal form HTML (likely with validation errors)
+                    userEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("Validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach the handler and re-parse validation for the new content
+                    attachEditFormSubmissionHandler();
+                    // Ensure the modal remains open
+                } else {
+                    // It's likely a success response (e.g., redirect HTML, or empty success response)
+                    // Close the modal
+                    const userEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('userEditModal'));
+                    if (userEditModalInstance) {
+                        userEditModalInstance.hide();
+                    }
+                    // Refresh the main page or redirect to Index to show updated data and TempData messages
+                    console.log("Update successful. Redirecting to Index page.");
+                    window.location.href = `/${form.getAttribute('data-area') || 'UserManagement'}/${form.getAttribute('data-controller') || 'Users'}/Index`; // Adjust as needed
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during form submission:', error);
+                // Display a generic error message in the modal body
+                document.getElementById('userEditModalBody').innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+                // Re-attach handlers in case form is still there
+                attachEditFormSubmissionHandler();
+            }
+        }
+
+        // --- Original Modal Openers (remain mostly the same) ---
+
+        // Edit User Modal Opener
+        document.querySelectorAll('.edit-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page'); // 'Users'
+                const url = getUrl(area, page, 'Edit', id); // This generates /UserManagement/Users/Edit/{id} for the GET request
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('userEditModalBody').innerHTML = data;
+
+                    // Create a new Bootstrap modal instance and show it
+                    const userEditModal = new bootstrap.Modal(document.getElementById('userEditModal'));
+                    userEditModal.show();
+
+                    // IMPORTANT: Now attach the form submission handler to the newly loaded form
+                    // Adding a small timeout can sometimes help Bootstrap modals fully render before re-attaching, though often not strictly necessary.
+                    setTimeout(attachEditFormSubmissionHandler, 50);
+
+                } catch (error) {
+                    console.error('Error loading edit modal content:', error);
+                    // Optionally, display an error message if the modal content fails to load
+                }
+            });
+        });
+
+        // User Details Modal Opener (Your existing code)
+        document.querySelectorAll('.details-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const url = getUrl(area, page, 'Details', id);
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.text();
+                    document.getElementById('userDetailsModalBody').innerHTML = data;
+                    new bootstrap.Modal(document.getElementById('userDetailsModal')).show();
+                } catch (error) {
+                    console.error('Error loading details modal:', error);
+                }
+            });
+        });
+
+        // Delete User Modal Opener (Your existing code)
+        document.querySelectorAll('.delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const username = this.getAttribute('data-user-username');
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                document.getElementById('deleteModalUsername').textContent = username;
+                document.getElementById('deleteModalUsernameConfirm').textContent = username;
+                document.getElementById('userDeleteForm').setAttribute('action', url);
+
+                new bootstrap.Modal(document.getElementById('userDeleteModal')).show();
+            });
+        });
+    });
+   
+</script>
+
+

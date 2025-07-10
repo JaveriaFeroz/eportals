@@ -1,0 +1,149 @@
+﻿@model ProcureToPay.Areas.UserManagement.ViewModels.CompareRolesViewModel
+@{
+    ViewData["Title"] = "Compare Role Permissions - Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Permission Comparison</h2>
+
+    <div class="mb-4">
+        <a asp-action="Compare" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Compare
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary ms-2">
+            <i class="fas fa-list"></i> All Roles
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-balance-scale"></i> Comparing @Model.Roles.Count Roles</span>
+                <button class="btn btn-sm btn-light" id="printBtn">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <div class="alert alert-info">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>Legend:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex flex-wrap">
+                                <div class="me-3 mb-2">
+                                    <span class="badge bg-success">✓</span> Has permission
+                                </div>
+                                <div class="me-3 mb-2">
+                                    <span class="badge bg-danger">✗</span> Missing permission
+                                </div>
+                                <div class="me-3 mb-2">
+                                    <span class="badge bg-warning text-dark">➔</span> Permission in some roles
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="comparisonTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="min-width: 180px;">Permission</th>
+                            <th style="min-width: 140px;">Category</th>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <th>@role.Name</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var permissionsByCategory = Model.AllPermissions
+                            .GroupBy(p => p.Module)
+                            .OrderBy(g => g.Key);
+                        }
+
+                        @foreach (var category in permissionsByCategory)
+                        {
+                            <tr class="table-secondary">
+                                <th colspan="@(2 + Model.Roles.Count)">@category.Key</th>
+                            </tr>
+
+                            @foreach (var permission in category.OrderBy(p => p.Name))
+                            {
+                                <tr>
+                                    <td>@permission.Name</td>
+                                    <td>@permission.ModuleId</td>
+
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        var hasPermission = Model.RolePermissionMap[role.Id]
+                                        .Contains(permission.Id);
+
+                                        <td class="text-center @(hasPermission ? "bg-success bg-opacity-25" : "bg-danger bg-opacity-10")">
+                                            @if (hasPermission)
+                                            {
+                                                <span class="badge bg-success">✓</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">✗</span>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Enable DataTables
+            $('#comparisonTable').DataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "searching": true
+            });
+
+            // Print functionality
+            $('#printBtn').click(function() {
+                window.print();
+            });
+        });
+    </script>
+
+    <style>
+       
+
+        {
+            display: none !important;
+        }
+
+        }
+
+        .card {
+            border: none !important;
+        }
+
+        .card-header {
+            background-color: #f8f9fa !important;
+            color: #000 !important;
+        }
+
+        .table {
+            width: 100% !important;
+        }
+    </style>
+}

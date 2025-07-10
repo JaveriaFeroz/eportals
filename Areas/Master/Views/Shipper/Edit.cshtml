@@ -1,0 +1,106 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.ShipperCreateEditViewModel
+
+<div class="modal-body">
+    <form id="shippersEditForm" method="post" asp-action="Edit" asp-controller="Shipper" asp-area="Master">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        @* Hidden input for the ShipperId is crucial for the update *@
+        <input type="hidden" asp-for="Shipper.ShipperId" />
+
+        @* ==== Card 1: Basic Information ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Basic Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Shipper.ShipperName" class="form-label">Shipper Name <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-user-tie"></i></span>
+                            <input asp-for="Shipper.ShipperName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Shipper.ShipperName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Shipper.CityId" class="form-label">City</label>
+                        <select asp-for="Shipper.CityId" asp-items="@Model.Cities" class="form-select">
+                            <option value="">-- Select City --</option>
+                        </select>
+                        <span asp-validation-for="Shipper.CityId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Shipper.ClientId" class="form-label">Client</label>
+                        <select asp-for="Shipper.ClientId" asp-items="@Model.Clients" class="form-select">
+                            <option value="">-- Select Types --</option>
+                        </select>
+                        <span asp-validation-for="Shipper.ClientId" class="text-danger"></span>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        @* ==== Card 2: Contact & Location ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i> Contact & Location</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label asp-for="Shipper.Address" class="form-label">Address</label>
+                        <input asp-for="Shipper.Address" class="form-control" />
+                        <span asp-validation-for="Shipper.Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Shipper.ContactNo" class="form-label">Contact Number</label>
+                        <input asp-for="Shipper.ContactNo" class="form-control" />
+                        <span asp-validation-for="Shipper.ContactNo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Shipper.CompanyId" class="form-label">Company</label>
+                        <select asp-for="Shipper.CompanyId" asp-items="@Model.Companies" class="form-select">
+                            <option value="">-- Select Company --</option>
+                        </select>
+                        <span asp-validation-for="Shipper.CompanyId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* ==== Card 3: Status ==== *@
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i> Status</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Shipper.IsActive">
+                            <label class="form-check-label" asp-for="Shipper.IsActive">Is Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                <i class="fas fa-save me-1" style="color: white;"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,46 @@
+﻿@{
+    var currentHour = DateTime.Now.Hour;
+    string greetingText = currentHour < 12 ? "Good Morning" :
+                         (currentHour < 18 ? "Good Afternoon" : "Good Evening");
+}
+<!-- Top Navigation Bar with Greeting -->
+<div class="top-nav w-100">
+    <div class="greeting-container">
+        <div>
+            <div class="greeting-name">@greetingText, @(User.Identity?.Name?.Split('@').FirstOrDefault() ?? "User")</div>
+            <div class="greeting-text">Welcome to your portal</div>
+            <div class="greeting-subtitle">Progressive Report</div>
+        </div>
+        <div class="d-flex align-items-center gap-4 flex-wrap">
+            <div class="date-display d-flex align-items-center gap-2">
+                <i class="bi bi-calendar3"></i>
+                <span>Today, @DateTime.Now.ToString("dd MMM")</span>
+            </div>
+            <div class="time-display">
+                @DateTime.Now.ToString("HH:mm")
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <!-- Search button for desktop -->
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-light d-flex align-items-center gap-2" id="searchDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-2 shadow-sm border-0" style="width: 250px;">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" class="form-control bg-light border-0" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-outline-light d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-arrow-down"></i> <span class="d-none d-sm-inline">Export</span>
+                </button>
+                <button class="btn btn-sm btn-primary d-flex align-items-center gap-2">
+                    <i class="bi bi-plus-circle"></i> <span class="d-none d-sm-inline">Add new</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

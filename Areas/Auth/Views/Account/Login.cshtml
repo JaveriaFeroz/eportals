@@ -1,0 +1,74 @@
+﻿@model ProcureToPay.Areas.Auth.Models.LoginViewModel
+@{
+    Layout = "_AuthLayout";
+}
+<div class="login-container">
+    <div class="left-section">
+        <div class="logo">
+            <span class="logo-text">ProcureToPay DSV</span>
+        </div>
+        <h2 class="whats-new-heading">What's new</h2>
+        <div class="updates-container">
+            @if (Model.Updates != null && Model.Updates.Any())
+            {
+                @foreach (var update in Model.Updates)
+                {
+                    <div class="update-item">
+                        <div class="update-date">@update.CreatedDate.ToString("MMMM dd, yyyy h:mm tt")</div>
+                        <div class="update-title">@update.Title</div>
+                        <div class="update-content">
+                            @if (update.Content.Length > 150)
+                            {
+                                @(update.Content.Substring(0, 150))
+                               
+                            }
+                            else
+                            {
+                                @update.Content
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="update-item">
+                    <div class="update-date">@DateTime.Now.ToString("MMMM dd, yyyy h:mm tt")</div>
+                    <div class="update-title">Welcome to ProcureToPay DSV</div>
+                    <div class="update-content">No updates available at this time. Check back soon for the latest news and features!</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="login-area">
+            <h1>Welcome</h1>
+            <form asp-area="Auth" asp-controller="Account" asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                <div class="text-danger">@Html.ValidationSummary()</div>
+
+                <div class="form-group">
+                    <label asp-for="Username">Login:</label>
+                    <input asp-for="Username" class="form-control" placeholder="Enter your username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password">Password:</label>
+                    <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="remember-me">
+                    <input asp-for="RememberMe" />
+                    <label asp-for="RememberMe">Remember Me</label>
+                </div>
+
+                <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+                <button type="submit" class="login-btn">Log In</button>
+                <a href="#" class="forgot-password">Forgot Your Password?</a>
+            </form>
+        </div>
+    </div>
+</div>

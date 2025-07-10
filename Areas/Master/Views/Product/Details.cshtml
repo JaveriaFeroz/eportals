@@ -1,0 +1,87 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.ProductViewModel
+
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Product Name:</div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-box-open"></i></span>
+                <input type="text" class="form-control" value="@Model.ProductName" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Purchase Price:</div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-dollar-sign"></i></span>
+                <input type="text" class="form-control" value="@Model.PurchasePrice.ToString("C")" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Product Type:</div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-sitemap"></i></span>
+                <input type="text" class="form-control" value="ProductTypeName" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Unit of Measure:</div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-balance-scale"></i></span>
+                <input type="text" class="form-control" value="UoMName" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Product Nature:</div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-leaf"></i></span>
+                <input type="text" class="form-control" value="ProductNatureName" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Status:</div>
+        <div class="col-md-8">
+            <div class="form-check form-switch mt-2">
+                <input type="checkbox" class="form-check-input" @(Model.IsActive ? "checked" : "") disabled />
+                <label class="form-check-label">@(Model.IsActive ? "Active" : "Inactive")</label>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-history me-2"></i> Audit Information</h6>
+
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Created By:</div>
+        <div class="col-md-8">@Model.CreatedBy</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Created On:</div>
+        <div class="col-md-8">@Model.CreatedOn?.ToString("dd MMM, yyyy hh:mm tt")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Updated By:</div>
+        <div class="col-md-8">@(Model.UpdatedBy ?? "N/A")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Updated On:</div>
+        <div class="col-md-8">@(Model.UpdatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

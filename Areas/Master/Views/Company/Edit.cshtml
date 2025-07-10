@@ -1,0 +1,160 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.CompanyViewModel
+
+<div class="modal-body">
+                <form id="companyEditForm" method="post" asp-action="Edit" asp-controller="Company" asp-area="Master">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="CompanyId" />
+
+                    @* Company Information Section *@
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h6 class="m-0 font-weight-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Company Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="CompanyName" class="form-label">Company Name <span class="text-danger">*</span></label>
+                                    <input asp-for="CompanyName" class="form-control" required />
+                                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="CompanyAddress" class="form-label"></label>
+                                    <input asp-for="CompanyAddress" class="form-control" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="NTN" class="form-label"></label>
+                                    <input asp-for="NTN" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Configuration Section *@
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h6 class="m-0 font-weight-bold" style="color: #092963;"><i class="fas fa-cogs me-2"></i> Configuration</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="PeriodName" class="form-label"></label>
+                                    <input asp-for="PeriodName" class="form-control" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="DistanceThreshold" class="form-label"></label>
+                                    <input asp-for="DistanceThreshold" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="ReportGraceHRs" class="form-label"></label>
+                                    <input asp-for="ReportGraceHRs" type="number" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Account Settings Section *@
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h6 class="m-0 font-weight-bold" style="color: #092963;"><i class="fas fa-book-reader me-2"></i> Account Settings</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="BankAccountId" class="form-label"></label>
+                                    <input asp-for="BankAccountId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="ARPeriodId" class="form-label"></label>
+                                    <input asp-for="ARPeriodId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="ARAccountId" class="form-label"></label>
+                                    <input asp-for="ARAccountId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="APPeriodId" class="form-label"></label>
+                                    <input asp-for="APPeriodId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="APAccountId" class="form-label"></label>
+                                    <input asp-for="APAccountId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="GLPeriodId" class="form-label"></label>
+                                    <input asp-for="GLPeriodId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="OpsPeriodId" class="form-label"></label>
+                                    <input asp-for="OpsPeriodId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="TripRevenueAccountId" class="form-label"></label>
+                                    <input asp-for="TripRevenueAccountId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="FuelExpenseAccountId" class="form-label"></label>
+                                    <input asp-for="FuelExpenseAccountId" type="number" class="form-control" />
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="AdvanceAccountId" class="form-label"></label>
+                                    <input asp-for="AdvanceAccountId" type="number" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Flags/Booleans Section *@
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h6 class="m-0 font-weight-bold" style="color: #092963;"><i class="fas fa-toggle-on me-2"></i> Options</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="EnableGL" class="form-check-input">
+                                    <label asp-for="EnableGL" class="form-check-label"></label>
+                                </div>
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="EnablePartialDelivery" class="form-check-input">
+                                    <label asp-for="EnablePartialDelivery" class="form-check-label"></label>
+                                </div>
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="RouteByConsignee" class="form-check-input">
+                                    <label asp-for="RouteByConsignee" class="form-check-label"></label>
+                                </div>
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="SeparateFixedInvoice" class="form-check-input">
+                                    <label asp-for="SeparateFixedInvoice" class="form-check-label"></label>
+                                </div>
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="IsMandatoryDriver2" class="form-check-input">
+                                    <label asp-for="IsMandatoryDriver2" class="form-check-label"></label>
+                                </div>
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="AllowTrailer" class="form-check-input">
+                                    <label asp-for="AllowTrailer" class="form-check-label"></label>
+                                </div>
+                                <div class="col-md-4 mb-2 form-check form-switch">
+                                    <input asp-for="IsActive" class="form-check-input">
+                                    <label asp-for="IsActive" class="form-check-label"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                            <i class="fas fa-save me-1"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+       
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

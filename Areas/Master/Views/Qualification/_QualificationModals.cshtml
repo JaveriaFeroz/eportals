@@ -1,0 +1,280 @@
+﻿@* This partial defines the modal structures and JavaScript logic for Qualifications. *@
+
+<div class="modal fade" id="qualificationEditModal" tabindex="-1" aria-labelledby="qualificationEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="qualificationEditModalLabel">
+                    <i class="fas fa-map-marker-alt me-2"></i> Edit Qualification
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="qualificationEditModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="qualificationDetailsModal" tabindex="-1" aria-labelledby="qualificationDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="qualificationDetailsModalLabel">
+                    <i class="fas fa-info-circle me-2"></i> Qualification Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="qualificationDetailsModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="qualificationDeleteModal" tabindex="-1" aria-labelledby="qualificationDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="qualificationDeleteModalLabel">
+                    <i class="fas fa-trash-alt me-2"></i> Delete Qualification: <span id="deleteModalQualificationName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete qualification <strong id="deleteModalQualificationNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="qualificationDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- GLOBALIZED FUNCTION: to attach/re-attach form submission handler for the Qualification Edit modal ---
+        // This function should be accessible globally or from where it's needed after AJAX content loads.
+        // It's crucial it's not redefined every time it's called.
+        window.attachQualificationEditFormSubmissionHandler = function() { // Made global by attaching to window
+            const editForm = document.getElementById('qualificationEditForm');
+            if (editForm) {
+                editForm.removeEventListener('submit', handleQualificationEditFormSubmit);
+                editForm.addEventListener('submit', handleQualificationEditFormSubmit);
+
+                // Re-parse client-side validation
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #qualificationEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for qualification form.");
+                }
+            } else {
+                console.warn("#qualificationEditForm not found when trying to attach handler.");
+            }
+        };
+
+
+        // --- Handler for the Qualification Edit form submission (AJAX) ---
+        async function handleQualificationEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for qualification form. Not sending AJAX request.");
+                // Display validation errors on the form if not already visible
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type");
+                const qualificationEditModalBodyElement = document.getElementById('qualificationEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        const qualificationEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('qualificationEditModal'));
+                        if (qualificationEditModalInstance) {
+                            qualificationEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') {
+                            toastr.success(jsonResponse.message || "Qualification updated successfully!");
+                        } else {
+                            console.log("Qualification update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload();
+                    } else {
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("Qualification update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        const qualificationEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('qualificationEditModal'));
+                        if (qualificationEditModalInstance) {
+                            // Only hide for critical (non-validation) errors
+                            // For validation errors, we'll re-inject HTML, so don't hide
+                            if (response.status >= 500) { // If it's a server error
+                                qualificationEditModalInstance.hide();
+                            }
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    qualificationEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("Qualification validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    // IMPORTANT: Call the globalized function
+                    setTimeout(window.attachQualificationEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during qualification form submission:', error);
+                const qualificationEditModalBodyElement = document.getElementById('qualificationEditModalBody');
+                if (qualificationEditModalBodyElement) {
+                     qualificationEditModalBodyElement.innerHTML = `
+                         <div class="alert alert-danger" role="alert">
+                             A network or unexpected error occurred. Please check your connection and try again.
+                         </div>
+                     `;
+                }
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("A network or unexpected error occurred.");
+                }
+            }
+        }
+
+        // --- Handler for Qualification Delete form submission (AJAX) ---
+        async function handleQualificationDeleteFormSubmit(event) {
+            event.preventDefault();
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                if (!response.ok) { // Handles 4xx, 5xx status codes
+                    const errorJson = await response.json();
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(errorJson.message || "Failed to delete qualification with an error.");
+                    } else {
+                        console.error("Qualification delete failed: " + (errorJson.message || "An error occurred."));
+                    }
+                    return; // Stop here if there's a non-2xx response
+                }
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "Qualification deleted successfully!");
+                    } else {
+                        console.log("Qualification deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload();
+                } else {
+                    // This else block is less likely to be hit if !response.ok handles most errors.
+                    // It would only be for 200 OK responses where 'success' is explicitly false in JSON.
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete qualification.");
+                    } else {
+                        console.error("Qualification delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during qualification delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during qualification deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during qualification deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- Modal Openers (using data-page attribute for specificity) ---
+
+        // Edit Qualification Modal Opener
+        document.querySelectorAll('.edit-btn[data-page="Qualification"]').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'Qualification', 'Edit', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('qualificationEditModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('qualificationEditModal')).show();
+                    // Call the globalized function to attach handler
+                    setTimeout(window.attachQualificationEditFormSubmissionHandler, 50);
+                } catch (error) {
+                    toastr.error("Failed to load edit form.");
+                }
+            });
+        });
+
+        // Details Qualification Modal Opener
+        document.querySelectorAll('.details-btn[data-page="Qualification"]').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'Qualification', 'Details', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('qualificationDetailsModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('qualificationDetailsModal')).show();
+                } catch (error) {
+                    toastr.error("Failed to load details.");
+                }
+            });
+        });
+
+        // Delete Qualification Modal Opener
+        document.querySelectorAll('.delete-btn[data-page="Qualification"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const qualificationName = this.getAttribute('data-name');
+                const url = getUrl('Master', 'Qualification', 'Delete', id);
+
+                document.getElementById('deleteModalQualificationName').textContent = qualificationName;
+                document.getElementById('deleteModalQualificationNameConfirm').textContent = qualificationName;
+
+                const deleteForm = document.getElementById('qualificationDeleteForm');
+                deleteForm.setAttribute('action', url);
+
+                deleteForm.removeEventListener('submit', handleQualificationDeleteFormSubmit);
+                deleteForm.addEventListener('submit', handleQualificationDeleteFormSubmit);
+
+                new bootstrap.Modal(document.getElementById('qualificationDeleteModal')).show();
+            });
+        });
+    });
+</script>

@@ -1,0 +1,71 @@
+﻿@using ProcureToPay.Areas.UserManagement.Models
+@model List<Update>
+@{
+    ViewData["Title"] = "Manage Updates";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Manage Updates</h2>
+            <a href="@Url.Action("Create")" class="btn btn-primary mb-3">Create New Update</a>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Created Date</th>
+                            <th>Active</th>
+                            <th>Priority</th>
+                            <th>Created By</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var update in Model)
+                        {
+                            <tr>
+                                <td>@update.Title</td>
+                                <td>@update.CreatedDate.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <span class="badge badge-@(update.IsActive ? "success" : "secondary")">
+                                        @(update.IsActive ? "Active" : "Inactive")
+                                    </span>
+                                </td>
+                                <td>@update.Priority</td>
+                                <td>@update.CreatedBy</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", new { id = update.Id })" class="btn btn-sm btn-outline-primary">Edit</a>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUpdate(@update.Id)">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteUpdate(id) {
+        if (confirm('Are you sure you want to delete this update?')) {
+            fetch('@Url.Action("Delete")/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error deleting update');
+                }
+            });
+        }
+    }
+</script>

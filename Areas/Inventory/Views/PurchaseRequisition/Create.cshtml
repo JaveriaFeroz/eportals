@@ -1,0 +1,190 @@
+﻿@model ProcureToPay.Areas.Inventory.Models.PurchaseRequisitionCreateEditViewModel
+
+@{
+    ViewData["Title"] = "Create Purchase Requisition";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" asp-area="">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="PurchaseRequisition" asp-area="Inventory">Purchase Requisitions</a></li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Purchase Requisition
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="Create" asp-controller="PurchaseRequisition" asp-area="Inventory">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                @* ==== Card 1: PR Details ==== *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Purchase Requisition Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.CompanyCode" class="form-label">Company Code <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-building"></i></span>
+                                    <input asp-for="PurchaseRequisition.CompanyCode" class="form-control" placeholder="Enter company code" />
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.CompanyCode" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.BranchId" class="form-label">Branch <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-code-branch"></i></span>
+                                    <select asp-for="PurchaseRequisition.BranchId" asp-items="@Model.Branches" class="form-select">
+                                        <option value="">-- Select Branch --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.BranchId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.DepartmentId" class="form-label">Department <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-users"></i></span>
+                                    <select asp-for="PurchaseRequisition.DepartmentId" asp-items="@Model.Departments" class="form-select">
+                                        <option value="">-- Select Department --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.DepartmentId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.RequiredBy" class="form-label">Required By <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt"></i></span>
+                                    <input asp-for="PurchaseRequisition.RequiredBy" type="date" class="form-control" />
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.RequiredBy" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.StateName" class="form-label">Current State</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-clipboard-list"></i></span>
+                                    <input asp-for="PurchaseRequisition.StateName" class="form-control" readonly="readonly" value="Saved" />
+                                    @* We need to send the actual StateId for saving, but display the hardcoded name *@
+                                    <input type="hidden" asp-for="PurchaseRequisition.StateId" value="1" /> @* Assuming StateId 1 is 'Saved' *@
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.StateName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.Owner" class="form-label">Current Owner <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-user"></i></span>
+                                    <input asp-for="PurchaseRequisition.Owner" class="form-control" readonly="readonly" value="@User.Identity?.Name" />
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.Owner" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* ==== Card 2: Request Details ==== *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-file-invoice-dollar me-2"></i> Request Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.ProductGroupId" class="form-label">Product Group</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-cube"></i></span>
+                                    @* Uncomment and use @Model.ProductGroups if you enable this lookup in service/controller *@
+                                    <select asp-for="PurchaseRequisition.ProductGroupId" class="form-select">
+                                        @* asp-items="@Model.ProductGroups" *@
+                                        <option value="">-- Select Product Group --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.ProductGroupId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.ServiceGroupId" class="form-label">Service Group</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-cogs"></i></span>
+                                    @* Uncomment and use @Model.ServiceGroups if you enable this lookup in service/controller *@
+                                    <select asp-for="PurchaseRequisition.ServiceGroupId" class="form-select">
+                                        @* asp-items="@Model.ServiceGroups" *@
+                                        <option value="">-- Select Service Group --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.ServiceGroupId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.RequestNatureId" class="form-label">Request Nature <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-question-circle"></i></span>
+                                    @* Uncomment and use @Model.RequestNatures if you enable this lookup in service/controller *@
+                                    <select asp-for="PurchaseRequisition.RequestNatureId" class="form-select">
+                                        @* asp-items="@Model.RequestNatures" *@
+                                        <option value="">-- Select Request Nature --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.RequestNatureId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.RequestTypeId" class="form-label">Request Type <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-tags"></i></span>
+                                    @* Uncomment and use @Model.RequestTypes if you enable this lookup in service/controller *@
+                                    <select asp-for="PurchaseRequisition.RequestTypeId" class="form-select">
+                                        @* asp-items="@Model.RequestTypes" *@
+                                        <option value="">-- Select Request Type --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.RequestTypeId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.WorkFlowId" class="form-label">Workflow <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-project-diagram"></i></span>
+                                    @* Uncomment and use @Model.Workflows if you enable this lookup in service/controller *@
+                                    <select asp-for="PurchaseRequisition.WorkFlowId" class="form-select">
+                                        @* asp-items="@Model.Workflows" *@
+                                        <option value="">-- Select Workflow --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.WorkFlowId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label asp-for="PurchaseRequisition.Justification" class="form-label">Justification <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-align-left"></i></span>
+                                    <textarea asp-for="PurchaseRequisition.Justification" class="form-control" rows="3" placeholder="Provide detailed justification for the request"></textarea>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.Justification" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-light text-primary" asp-controller="PurchaseRequisition" asp-area="Inventory"><i class="fas fa-arrow-left me-1"></i> Back to List</a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;"><i class="fas fa-save me-1"></i> Create Purchase Requisition</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

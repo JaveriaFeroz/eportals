@@ -1,0 +1,41 @@
+﻿@model ProcureToPay.Areas.UserManagement.Models.Department
+
+<div class="modal-body">
+    <form method="post" asp-action="Edit" asp-controller="Department" asp-area="UserManagement" asp-route-id="@Model?.DepartmentId">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label for="DepartmentName" class="form-label">Department Name <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;">
+                    <i class="fas fa-building"></i>
+                </span>
+                <input id="DepartmentName" name="DepartmentName" class="form-control" value="@Model.DepartmentName" readonly />
+            </div>
+            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="DepartmentCode" class="form-label">Department Code <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-code"></i></span>
+                <input id="DepartmentCode" name="DepartmentCode" class="form-control" value="@Model.DepartmentCode" readonly />
+            </div>
+            <span asp-validation-for="DepartmentCode" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><i class="fas fa-power-off me-2"></i> Status</label>
+            <div class="form-check form-switch">
+                <input id="IsActive" name="IsActive" type="checkbox" class="form-check-input" value="true" @(Model.IsActive ? "checked" : "") disabled />
+                <label class="form-check-label" for="IsActive">Active</label>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+        </div>
+
+    </form>
+</div>

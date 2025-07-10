@@ -1,0 +1,161 @@
+﻿@model ProcureToPay.Areas.Procurement.Models.PurchaseRequest
+
+@{
+    ViewData["Title"] = "Create Purchase Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Create Purchase Request</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label">Title <span class="text-danger">*</span></label>
+                                    <input asp-for="Title" class="form-control" placeholder="Enter request title" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Requester <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" value="@User.Identity.Name" readonly />
+                                    <small class="form-text text-muted">Auto-filled with current user</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Request Date <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" readonly />
+                                    <small class="form-text text-muted">Auto-filled with current date</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="DepartmentId" class="control-label">Department <span class="text-danger">*</span></label>
+                                    <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.Departments">
+                                        <option value="">Select Department</option>
+                                    </select>
+                                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="BranchId" class="control-label">Branch <span class="text-danger">*</span></label>
+                                    <select asp-for="BranchId" class="form-control" asp-items="ViewBag.Branches">
+                                        <option value="">Select Branch</option>
+                                    </select>
+                                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="RequiredDate" class="control-label">Required Date</label>
+                                    <input asp-for="RequiredDate" type="date" class="form-control" />
+                                    <span asp-validation-for="RequiredDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Purpose" class="control-label">Purpose <span class="text-danger">*</span></label>
+                                    <input asp-for="Purpose" class="form-control" placeholder="Enter the purpose of this request" />
+                                    <span asp-validation-for="Purpose" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label">Description</label>
+                                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter detailed description of the request"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Create Request
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Set default required date to 7 days from now if not already set
+            var requiredDateInput = $('#RequiredDate');
+            if (!requiredDateInput.val()) {
+                var defaultDate = new Date();
+                defaultDate.setDate(defaultDate.getDate() + 7);
+                requiredDateInput.val(defaultDate.toISOString().split('T')[0]);
+            }
+
+            // Form validation
+            $('form').on('submit', function(e) {
+                var isValid = true;
+
+                // Check required fields
+                if (!$('#Title').val().trim()) {
+                    isValid = false;
+                    $('#Title').addClass('is-invalid');
+                } else {
+                    $('#Title').removeClass('is-invalid');
+                }
+
+                if (!$('#Purpose').val().trim()) {
+                    isValid = false;
+                    $('#Purpose').addClass('is-invalid');
+                } else {
+                    $('#Purpose').removeClass('is-invalid');
+                }
+
+                if (!$('#DepartmentId').val()) {
+                    isValid = false;
+                    $('#DepartmentId').addClass('is-invalid');
+                } else {
+                    $('#DepartmentId').removeClass('is-invalid');
+                }
+
+                if (!$('#BranchId').val()) {
+                    isValid = false;
+                    $('#BranchId').addClass('is-invalid');
+                } else {
+                    $('#BranchId').removeClass('is-invalid');
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields.');
+                }
+            });
+        });
+    </script>
+}

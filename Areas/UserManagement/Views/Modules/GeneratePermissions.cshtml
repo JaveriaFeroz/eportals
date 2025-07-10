@@ -1,0 +1,89 @@
+﻿@model ProcureToPay.Areas.UserManagement.Models.Module
+
+@{
+    ViewData["Title"] = "Generate Permissions";
+}
+
+<h1>Generate Permissions for @Model.DisplayName</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                Select CRUD Permissions to Generate
+            </div>
+            <div class="card-body">
+                <form asp-action="GeneratePermissions">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="createView" name="createView" checked />
+                            <label class="form-check-label" for="createView">
+                                View Permission - <code>View @Model.DisplayName</code>
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="createAdd" name="createAdd" checked />
+                            <label class="form-check-label" for="createAdd">
+                                Add Permission - <code>Add @Model.DisplayName</code>
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="createEdit" name="createEdit" checked />
+                            <label class="form-check-label" for="createEdit">
+                                Edit Permission - <code>Edit @Model.DisplayName</code>
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="createDelete" name="createDelete" checked />
+                            <label class="form-check-label" for="createDelete">
+                                Delete Permission - <code>Delete @Model.DisplayName</code>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <input type="submit" value="Generate Permissions" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Module Details
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Name:</dt>
+                    <dd class="col-sm-8">@Model.Name</dd>
+
+                    <dt class="col-sm-4">Display Name:</dt>
+                    <dd class="col-sm-8">@Model.DisplayName</dd>
+
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8">@(Model.IsActive ? "Active" : "Inactive")</dd>
+
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <dt class="col-sm-4">Description:</dt>
+                        <dd class="col-sm-8">@Model.Description</dd>
+                    }
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

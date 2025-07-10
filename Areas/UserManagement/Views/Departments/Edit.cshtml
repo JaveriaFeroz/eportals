@@ -1,0 +1,50 @@
+﻿@model ProcureToPay.Areas.UserManagement.Models.Department
+
+<div class="modal-body">
+    <form id="departmentEditForm" method="post" asp-action="Edit" asp-controller="Departments" asp-area="UserManagement"
+          data-area="UserManagement" data-controller="Departments">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="DepartmentId" />
+        <div class="mb-3">
+            <label for="DepartmentName" class="form-label">Department Name <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-building"></i></span>
+                <input id="DepartmentName" name="DepartmentName" class="form-control" value="@Model.DepartmentName" required />
+            </div>
+            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="DepartmentCode" class="form-label">Department Code <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-code"></i></span>
+                <input id="DepartmentCode" name="DepartmentCode" class="form-control" value="@Model.DepartmentCode" required />
+            </div>
+            <span asp-validation-for="DepartmentCode" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><i class="fas fa-power-off me-2"></i> Status</label>
+            <div class="form-check form-switch">
+                <input id="IsActive" name="IsActive" type="checkbox" class="form-check-input" value="true" @(Model.IsActive ? "checked" : "") />
+                <label class="form-check-label" for="IsActive">Active</label>
+                <input type="hidden" name="IsActive" value="false" />
+            </div>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal" onclick="window.location.href='/UserManagement/Departments/Index';">Cancel</button>
+            <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                <i class="fas fa-save me-1" style="color: white;"></i> Save Department
+            </button>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

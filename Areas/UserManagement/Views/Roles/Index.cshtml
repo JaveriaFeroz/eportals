@@ -1,0 +1,131 @@
+﻿@model IEnumerable<ProcureToPay.Areas.UserManagement.Models.Role>
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-users-cog me-2"></i> Roles
+            </h5>
+            <p>
+                <a href="@Url.Action("ManageHierarchy", "Roles", new { area = "UserManagement" })" class="btn btn-info">Manage Hierarchy</a>
+                <a href="@Url.Action("ManageModuleHierarchy", "Roles", new { area = "UserManagement" })" class="btn btn-warning">Manage Module Hierarchy</a>
+                <a href="@Url.Action("Export", "Roles", new { area = "UserManagement" })" class="btn btn-success">Export Roles</a>
+            </p>
+        </div>
+        <div class="card-body">
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text" id="RoleNameSearchIcon">
+                                <i class="fas fa-filter" style="font-size: 1rem;"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="rolename" placeholder="Role Name" data-filter="rolename">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="rolestatusSearch" data-filter="status">
+                            <option value="">All</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <button class="action-button create-user-text"
+                                    data-url="@Url.Action("Create", "Roles", new { area = "UserManagement" })"
+                                    style="background-color: #092963; transition: background-color 0.3s ease;">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Create Role</span>
+                            </button>
+                            <a href="#" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary">
+                <div class="col-3 d-flex align-items-center">
+                    <i class="fas fa-user-shield me-1 text-dark"></i> ROLE NAME
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <i class="fas fa-align-left me-1 text-dark"></i> DESCRIPTION
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                    <i class="fas fa-layer-group me-1 text-dark"></i> HIERARCHY
+                </div>
+                <div class="col-1 text-center d-flex align-items-center justify-content-center">
+                    <i class="fas fa-toggle-on me-1 text-dark"></i> STATUS
+                </div>
+                <div class="col-3 text-center d-flex align-items-center justify-content-center">
+                    <i class="fas fa-cogs me-1 text-dark"></i> ACTIONS
+                </div>
+            </div>
+
+            @foreach (var role in Model)
+            {
+                <div class="row align-items-center border-bottom py-3 px-2 role-row">
+                    <div class="col-3 fw-bold">
+                        @role.Name
+                    </div>
+                    <div class="col-3 text-start">
+                        @role.Description
+                    </div>
+                    <div class="col-2 text-start">
+                        @role.HierarchyLevel
+                    </div>
+                    <div class="col-1 text-center">
+                        @if (role.IsActive)
+                        {
+                            <span class="badge status-badge">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge status-badge bg-danger">Inactive</span>
+                        }
+                    </div>
+                    <div class="col-3 d-flex justify-content-center gap-1">
+                        <button type="button" class="btn btn-sm text-warning edit-btn action-btn" title="Edit" data-id="@role.Id" data-area="UserManagement" data-page="Roles">
+                            <i class="fas fa-edit icon-warning"></i>
+                        </button>
+
+                        <!-- Delete Button with Modal Trigger -->
+                        <button type="button" class="btn btn-sm text-danger delete-btn action-btn" title="Delete" data-id="@role.Id" data-area="UserManagement" data-page="Roles" data-role-name="@role.Name">
+                            <i class="fas fa-trash-alt icon-danger"></i>
+                        </button>
+                        <!-- Assign Users Button with Modal Trigger -->
+                        <button type="button" class="btn btn-sm text-success assign-users-btn action-btn" title="Assign" data-id="@role.Id" data-area="UserManagement" data-page="Roles">
+                            <i class="fas fa-user-plus"></i>
+                        </button>
+
+                    </div>
+                </div>
+            }
+
+            <div class="d-flex justify-content-end mt-3">
+                <a class="btn btn-light text-primary" href="/Home/Index">
+                    <i class="fas fa-arrow-left me-2"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+        @await Html.PartialAsync("RoleModals")
+    </div>
+</div>

@@ -1,0 +1,112 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.AssetStatusViewModel
+
+@{
+    ViewData["Title"] = "Create Asset Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Asset Status
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "AssetStatus", new { area = "Master" })">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Asset Status Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="StatusName" class="form-label">Status Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-clipboard-check"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="statusNameInput"
+                                           name="StatusName"
+                                           class="form-control"
+                                           placeholder="Enter asset status name"
+                                           value="@Model?.StatusName"
+                                           required />
+                                </div>
+                                @if (ViewData.ModelState["StatusName"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["StatusName"].Errors.First().ErrorMessage</span>
+                                }
+                                <div id="statusNameError" class="text-danger" style="display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "AssetStatus", new { area = "Master" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create Status
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function() {
+            // Function to enable/disable the submit button based on validation errors
+            function checkSubmitButtonStatus() {
+                const isErrorVisible = $('#statusNameError').is(':visible');
+                $('#submitBtn').prop('disabled', isErrorVisible);
+            }
+
+            // Client-side validation for Status Name to check for duplicates
+            $('#statusNameInput').on('blur', function() {
+                var statusName = $(this).val();
+                if (statusName) {
+                    // NOTE: Ensure you have a controller action at the specified URL
+                    // that returns a JSON object like { exists: true } or { exists: false }
+                    $.get('@Url.Action("CheckAssetStatusNameExists", "AssetStatus", new { area = "Master" })', { statusName: statusName }, function(data) {
+                        if (data.exists) {
+                            $('#statusNameError').text('An asset status with this name already exists.').show();
+                        } else {
+                            $('#statusNameError').hide();
+                        }
+                        checkSubmitButtonStatus(); // Update button status after validation
+                    });
+                } else {
+                    $('#statusNameError').hide(); // Hide error message if the input is empty
+                    checkSubmitButtonStatus();
+                }
+            });
+
+            // Initial check in case the page loads with pre-filled data (e.g., on a validation fail postback)
+            checkSubmitButtonStatus();
+        });
+    </script>
+}

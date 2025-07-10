@@ -1,0 +1,713 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\ProcureToPay-Procurement\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\productnature\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\productnature\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\productnature\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\productnature\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\productnature\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\productnature\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\controllers\\productnaturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\controllers\\productnaturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\services\\iproductnatureservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\services\\iproductnatureservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\views\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:views\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\models\\productnature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\models\\productnature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\controllers\\skucategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\controllers\\skucategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\models\\purchasenature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\models\\purchasenature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\ProcureToPay-Procurement\\Migrations\\20250710094849_addedpurchasenature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250710094849_addedpurchasenature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\ProcureToPay-Procurement\\Migrations\\20250710093952_addedpurchasenature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250710093952_addedpurchasenature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\skucategory\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\skucategory\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\skucategory\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\skucategory\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\skucategory\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\skucategory\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\skucategory\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\skucategory\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\controllers\\purchaserequisitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\controllers\\purchaserequisitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\viewmodels\\purchaserequisitionviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\viewmodels\\purchaserequisitionviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\services\\ipurchaserequisitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\services\\ipurchaserequisitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\models\\purchaserequisition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\models\\purchaserequisition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\services\\iclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\services\\iclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\client\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\client\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\viewmodels\\clientviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\viewmodels\\clientviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\views\\insurancetype\\requireddocument.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\views\\insurancetype\\requireddocument.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\controllers\\insurancetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\controllers\\insurancetypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\services\\iinsurancetypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\services\\iinsurancetypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\views\\insurancetype\\_requireddocumentmodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\views\\insurancetype\\_requireddocumentmodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\views\\insurancetype\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\views\\insurancetype\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\viewmodels\\insurancedocumenttypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\viewmodels\\insurancedocumenttypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\views\\insurancetype\\_insurancetypemodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\views\\insurancetype\\_insurancetypemodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\viewmodels\\insurancetypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\viewmodels\\insurancetypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\models\\insurancedocumenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\models\\insurancedocumenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\controllers\\insurancedocumenttypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\controllers\\insurancedocumenttypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\views\\insurancetype\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\views\\insurancetype\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\migrations\\20250708063110_added-insurancetypes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:migrations\\20250708063110_added-insurancetypes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\insurance\\views\\insurancetype\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\insurance\\views\\insurancetype\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\insurancedocumenttype\\_insurancedocumenttypemodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\insurancedocumenttype\\_insurancedocumenttypemodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\insurancedocumenttype\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\insurancedocumenttype\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\insurancedocumenttype\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\insurancedocumenttype\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\insurancedocumenttype\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\insurancedocumenttype\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\master\\views\\insurancedocumenttype\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\master\\views\\insurancedocumenttype\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\migrations\\20250710100328_addedpurchasenatures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:migrations\\20250710100328_addedpurchasenatures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ProductNature.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\ProductNature.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Models\\ProductNature.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\ProductNature.cs",
+              "RelativeToolTip": "Areas\\Master\\Models\\ProductNature.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:41:34.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Navbar.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Views\\Shared\\_Navbar.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Navbar.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Views\\Shared\\_Navbar.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Navbar.cshtml",
+              "ViewState": "AgIAAIsBAAAAAAAAAADgv58BAACRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T13:17:14.21Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\ProductNature\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\ProductNature\\Edit.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\ProductNature\\Edit.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\ProductNature\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:19:44.671Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\ProductNature\\Create.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\ProductNature\\Create.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\ProductNature\\Create.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\ProductNature\\Create.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:23:02.657Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\ProductNature\\Index.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\ProductNature\\Index.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\ProductNature\\Index.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\ProductNature\\Index.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFUAAAB4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:19:21.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductNatureController.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\ProductNatureController.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Controllers\\ProductNatureController.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\ProductNatureController.cs",
+              "RelativeToolTip": "Areas\\Master\\Controllers\\ProductNatureController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAADwvykAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T07:52:37.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IProductNatureService.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Services\\IProductNatureService.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Services\\IProductNatureService.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Services\\IProductNatureService.cs",
+              "RelativeToolTip": "Areas\\Master\\Services\\IProductNatureService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAIA8wB8AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:42:34.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20250710093952_addedpurchasenature.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Migrations\\20250710093952_addedpurchasenature.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250710093952_addedpurchasenature.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Migrations\\20250710093952_addedpurchasenature.cs",
+              "RelativeToolTip": "Migrations\\20250710093952_addedpurchasenature.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:39:52.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "20250710100328_addedpurchasenatures.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Migrations\\20250710100328_addedpurchasenatures.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250710100328_addedpurchasenatures.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Migrations\\20250710100328_addedpurchasenatures.cs",
+              "RelativeToolTip": "Migrations\\20250710100328_addedpurchasenatures.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T10:03:28.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SKUCategoryController.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\SKUCategoryController.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Controllers\\SKUCategoryController.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\SKUCategoryController.cs",
+              "RelativeToolTip": "Areas\\Master\\Controllers\\SKUCategoryController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCwAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T10:18:01.514Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PurchaseNature.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\PurchaseNature.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Models\\PurchaseNature.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\PurchaseNature.cs",
+              "RelativeToolTip": "Areas\\Master\\Models\\PurchaseNature.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:42:54.896Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "20250710094849_addedpurchasenature.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Migrations\\20250710094849_addedpurchasenature.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250710094849_addedpurchasenature.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Migrations\\20250710094849_addedpurchasenature.cs",
+              "RelativeToolTip": "Migrations\\20250710094849_addedpurchasenature.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T09:48:49.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Create.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\SKUCategory\\Create.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Create.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\SKUCategory\\Create.cshtml",
+              "ViewState": "AgIAACkAAAAAAAAAAAAAAE0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:23:00.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Details.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\SKUCategory\\Details.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Details.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\SKUCategory\\Details.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:22:12.658Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\SKUCategory\\Edit.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Edit.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\SKUCategory\\Edit.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:19:46.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Index.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\SKUCategory\\Index.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\SKUCategory\\Index.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\SKUCategory\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T09:19:35.368Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PurchaseRequisitionController.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
+              "RelativeDocumentMoniker": "Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
+              "RelativeToolTip": "Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAAwHsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:26:07.163Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PurchaseRequisitionViewModels.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\ViewModels\\PurchaseRequisitionViewModels.cs",
+              "RelativeDocumentMoniker": "Areas\\Inventory\\ViewModels\\PurchaseRequisitionViewModels.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\ViewModels\\PurchaseRequisitionViewModels.cs",
+              "RelativeToolTip": "Areas\\Inventory\\ViewModels\\PurchaseRequisitionViewModels.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwCcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:29:22.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IPurchaseRequisitionService.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
+              "RelativeDocumentMoniker": "Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
+              "RelativeToolTip": "Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
+              "ViewState": "AgIAAIQBAAAAAAAAAAAmwJ8BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:26:44.992Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PurchaseRequisition.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Models\\PurchaseRequisition.cs",
+              "RelativeDocumentMoniker": "Areas\\Inventory\\Models\\PurchaseRequisition.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Models\\PurchaseRequisition.cs",
+              "RelativeToolTip": "Areas\\Inventory\\Models\\PurchaseRequisition.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:26:32.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Client.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\Client.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Models\\Client.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\Client.cs",
+              "RelativeToolTip": "Areas\\Master\\Models\\Client.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAA0wHEAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:30:37.91Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IClientService.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Services\\IClientService.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Services\\IClientService.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Services\\IClientService.cs",
+              "RelativeToolTip": "Areas\\Master\\Services\\IClientService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwLUBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:16:07.377Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\Client\\Create.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\Client\\Create.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\Client\\Create.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\Client\\Create.cshtml",
+              "ViewState": "AgIAACwBAAAAAAAAAAAiwEcBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-09T16:52:50.262Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ClientController.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\ClientController.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Controllers\\ClientController.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\ClientController.cs",
+              "RelativeToolTip": "Areas\\Master\\Controllers\\ClientController.cs",
+              "ViewState": "AgIAACUBAAAAAAAAAAAAAEsBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:15:11.407Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ClientViewModel.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\ViewModels\\ClientViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\ViewModels\\ClientViewModel.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\ViewModels\\ClientViewModel.cs",
+              "RelativeToolTip": "Areas\\Master\\ViewModels\\ClientViewModel.cs",
+              "ViewState": "AgIAANkAAAAAAAAAAAAIwO4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T10:33:28.724Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "InsuranceTypeController.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Controllers\\InsuranceTypeController.cs",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Controllers\\InsuranceTypeController.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Controllers\\InsuranceTypeController.cs",
+              "RelativeToolTip": "Areas\\Insurance\\Controllers\\InsuranceTypeController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAmwCsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T06:34:47.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "RequiredDocument.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\RequiredDocument.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Views\\InsuranceType\\RequiredDocument.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\RequiredDocument.cshtml",
+              "RelativeToolTip": "Areas\\Insurance\\Views\\InsuranceType\\RequiredDocument.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T10:09:29.746Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IInsuranceTypeService.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Services\\IInsuranceTypeService.cs",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Services\\IInsuranceTypeService.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Services\\IInsuranceTypeService.cs",
+              "RelativeToolTip": "Areas\\Insurance\\Services\\IInsuranceTypeService.cs",
+              "ViewState": "AgIAANgAAAAAAAAAAAAawO0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T06:41:03.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "_RequiredDocumentModals.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\_RequiredDocumentModals.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Views\\InsuranceType\\_RequiredDocumentModals.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\_RequiredDocumentModals.cshtml",
+              "RelativeToolTip": "Areas\\Insurance\\Views\\InsuranceType\\_RequiredDocumentModals.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T11:57:39.661Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\Create.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Views\\InsuranceType\\Create.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\Create.cshtml",
+              "RelativeToolTip": "Areas\\Insurance\\Views\\InsuranceType\\Create.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAqwEUAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T06:26:38.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "InsuranceDocumentTypeViewModel.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\ViewModels\\InsuranceDocumentTypeViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\ViewModels\\InsuranceDocumentTypeViewModel.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\ViewModels\\InsuranceDocumentTypeViewModel.cs",
+              "RelativeToolTip": "Areas\\Master\\ViewModels\\InsuranceDocumentTypeViewModel.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAuwCkAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T06:12:11.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "_InsuranceTypeModals.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\_InsuranceTypeModals.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Views\\InsuranceType\\_InsuranceTypeModals.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\_InsuranceTypeModals.cshtml",
+              "RelativeToolTip": "Areas\\Insurance\\Views\\InsuranceType\\_InsuranceTypeModals.cshtml",
+              "ViewState": "AgIAAAkBAAAAAAAAAAAowBkBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T11:52:53.683Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "InsuranceTypeViewModel.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\ViewModels\\InsuranceTypeViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\ViewModels\\InsuranceTypeViewModel.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\ViewModels\\InsuranceTypeViewModel.cs",
+              "RelativeToolTip": "Areas\\Insurance\\ViewModels\\InsuranceTypeViewModel.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAwwF4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T06:13:01.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "InsuranceDocumentType.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\InsuranceDocumentType.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Models\\InsuranceDocumentType.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Models\\InsuranceDocumentType.cs",
+              "RelativeToolTip": "Areas\\Master\\Models\\InsuranceDocumentType.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T05:24:29.292Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "InsuranceDocumentTypeController.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\InsuranceDocumentTypeController.cs",
+              "RelativeDocumentMoniker": "Areas\\Master\\Controllers\\InsuranceDocumentTypeController.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Controllers\\InsuranceDocumentTypeController.cs",
+              "RelativeToolTip": "Areas\\Master\\Controllers\\InsuranceDocumentTypeController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwBoAAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T12:50:07.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Views\\InsuranceType\\Edit.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\Edit.cshtml",
+              "RelativeToolTip": "Areas\\Insurance\\Views\\InsuranceType\\Edit.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAqwDMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-09T05:22:41.37Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\Details.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Insurance\\Views\\InsuranceType\\Details.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Insurance\\Views\\InsuranceType\\Details.cshtml",
+              "RelativeToolTip": "Areas\\Insurance\\Views\\InsuranceType\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T06:25:36.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "20250708063110_added-insurancetypes.cs",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Migrations\\20250708063110_added-insurancetypes.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250708063110_added-insurancetypes.cs",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Migrations\\20250708063110_added-insurancetypes.cs",
+              "RelativeToolTip": "Migrations\\20250708063110_added-insurancetypes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T06:31:11.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "_InsuranceDocumentTypeModals.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\_InsuranceDocumentTypeModals.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\InsuranceDocumentType\\_InsuranceDocumentTypeModals.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\_InsuranceDocumentTypeModals.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\InsuranceDocumentType\\_InsuranceDocumentTypeModals.cshtml",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAACcAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T13:00:55.276Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Create.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\InsuranceDocumentType\\Create.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Create.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\InsuranceDocumentType\\Create.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAtwCwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T12:59:28.748Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Details.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\InsuranceDocumentType\\Details.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Details.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\InsuranceDocumentType\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T12:57:53.06Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\InsuranceDocumentType\\Edit.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Edit.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\InsuranceDocumentType\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T12:56:05.828Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Index.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Master\\Views\\InsuranceDocumentType\\Index.cshtml",
+              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Master\\Views\\InsuranceDocumentType\\Index.cshtml",
+              "RelativeToolTip": "Areas\\Master\\Views\\InsuranceDocumentType\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAEkAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T12:53:58.362Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+﻿@model ProcureToPay.Areas.UserManagement.ViewModels.CopyPermissionsViewModel
+@{
+    ViewData["Title"] = "Copy Permissions Between Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Copy Permissions Between Roles</h2>
+
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Roles
+        </a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-copy"></i> Copy Role Permissions
+        </div>
+        <div class="card-body">
+            <form asp-action="CopyPermissions" method="post">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i> Warning: This action will <strong>replace</strong> all permissions of the target role(s) with the permissions from the source role. This cannot be undone.
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label"><strong>Source Role (Copy From)</strong></label>
+                            <select name="sourceRoleId" class="form-select" required>
+                                <option value="">-- Select Source Role --</option>
+                                @foreach (var role in Model.SourceRoles)
+                                {
+                                    <option value="@role.Id">@role.Name</option>
+                                }
+                            </select>
+                            <div class="form-text">
+                                Select the role whose permissions you want to copy.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <label class="form-label"><strong>Target Roles (Copy To)</strong></label>
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="selectAllTargets" />
+                                    <label class="form-check-label" for="selectAllTargets">
+                                        <strong>Select/Deselect All</strong>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach (var role in Model.TargetRoles)
+                                    {
+                                        <div class="col-md-4 col-lg-3 mb-2">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input target-role"
+                                                       id="target_@role.Id" name="targetRoleIds" value="@role.Id" />
+                                                <label class="form-check-label" for="target_@role.Id">
+                                                    @role.Name
+                                                </label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-text">
+                            Select one or more roles to receive the permissions from the source role.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary" id="copyBtn">
+                        <i class="fas fa-copy"></i> Copy Permissions
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Select/deselect all target roles
+            $('#selectAllTargets').change(function() {
+                $('.target-role').prop('checked', $(this).is(':checked'));
+            });
+
+            // Update select all checkbox when individual checkboxes change
+            $('.target-role').change(function() {
+                if ($('.target-role:checked').length === $('.target-role').length) {
+                    $('#selectAllTargets').prop('checked', true);
+                } else {
+                    $('#selectAllTargets').prop('checked', false);
+                }
+            });
+
+            // Validate form on submit
+            $('form').submit(function(e) {
+                var sourceId = $('select[name="sourceRoleId"]').val();
+                var targetCount = $('input[name="targetRoleIds"]:checked').length;
+
+                if (!sourceId) {
+                    e.preventDefault();
+                    alert('Please select a source role.');
+                    return false;
+                }
+
+                if (targetCount === 0) {
+                    e.preventDefault();
+                    alert('Please select at least one target role.');
+                    return false;
+                }
+
+                // Confirm the action
+                if (!confirm('Are you sure you want to copy permissions from the selected source role to the target role(s)? This will replace all existing permissions on the target role(s).')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

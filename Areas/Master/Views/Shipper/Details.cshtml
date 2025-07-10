@@ -1,0 +1,89 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.ShipperViewModel
+
+<div class="modal-body">
+
+    @* ==== Card 1: Basic Information ==== *@
+    <div class="card mb-3">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i>Basic Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Shipper Name:</div>
+                        <div class="col-7">@Model.ShipperName</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-5 text-muted">City:</div>
+                    <div class="col-7">@(Model.CityName ?? "N/A")</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Company Name:</div>
+                        <div class="col-7">@(Model.ClientName ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 2: Contact & Location ==== *@
+    <div class="card mb-3">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-address-book me-2"></i> Contact & Location</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Address:</div>
+                        <div class="col-7">@(Model.Address ?? "N/A")</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Contact Number:</div>
+                        <div class="col-7">@(Model.ContactNo ?? "N/A")</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-5 text-muted">Company:</div>
+                        <div class="col-7">@(Model.CompanyName ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 3: Settings==== *@
+    <div class="card mb-3">
+        <div class="card-header bg-light py-2">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-cogs me-2"></i> Settings</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" asp-for="IsActive" disabled /><label class="form-check-label">Is Active</label></div></div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 4: Audit Information ==== *@
+    <hr class="my-4" />
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-history me-2"></i> Audit Information</h6>
+    <div class="row mb-2">
+        <div class="col-md-3 text-muted">Created By:</div>
+        <div class="col-md-3">@Model.CreatedBy</div>
+        <div class="col-md-3 text-muted">Created On:</div>
+        <div class="col-md-3">@(Model.CreatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 text-muted">Updated By:</div>
+        <div class="col-md-3">@(Model.UpdatedBy ?? "N/A")</div>
+        <div class="col-md-3 text-muted">Updated On:</div>
+        <div class="col-md-3">@(Model.UpdatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>
+

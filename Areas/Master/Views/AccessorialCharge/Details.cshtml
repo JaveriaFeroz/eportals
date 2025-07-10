@@ -1,0 +1,38 @@
+﻿@model ProcureToPay.Areas.Master.Models.AccessorialChargeViewModel
+
+<div class="modal-body">
+    <form id="accessorialChargeEditForm" method="post" asp-action="Edit" asp-controller="AccessorialCharge" asp-area="Master"
+          data-area="Master" data-controller="AccessorialCharge">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ChargeId" />
+        <div class="mb-3">
+            <label for="ChargeName" class="form-label">Charge Name</label>
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;">
+                    <i class="fas fa-dollar-sign"></i>
+                </span>
+                <input id="ChargeName" name="ChargeName" class="form-control" value="@Model.ChargeName" readonly />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="ChargeCode" class="form-label">Charge Code</label>
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-hashtag"></i></span>
+                <input id="ChargeCode" name="ChargeCode" class="form-control" value="@Model.ChargeCode" readonly />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><i class="fas fa-power-off me-2"></i> Status</label>
+            <div class="form-check form-switch">
+                <input id="IsActive" name="IsActive" type="checkbox" class="form-check-input" value="true" @(Model.IsActive ? "checked" : "") disabled />
+                <label class="form-check-label" for="IsActive">Active</label>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+        </div>
+    </form>
+</div>

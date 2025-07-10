@@ -1,0 +1,84 @@
+﻿@model ProcureToPay.Areas.UserManagement.ViewModels.RoleCreateViewModel
+@{
+    ViewData["Title"] = "Create Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-user-shield me-2"></i> Create New Role
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="Create">
+                @Html.AntiForgeryToken()
+
+                <!-- Role Information Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Role Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label">Role Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-id-badge"></i></span>
+                                    <input asp-for="Name" class="form-control" placeholder="Enter role name" required />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="HierarchyLevel" class="form-label">Hierarchy Level</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-layer-group"></i></span>
+                                    <input asp-for="HierarchyLevel" class="form-control" type="number" min="1" placeholder="Enter hierarchy level" readonly/>
+                                </div>
+                                <span asp-validation-for="HierarchyLevel" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-align-left"></i></span>
+                                <input asp-for="Description" class="form-control" placeholder="Enter role description" />
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-power-off me-2"></i> Status
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check form-switch">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" id="IsActive" checked />
+                            <label class="form-check-label" asp-for="IsActive">Active</label>
+                        </div>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "Roles", new { area = "UserManagement" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                        <i class="fas fa-save me-1"></i> Create Role
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,267 @@
+﻿@* This partial defines the modal structures and contains the JavaScript logic for them. *@
+
+<div class="modal fade" id="assetStatusEditModal" tabindex="-1" aria-labelledby="assetStatusEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="assetStatusEditModalLabel">
+                    <i class="fas fa-edit me-2"></i> Edit Asset Status
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="assetStatusEditModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="assetStatusDetailsModal" tabindex="-1" aria-labelledby="assetStatusDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="assetStatusDetailsModalLabel">
+                    <i class="fas fa-info-circle me-2"></i> Asset Status Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="assetStatusDetailsModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="assetStatusDeleteModal" tabindex="-1" aria-labelledby="assetStatusDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="assetStatusDeleteModalLabel">
+                    <i class="fas fa-trash-alt me-2"></i> Delete Asset Status: <span id="deleteModalAssetStatusName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete assetStatus <strong id="deleteModalAssetStatusNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="assetStatusDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the AssetStatus Edit modal ---
+        function attachAssetStatusEditFormSubmissionHandler() {
+            const editForm = document.getElementById('assetStatusEditForm'); // Target the assetStatus edit form
+            if (editForm) {
+                // Ensure no duplicate listeners by removing any existing ones
+                editForm.removeEventListener('submit', handleAssetStatusEditFormSubmit);
+                editForm.addEventListener('submit', handleAssetStatusEditFormSubmit);
+
+                // Re-parse client-side validation for dynamically loaded content
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #assetStatusEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for assetStatus form.");
+                }
+            } else {
+                console.warn("#assetStatusEditForm not found when trying to attach handler.");
+            }
+        }
+
+        // --- Handler for the AssetStatus Edit form submission (AJAX) ---
+        async function handleAssetStatusEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for assetStatus form. Not sending AJAX request.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type"); // Get content type to distinguish JSON/HTML
+                const assetStatusEditModalBodyElement = document.getElementById('assetStatusEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    // This is a JSON response (success or specific error)
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        // Success: close modal, show message, reload page
+                        const assetStatusEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('assetStatusEditModal'));
+                        if (assetStatusEditModalInstance) {
+                            assetStatusEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') { // Check if Toastr is available
+                            toastr.success(jsonResponse.message || "AssetStatus updated successfully!");
+                        } else {
+                            console.log("AssetStatus update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload(); // Reload to reflect changes
+                    } else {
+                        // JSON error: show message, keep modal open or close based on error type
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("AssetStatus update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        // For critical errors (e.g., assetStatus not found), you might want to close the modal
+                        const assetStatusEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('assetStatusEditModal'));
+                        if (assetStatusEditModalInstance) {
+                            assetStatusEditModalInstance.hide(); // Hide for critical errors
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    assetStatusEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("AssetStatus validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    setTimeout(attachAssetStatusEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during assetStatus form submission:', error);
+                assetStatusEditModalBodyElement.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // --- Handler for AssetStatus Delete form submission (AJAX) ---
+        async function handleAssetStatusDeleteFormSubmit(event) {
+            event.preventDefault(); // Stop default form submission
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                // Assuming delete always returns JSON from the controller
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    // Success: close modal, show message, reload page
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "AssetStatus deleted successfully!");
+                    } else {
+                        console.log("AssetStatus deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload(); // Reload page to reflect deletion
+                } else {
+                    // Error: show message
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete assetStatus.");
+                    } else {
+                        console.error("AssetStatus delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during assetStatus delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during assetStatus deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during assetStatus deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- AssetStatus Modal Openers ---
+
+        // Edit AssetStatus Modal Opener
+        document.querySelectorAll('.edit-btn[data-page="AssetStatus"]').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'AssetStatus', 'Edit', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('assetStatusEditModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('assetStatusEditModal')).show();
+                    setTimeout(attachAssetStatusEditFormSubmissionHandler, 50);
+                } catch (error) {
+                    console.error('Error loading assetStatus edit modal:', error);
+                    toastr.error("Failed to load edit form.");
+                }
+            });
+        });
+
+        // Details AssetStatus Modal Opener
+        document.querySelectorAll('.details-btn[data-page="AssetStatus"]').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'AssetStatus', 'Details', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('assetStatusDetailsModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('assetStatusDetailsModal')).show();
+                } catch (error) {
+                    console.error('Error loading assetStatus details modal:', error);
+                    toastr.error("Failed to load details.");
+                }
+            });
+        });
+
+        // Delete AssetStatus Modal Opener
+        document.querySelectorAll('.delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const assetStatusName = this.getAttribute('data-name'); // Corrected data attribute name, matches Razor now
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                // If you want to display the assetStatus name in the delete confirmation modal
+                const deleteModalStatusNameSpan = document.getElementById('deleteModalStatusName');
+                if (deleteModalStatusNameSpan) {
+                    deleteModalStatusNameSpan.textContent = assetStatusName;
+                }
+                const deleteModalStatusNameConfirmSpan = document.getElementById('deleteModalStatusNameConfirm');
+                if (deleteModalStatusNameConfirmSpan) {
+                    deleteModalStatusNameConfirmSpan.textContent = assetStatusName;
+                }
+
+                document.getElementById('assetStatusDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('assetStatusDeleteModal')).show();
+            });
+        });
+    }); // End DOMContentLoaded
+</script>

@@ -1,0 +1,88 @@
+﻿@model ProcureToPay.Areas.Master.Models.WHTaxExemptionCreateEditViewModel
+@{
+    ViewData["Title"] = "Create WHTaxExemption";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New WHTaxExemption
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "WHTaxExemption", new { area = "Master" })">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> WHTaxExemption Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="WHTaxExemptions.DateFrom" class="form-label"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt"></i></span>
+                                    <input asp-for="WHTaxExemptions.DateFrom" class="form-control" type="date" />
+                                </div>
+                                <span asp-validation-for="WHTaxExemptions.DateFrom" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="WHTaxExemptions.DateTo" class="form-label"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-alt"></i></span>
+                                    <input asp-for="WHTaxExemptions.DateTo" class="form-control" type="date" />
+                                </div>
+                                <span asp-validation-for="WHTaxExemptions.DateTo" class="text-danger"></span>
+                            </div>
+                           
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="WHTaxExemptions.CompanyId" class="form-label">Company</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-city"></i></span>
+                                    <select asp-for="WHTaxExemptions.CompanyId" asp-items="@Model.Companies" class="form-select">
+                                        <option value="">-- Select Company --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="WHTaxExemptions.CompanyId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "WHTaxExemption", new { area = "Master" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create WHTaxExemption
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

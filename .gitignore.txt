@@ -1,0 +1,25 @@
+# Ignore Visual Studio temporary files, build results, etc.
+.vs/
+*.user
+*.suo
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
+*.dbmdl
+*.psess
+*.cache
+*.log
+*.tlog
+*.pidb
+*.pdb
+*.obj
+*.ipch
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.VC.db
+*.vscode/
+bin/
+obj/

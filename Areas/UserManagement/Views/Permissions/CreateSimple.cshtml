@@ -1,0 +1,16 @@
+﻿@model ProcureToPay.Areas.UserManagement.Models.Permission
+@{
+    ViewData["Title"] = "Create Permission";
+    Layout = "_Layout";
+}
+<div class="container">
+    <h1>Create Permission (Simple)</h1>
+    <form method="post" asp-action="Create">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+     
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>

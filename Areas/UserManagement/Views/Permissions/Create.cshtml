@@ -1,0 +1,158 @@
+﻿@model ProcureToPay.Areas.UserManagement.Models.ViewModels.CreatePermissionViewModel
+@{
+    ViewData["Title"] = "Create Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-key me-2"></i> Create New Permission
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "Permissions", new { area = "UserManagement" })">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Permission Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="Name" class="form-label">Permission Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-tag"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="Name"
+                                           name="Name"
+                                           class="form-control"
+                                           placeholder="Enter permission name"
+                                           value="@Model?.Name"
+                                           required />
+                                </div>
+                                @if (ViewData.ModelState["Name"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["Name"].Errors.First().ErrorMessage</span>
+                                }
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ModuleId" class="form-label">Module <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-puzzle-piece"></i>
+                                    </span>
+                                    <select id="ModuleId" name="ModuleId" class="form-select" required>
+                                        <option value="">-- Select Module --</option>
+                                        @foreach (var option in Model?.ModuleOptions ?? new List<SelectListItem>())
+                                        {
+                                            var isSelected = option.Selected || Model?.ModuleId.ToString() == option.Value;
+                                            if (isSelected)
+                                            {
+                                                <option value="@option.Value" selected>@option.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@option.Value">@option.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                @if (ViewData.ModelState["ModuleId"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["ModuleId"].Errors.First().ErrorMessage</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="Description" class="form-label">Description</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-align-left"></i>
+                                    </span>
+                                    <textarea id="Description"
+                                              name="Description"
+                                              class="form-control"
+                                              rows="3"
+                                              placeholder="Enter description">@Model?.Description</textarea>
+                                </div>
+                                @if (ViewData.ModelState["Description"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["Description"].Errors.First().ErrorMessage</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-power-off me-2"></i> Status
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check form-switch">
+                            @{
+                                var isActiveChecked = Model?.IsActive != false;
+                            }
+                            @if (isActiveChecked)
+                            {
+                                <input type="checkbox"
+                                       id="IsActive"
+                                       name="IsActive"
+                                       class="form-check-input"
+                                       value="true"
+                                       checked />
+                            }
+                            else
+                            {
+                                <input type="checkbox"
+                                       id="IsActive"
+                                       name="IsActive"
+                                       class="form-check-input"
+                                       value="true" />
+                            }
+                            <input type="hidden" name="IsActive" value="false" />
+                            <label class="form-check-label" for="IsActive">Active</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "Permissions", new { area = "UserManagement" })" class="btn btn-light text-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                        <i class="fas fa-save me-1"></i> Create Permission
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

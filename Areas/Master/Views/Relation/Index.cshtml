@@ -1,0 +1,160 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.RelationIndexViewModel
+
+@{
+    ViewData["Title"] = "Relations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+
+<div class="container-fluid px-4 py-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-area="Master" asp-controller="Relation" asp-action="Index">Master</a></li>
+        <li class="breadcrumb-item active">Relation</li>
+    </ol>
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-tags me-2"></i> Relation
+            </h5>
+        </div>
+        <div class="card-body">
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text" id="relationIcon">
+                                <i class="fas fa-filter" style="font-size: 1rem;"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="relationSearch" placeholder="Relation Name">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                            <option value="">All</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <button class="action-button create-user-text"
+                                    data-url="@Url.Action("Create", "Relation", new { area = "Master" })"
+                                    style="background-color: #092963;">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Add New Relation</span>
+                            </button>
+                            <a href="#" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Column Headers *@
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary">
+                <div class="col-4 d-flex align-items-center"><i class="fas fa-tag me-2 text-dark"></i> Relation NAME</div>
+                <div class="col-2 d-flex align-items-center justify-content-center"><i class="fas fa-toggle-on me-2 text-dark"></i> STATUS</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user-clock text-dark me-2"></i>CREATED</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-history text-dark me-2"></i>UPDATED</div>
+                <div class="col-2 text-center d-flex align-items-center justify-content-center"><i class="fas fa-cogs me-2 text-dark"></i> ACTIONS</div>
+            </div>
+
+            @if (Model.Relations.Any())
+            {
+                foreach (var item in Model.Relations)
+                {
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
+                        <div class="col-4 fw-bold">@item.RelationName</div>
+                        <div class="col-2 text-center">
+                            @if (item.IsActive)
+                            {
+                                <span class="badge status-badge">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge status-badge bg-danger">Inactive</span>
+                            }
+                        </div>
+                        <div class="col-6 col-md-2 small">
+                            <div title="Created by"><i class="fas fa-user-edit me-1 text-muted"></i> @item.CreatedBy</div>
+                            <div title="Created on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @item.CreatedOn.ToString("dd MMM yyyy")</div>
+                        </div>
+                        <div class="col-6 col-md-2 small">
+                            <div title="Updated by"><i class="fas fa-user-edit me-1 text-muted"></i> @(item.UpdatedBy ?? "N/A")</div>
+                            <div title="Updated on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @(item.UpdatedOn?.ToString("dd MMM yyyy") ?? "N/A")</div>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center gap-1">
+                            <button type="button" class="btn btn-sm text-warning edit-btn action-btn"
+                                    title="Edit" data-id="@item.RelationId" data-area="Master" data-page="Relation">
+                                <i class="fas fa-edit icon-warning"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm text-info details-btn action-btn"
+                                    title="Details" data-id="@item.RelationId" data-area="Master" data-page="Relation">
+                                <i class="fas fa-info-circle icon-info"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
+                                    title="Delete" data-id="@item.RelationId" data-area="Master" data-page="Relation" data-name="@item.RelationName">
+                                <i class="fas fa-trash-alt icon-danger"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i>
+                        <br>No relations found.
+                    </div>
+                </div>
+            }
+
+            <div class="d-flex justify-content-end mt-3">
+                <a class="btn btn-light text-primary" href="/Home/Index">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        @* This partial view will contain the empty modal shells for Edit, Details, and Delete *@
+        @await Html.PartialAsync("_RelationModals")
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

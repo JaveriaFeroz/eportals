@@ -1,0 +1,267 @@
+﻿@* This partial defines the modal structures and contains the JavaScript logic for them. *@
+
+<div class="modal fade" id="uomEditModal" tabindex="-1" aria-labelledby="uomEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="uomEditModalLabel">
+                    <i class="fas fa-edit me-2"></i> Edit Product Nature
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="uomEditModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uomDetailsModal" tabindex="-1" aria-labelledby="uomDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="uomDetailsModalLabel">
+                    <i class="fas fa-info-circle me-2"></i> Product Nature Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="uomDetailsModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uomDeleteModal" tabindex="-1" aria-labelledby="uomDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963;">
+                <h5 class="modal-title text-white" id="uomDeleteModalLabel">
+                    <i class="fas fa-trash-alt me-2"></i> Delete Product Nature: <span id="deleteModalUoMName"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete uom <strong id="deleteModalUoMNameConfirm"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="uomDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            if (id) {
+                return `/${area}/${page}/${action}/${id}`;
+            }
+            return `/${area}/${page}/${action}`;
+        }
+
+        // --- Function to attach/re-attach form submission handler for the UoM Edit modal ---
+        function attachUoMEditFormSubmissionHandler() {
+            const editForm = document.getElementById('uomEditForm'); // Target the uom edit form
+            if (editForm) {
+                // Ensure no duplicate listeners by removing any existing ones
+                editForm.removeEventListener('submit', handleUoMEditFormSubmit);
+                editForm.addEventListener('submit', handleUoMEditFormSubmit);
+
+                // Re-parse client-side validation for dynamically loaded content
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                    console.log("Client-side validation re-parsed for #uomEditForm.");
+                } else {
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for uom form.");
+                }
+            } else {
+                console.warn("#uomEditForm not found when trying to attach handler.");
+            }
+        }
+
+        // --- Handler for the UoM Edit form submission (AJAX) ---
+        async function handleUoMEditFormSubmit(event) {
+            event.preventDefault(); // Stop default browser navigation
+
+            const form = event.target;
+
+            // Perform client-side validation
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                console.log("Client-side validation failed for uom form. Not sending AJAX request.");
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                });
+
+                const contentType = response.headers.get("content-type"); // Get content type to distinguish JSON/HTML
+                const uomEditModalBodyElement = document.getElementById('uomEditModalBody');
+
+                if (contentType && contentType.includes("application/json")) {
+                    // This is a JSON response (success or specific error)
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        // Success: close modal, show message, reload page
+                        const uomEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('uomEditModal'));
+                        if (uomEditModalInstance) {
+                            uomEditModalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') { // Check if Toastr is available
+                            toastr.success(jsonResponse.message || "UoM updated successfully!");
+                        } else {
+                            console.log("UoM update successful: " + (jsonResponse.message || "Operation completed."));
+                        }
+                        window.location.reload(); // Reload to reflect changes
+                    } else {
+                        // JSON error: show message, keep modal open or close based on error type
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        } else {
+                            console.error("UoM update failed: " + (jsonResponse.message || "An error occurred."));
+                        }
+                        // For critical errors (e.g., uom not found), you might want to close the modal
+                        const uomEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('uomEditModal'));
+                        if (uomEditModalInstance) {
+                            uomEditModalInstance.hide(); // Hide for critical errors
+                        }
+                    }
+                } else {
+                    // HTML response: likely validation errors, inject back into modal
+                    const responseHtml = await response.text();
+                    uomEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("UoM validation errors received. Injecting form HTML into modal body.");
+                    // Re-attach handler for the new form content, after a small delay
+                    setTimeout(attachUoMEditFormSubmissionHandler, 50);
+                }
+
+            } catch (error) {
+                console.error('Network or unexpected error during uom form submission:', error);
+                uomEditModalBodyElement.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        A network or unexpected error occurred. Please check your connection and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // --- Handler for UoM Delete form submission (AJAX) ---
+        async function handleUoMDeleteFormSubmit(event) {
+            event.preventDefault(); // Stop default form submission
+            const currentForm = event.target;
+            const formData = new FormData(currentForm);
+
+            try {
+                // Assuming delete always returns JSON from the controller
+                const response = await fetch(currentForm.action, {
+                    method: currentForm.method,
+                    body: formData,
+                });
+
+                const jsonResponse = await response.json();
+
+                if (jsonResponse.success) {
+                    // Success: close modal, show message, reload page
+                    const modalId = currentForm.closest('.modal').id;
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById(modalId));
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.success(jsonResponse.message || "UoM deleted successfully!");
+                    } else {
+                        console.log("UoM deleted: " + (jsonResponse.message || "Operation completed."));
+                    }
+                    window.location.reload(); // Reload page to reflect deletion
+                } else {
+                    // Error: show message
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error(jsonResponse.message || "Failed to delete uom.");
+                    } else {
+                        console.error("UoM delete failed: " + (jsonResponse.message || "An error occurred."));
+                    }
+                }
+            } catch (error) {
+                console.error("Network or unexpected error during uom delete submission:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during uom deletion. Please try again.");
+                } else {
+                    console.error("An unexpected error occurred during uom deletion. Please try again.");
+                }
+            }
+        }
+
+
+        // --- UoM Modal Openers ---
+
+        // Edit UoM Modal Opener
+        document.querySelectorAll('.edit-btn[data-page="UoM"]').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'UoM', 'Edit', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('uomEditModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('uomEditModal')).show();
+                    setTimeout(attachUoMEditFormSubmissionHandler, 50);
+                } catch (error) {
+                    console.error('Error loading uom edit modal:', error);
+                    toastr.error("Failed to load edit form.");
+                }
+            });
+        });
+
+        // Details UoM Modal Opener
+        document.querySelectorAll('.details-btn[data-page="UoM"]').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                const id = this.getAttribute('data-id');
+                const url = getUrl('Master', 'UoM', 'Details', id);
+                try {
+                    const response = await fetch(url);
+                    document.getElementById('uomDetailsModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('uomDetailsModal')).show();
+                } catch (error) {
+                    console.error('Error loading uom details modal:', error);
+                    toastr.error("Failed to load details.");
+                }
+            });
+        });
+
+        // Delete UoM Modal Opener
+        document.querySelectorAll('.delete-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const area = this.getAttribute('data-area');
+                const page = this.getAttribute('data-page');
+                const uomName = this.getAttribute('data-name'); // Corrected data attribute name, matches Razor now
+
+                const url = getUrl(area, page, 'Delete', id);
+
+                // If you want to display the uom name in the delete confirmation modal
+                const deleteModalTypeNameSpan = document.getElementById('deleteModalTypeName');
+                if (deleteModalTypeNameSpan) {
+                    deleteModalTypeNameSpan.textContent = uomName;
+                }
+                const deleteModalTypeNameConfirmSpan = document.getElementById('deleteModalTypeNameConfirm');
+                if (deleteModalTypeNameConfirmSpan) {
+                    deleteModalTypeNameConfirmSpan.textContent = uomName;
+                }
+
+                document.getElementById('uomDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('uomDeleteModal')).show();
+            });
+        });
+    }); // End DOMContentLoaded
+</script>

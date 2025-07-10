@@ -1,0 +1,169 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.SupplierCreateEditViewModel
+
+<form id="supplierEditForm" method="post" asp-action="Edit" asp-controller="Supplier" asp-area="Master">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+    @* This hidden field is very important for the Edit action *@
+    <input type="hidden" asp-for="Supplier.SupplierId" />
+
+    @* ==== Card 1: Basic Information ==== *@
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Supplier Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.SupplierName" class="form-label">Supplier Name <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-truck"></i></span>
+                        <input asp-for="Supplier.SupplierName" class="form-control" placeholder="Enter supplier name" />
+                    </div>
+                    <span asp-validation-for="Supplier.SupplierName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.SupplierTypeId" class="form-label">Supplier Type <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                        <select asp-for="Supplier.SupplierTypeId" asp-items="@Model.SupplierTypes" class="form-select">
+                            <option value="">-- Select Type --</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Supplier.SupplierTypeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="Supplier.Address" class="form-label">Address <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                        <textarea asp-for="Supplier.Address" class="form-control" placeholder="Enter full address" rows="2"></textarea>
+                    </div>
+                    <span asp-validation-for="Supplier.Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.CityId" class="form-label">City</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-city"></i></span>
+                        <select asp-for="Supplier.CityId" asp-items="@Model.Cities" class="form-select">
+                            <option value="">-- Select City --</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Supplier.CityId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.NTN" class="form-label">NTN</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                        <input asp-for="Supplier.NTN" class="form-control" placeholder="Enter National Tax Number" />
+                    </div>
+                    <span asp-validation-for="Supplier.NTN" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.SCRate" class="form-label">SC Rate</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-percent"></i></span>
+                        <input asp-for="Supplier.SCRate" type="number" step="0.01" class="form-control" placeholder="Enter service charge rate" />
+                    </div>
+                    <span asp-validation-for="Supplier.SCRate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ==== Card 2: Contact & System IDs ==== *@
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-phone-alt me-2"></i> Contact & System IDs</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.ContactName" class="form-label">Contact Person</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input asp-for="Supplier.ContactName" class="form-control" placeholder="Enter contact person's name" />
+                    </div>
+                    <span asp-validation-for="Supplier.ContactName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.PhoneNo" class="form-label">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input asp-for="Supplier.PhoneNo" class="form-control" placeholder="Enter phone number" />
+                    </div>
+                    <span asp-validation-for="Supplier.PhoneNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.Email" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input asp-for="Supplier.Email" type="email" class="form-control" placeholder="Enter email address" />
+                    </div>
+                    <span asp-validation-for="Supplier.Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.FaxNo" class="form-label">Fax Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-fax"></i></span>
+                        <input asp-for="Supplier.FaxNo" class="form-control" placeholder="Enter fax number" />
+                    </div>
+                    <span asp-validation-for="Supplier.FaxNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.MobileNo" class="form-label">Mobile Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                        <input asp-for="Supplier.MobileNo" class="form-control" placeholder="Enter mobile number" />
+                    </div>
+                    <span asp-validation-for="Supplier.MobileNo" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.URL" class="form-label">Website URL</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-globe"></i></span>
+                        <input asp-for="Supplier.URL" type="url" class="form-control" placeholder="e.g., https://www.example.com" />
+                    </div>
+                    <span asp-validation-for="Supplier.URL" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Supplier.ControlSupplierId" class="form-label">Control Supplier ID</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <input asp-for="Supplier.ControlSupplierId" class="form-control" placeholder="Enter control supplier ID" />
+                    </div>
+                    <span asp-validation-for="Supplier.ControlSupplierId" class="text-danger"></span>
+                </div>
+                @* This IsActive toggle is important for the Edit form *@
+                <div class="col-md-6 mb-3 d-flex align-items-center">
+                    <div class="form-check form-switch mt-3">
+                        <input asp-for="Supplier.IsActive" type="checkbox" class="form-check-input" />
+                        <label class="form-check-label" asp-for="Supplier.IsActive">Is Active</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer d-flex justify-content-end mt-4 border-0 ps-0 pe-0">
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="background-color: #092963; color: white;">
+            <i class="fas fa-save me-1"></i> Save Changes
+        </button>
+    </div>
+</form>
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}

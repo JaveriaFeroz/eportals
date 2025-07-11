@@ -38,18 +38,13 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
                 Value = d.DepartmentId.ToString()
             }).ToList();
 
-            // Uncomment and use if you uncommented these lookups in the service
-            // viewModel.States = lookups.States.Select(s => new SelectListItem
-            // {
-            //     Text = s.StateName,
-            //     Value = s.StateId.ToString()
-            // }).ToList();
+            viewModel.ProductNatures = new List<SelectListItem>();
 
-            // viewModel.ProductGroups = lookups.ProductGroups.Select(pg => new SelectListItem
-            // {
-            //     Text = pg.ProductGroupName,
-            //     Value = pg.ProductGroupId.ToString()
-            // }).ToList();
+            viewModel.PurchaseNatures = lookups.PurchaseNatures.Select(d => new SelectListItem
+            {
+                Text = d.PurchaseNatureName,
+                Value = d.PurchaseNatureId.ToString()
+            }).ToList();
 
             // viewModel.ServiceGroups = lookups.ServiceGroups.Select(sg => new SelectListItem
             // {
@@ -175,6 +170,13 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
 
             var viewModel = new PurchaseRequisitionCreateEditViewModel { PurchaseRequisition = purchaseRequisition };
             await LoadDropdowns(viewModel);
+
+            if (viewModel.PurchaseRequisition.PurchaseNatureId > 0)
+            {
+                viewModel.ProductNatures = (await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(viewModel.PurchaseRequisition.PurchaseNatureId))
+                    .Select(pn => new SelectListItem { Text = pn.NatureName, Value = pn.NatureId.ToString() }).ToList();
+            }
+
             return View(viewModel);
         }
 
@@ -225,8 +227,11 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
 
             // If we reach here, validation failed or an error occurred. Reload dropdowns and return the view with errors.
             await LoadDropdowns(viewModel);
-            // If this action typically receives an AJAX POST, return PartialView.
-            // If it's a full page POST, return View.
+            if (viewModel.PurchaseRequisition.PurchaseNatureId > 0)
+            {
+                viewModel.ProductNatures = (await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(viewModel.PurchaseRequisition.PurchaseNatureId))
+                    .Select(pn => new SelectListItem { Text = pn.NatureName, Value = pn.NatureId.ToString() }).ToList();
+            }
             return View(viewModel); // Assuming it's a full page post for now
         }
 
@@ -313,6 +318,26 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
             {
                 _logger.LogError(ex, "Error checking Purchase Requisition existence.");
                 return Json(new { error = "Error checking Purchase Requisition" });
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetProductNaturesByPurchaseNature(short purchaseNatureId)
+        {
+            try
+            {
+                var productNatures = await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(purchaseNatureId);
+                var selectListItems = productNatures.Select(pn => new SelectListItem
+                {
+                    Text = pn.NatureName,
+                    Value = pn.NatureId.ToString()
+                }).ToList();
+
+                return Json(selectListItems);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting product natures for purchase nature ID: {purchaseNatureId}", purchaseNatureId);
+                return BadRequest("Error loading product natures.");
             }
         }
     }

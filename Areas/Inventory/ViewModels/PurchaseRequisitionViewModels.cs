@@ -17,11 +17,19 @@ namespace ProcureToPay.Areas.Inventory.Models
 
         [Required(ErrorMessage = "Branch is required")] // Required for form input
         [Display(Name = "Branch")]
-        public int? BranchId { get; set; } // Nullable for dropdown selection
+        public int BranchId { get; set; }
 
         [Required(ErrorMessage = "Department is required")] // Required for form input
         [Display(Name = "Department")]
-        public int? DepartmentId { get; set; } // Nullable for dropdown selection
+        public int DepartmentId { get; set; }
+
+        [Required(ErrorMessage = "Product nature is required")] // Required for form input
+        [Display(Name = "ProductNature")]
+        public short ProductNatureId { get; set; }
+
+        [Required(ErrorMessage = "Purchase nature is required")] // Required for form input
+        [Display(Name = "PurchaseNature")]
+        public short PurchaseNatureId { get; set; }
 
         [Display(Name = "Required By")]
         [DataType(DataType.Date)]
@@ -31,15 +39,8 @@ namespace ProcureToPay.Areas.Inventory.Models
         [Display(Name = "Current State")]
         public short? StateId { get; set; } // Nullable
 
-        [Display(Name = "Product Group")]
-        public short? ProductGroupId { get; set; } // Nullable
-
         [Display(Name = "Service Group")]
         public short? ServiceGroupId { get; set; } // Nullable
-
-       // [Required(ErrorMessage = "Request Nature is required")] // Required for form input
-        [Display(Name = "Request Nature")]
-        public short? RequestNatureId { get; set; } // Nullable
 
         //[Required(ErrorMessage = "Request Type is required")] // Required for form input
         [Display(Name = "Request Type")]
@@ -90,9 +91,9 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string? BranchName { get; set; }
         public string? DepartmentName { get; set; }
         public string? StateName { get; set; }
-        public string? ProductGroupName { get; set; }
+        public string? ProductNatureName { get; set; }
         public string? ServiceGroupName { get; set; }
-        public string? RequestNatureName { get; set; }
+        public string? PurchaseNatureName { get; set; }
         public string? RequestTypeName { get; set; }
         public string? WorkflowName { get; set; }
     }
@@ -106,6 +107,8 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string CompanyCode { get; set; }
         public string BranchName { get; set; }
         public string DepartmentName { get; set; }
+        public string ProductNatureName { get; set; }
+        public string PurchaseNatureName { get; set; }
         public DateTime RequiredBy { get; set; }
         public string StateName { get; set; }
         public string Owner { get; set; }
@@ -134,9 +137,11 @@ namespace ProcureToPay.Areas.Inventory.Models
         public List<SelectListItem> Branches { get; set; } = new();
         public List<SelectListItem> Departments { get; set; } = new();
         public List<SelectListItem> States { get; set; } = new();
-        public List<SelectListItem> ProductGroups { get; set; } = new();
+        public List<SelectListItem> ProductNatures { get; set; } = new();
+        public List<SelectListItem> PurchaseNatures { get; set; } = new();
+       
         public List<SelectListItem> ServiceGroups { get; set; } = new();
-        public List<SelectListItem> RequestNatures { get; set; } = new();
+        
         public List<SelectListItem> RequestTypes { get; set; } = new();
         public List<SelectListItem> Workflows { get; set; } = new();
         // Removed: public List<SelectListItem> Items { get; set; }
@@ -148,10 +153,12 @@ namespace ProcureToPay.Areas.Inventory.Models
     {
         public List<BranchLookupViewModel> Branches { get; set; } = new List<BranchLookupViewModel>();
         public List<DepartmentLookupViewModel> Departments { get; set; } = new List<DepartmentLookupViewModel>();
+        public List<ProductNatureLookupViewModel> ProductNatures { get; set; } = new List<ProductNatureLookupViewModel>();
+
+        public List<PurchaseNatureLookupViewModel> PurchaseNatures { get; set; } = new List<PurchaseNatureLookupViewModel>();
+
         public List<StateLookupViewModel> States { get; set; } = new List<StateLookupViewModel>();
-        public List<ProductGroupLookupViewModel> ProductGroups { get; set; } = new List<ProductGroupLookupViewModel>();
         public List<ServiceGroupLookupViewModel> ServiceGroups { get; set; } = new List<ServiceGroupLookupViewModel>();
-        public List<RequestNatureLookupViewModel> RequestNatures { get; set; } = new List<RequestNatureLookupViewModel>();
         public List<RequestTypeLookupViewModel> RequestTypes { get; set; } = new List<RequestTypeLookupViewModel>();
         public List<WorkflowLookupViewModel> Workflows { get; set; } = new List<WorkflowLookupViewModel>();
         // Removed: public List<ItemLookupViewModel> Items { get; set; }
@@ -169,16 +176,25 @@ namespace ProcureToPay.Areas.Inventory.Models
         public short DepartmentId { get; set; }
         public string DepartmentName { get; set; }
     }
+    public class ProductNatureLookupViewModel
+    {
+        public short NatureId { get; set; }
+        public string NatureName { get; set; }
+
+        public short PurchaseNatureId { get; set; }
+    }
+
+    public class PurchaseNatureLookupViewModel
+    {
+        public short PurchaseNatureId { get; set; }
+        public string PurchaseNatureName { get; set; }
+    }
     public class StateLookupViewModel
     {
         public short StateId { get; set; }
         public string StateName { get; set; }
     }
-    public class ProductGroupLookupViewModel
-    {
-        public short ProductGroupId { get; set; }
-        public string ProductGroupName { get; set; }
-    }
+    
     public class ServiceGroupLookupViewModel
     {
         public short ServiceGroupId { get; set; }

@@ -16,6 +16,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
         Task<bool> DeletePurchaseRequisitionAsync(int id); // Changed to int for PRNo
         Task<bool> PurchaseRequisitionExistsAsync(int prNo, int? excludeId = null); // Renamed and changed to int for PRNo
         Task<PurchaseRequisitionLookupsViewModel> GetLookupsAsync();
+        Task<IEnumerable<ProductNatureLookupViewModel>> GetProductNaturesByPurchaseNatureIdAsync(short purchaseNatureId);
     }
 
     // --- PurchaseRequisitionService Implementation ---
@@ -39,6 +40,8 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 var query = _context.PurchaseRequisitions
                     .Include(x => x.Branch) // Assuming navigation properties exist
                     .Include(x => x.Department)
+                    .Include(x => x.ProducNature)
+                    .Include(x => x.PurchaseNature)
                     // .Include(x => x.State) // Removed as per request to hardcode StateName
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
@@ -65,6 +68,8 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                         CompanyCode = x.CompanyCode,
                         BranchName = x.Branch != null ? x.Branch.BranchName : "",
                         DepartmentName = x.Department != null ? x.Department.DepartmentName : "",
+                        ProductNatureName = x.ProducNature != null ? x.ProducNature.NatureName : "",
+                        PurchaseNatureName = x.PurchaseNature != null ? x.PurchaseNature.PurchaseNatureName : "",
                         RequiredBy = x.RequiredBy.HasValue ? x.RequiredBy.Value : default, // Handle nullable DateTime
                         StateName = "Saved", // Hardcoded StateName as per request
                         Owner = x.Owner,
@@ -125,10 +130,10 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 var entity = await _context.PurchaseRequisitions
                     .Include(x => x.Branch)
                     .Include(x => x.Department)
+                    .Include(x => x.ProducNature)
+                    .Include(x => x.PurchaseNature)
                     // .Include(x => x.State) // Removed as per request
-                    // .Include(x => x.ProductGroup) // Removed as per request
                     // .Include(x => x.ServiceGroup) // Removed as per request
-                    // .Include(x => x.RequestNature) // Removed as per request
                     // .Include(x => x.RequestType) // Removed as per request
                     // .Include(x => x.Workflow) // Removed as per request
                     .Include(x => x.CreatedByUser)
@@ -143,6 +148,8 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     CompanyCode = entity.CompanyCode,
                     BranchId = entity.BranchId,
                     DepartmentId = entity.DepartmentId,
+                    ProductNatureId = (short)entity.ProductNatureId,
+                    PurchaseNatureId = (short)entity.PurchaseNatureId,
                     RequiredBy = entity.RequiredBy,
                     StateId = entity.StateId, // Still gets StateId from entity
                     //ProductGroupId = entity.ProductGroupId,
@@ -164,10 +171,10 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     UpdatedOn = entity.UpdatedOn,
                     BranchName = entity.Branch?.BranchName,
                     DepartmentName = entity.Department?.DepartmentName,
+                    ProductNatureName = entity.ProducNature?.NatureName,
+                    PurchaseNatureName = entity.PurchaseNature?.PurchaseNatureName,
                     StateName = "Saved", // Hardcoded StateName as per request
-                    //ProductGroupName = null, // Set to null as ProductGroup is not included
                     //ServiceGroupName = null, // Set to null as ServiceGroup is not included
-                    //RequestNatureName = null, // Set to null as RequestNature is not included
                     //RequestTypeName = null, // Set to null as RequestType is not included
                     //WorkflowName = null // Set to null as Workflow is not included
                 };
@@ -211,8 +218,10 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
 
                     // --- UPDATE LOGIC ---
                     entity.CompanyCode = model.CompanyCode;
-                    entity.BranchId = model.BranchId.GetValueOrDefault();
-                    entity.DepartmentId = model.DepartmentId.GetValueOrDefault();
+                    entity.BranchId = model.BranchId;
+                    entity.DepartmentId = model.DepartmentId;
+                    entity.ProductNatureId = model.ProductNatureId;
+                    entity.PurchaseNatureId = model.PurchaseNatureId;
                     entity.RequiredBy = model.RequiredBy;
                     entity.StateId = savedStateId; // Set State to the hardcoded ID for "Saved"
                     //entity.ProductGroupId = model.ProductGroupId;
@@ -238,8 +247,10 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     entity = new PurchaseRequisition
                     {
                         CompanyCode = model.CompanyCode,
-                        BranchId = model.BranchId.GetValueOrDefault(),
-                        DepartmentId = model.DepartmentId.GetValueOrDefault(),
+                        BranchId = model.BranchId,
+                        DepartmentId = model.DepartmentId,
+                        ProductNatureId = model.ProductNatureId,
+                        PurchaseNatureId = model.PurchaseNatureId,
                         RequiredBy = model.RequiredBy,
                         StateId = savedStateId, // Set State to the hardcoded ID for "Saved"
                         //ProductGroupId = model.ProductGroupId,
@@ -344,6 +355,26 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     })
                     .ToListAsync();
 
+                lookups.ProductNatures = await _context.ProductNatures
+                   .Where(x => x.IsActive)
+                   .OrderBy(x => x.NatureName)
+                   .Select(x => new ProductNatureLookupViewModel
+                   {
+                       NatureId = x.NatureId,
+                       NatureName = x.NatureName
+                   })
+                   .ToListAsync();
+
+                lookups.PurchaseNatures = await _context.PurchaseNatures
+                   .Where(x => x.IsActive)
+                   .OrderBy(x => x.PurchaseNatureName)
+                   .Select(x => new PurchaseNatureLookupViewModel
+                   {
+                       PurchaseNatureId = x.PurchaseNatureId,
+                       PurchaseNatureName = x.PurchaseNatureName
+                   })
+                   .ToListAsync();
+
                 //lookups.States = await _context.States
                 //    .Where(x => x.IsActive)
                 //    .OrderBy(x => x.StateName)
@@ -354,16 +385,6 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 //    })
                 //    .ToListAsync();
 
-                //lookups.ProductGroups = await _context.ProductGroups
-                //    .Where(x => x.IsActive)
-                //    .OrderBy(x => x.ProductGroupName)
-                //    .Select(x => new ProductGroupLookupViewModel
-                //    {
-                //        ProductGroupId = (short)x.ProductGroupId,
-                //        ProductGroupName = x.ProductGroupName
-                //    })
-                //    .ToListAsync();
-
                 //lookups.ServiceGroups = await _context.ServiceGroups
                 //    .Where(x => x.IsActive)
                 //    .OrderBy(x => x.ServiceGroupName)
@@ -371,16 +392,6 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 //    {
                 //        ServiceGroupId = (short)x.ServiceGroupId,
                 //        ServiceGroupName = x.ServiceGroupName
-                //    })
-                //    .ToListAsync();
-
-                //lookups.RequestNatures = await _context.RequestNatures
-                //    .Where(x => x.IsActive)
-                //    .OrderBy(x => x.RequestNatureName)
-                //    .Select(x => new RequestNatureLookupViewModel
-                //    {
-                //        RequestNatureId = (short)x.RequestNatureId,
-                //        RequestNatureName = x.RequestNatureName
                 //    })
                 //    .ToListAsync();
 
@@ -412,5 +423,28 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 throw;
             }
         }
+        public async Task<IEnumerable<ProductNatureLookupViewModel>> GetProductNaturesByPurchaseNatureIdAsync(short purchaseNatureId)
+        {
+            try
+            {
+                var productNatures = await _context.ProductNatures
+                    .Where(pn => pn.PurchaseNatureId == purchaseNatureId && pn.IsActive)
+                    .OrderBy(pn => pn.NatureName)
+                    .Select(pn => new ProductNatureLookupViewModel
+                    {
+                        NatureId = pn.NatureId,
+                        NatureName = pn.NatureName,
+                        PurchaseNatureId = pn.PurchaseNatureId
+                    })
+                    .ToListAsync();
+                return productNatures;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting product natures by PurchaseNatureId {purchaseNatureId}", purchaseNatureId);
+                throw;
+            }
+        }
+
     }
 }

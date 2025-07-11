@@ -98,40 +98,34 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label asp-for="PurchaseRequisition.ProductGroupId" class="form-label">Product Group</label>
+                                <label asp-for="PurchaseRequisition.PurchaseNatureId" class="form-label">Purchase Nature <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-cube"></i></span>
-                                    @* Uncomment and use @Model.ProductGroups if you enable this lookup in service/controller *@
-                                    <select asp-for="PurchaseRequisition.ProductGroupId" class="form-select">
-                                        @* asp-items="@Model.ProductGroups" *@
-                                        <option value="">-- Select Product Group --</option>
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-users"></i></span>
+                                    <select asp-for="PurchaseRequisition.PurchaseNatureId" asp-items="@Model.PurchaseNatures" class="form-select" id="purchaseNatureDropdown">
+                                        <option value="">-- Select Purchase Nature --</option>
                                     </select>
                                 </div>
-                                <span asp-validation-for="PurchaseRequisition.ProductGroupId" class="text-danger"></span>
+                                <span asp-validation-for="PurchaseRequisition.PurchaseNatureId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="PurchaseRequisition.ProductNatureId" class="form-label">Product Nature <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-users"></i></span>
+                                    <select asp-for="PurchaseRequisition.ProductNatureId" class="form-select" id="productNatureDropdown">
+                                        <option value="">-- Select Product Nature --</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.ProductNatureId" class="text-danger"></span>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label asp-for="PurchaseRequisition.ServiceGroupId" class="form-label">Service Group</label>
                                 <div class="input-group">
                                     <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-cogs"></i></span>
-                                    @* Uncomment and use @Model.ServiceGroups if you enable this lookup in service/controller *@
-                                    <select asp-for="PurchaseRequisition.ServiceGroupId" class="form-select">
-                                        @* asp-items="@Model.ServiceGroups" *@
+                                    <select asp-for="PurchaseRequisition.ServiceGroupId" asp-items="@Model.ServiceGroups" class="form-select">
                                         <option value="">-- Select Service Group --</option>
                                     </select>
                                 </div>
                                 <span asp-validation-for="PurchaseRequisition.ServiceGroupId" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label asp-for="PurchaseRequisition.RequestNatureId" class="form-label">Request Nature <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-question-circle"></i></span>
-                                    @* Uncomment and use @Model.RequestNatures if you enable this lookup in service/controller *@
-                                    <select asp-for="PurchaseRequisition.RequestNatureId" class="form-select">
-                                        @* asp-items="@Model.RequestNatures" *@
-                                        <option value="">-- Select Request Nature --</option>
-                                    </select>
-                                </div>
-                                <span asp-validation-for="PurchaseRequisition.RequestNatureId" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
@@ -139,9 +133,7 @@
                                 <label asp-for="PurchaseRequisition.RequestTypeId" class="form-label">Request Type <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-tags"></i></span>
-                                    @* Uncomment and use @Model.RequestTypes if you enable this lookup in service/controller *@
-                                    <select asp-for="PurchaseRequisition.RequestTypeId" class="form-select">
-                                        @* asp-items="@Model.RequestTypes" *@
+                                    <select asp-for="PurchaseRequisition.RequestTypeId" asp-items="@Model.RequestTypes" class="form-select">
                                         <option value="">-- Select Request Type --</option>
                                     </select>
                                 </div>
@@ -151,9 +143,7 @@
                                 <label asp-for="PurchaseRequisition.WorkFlowId" class="form-label">Workflow <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-project-diagram"></i></span>
-                                    @* Uncomment and use @Model.Workflows if you enable this lookup in service/controller *@
-                                    <select asp-for="PurchaseRequisition.WorkFlowId" class="form-select">
-                                        @* asp-items="@Model.Workflows" *@
+                                    <select asp-for="PurchaseRequisition.WorkFlowId" asp-items="@Model.Workflows" class="form-select">
                                         <option value="">-- Select Workflow --</option>
                                     </select>
                                 </div>
@@ -173,7 +163,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="d-flex justify-content-between mt-4">
                     <a asp-action="Index" class="btn btn-light text-primary" asp-controller="PurchaseRequisition" asp-area="Inventory"><i class="fas fa-arrow-left me-1"></i> Back to List</a>
                     <button type="submit" class="btn" style="background-color: #092963; color: white;"><i class="fas fa-save me-1"></i> Create Purchase Requisition</button>
@@ -187,4 +177,42 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Function to load Product Natures based on selected Purchase Nature
+            $('#purchaseNatureDropdown').change(function () {
+                var purchaseNatureId = $(this).val();
+                var productNatureDropdown = $('#productNatureDropdown');
+                productNatureDropdown.empty(); // Clear existing options
+                productNatureDropdown.append($('<option></option>').val('').text('-- Select Product Nature --')); // Add default option
+
+                if (purchaseNatureId) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductNaturesByPurchaseNature", "PurchaseRequisition", new { area = "Inventory" })',
+                        type: 'GET',
+                        data: { purchaseNatureId: purchaseNatureId },
+                        success: function (data) {
+                            $.each(data, function (index, item) {
+                                productNatureDropdown.append($('<option></option>').val(item.value).text(item.text));
+                            });
+                            // If there was a pre-selected ProductNatureId (e.g., during Edit), try to set it
+                            if ('@Model.PurchaseRequisition.ProductNatureId' && purchaseNatureId === '@Model.PurchaseRequisition.PurchaseNatureId') {
+                                productNatureDropdown.val('@Model.PurchaseRequisition.ProductNatureId');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Failed to load Product Natures:", error);
+                            // Optionally, show an error message to the user
+                        }
+                    });
+                }
+            });
+
+            // Trigger change event on page load if a Purchase Nature is already selected (e.g., during Edit)
+            if ($('#purchaseNatureDropdown').val()) {
+                $('#purchaseNatureDropdown').trigger('change');
+            }
+        });
+    </script>
 }

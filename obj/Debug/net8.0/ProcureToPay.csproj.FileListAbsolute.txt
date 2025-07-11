@@ -1220,3 +1220,4 @@ D:\ProcureToPay-Procurement\obj\Debug\net8.0\refint\ProcureToPay.dll
 D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.pdb
 D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.genruntimeconfig.cache
 D:\ProcureToPay-Procurement\obj\Debug\net8.0\ref\ProcureToPay.dll
+D:\ProcureToPay-Procurement\obj\Debug\net8.0\ProcureToPay.sourcelink.json

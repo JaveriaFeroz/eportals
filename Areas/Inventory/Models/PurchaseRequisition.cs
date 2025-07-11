@@ -19,10 +19,10 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string CompanyCode { get; set; } // Not nullable
 
         [Display(Name = "Branch")]
-        public int? BranchId { get; set; } // Nullable
+        public int BranchId { get; set; } // Nullable
 
         [Display(Name = "Department")]
-        public int? DepartmentId { get; set; } // Nullable
+        public int DepartmentId { get; set; } // Nullable
 
         [Display(Name = "Required By")]
         [DataType(DataType.Date)]
@@ -31,14 +31,11 @@ namespace ProcureToPay.Areas.Inventory.Models
         [Display(Name = "Current State")]
         public short? StateId { get; set; } // Nullable
 
-        [Display(Name = "Product Group")]
-        public short? ProductGroupId { get; set; } // Nullable
-
-        [Display(Name = "Service Group")]
-        public short? ServiceGroupId { get; set; } // Nullable
-
-        [Display(Name = "Request Nature")]
-        public short? RequestNatureId { get; set; } // Nullable
+        [Display(Name = "Product Nature")]
+        public short? ProductNatureId { get; set; } // Nullable
+         
+        [Display(Name = "Purchase Nature")]
+        public short? PurchaseNatureId { get; set; } // Nullable
 
         [Display(Name = "Request Type")]
         public short? RequestTypeId { get; set; } // Nullable
@@ -80,6 +77,12 @@ namespace ProcureToPay.Areas.Inventory.Models
 
         [ForeignKey("DepartmentId")]
         public virtual Department Department { get; set; }
+
+        [ForeignKey("ProductNatureId")]
+        public virtual ProductNature ProducNature { get; set; }
+
+        [ForeignKey("PurchaseNatureId")]
+        public virtual PurchaseNature PurchaseNature { get; set; }
 
         //[ForeignKey("StateId")]
         //public virtual State State { get; set; }

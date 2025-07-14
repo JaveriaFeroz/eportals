@@ -46,8 +46,7 @@
               "RelativeToolTip": "Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAUwBIAAAB5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T07:12:29.284Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T07:12:29.284Z"
             },
             {
               "$type": "Document",
@@ -59,8 +58,7 @@
               "RelativeToolTip": "Areas\\Inventory\\Models\\PurchaseRequisition.cs",
               "ViewState": "AgIAAFAAAAAAAAAAAAAuwFkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T11:19:54.159Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T11:19:54.159Z"
             },
             {
               "$type": "Document",
@@ -72,8 +70,7 @@
               "RelativeToolTip": "Areas\\Inventory\\Views\\PurchaseRequisition\\Create.cshtml",
               "ViewState": "AgIAAIYAAAAAAAAAAADwv9kAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-10T11:17:03.29Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T11:17:03.29Z"
             },
             {
               "$type": "Document",
@@ -85,8 +82,7 @@
               "RelativeToolTip": "Areas\\Inventory\\ViewModels\\PurchaseRequisitionViewModels.cs",
               "ViewState": "AgIAAFIAAAAAAAAAAAD4v9MAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T11:16:32.857Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T11:16:32.857Z"
             },
             {
               "$type": "Document",
@@ -96,7 +92,7 @@
               "RelativeDocumentMoniker": "Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
               "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
               "RelativeToolTip": "Areas\\Inventory\\Controllers\\PurchaseRequisitionController.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAowIYAAABvAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAYwEQAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-10T11:13:40.344Z",
               "EditorCaption": ""

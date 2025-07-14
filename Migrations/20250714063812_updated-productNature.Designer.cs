@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProcureToPay.Data;
 
@@ -11,9 +12,11 @@ using ProcureToPay.Data;
 namespace ProcureToPay.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250714063812_updated-productNature")]
+    partial class updatedproductNature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,6 +302,9 @@ namespace ProcureToPay.Migrations
                     b.Property<short?>("ProductNatureId")
                         .HasColumnType("smallint");
 
+                    b.Property<short?>("PurchaseNatureId")
+                        .HasColumnType("smallint");
+
                     b.Property<bool?>("Rejected")
                         .HasColumnType("bit");
 
@@ -307,9 +313,6 @@ namespace ProcureToPay.Migrations
 
                     b.Property<DateTime?>("RequiredBy")
                         .HasColumnType("datetime2");
-
-                    b.Property<short?>("ServiceNatureId")
-                        .HasColumnType("smallint");
 
                     b.Property<short?>("StateId")
                         .HasColumnType("smallint");
@@ -335,7 +338,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("ProductNatureId");
 
-                    b.HasIndex("ServiceNatureId");
+                    b.HasIndex("PurchaseNatureId");
 
                     b.HasIndex("UpdatedByUserId");
 
@@ -2081,6 +2084,45 @@ namespace ProcureToPay.Migrations
                     b.ToTable("ProductTypes");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PurchaseNature", b =>
+                {
+                    b.Property<short>("PurchaseNatureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("PurchaseNatureId"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PurchaseNatureName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PurchaseNatureId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PurchaseNatures");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Qualification", b =>
                 {
                     b.Property<short>("QualificationId")
@@ -2544,51 +2586,6 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("SeparationTypes");
-                });
-
-            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ServiceNature", b =>
-                {
-                    b.Property<short>("NatureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("NatureId"));
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsCapex")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOpex")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NatureName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("NatureId");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("CreatedOn");
-
-                    b.HasIndex("UpdatedByUserId");
-
-                    b.ToTable("ServiceNatures");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Shipper", b =>
@@ -3983,9 +3980,9 @@ namespace ProcureToPay.Migrations
                         .WithMany()
                         .HasForeignKey("ProductNatureId");
 
-                    b.HasOne("ProcureToPay.Areas.Master.Models.ServiceNature", "ServiceNature")
+                    b.HasOne("ProcureToPay.Areas.Master.Models.PurchaseNature", "PurchaseNature")
                         .WithMany()
-                        .HasForeignKey("ServiceNatureId");
+                        .HasForeignKey("PurchaseNatureId");
 
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
                         .WithMany()
@@ -4000,7 +3997,7 @@ namespace ProcureToPay.Migrations
 
                     b.Navigation("ProducNature");
 
-                    b.Navigation("ServiceNature");
+                    b.Navigation("PurchaseNature");
 
                     b.Navigation("UpdatedByUser");
                 });
@@ -4752,6 +4749,24 @@ namespace ProcureToPay.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PurchaseNature", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Qualification", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
@@ -4962,24 +4977,6 @@ namespace ProcureToPay.Migrations
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SeparationType", b =>
-                {
-                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("UpdatedByUser");
-                });
-
-            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ServiceNature", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
                         .WithMany()

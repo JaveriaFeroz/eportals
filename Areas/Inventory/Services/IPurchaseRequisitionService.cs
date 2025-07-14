@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProcureToPay.Data;
+using Microsoft.Extensions.Logging; // Make sure this is present for ILogger
 using ProcureToPay.Areas.Inventory.Models; // Ensure this namespace is correct
 using ProcureToPay.Areas.Master.Models; // Still needed if you use models from Master
-using Microsoft.Extensions.Logging; // Make sure this is present for ILogger
+using ProcureToPay.Data;
+using ProcureToPay.Enums;
 using System.Security.Claims; // Needed if you uncomment HttpContextAccessor later
 
 namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventory.Services
@@ -16,7 +17,8 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
         Task<bool> DeletePurchaseRequisitionAsync(int id); // Changed to int for PRNo
         Task<bool> PurchaseRequisitionExistsAsync(int prNo, int? excludeId = null); // Renamed and changed to int for PRNo
         Task<PurchaseRequisitionLookupsViewModel> GetLookupsAsync();
-        Task<IEnumerable<ProductNatureLookupViewModel>> GetProductNaturesByPurchaseNatureIdAsync(short purchaseNatureId);
+        Task<IEnumerable<ProductNatureLookupViewModel>> GetProductNaturesByPurchaseNatureTypeAsync(PurchaseNatureType type); // New method
+        Task<IEnumerable<ServiceNatureLookupViewModel>> GetServiceNaturesByPurchaseNatureTypeAsync(PurchaseNatureType type); // New method
     }
 
     // --- PurchaseRequisitionService Implementation ---
@@ -41,7 +43,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     .Include(x => x.Branch) // Assuming navigation properties exist
                     .Include(x => x.Department)
                     .Include(x => x.ProducNature)
-                    .Include(x => x.PurchaseNature)
+                    .Include(x => x.ServiceNature)
                     // .Include(x => x.State) // Removed as per request to hardcode StateName
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
@@ -69,7 +71,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                         BranchName = x.Branch != null ? x.Branch.BranchName : "",
                         DepartmentName = x.Department != null ? x.Department.DepartmentName : "",
                         ProductNatureName = x.ProducNature != null ? x.ProducNature.NatureName : "",
-                        PurchaseNatureName = x.PurchaseNature != null ? x.PurchaseNature.PurchaseNatureName : "",
+                        ServiceNatureName = x.ServiceNature != null ? x.ServiceNature.NatureName : "",
                         RequiredBy = x.RequiredBy.HasValue ? x.RequiredBy.Value : default, // Handle nullable DateTime
                         StateName = "Saved", // Hardcoded StateName as per request
                         Owner = x.Owner,
@@ -131,11 +133,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     .Include(x => x.Branch)
                     .Include(x => x.Department)
                     .Include(x => x.ProducNature)
-                    .Include(x => x.PurchaseNature)
-                    // .Include(x => x.State) // Removed as per request
-                    // .Include(x => x.ServiceGroup) // Removed as per request
-                    // .Include(x => x.RequestType) // Removed as per request
-                    // .Include(x => x.Workflow) // Removed as per request
+                    .Include(x => x.ServiceNature)
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
                     .FirstOrDefaultAsync(x => x.PRNo == id); // Using PRNo as primary key
@@ -149,14 +147,9 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     BranchId = entity.BranchId,
                     DepartmentId = entity.DepartmentId,
                     ProductNatureId = (short)entity.ProductNatureId,
-                    PurchaseNatureId = (short)entity.PurchaseNatureId,
+                    ServiceNatureId = (short)entity.ServiceNatureId,
                     RequiredBy = entity.RequiredBy,
                     StateId = entity.StateId, // Still gets StateId from entity
-                    //ProductGroupId = entity.ProductGroupId,
-                    //ServiceGroupId = entity.ServiceGroupId,
-                    //RequestNatureId = entity.RequestNatureId,
-                    //RequestTypeId = entity.RequestTypeId,
-                    //WorkFlowId = entity.WorkFlowId,
                     Owner = entity.Owner,
                     IsCompleted = entity.IsCompleted,
                     Approved = entity.Approved,
@@ -172,7 +165,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     BranchName = entity.Branch?.BranchName,
                     DepartmentName = entity.Department?.DepartmentName,
                     ProductNatureName = entity.ProducNature?.NatureName,
-                    PurchaseNatureName = entity.PurchaseNature?.PurchaseNatureName,
+                    ServiceNatureName = entity.ServiceNature?.NatureName,
                     StateName = "Saved", // Hardcoded StateName as per request
                     //ServiceGroupName = null, // Set to null as ServiceGroup is not included
                     //RequestTypeName = null, // Set to null as RequestType is not included
@@ -221,7 +214,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     entity.BranchId = model.BranchId;
                     entity.DepartmentId = model.DepartmentId;
                     entity.ProductNatureId = model.ProductNatureId;
-                    entity.PurchaseNatureId = model.PurchaseNatureId;
+                    entity.ServiceNatureId = model.ServiceNatureId;
                     entity.RequiredBy = model.RequiredBy;
                     entity.StateId = savedStateId; // Set State to the hardcoded ID for "Saved"
                     //entity.ProductGroupId = model.ProductGroupId;
@@ -250,7 +243,7 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                         BranchId = model.BranchId,
                         DepartmentId = model.DepartmentId,
                         ProductNatureId = model.ProductNatureId,
-                        PurchaseNatureId = model.PurchaseNatureId,
+                        ServiceNatureId = model.ServiceNatureId,
                         RequiredBy = model.RequiredBy,
                         StateId = savedStateId, // Set State to the hardcoded ID for "Saved"
                         //ProductGroupId = model.ProductGroupId,
@@ -361,59 +354,23 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                    .Select(x => new ProductNatureLookupViewModel
                    {
                        NatureId = x.NatureId,
-                       NatureName = x.NatureName
+                       NatureName = x.NatureName,
+                       IsOpex = x.IsOpex,
+                       IsCapex = x.IsCapex
                    })
                    .ToListAsync();
 
-                lookups.PurchaseNatures = await _context.PurchaseNatures
+                lookups.ServiceNatures = await _context.ServiceNatures
                    .Where(x => x.IsActive)
-                   .OrderBy(x => x.PurchaseNatureName)
-                   .Select(x => new PurchaseNatureLookupViewModel
+                   .OrderBy(x => x.NatureName)
+                   .Select(x => new ServiceNatureLookupViewModel
                    {
-                       PurchaseNatureId = x.PurchaseNatureId,
-                       PurchaseNatureName = x.PurchaseNatureName
+                       NatureId = x.NatureId,
+                       NatureName = x.NatureName,
+                       IsOpex = x.IsOpex,
+                       IsCapex = x.IsCapex
                    })
                    .ToListAsync();
-
-                //lookups.States = await _context.States
-                //    .Where(x => x.IsActive)
-                //    .OrderBy(x => x.StateName)
-                //    .Select(x => new StateLookupViewModel
-                //    {
-                //        StateId = (short)x.StateId,
-                //        StateName = x.StateName
-                //    })
-                //    .ToListAsync();
-
-                //lookups.ServiceGroups = await _context.ServiceGroups
-                //    .Where(x => x.IsActive)
-                //    .OrderBy(x => x.ServiceGroupName)
-                //    .Select(x => new ServiceGroupLookupViewModel
-                //    {
-                //        ServiceGroupId = (short)x.ServiceGroupId,
-                //        ServiceGroupName = x.ServiceGroupName
-                //    })
-                //    .ToListAsync();
-
-                //lookups.RequestTypes = await _context.RequestTypes
-                //    .Where(x => x.IsActive)
-                //    .OrderBy(x => x.RequestTypeName)
-                //    .Select(x => new RequestTypeLookupViewModel
-                //    {
-                //        RequestTypeId = (short)x.RequestTypeId,
-                //        RequestTypeName = x.RequestTypeName
-                //    })
-                //    .ToListAsync();
-
-                //lookups.Workflows = await _context.Workflows
-                //    .Where(x => x.IsActive)
-                //    .OrderBy(x => x.WorkflowName)
-                //    .Select(x => new WorkflowLookupViewModel
-                //    {
-                //        WorkflowId = (short)x.WorkflowId,
-                //        WorkflowName = x.WorkflowName
-                //    })
-                //    .ToListAsync();
 
                 return lookups;
             }
@@ -423,25 +380,77 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 throw;
             }
         }
-        public async Task<IEnumerable<ProductNatureLookupViewModel>> GetProductNaturesByPurchaseNatureIdAsync(short purchaseNatureId)
+        public async Task<IEnumerable<ProductNatureLookupViewModel>> GetProductNaturesByPurchaseNatureTypeAsync(PurchaseNatureType type)
         {
             try
             {
-                var productNatures = await _context.ProductNatures
-                    .Where(pn => pn.PurchaseNatureId == purchaseNatureId && pn.IsActive)
+                IQueryable<Master.Models.ProductNature> query = _context.ProductNatures.Where(pn => pn.IsActive);
+
+                if (type == PurchaseNatureType.Opex)
+                {
+                    query = query.Where(pn => pn.IsOpex);
+                }
+                else if (type == PurchaseNatureType.Capex)
+                {
+                    query = query.Where(pn => pn.IsCapex);
+                }
+                else // If "None" or other, return empty or all as per business logic
+                {
+                    return new List<ProductNatureLookupViewModel>();
+                }
+
+                return await query
                     .OrderBy(pn => pn.NatureName)
                     .Select(pn => new ProductNatureLookupViewModel
                     {
                         NatureId = pn.NatureId,
                         NatureName = pn.NatureName,
-                        PurchaseNatureId = pn.PurchaseNatureId
+                        IsOpex = pn.IsOpex,
+                        IsCapex = pn.IsCapex
                     })
                     .ToListAsync();
-                return productNatures;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error getting product natures by PurchaseNatureId {purchaseNatureId}", purchaseNatureId);
+                _logger.LogError(ex, "Error getting product natures by purchase nature type: {type}", type);
+                throw;
+            }
+        }
+
+        // New method to get Service Natures based on Opex/Capex
+        public async Task<IEnumerable<ServiceNatureLookupViewModel>> GetServiceNaturesByPurchaseNatureTypeAsync(PurchaseNatureType type)
+        {
+            try
+            {
+                IQueryable<Master.Models.ServiceNature> query = _context.ServiceNatures.Where(sn => sn.IsActive);
+
+                if (type == PurchaseNatureType.Opex)
+                {
+                    query = query.Where(sn => sn.IsOpex);
+                }
+                else if (type == PurchaseNatureType.Capex)
+                {
+                    query = query.Where(sn => sn.IsCapex);
+                }
+                else // If "None" or other, return empty or all as per business logic
+                {
+                    return new List<ServiceNatureLookupViewModel>();
+                }
+
+                return await query
+                    .OrderBy(sn => sn.NatureName)
+                    .Select(sn => new ServiceNatureLookupViewModel
+                    {
+                        NatureId = sn.NatureId,
+                        NatureName = sn.NatureName,
+                        IsOpex = sn.IsOpex,
+                        IsCapex = sn.IsCapex
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting service natures by purchase nature type: {type}", type);
                 throw;
             }
         }

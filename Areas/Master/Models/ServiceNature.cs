@@ -1,11 +1,11 @@
-using ProcureToPay.Areas.Common.Models;
+﻿using ProcureToPay.Areas.Common.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcureToPay.Areas.Master.Models
 {
-    [Table("ProductNatures")]
-    public class ProductNature : AuditableEntity
+    [Table("ServiceNatures")]
+    public class ServiceNature : AuditableEntity
     {
         [Key]
         public short NatureId { get; set; }

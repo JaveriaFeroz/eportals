@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProcureToPay.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 // Assuming you have a folder for ViewModels inside Inventory area or a common ViewModels folder
 // using ProcureToPay.Areas.Inventory.ViewModels; // If you have specific Inventory ViewModels
 // You might need to adjust the namespace based on your project structure
 namespace ProcureToPay.Areas.Inventory.Models
 {
-    public class PurchaseRequisitionViewModel
+    public class PurchaseRequisitionViewModel : IValidatableObject
     {
         [Display(Name = "PR No.")]
         public int PRNo { get; set; } // Not nullable, corresponds to the Model's PK
@@ -23,13 +25,20 @@ namespace ProcureToPay.Areas.Inventory.Models
         [Display(Name = "Department")]
         public int DepartmentId { get; set; }
 
-        [Required(ErrorMessage = "Product nature is required")] // Required for form input
-        [Display(Name = "ProductNature")]
-        public short ProductNatureId { get; set; }
 
-        [Required(ErrorMessage = "Purchase nature is required")] // Required for form input
-        [Display(Name = "PurchaseNature")]
-        public short PurchaseNatureId { get; set; }
+        [Required(ErrorMessage = "Purchase Nature Type is required.")]
+        [Display(Name = "Purchase Nature Type")]
+        public PurchaseNatureType PurchaseNatureType { get; set; } // Opex or Capex
+
+        [Required(ErrorMessage = "Purchase Item Type is required.")]
+        [Display(Name = "Purchase Item Type")]
+        public PurchaseItemType PurchaseItemType { get; set; } // Goods or Service
+
+        [Display(Name = "ProductNature")]
+        public short? ProductNatureId { get; set; }
+
+        [Display(Name = "ServiceNature")]
+        public short? ServiceNatureId { get; set; }
 
         [Display(Name = "Required By")]
         [DataType(DataType.Date)]
@@ -38,17 +47,6 @@ namespace ProcureToPay.Areas.Inventory.Models
 
         [Display(Name = "Current State")]
         public short? StateId { get; set; } // Nullable
-
-        [Display(Name = "Service Group")]
-        public short? ServiceGroupId { get; set; } // Nullable
-
-        //[Required(ErrorMessage = "Request Type is required")] // Required for form input
-        [Display(Name = "Request Type")]
-        public short? RequestTypeId { get; set; } // Nullable
-
-        //[Required(ErrorMessage = "Workflow is required")] // Required for form input
-        [Display(Name = "Workflow")]
-        public short? WorkFlowId { get; set; } // Nullable
 
         [Required(ErrorMessage = "Owner is required")] // Required for form input
         [Display(Name = "Owner")]
@@ -92,14 +90,38 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string? DepartmentName { get; set; }
         public string? StateName { get; set; }
         public string? ProductNatureName { get; set; }
-        public string? ServiceGroupName { get; set; }
-        public string? PurchaseNatureName { get; set; }
-        public string? RequestTypeName { get; set; }
-        public string? WorkflowName { get; set; }
+        public string? ServiceNatureName { get; set; }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // Conditional validation based on PurchaseItemType
+            if (PurchaseItemType == PurchaseItemType.Goods && (ProductNatureId == null || ProductNatureId <= 0))
+            {
+                yield return new ValidationResult(
+                    "Product Nature is required when Purchase Item Type is Goods.",
+                    new[] { nameof(ProductNatureId) }
+                );
+            }
+            else if (PurchaseItemType == PurchaseItemType.Service && (ServiceNatureId == null || ServiceNatureId <= 0))
+            {
+                yield return new ValidationResult(
+                    "Service Nature is required when Purchase Item Type is Service.",
+                    new[] { nameof(ServiceNatureId) }
+                );
+            }
+        }
     }
 
-    // Removed: public class PurchaseRequisitionDetailViewModel { ... }
-
+    public static class EnumExtensions
+    {
+        public static string GetDisplayName(this Enum enumValue)
+        {
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .FirstOrDefault()?
+                            .GetCustomAttribute<DisplayAttribute>()?
+                            .Name ?? enumValue.ToString();
+        }
+    }
     // PurchaseRequisitionListViewModel (no changes to nullability based on this request)
     public class PurchaseRequisitionListViewModel
     {
@@ -107,8 +129,8 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string CompanyCode { get; set; }
         public string BranchName { get; set; }
         public string DepartmentName { get; set; }
-        public string ProductNatureName { get; set; }
-        public string PurchaseNatureName { get; set; }
+        public string? ProductNatureName { get; set; }
+        public string? ServiceNatureName { get; set; }
         public DateTime RequiredBy { get; set; }
         public string StateName { get; set; }
         public string Owner { get; set; }
@@ -138,14 +160,10 @@ namespace ProcureToPay.Areas.Inventory.Models
         public List<SelectListItem> Departments { get; set; } = new();
         public List<SelectListItem> States { get; set; } = new();
         public List<SelectListItem> ProductNatures { get; set; } = new();
-        public List<SelectListItem> PurchaseNatures { get; set; } = new();
-       
-        public List<SelectListItem> ServiceGroups { get; set; } = new();
-        
-        public List<SelectListItem> RequestTypes { get; set; } = new();
-        public List<SelectListItem> Workflows { get; set; } = new();
-        // Removed: public List<SelectListItem> Items { get; set; }
-        // Removed: public List<SelectListItem> Units { get; set; }
+        public List<SelectListItem> ServiceNatures { get; set; } = new();
+
+        public List<SelectListItem> PurchaseNatureOptions { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> PurchaseTypeOptions { get; set; } = new List<SelectListItem>();
     }
 
     // PurchaseRequisitionLookupsViewModel (removed Item and Unit lookups)
@@ -155,14 +173,8 @@ namespace ProcureToPay.Areas.Inventory.Models
         public List<DepartmentLookupViewModel> Departments { get; set; } = new List<DepartmentLookupViewModel>();
         public List<ProductNatureLookupViewModel> ProductNatures { get; set; } = new List<ProductNatureLookupViewModel>();
 
-        public List<PurchaseNatureLookupViewModel> PurchaseNatures { get; set; } = new List<PurchaseNatureLookupViewModel>();
-
-        public List<StateLookupViewModel> States { get; set; } = new List<StateLookupViewModel>();
-        public List<ServiceGroupLookupViewModel> ServiceGroups { get; set; } = new List<ServiceGroupLookupViewModel>();
-        public List<RequestTypeLookupViewModel> RequestTypes { get; set; } = new List<RequestTypeLookupViewModel>();
-        public List<WorkflowLookupViewModel> Workflows { get; set; } = new List<WorkflowLookupViewModel>();
-        // Removed: public List<ItemLookupViewModel> Items { get; set; }
-        // Removed: public List<UnitLookupViewModel> Units { get; set; }
+        public List<ServiceNatureLookupViewModel> ServiceNatures { get; set; } = new List<ServiceNatureLookupViewModel>();
+        
     }
 
     // Example Lookup ViewModels (removed Item and Unit lookups)
@@ -181,13 +193,17 @@ namespace ProcureToPay.Areas.Inventory.Models
         public short NatureId { get; set; }
         public string NatureName { get; set; }
 
-        public short PurchaseNatureId { get; set; }
+        public bool IsOpex { get; set; } 
+        public bool IsCapex { get; set; }
+
     }
 
-    public class PurchaseNatureLookupViewModel
+    public class ServiceNatureLookupViewModel
     {
-        public short PurchaseNatureId { get; set; }
-        public string PurchaseNatureName { get; set; }
+        public short NatureId { get; set; }
+        public string NatureName { get; set; }
+        public bool IsOpex { get; set; } 
+        public bool IsCapex { get; set; }
     }
     public class StateLookupViewModel
     {
@@ -195,11 +211,6 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string StateName { get; set; }
     }
     
-    public class ServiceGroupLookupViewModel
-    {
-        public short ServiceGroupId { get; set; }
-        public string ServiceGroupName { get; set; }
-    }
     public class RequestNatureLookupViewModel
     {
         public short RequestNatureId { get; set; }

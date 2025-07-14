@@ -1,13 +1,13 @@
-﻿@model ProcureToPay.Areas.Master.ViewModels.ProductNatureCreateEditViewModel
+﻿@model ProcureToPay.Areas.Master.ViewModels.ServiceNatureCreateEditViewModel
 
 <div class="modal-body">
-    <form id="productNatureEditForm" method="post" asp-action="Edit" asp-controller="ProductNature" asp-area="Master">
+    <form id="serviceNatureEditForm" method="post" asp-action="Edit" asp-controller="ServiceNature" asp-area="Master">
         @Html.AntiForgeryToken()
         @* Display validation summary at the top if there are model-level errors *@
         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-        @* Hidden input for the ProductNatureId is crucial for the update *@
-        <input type="hidden" asp-for="ProductNature.NatureId" />
+        @* Hidden input for the ServiceNatureId is crucial for the update *@
+        <input type="hidden" asp-for="ServiceNature.NatureId" />
 
         @* ==== Card 1: Basic Information ==== *@
         <div class="card mb-4">
@@ -17,30 +17,30 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="ProductNature.NatureName" class="form-label">NATURE Name <span class="text-danger">*</span></label>
+                        <label asp-for="ServiceNature.NatureName" class="form-label">NATURE Name <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-tag"></i></span>
-                            <input asp-for="ProductNature.NatureName" class="form-control" />
+                            <input asp-for="ServiceNature.NatureName" class="form-control" />
                         </div>
-                        <span asp-validation-for="ProductNature.NatureName" class="text-danger"></span>
+                        <span asp-validation-for="ServiceNature.NatureName" class="text-danger"></span>
                     </div>
                     
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Associated Purchase Natures <span class="text-danger">*</span></label>
                         <div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" asp-for="ProductNature.IsOpex">
-                                <label class="form-check-label" for="@Html.IdFor(m => m.ProductNature.IsOpex)">
+                                <input class="form-check-input" type="checkbox" asp-for="ServiceNature.IsOpex">
+                                <label class="form-check-label" for="@Html.IdFor(m => m.ServiceNature.IsOpex)">
                                     Opex
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" asp-for="ProductNature.IsCapex"> 
-                                <label class="form-check-label" for="@Html.IdFor(m => m.ProductNature.IsCapex)"> 
+                                <input class="form-check-input" type="checkbox" asp-for="ServiceNature.IsCapex"> 
+                                <label class="form-check-label" for="@Html.IdFor(m => m.ServiceNature.IsCapex)"> 
                                     Capex
                                 </label>
                             </div>
-                            <span asp-validation-for="ProductNature.IsOpex" class="text-danger"></span>
+                            <span asp-validation-for="ServiceNature.IsOpex" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -56,8 +56,8 @@
                 <div class="row">
                     <div class="col-12 mb-3">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" asp-for="ProductNature.IsActive">
-                            <label class="form-check-label" asp-for="ProductNature.IsActive">Is Active</label>
+                            <input class="form-check-input" type="checkbox" asp-for="ServiceNature.IsActive">
+                            <label class="form-check-label" asp-for="ServiceNature.IsActive">Is Active</label>
                         </div>
                     </div>
                 </div>

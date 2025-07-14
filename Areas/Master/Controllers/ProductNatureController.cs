@@ -22,19 +22,7 @@ namespace ProcureToPay.Areas.Master.Controllers
         }
 
 
-        private async Task LoadDropdowns(ProductNatureCreateEditViewModel viewModel)
-        {
-            var lookups = await _productNatureService.GetLookupsAsync();
-
-
-            viewModel.PurchaseNatures = lookups.PurchaseNatures.Select(c => new SelectListItem
-            {
-                Text = c.PurchaseNatureName,
-                Value = c.PurchaseNatureId.ToString()
-            }).ToList();
-
-
-        }
+       
 
         // 1. INDEX
         // GET: Master/ProductNature
@@ -65,7 +53,6 @@ namespace ProcureToPay.Areas.Master.Controllers
         {
             var viewModel = new ProductNatureCreateEditViewModel();
 
-            await LoadDropdowns(viewModel);
 
             return View(viewModel);
         }
@@ -132,7 +119,6 @@ namespace ProcureToPay.Areas.Master.Controllers
             }
 
             var viewModel = new ProductNatureCreateEditViewModel { ProductNature = productNature };
-            await LoadDropdowns(viewModel);
 
             return View(viewModel); // Assuming Edit uses a full view like Create.
         }
@@ -181,24 +167,27 @@ namespace ProcureToPay.Areas.Master.Controllers
             }
 
             // If we reach here, validation failed. Reload dropdowns and return the Partial View with errors.
-            await LoadDropdowns(viewModel);
             return PartialView(viewModel);
         }
 
         // 4. DETAILS
-        // GET: Master/ProductNature/Details/5
+        // GET: Master/ProductType/Details/5
         public async Task<IActionResult> Details(short id)
         {
             try
             {
                 var productNature = await _productNatureService.GetProductNatureByIdAsync(id);
-                if (productNature == null) return NotFound();
+                if (productNature == null)
+                {
+                    return NotFound();
+                }
+
                 return View(productNature);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error loading productNature details for ID {CategoryId}", id);
-                TempData["ErrorMessage"] = "Error loading productNature details. Please try again.";
+                _logger.LogError(ex, "Error loading product type details for ID {NatureId}", id);
+                TempData["ErrorMessage"] = "An error occurred while loading the product Nature details.";
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -215,7 +204,7 @@ namespace ProcureToPay.Areas.Master.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error loading delete productNature page for ID {CategoryId}", id);
+                _logger.LogError(ex, "Error loading delete productNature page for ID {NatureId}", id);
                 TempData["ErrorMessage"] = "Error loading delete page. Please try again.";
                 return RedirectToAction(nameof(Index));
             }
@@ -232,25 +221,22 @@ namespace ProcureToPay.Areas.Master.Controllers
 
                 if (success)
                 {
-                    TempData["SuccessMessage"] = "ProductNature deleted successfully.";
-                    return Json(new { success = true, message = "ProductNature deleted successfully." });
+                    TempData["SuccessMessage"] = "Product Nature deleted successfully.";
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Failed to delete productNature.";
-                    return Json(new { success = false, message = "Failed to delete productNature. It may have already been removed." });
+                    TempData["ErrorMessage"] = "Failed to delete product nature.";
                 }
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error deleting productNature with ID {CategoryId}", id);
-                TempData["ErrorMessage"] = "An error occurred while deleting the productNature.";
+                _logger.LogError(ex, "Error deleting product nature with ID {NatureId}", id);
+                TempData["ErrorMessage"] = "An error occurred while deleting the product nature.";
                 return RedirectToAction(nameof(Index));
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> CheckNatureNameExists(string productNatureName, short? excludeId = null)
         {
@@ -265,20 +251,6 @@ namespace ProcureToPay.Areas.Master.Controllers
                 return Json(new { error = "Error checking productNature name" });
             }
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetLookups()
-        {
-            try
-            {
-                var lookups = await _productNatureService.GetLookupsAsync();
-                return Json(lookups);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving lookups");
-                return Json(new { error = "Error retrieving lookups" });
-            }
-        }
+       
     }
 }

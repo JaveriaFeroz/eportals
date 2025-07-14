@@ -1,4 +1,5 @@
-﻿@model ProcureToPay.Areas.Inventory.Models.PurchaseRequisitionCreateEditViewModel
+﻿@using ProcureToPay.Enums
+@model ProcureToPay.Areas.Inventory.Models.PurchaseRequisitionCreateEditViewModel
 
 @{
     ViewData["Title"] = "Create Purchase Requisition";
@@ -73,8 +74,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-clipboard-list"></i></span>
                                     <input asp-for="PurchaseRequisition.StateName" class="form-control" readonly="readonly" value="Saved" />
-                                    @* We need to send the actual StateId for saving, but display the hardcoded name *@
-                                    <input type="hidden" asp-for="PurchaseRequisition.StateId" value="1" /> @* Assuming StateId 1 is 'Saved' *@
+                                    <input type="hidden" asp-for="PurchaseRequisition.StateId" value="1" />
                                 </div>
                                 <span asp-validation-for="PurchaseRequisition.StateName" class="text-danger"></span>
                             </div>
@@ -97,59 +97,77 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            @* Purchase Nature Type (Opex/Capex Radio Buttons) *@
                             <div class="col-md-4 mb-3">
-                                <label asp-for="PurchaseRequisition.PurchaseNatureId" class="form-label">Purchase Nature <span class="text-danger">*</span></label>
+                                <label class="form-label">Purchase Nature Type <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-users"></i></span>
-                                    <select asp-for="PurchaseRequisition.PurchaseNatureId" asp-items="@Model.PurchaseNatures" class="form-select" id="purchaseNatureDropdown">
-                                        <option value="">-- Select Purchase Nature --</option>
-                                    </select>
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-hand-holding-usd"></i></span>
+                                    <div class="d-flex align-items-center ms-3" style="border: none;">
+                                        @* Added ms-3 for left margin *@
+                                        @foreach (var option in Model.PurchaseNatureOptions)
+                                        {
+                                            <div class="form-check form-check-inline me-3">
+                                                <input class="form-check-input purchase-nature-type-radio" type="radio"
+                                                       name="PurchaseRequisition.PurchaseNatureType"
+                                                       id="purchaseNatureType_@(option.Value)"
+                                                       value="@option.Value"
+                                                       @( ( (int)Model.PurchaseRequisition.PurchaseNatureType ).ToString() == option.Value ? "checked" : "" ) />
+                                                <label class="form-check-label" for="purchaseNatureType_@(option.Value)">@option.Text</label>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
-                                <span asp-validation-for="PurchaseRequisition.PurchaseNatureId" class="text-danger"></span>
+                                <span asp-validation-for="PurchaseRequisition.PurchaseNatureType" class="text-danger"></span>
                             </div>
+
+                            @* Purchase Item Type (Goods/Service Radio Buttons) *@
                             <div class="col-md-4 mb-3">
+                                <label class="form-label">Purchase Item Type <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-shopping-cart"></i></span>
+                                    <div class="d-flex align-items-center ms-3" style="border: none;">
+                                        @* Added ms-3 for left margin *@
+                                        @foreach (var option in Model.PurchaseTypeOptions)
+                                        {
+                                            <div class="form-check form-check-inline me-3">
+                                                <input class="form-check-input purchase-item-type-radio" type="radio"
+                                                       name="PurchaseRequisition.PurchaseItemType"
+                                                       id="purchaseItemType_@(option.Value)"
+                                                       value="@option.Value"
+                                                       @( ( (int)Model.PurchaseRequisition.PurchaseItemType ).ToString() == option.Value ? "checked" : "" ) />
+                                                <label class="form-check-label" for="purchaseItemType_@(option.Value)">@option.Text</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <span asp-validation-for="PurchaseRequisition.PurchaseItemType" class="text-danger"></span>
+                            </div>
+
+                            @* Product Nature Dropdown (initially hidden) *@
+                            <div class="col-md-4 mb-3" id="productNatureGroup" style="display: none;">
                                 <label asp-for="PurchaseRequisition.ProductNatureId" class="form-label">Product Nature <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-users"></i></span>
-                                    <select asp-for="PurchaseRequisition.ProductNatureId" class="form-select" id="productNatureDropdown">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-box-open"></i></span>
+                                    <select asp-for="PurchaseRequisition.ProductNatureId" asp-items="@Model.ProductNatures" class="form-select" id="productNatureDropdown">
                                         <option value="">-- Select Product Nature --</option>
                                     </select>
                                 </div>
                                 <span asp-validation-for="PurchaseRequisition.ProductNatureId" class="text-danger"></span>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label asp-for="PurchaseRequisition.ServiceGroupId" class="form-label">Service Group</label>
+
+                            @* Service Nature Dropdown (initially hidden) *@
+                            <div class="col-md-4 mb-3" id="serviceNatureGroup" style="display: none;">
+                                <label asp-for="PurchaseRequisition.ServiceNatureId" class="form-label">Service Nature <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-cogs"></i></span>
-                                    <select asp-for="PurchaseRequisition.ServiceGroupId" asp-items="@Model.ServiceGroups" class="form-select">
-                                        <option value="">-- Select Service Group --</option>
+                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-concierge-bell"></i></span>
+                                    <select asp-for="PurchaseRequisition.ServiceNatureId" asp-items="@Model.ServiceNatures" class="form-select" id="serviceNatureDropdown">
+                                        <option value="">-- Select Service Nature --</option>
                                     </select>
                                 </div>
-                                <span asp-validation-for="PurchaseRequisition.ServiceGroupId" class="text-danger"></span>
+                                <span asp-validation-for="PurchaseRequisition.ServiceNatureId" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label asp-for="PurchaseRequisition.RequestTypeId" class="form-label">Request Type <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-tags"></i></span>
-                                    <select asp-for="PurchaseRequisition.RequestTypeId" asp-items="@Model.RequestTypes" class="form-select">
-                                        <option value="">-- Select Request Type --</option>
-                                    </select>
-                                </div>
-                                <span asp-validation-for="PurchaseRequisition.RequestTypeId" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label asp-for="PurchaseRequisition.WorkFlowId" class="form-label">Workflow <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-project-diagram"></i></span>
-                                    <select asp-for="PurchaseRequisition.WorkFlowId" asp-items="@Model.Workflows" class="form-select">
-                                        <option value="">-- Select Workflow --</option>
-                                    </select>
-                                </div>
-                                <span asp-validation-for="PurchaseRequisition.WorkFlowId" class="text-danger"></span>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label asp-for="PurchaseRequisition.Justification" class="form-label">Justification <span class="text-danger">*</span></label>
@@ -180,39 +198,95 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            // Function to load Product Natures based on selected Purchase Nature
-            $('#purchaseNatureDropdown').change(function () {
-                var purchaseNatureId = $(this).val();
-                var productNatureDropdown = $('#productNatureDropdown');
-                productNatureDropdown.empty(); // Clear existing options
-                productNatureDropdown.append($('<option></option>').val('').text('-- Select Product Nature --')); // Add default option
 
-                if (purchaseNatureId) {
+            // Cache selectors for performance
+            var $productNatureGroup = $('#productNatureGroup');
+            var $serviceNatureGroup = $('#serviceNatureGroup');
+            var $productNatureDropdown = $('#productNatureDropdown');
+            var $serviceNatureDropdown = $('#serviceNatureDropdown');
+            var $purchaseNatureTypeRadios = $('.purchase-nature-type-radio');
+            var $purchaseItemTypeRadios = $('.purchase-item-type-radio');
+
+            // Function to handle the visibility and loading of Nature dropdowns
+            function updateNatureDropdowns() {
+                var selectedPurchaseNatureType = $purchaseNatureTypeRadios.filter(':checked').val();
+                var selectedPurchaseItemType = $purchaseItemTypeRadios.filter(':checked').val();
+
+                // Reset dropdowns and hide groups
+                $productNatureDropdown.empty().append($('<option></option>').val('').text('-- Select Product Nature --'));
+                $serviceNatureDropdown.empty().append($('<option></option>').val('').text('-- Select Service Nature --'));
+                $productNatureGroup.hide();
+                $serviceNatureGroup.hide();
+
+                if (!selectedPurchaseNatureType || !selectedPurchaseItemType) {
+                    return; // Do nothing if either type is not selected
+                }
+
+                // Determine which nature dropdown to show and populate
+                if (selectedPurchaseItemType === '@((int)PurchaseItemType.Goods)') { // Check if 'Goods' is selected
+                    $productNatureGroup.show();
+                    loadProductNatures(selectedPurchaseNatureType);
+                } else if (selectedPurchaseItemType === '@((int)PurchaseItemType.Service)') { // Check if 'Service' is selected
+                    $serviceNatureGroup.show();
+                    loadServiceNatures(selectedPurchaseNatureType);
+                }
+            }
+
+            function loadProductNatures(purchaseNatureType) {
+                if (purchaseNatureType) {
                     $.ajax({
-                        url: '@Url.Action("GetProductNaturesByPurchaseNature", "PurchaseRequisition", new { area = "Inventory" })',
+                        url: '@Url.Action("GetProductNaturesByPurchaseNatureType", "PurchaseRequisition", new { area = "Inventory" })',
                         type: 'GET',
-                        data: { purchaseNatureId: purchaseNatureId },
+                        data: { purchaseNatureType: purchaseNatureType },
                         success: function (data) {
                             $.each(data, function (index, item) {
-                                productNatureDropdown.append($('<option></option>').val(item.value).text(item.text));
+                                $productNatureDropdown.append($('<option></option>').val(item.value).text(item.text));
                             });
-                            // If there was a pre-selected ProductNatureId (e.g., during Edit), try to set it
-                            if ('@Model.PurchaseRequisition.ProductNatureId' && purchaseNatureId === '@Model.PurchaseRequisition.PurchaseNatureId') {
-                                productNatureDropdown.val('@Model.PurchaseRequisition.ProductNatureId');
+                            // If there's a pre-selected value (e.g., on Edit or validation error), set it
+                            var preSelectedProductNatureId = '@Model.PurchaseRequisition.ProductNatureId';
+                            if (preSelectedProductNatureId && preSelectedProductNatureId !== "0") {
+                                $productNatureDropdown.val(preSelectedProductNatureId);
                             }
                         },
                         error: function (xhr, status, error) {
                             console.error("Failed to load Product Natures:", error);
-                            // Optionally, show an error message to the user
                         }
                     });
                 }
-            });
-
-            // Trigger change event on page load if a Purchase Nature is already selected (e.g., during Edit)
-            if ($('#purchaseNatureDropdown').val()) {
-                $('#purchaseNatureDropdown').trigger('change');
             }
+
+            function loadServiceNatures(purchaseNatureType) {
+                if (purchaseNatureType) {
+                    $.ajax({
+                        url: '@Url.Action("GetServiceNaturesByPurchaseNatureType", "PurchaseRequisition", new { area = "Inventory" })',
+                        type: 'GET',
+                        data: { purchaseNatureType: purchaseNatureType },
+                        success: function (data) {
+                            $.each(data, function (index, item) {
+                                $serviceNatureDropdown.append($('<option></option>').val(item.value).text(item.text));
+                            });
+                            // If there's a pre-selected value (e.g., on Edit or validation error), set it
+                            var preSelectedServiceNatureId = '@Model.PurchaseRequisition.ServiceNatureId';
+                            if (preSelectedServiceNatureId && preSelectedServiceNatureId !== "0") {
+                                $serviceNatureDropdown.val(preSelectedServiceNatureId);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Failed to load Service Natures:", error);
+                        }
+                    });
+                }
+            }
+
+            // Event listeners for radio button changes
+            $purchaseNatureTypeRadios.on('change', updateNatureDropdowns);
+            $purchaseItemTypeRadios.on('change', updateNatureDropdowns);
+
+
+            // Initial call to set up the dropdowns on page load (important for Edit/validation errors)
+            // This will ensure the correct dropdown is shown and populated if values exist in the model.
+            updateNatureDropdowns();
+
         });
     </script>
 }

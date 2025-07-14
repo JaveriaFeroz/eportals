@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProcureToPay.Areas.Inventory.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProcureToPay.Areas.Master.ViewModels
 {
-    public class ProductNatureViewModel
+    public class ServiceNatureViewModel
     {
         public short? NatureId { get; set; }
 
@@ -47,11 +48,11 @@ namespace ProcureToPay.Areas.Master.ViewModels
         }
     }
 
-    public class ProductNatureCreateEditViewModel
+    public class ServiceNatureCreateEditViewModel
     {
-        public ProductNatureViewModel ProductNature { get; set; } = new ProductNatureViewModel();
+        public ServiceNatureViewModel ServiceNature { get; set; } = new ServiceNatureViewModel();
     }
-    public class ProductNatureListViewModel
+    public class ServiceNatureListViewModel
     {
         public short NatureId { get; set; }
         public string NatureName { get; set; }
@@ -64,9 +65,9 @@ namespace ProcureToPay.Areas.Master.ViewModels
         public DateTime? UpdatedOn { get; set; }
     }
 
-    public class ProductNatureIndexViewModel
+    public class ServiceNatureIndexViewModel
     {
-        public List<ProductNatureListViewModel> ProductNatures { get; set; } = new List<ProductNatureListViewModel>();
+        public List<ServiceNatureListViewModel> ServiceNatures { get; set; } = new List<ServiceNatureListViewModel>();
         public bool ShowInactiveOnly { get; set; } = false;
         public string SearchTerm { get; set; }
     }

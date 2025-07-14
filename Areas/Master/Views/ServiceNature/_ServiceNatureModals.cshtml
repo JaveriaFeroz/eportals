@@ -1,51 +1,51 @@
 ﻿@* This partial defines the modal structures and contains the JavaScript logic for them. *@
 
-<div class="modal fade" id="productNatureEditModal" tabindex="-1" aria-labelledby="productNatureEditModalLabel" aria-hidden="true">
+<div class="modal fade" id="serviceNatureEditModal" tabindex="-1" aria-labelledby="serviceNatureEditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #092963">
-                <h5 class="modal-title text-white" id="productNatureEditModalLabel">
-                    <i class="fas fa-edit me-2"></i> Edit Product Nature
+                <h5 class="modal-title text-white" id="serviceNatureEditModalLabel">
+                    <i class="fas fa-edit me-2"></i> Edit Service Nature
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="productNatureEditModalBody">
+            <div class="modal-body" id="serviceNatureEditModalBody">
                 @* Content will be loaded via AJAX here *@
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="productNatureDetailsModal" tabindex="-1" aria-labelledby="productNatureDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="serviceNatureDetailsModal" tabindex="-1" aria-labelledby="serviceNatureDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #092963">
-                <h5 class="modal-title text-white" id="productNatureDetailsModalLabel">
-                    <i class="fas fa-info-circle me-2"></i> Product Nature Details
+                <h5 class="modal-title text-white" id="serviceNatureDetailsModalLabel">
+                    <i class="fas fa-info-circle me-2"></i> Service Nature Details
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="productNatureDetailsModalBody">
+            <div class="modal-body" id="serviceNatureDetailsModalBody">
                 @* Content will be loaded via AJAX here *@
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="productNatureDeleteModal" tabindex="-1" aria-labelledby="productNatureDeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="serviceNatureDeleteModal" tabindex="-1" aria-labelledby="serviceNatureDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #092963;">
-                <h5 class="modal-title text-white" id="productNatureDeleteModalLabel">
-                    <i class="fas fa-trash-alt me-2"></i> Delete Product Nature: <span id="deleteModalProductNatureName"></span>
+                <h5 class="modal-title text-white" id="serviceNatureDeleteModalLabel">
+                    <i class="fas fa-trash-alt me-2"></i> Delete Service Nature: <span id="deleteModalServiceNatureName"></span>
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete productNature <strong id="deleteModalProductNatureNameConfirm"></strong>?</p>
+                <p>Are you sure you want to delete serviceNature <strong id="deleteModalServiceNatureNameConfirm"></strong>?</p>
             </div>
             <div class="modal-footer">
-                <form id="productNatureDeleteForm" method="post" action="" class="d-flex justify-content-end">
+                <form id="serviceNatureDeleteForm" method="post" action="" class="d-flex justify-content-end">
                     @Html.AntiForgeryToken()
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Yes, Delete</button>
@@ -65,37 +65,37 @@
             return `/${area}/${page}/${action}`;
         }
 
-        // --- Function to attach/re-attach form submission handler for the ProductNature Edit modal ---
-        function attachProductNatureEditFormSubmissionHandler() {
-            const editForm = document.getElementById('productNatureEditForm'); // Target the productNature edit form
+        // --- Function to attach/re-attach form submission handler for the ServiceNature Edit modal ---
+        function attachServiceNatureEditFormSubmissionHandler() {
+            const editForm = document.getElementById('serviceNatureEditForm'); // Target the serviceNature edit form
             if (editForm) {
                 // Ensure no duplicate listeners by removing any existing ones
-                editForm.removeEventListener('submit', handleProductNatureEditFormSubmit);
-                editForm.addEventListener('submit', handleProductNatureEditFormSubmit);
+                editForm.removeEventListener('submit', handleServiceNatureEditFormSubmit);
+                editForm.addEventListener('submit', handleServiceNatureEditFormSubmit);
 
                 // Re-parse client-side validation for dynamically loaded content
                 if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
                     jQuery(editForm).removeData("validator");
                     jQuery(editForm).removeData("unobtrusiveValidation");
                     jQuery.validator.unobtrusive.parse(editForm);
-                    console.log("Client-side validation re-parsed for #productNatureEditForm.");
+                    console.log("Client-side validation re-parsed for #serviceNatureEditForm.");
                 } else {
-                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for productNature form.");
+                    console.warn("jQuery or Unobtrusive Validation not fully loaded. Client-side validation may not work for serviceNature form.");
                 }
             } else {
-                console.warn("#productNatureEditForm not found when trying to attach handler.");
+                console.warn("#serviceNatureEditForm not found when trying to attach handler.");
             }
         }
 
-        // --- Handler for the ProductNature Edit form submission (AJAX) ---
-        async function handleProductNatureEditFormSubmit(event) {
+        // --- Handler for the ServiceNature Edit form submission (AJAX) ---
+        async function handleServiceNatureEditFormSubmit(event) {
             event.preventDefault(); // Stop default browser navigation
 
             const form = event.target;
 
             // Perform client-side validation
             if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
-                console.log("Client-side validation failed for productNature form. Not sending AJAX request.");
+                console.log("Client-side validation failed for serviceNature form. Not sending AJAX request.");
                 return;
             }
 
@@ -108,21 +108,21 @@
                 });
 
                 const contentType = response.headers.get("content-type"); // Get content type to distinguish JSON/HTML
-                const productNatureEditModalBodyElement = document.getElementById('productNatureEditModalBody');
+                const serviceNatureEditModalBodyElement = document.getElementById('serviceNatureEditModalBody');
 
                 if (contentType && contentType.includes("application/json")) {
                     // This is a JSON response (success or specific error)
                     const jsonResponse = await response.json();
                     if (jsonResponse.success) {
                         // Success: close modal, show message, reload page
-                        const productNatureEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('productNatureEditModal'));
-                        if (productNatureEditModalInstance) {
-                            productNatureEditModalInstance.hide();
+                        const serviceNatureEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('serviceNatureEditModal'));
+                        if (serviceNatureEditModalInstance) {
+                            serviceNatureEditModalInstance.hide();
                         }
                         if (typeof toastr !== 'undefined') { // Check if Toastr is available
-                            toastr.success(jsonResponse.message || "ProductNature updated successfully!");
+                            toastr.success(jsonResponse.message || "ServiceNature updated successfully!");
                         } else {
-                            console.log("ProductNature update successful: " + (jsonResponse.message || "Operation completed."));
+                            console.log("ServiceNature update successful: " + (jsonResponse.message || "Operation completed."));
                         }
                         window.location.reload(); // Reload to reflect changes
                     } else {
@@ -130,26 +130,26 @@
                         if (typeof toastr !== 'undefined') {
                             toastr.error(jsonResponse.message || "An error occurred.");
                         } else {
-                            console.error("ProductNature update failed: " + (jsonResponse.message || "An error occurred."));
+                            console.error("ServiceNature update failed: " + (jsonResponse.message || "An error occurred."));
                         }
-                        // For critical errors (e.g., productNature not found), you might want to close the modal
-                        const productNatureEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('productNatureEditModal'));
-                        if (productNatureEditModalInstance) {
-                            productNatureEditModalInstance.hide(); // Hide for critical errors
+                        // For critical errors (e.g., serviceNature not found), you might want to close the modal
+                        const serviceNatureEditModalInstance = bootstrap.Modal.getInstance(document.getElementById('serviceNatureEditModal'));
+                        if (serviceNatureEditModalInstance) {
+                            serviceNatureEditModalInstance.hide(); // Hide for critical errors
                         }
                     }
                 } else {
                     // HTML response: likely validation errors, inject back into modal
                     const responseHtml = await response.text();
-                    productNatureEditModalBodyElement.innerHTML = responseHtml;
-                    console.log("ProductNature validation errors received. Injecting form HTML into modal body.");
+                    serviceNatureEditModalBodyElement.innerHTML = responseHtml;
+                    console.log("ServiceNature validation errors received. Injecting form HTML into modal body.");
                     // Re-attach handler for the new form content, after a small delay
-                    setTimeout(attachProductNatureEditFormSubmissionHandler, 50);
+                    setTimeout(attachServiceNatureEditFormSubmissionHandler, 50);
                 }
 
             } catch (error) {
-                console.error('Network or unexpected error during productNature form submission:', error);
-                productNatureEditModalBodyElement.innerHTML = `
+                console.error('Network or unexpected error during serviceNature form submission:', error);
+                serviceNatureEditModalBodyElement.innerHTML = `
                     <div class="alert alert-danger" role="alert">
                         A network or unexpected error occurred. Please check your connection and try again.
                     </div>
@@ -157,8 +157,8 @@
             }
         }
 
-        // --- Handler for ProductNature Delete form submission (AJAX) ---
-        async function handleProductNatureDeleteFormSubmit(event) {
+        // --- Handler for ServiceNature Delete form submission (AJAX) ---
+        async function handleServiceNatureDeleteFormSubmit(event) {
             event.preventDefault(); // Stop default form submission
             const currentForm = event.target;
             const formData = new FormData(currentForm);
@@ -180,87 +180,87 @@
                         modalInstance.hide();
                     }
                     if (typeof toastr !== 'undefined') {
-                        toastr.success(jsonResponse.message || "ProductNature deleted successfully!");
+                        toastr.success(jsonResponse.message || "ServiceNature deleted successfully!");
                     } else {
-                        console.log("ProductNature deleted: " + (jsonResponse.message || "Operation completed."));
+                        console.log("ServiceNature deleted: " + (jsonResponse.message || "Operation completed."));
                     }
                     window.location.reload(); // Reload page to reflect deletion
                 } else {
                     // Error: show message
                     if (typeof toastr !== 'undefined') {
-                        toastr.error(jsonResponse.message || "Failed to delete productNature.");
+                        toastr.error(jsonResponse.message || "Failed to delete serviceNature.");
                     } else {
-                        console.error("ProductNature delete failed: " + (jsonResponse.message || "An error occurred."));
+                        console.error("ServiceNature delete failed: " + (jsonResponse.message || "An error occurred."));
                     }
                 }
             } catch (error) {
-                console.error("Network or unexpected error during productNature delete submission:", error);
+                console.error("Network or unexpected error during serviceNature delete submission:", error);
                 if (typeof toastr !== 'undefined') {
-                    toastr.error("An unexpected error occurred during productNature deletion. Please try again.");
+                    toastr.error("An unexpected error occurred during serviceNature deletion. Please try again.");
                 } else {
-                    console.error("An unexpected error occurred during productNature deletion. Please try again.");
+                    console.error("An unexpected error occurred during serviceNature deletion. Please try again.");
                 }
             }
         }
 
 
-        // --- ProductNature Modal Openers ---
+        // --- ServiceNature Modal Openers ---
 
-        // Edit ProductNature Modal Opener
-        document.querySelectorAll('.edit-btn[data-page="ProductNature"]').forEach(function (button) {
+        // Edit ServiceNature Modal Opener
+        document.querySelectorAll('.edit-btn[data-page="ServiceNature"]').forEach(function (button) {
             button.addEventListener('click', async function () {
                 const id = this.getAttribute('data-id');
-                const url = getUrl('Master', 'ProductNature', 'Edit', id);
+                const url = getUrl('Master', 'ServiceNature', 'Edit', id);
                 try {
                     const response = await fetch(url);
-                    document.getElementById('productNatureEditModalBody').innerHTML = await response.text();
-                    new bootstrap.Modal(document.getElementById('productNatureEditModal')).show();
-                    setTimeout(attachProductNatureEditFormSubmissionHandler, 50);
+                    document.getElementById('serviceNatureEditModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('serviceNatureEditModal')).show();
+                    setTimeout(attachServiceNatureEditFormSubmissionHandler, 50);
                 } catch (error) {
-                    console.error('Error loading productNature edit modal:', error);
+                    console.error('Error loading serviceNature edit modal:', error);
                     toastr.error("Failed to load edit form.");
                 }
             });
         });
 
-        // Details ProductNature Modal Opener
-        document.querySelectorAll('.details-btn[data-page="ProductNature"]').forEach(function (button) {
+        // Details ServiceNature Modal Opener
+        document.querySelectorAll('.details-btn[data-page="ServiceNature"]').forEach(function (button) {
             button.addEventListener('click', async function () {
                 const id = this.getAttribute('data-id');
-                const url = getUrl('Master', 'ProductNature', 'Details', id);
+                const url = getUrl('Master', 'ServiceNature', 'Details', id);
                 try {
                     const response = await fetch(url);
-                    document.getElementById('productNatureDetailsModalBody').innerHTML = await response.text();
-                    new bootstrap.Modal(document.getElementById('productNatureDetailsModal')).show();
+                    document.getElementById('serviceNatureDetailsModalBody').innerHTML = await response.text();
+                    new bootstrap.Modal(document.getElementById('serviceNatureDetailsModal')).show();
                 } catch (error) {
-                    console.error('Error loading productNature details modal:', error);
+                    console.error('Error loading serviceNature details modal:', error);
                     toastr.error("Failed to load details.");
                 }
             });
         });
 
-        // Delete ProductNature Modal Opener
+        // Delete ServiceNature Modal Opener
         document.querySelectorAll('.delete-btn').forEach(function (button) {
             button.addEventListener('click', function () {
                 const id = this.getAttribute('data-id');
                 const area = this.getAttribute('data-area');
                 const page = this.getAttribute('data-page');
-                const productNatureName = this.getAttribute('data-name'); // Corrected data attribute name, matches Razor now
+                const serviceNatureName = this.getAttribute('data-name'); // Corrected data attribute name, matches Razor now
 
                 const url = getUrl(area, page, 'Delete', id);
 
-                // If you want to display the productNature name in the delete confirmation modal
-                const deleteModalProductNatureNameSpan = document.getElementById('deleteModalProductNatureName');
-                if (deleteModalProductNatureNameSpan) {
-                    deleteModalProductNatureNameSpan.textContent = productNatureName;
+                // If you want to display the serviceNature name in the delete confirmation modal
+                const deleteModalServiceNatureNameSpan = document.getElementById('deleteModalServiceNatureName');
+                if (deleteModalServiceNatureNameSpan) {
+                    deleteModalServiceNatureNameSpan.textContent = serviceNatureName;
                 }
-                const deleteModalProductNatureNameConfirmSpan = document.getElementById('deleteModalProductNatureNameConfirm');
-                if (deleteModalProductNatureNameConfirmSpan) {
-                    deleteModalProductNatureNameConfirmSpan.textContent = productNatureName;
+                const deleteModalServiceNatureNameConfirmSpan = document.getElementById('deleteModalServiceNatureNameConfirm');
+                if (deleteModalServiceNatureNameConfirmSpan) {
+                    deleteModalServiceNatureNameConfirmSpan.textContent = serviceNatureName;
                 }
 
-                document.getElementById('productNatureDeleteForm').setAttribute('action', url);
-                new bootstrap.Modal(document.getElementById('productNatureDeleteModal')).show();
+                document.getElementById('serviceNatureDeleteForm').setAttribute('action', url);
+                new bootstrap.Modal(document.getElementById('serviceNatureDeleteModal')).show();
             });
         });
     }); // End DOMContentLoaded

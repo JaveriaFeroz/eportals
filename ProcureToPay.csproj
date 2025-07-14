@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Common\Enums\" />
     <Folder Include="Areas\Common\Services\" />
     <Folder Include="Areas\Procurement\ViewModels\" />
     <Folder Include="ViewModels\" />

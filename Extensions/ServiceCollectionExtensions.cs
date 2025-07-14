@@ -34,7 +34,7 @@ namespace ProcureToPay.Extensions
             services.AddScoped<IIndustryVerticalService, IndustryVerticalService>();
             services.AddScoped<IMakeService, MakeService>();
             services.AddScoped<IPaymentModeService, PaymentModeService>();
-            services.AddScoped<IPurchaseNatureService, PurchaseNatureService>();
+            services.AddScoped<IServiceNatureService, ServiceNatureService>();
             services.AddScoped<IPriorityService, PriorityService>();
             services.AddScoped<IQualificationService, QualificationService>();
             services.AddScoped<IRateTypeService, RateTypeService>();

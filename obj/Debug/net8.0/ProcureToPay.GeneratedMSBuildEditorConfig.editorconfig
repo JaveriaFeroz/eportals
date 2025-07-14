@@ -600,26 +600,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RcX1Byb2R1Y3RNb2RhbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProcureToPay-Procurement/Areas/Master/Views/PurchaseNature/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFB1cmNoYXNlTmF0dXJlXENyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ProcureToPay-Procurement/Areas/Master/Views/PurchaseNature/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFB1cmNoYXNlTmF0dXJlXERldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ProcureToPay-Procurement/Areas/Master/Views/PurchaseNature/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFB1cmNoYXNlTmF0dXJlXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ProcureToPay-Procurement/Areas/Master/Views/PurchaseNature/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFB1cmNoYXNlTmF0dXJlXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ProcureToPay-Procurement/Areas/Master/Views/PurchaseNature/_PurchaseNatureModals.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFB1cmNoYXNlTmF0dXJlXF9QdXJjaGFzZU5hdHVyZU1vZGFscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/ProcureToPay-Procurement/Areas/Master/Views/Qualification/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFF1YWxpZmljYXRpb25cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -718,6 +698,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/ProcureToPay-Procurement/Areas/Master/Views/SeparationType/_SeparationTypeModals.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcGFyYXRpb25UeXBlXF9TZXBhcmF0aW9uVHlwZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProcureToPay-Procurement/Areas/Master/Views/ServiceNature/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProcureToPay-Procurement/Areas/Master/Views/ServiceNature/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProcureToPay-Procurement/Areas/Master/Views/ServiceNature/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProcureToPay-Procurement/Areas/Master/Views/ServiceNature/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProcureToPay-Procurement/Areas/Master/Views/ServiceNature/_ServiceNatureModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcX1NlcnZpY2VOYXR1cmVNb2RhbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProcureToPay-Procurement/Areas/Master/Views/Shipper/Create.cshtml]

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Inventory.Models; // Models for PurchaseRequisition
 using ProcureToPay.Areas.Inventory.Services; // Service for PurchaseRequisition
+using ProcureToPay.Enums;
 using System.Security.Claims; // For accessing User claims like NameIdentifier
 
 namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
@@ -38,37 +39,29 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
                 Value = d.DepartmentId.ToString()
             }).ToList();
 
+            viewModel.PurchaseNatureOptions = Enum.GetValues(typeof(PurchaseNatureType))
+                                                .Cast<PurchaseNatureType>()
+                                                .Where(e => e != PurchaseNatureType.None) // Exclude "Select Type" enum value
+                                                .Select(e => new SelectListItem
+                                                {
+                                                    Text = e.GetDisplayName(),
+                                                    Value = ((int)e).ToString()
+                                                }).ToList();
+
+            // Populate PurchaseTypeOptions (Goods/Service radio buttons)
+            viewModel.PurchaseTypeOptions = Enum.GetValues(typeof(PurchaseItemType))
+                                               .Cast<PurchaseItemType>()
+                                               .Where(e => e != PurchaseItemType.None) // Exclude "Select Item Type" enum value
+                                               .Select(e => new SelectListItem
+                                               {
+                                                   Text = e.GetDisplayName(),
+                                                   Value = ((int)e).ToString()
+                                               }).ToList();
+
+
+            // ProductNatures and ServiceNatures will be loaded dynamically via AJAX
             viewModel.ProductNatures = new List<SelectListItem>();
-
-            viewModel.PurchaseNatures = lookups.PurchaseNatures.Select(d => new SelectListItem
-            {
-                Text = d.PurchaseNatureName,
-                Value = d.PurchaseNatureId.ToString()
-            }).ToList();
-
-            // viewModel.ServiceGroups = lookups.ServiceGroups.Select(sg => new SelectListItem
-            // {
-            //     Text = sg.ServiceGroupName,
-            //     Value = sg.ServiceGroupId.ToString()
-            // }).ToList();
-
-            // viewModel.RequestNatures = lookups.RequestNatures.Select(rn => new SelectListItem
-            // {
-            //     Text = rn.RequestNatureName,
-            //     Value = rn.RequestNatureId.ToString()
-            // }).ToList();
-
-            // viewModel.RequestTypes = lookups.RequestTypes.Select(rt => new SelectListItem
-            // {
-            //     Text = rt.RequestTypeName,
-            //     Value = rt.RequestTypeId.ToString()
-            // }).ToList();
-
-            // viewModel.Workflows = lookups.Workflows.Select(wf => new SelectListItem
-            // {
-            //     Text = wf.WorkflowName,
-            //     Value = wf.WorkflowId.ToString()
-            // }).ToList();
+            viewModel.ServiceNatures = new List<SelectListItem>();
         }
 
         // 1. INDEX
@@ -101,6 +94,8 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
             var viewModel = new PurchaseRequisitionCreateEditViewModel();
             viewModel.PurchaseRequisition.Owner = User.Identity?.Name ?? "System"; // Set initial owner
             viewModel.PurchaseRequisition.StateId = 1; // Assuming 1 is the ID for "Saved"
+            viewModel.PurchaseRequisition.PurchaseNatureType = PurchaseNatureType.Opex; // Default to OPEX
+            viewModel.PurchaseRequisition.PurchaseItemType = PurchaseItemType.Goods;   // Default to Goods
             await LoadDropdowns(viewModel); // Load dropdown data
             return View(viewModel);
         }
@@ -171,11 +166,11 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
             var viewModel = new PurchaseRequisitionCreateEditViewModel { PurchaseRequisition = purchaseRequisition };
             await LoadDropdowns(viewModel);
 
-            if (viewModel.PurchaseRequisition.PurchaseNatureId > 0)
-            {
-                viewModel.ProductNatures = (await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(viewModel.PurchaseRequisition.PurchaseNatureId))
-                    .Select(pn => new SelectListItem { Text = pn.NatureName, Value = pn.NatureId.ToString() }).ToList();
-            }
+            //if (viewModel.PurchaseRequisition.PurchaseNatureId > 0)
+            //{
+            //    viewModel.ProductNatures = (await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(viewModel.PurchaseRequisition.PurchaseNatureId))
+            //        .Select(pn => new SelectListItem { Text = pn.NatureName, Value = pn.NatureId.ToString() }).ToList();
+            //}
 
             return View(viewModel);
         }
@@ -227,11 +222,11 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
 
             // If we reach here, validation failed or an error occurred. Reload dropdowns and return the view with errors.
             await LoadDropdowns(viewModel);
-            if (viewModel.PurchaseRequisition.PurchaseNatureId > 0)
-            {
-                viewModel.ProductNatures = (await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(viewModel.PurchaseRequisition.PurchaseNatureId))
-                    .Select(pn => new SelectListItem { Text = pn.NatureName, Value = pn.NatureId.ToString() }).ToList();
-            }
+            //if (viewModel.PurchaseRequisition.PurchaseNatureId > 0)
+            //{
+            //    viewModel.ProductNatures = (await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(viewModel.PurchaseRequisition.PurchaseNatureId))
+            //        .Select(pn => new SelectListItem { Text = pn.NatureName, Value = pn.NatureId.ToString() }).ToList();
+            //}
             return View(viewModel); // Assuming it's a full page post for now
         }
 
@@ -321,11 +316,11 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetProductNaturesByPurchaseNature(short purchaseNatureId)
+        public async Task<IActionResult> GetProductNaturesByPurchaseNatureType(PurchaseNatureType purchaseNatureType)
         {
             try
             {
-                var productNatures = await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureIdAsync(purchaseNatureId);
+                var productNatures = await _purchaseRequisitionService.GetProductNaturesByPurchaseNatureTypeAsync(purchaseNatureType);
                 var selectListItems = productNatures.Select(pn => new SelectListItem
                 {
                     Text = pn.NatureName,
@@ -336,8 +331,30 @@ namespace ProcureToPay.Areas.Inventory.Controllers // Changed area and namespace
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error getting product natures for purchase nature ID: {purchaseNatureId}", purchaseNatureId);
+                _logger.LogError(ex, "Error getting product natures for purchase nature type: {purchaseNatureType}", purchaseNatureType);
                 return BadRequest("Error loading product natures.");
+            }
+        }
+
+        // New endpoint for Service Natures
+        [HttpGet]
+        public async Task<IActionResult> GetServiceNaturesByPurchaseNatureType(PurchaseNatureType purchaseNatureType)
+        {
+            try
+            {
+                var serviceNatures = await _purchaseRequisitionService.GetServiceNaturesByPurchaseNatureTypeAsync(purchaseNatureType);
+                var selectListItems = serviceNatures.Select(sn => new SelectListItem
+                {
+                    Text = sn.NatureName,
+                    Value = sn.NatureId.ToString()
+                }).ToList();
+
+                return Json(selectListItems);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting service natures for purchase nature type: {purchaseNatureType}", purchaseNatureType);
+                return BadRequest("Error loading service natures.");
             }
         }
     }

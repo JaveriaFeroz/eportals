@@ -5,31 +5,32 @@ using ProcureToPay.Data;
 
 namespace ProcureToPay.Areas.Master.Services
 {
-    public interface IPurchaseNatureService
+    public interface IServiceNatureService
     {
-        Task<IEnumerable<PurchaseNatureListViewModel>> GetPurchaseNaturesAsync(bool activeOnly = true, string searchTerm = null);
-        Task<PurchaseNatureViewModel> GetPurchaseNatureByIdAsync(short id);
-        Task<bool> SavePurchaseNatureAsync(PurchaseNatureViewModel model);
-        Task<bool> DeletePurchaseNatureAsync(short id);
-        Task<bool> PurchaseNatureExistsAsync(string purchaseNatureName, short? excludeId = null);
+        Task<IEnumerable<ServiceNatureListViewModel>> GetServiceNaturesAsync(bool activeOnly = true, string searchTerm = null);
+        Task<ServiceNatureViewModel> GetServiceNatureByIdAsync(short id);
+        Task<bool> SaveServiceNatureAsync(ServiceNatureViewModel model);
+        Task<bool> DeleteServiceNatureAsync(short id);
+        Task<bool> ServiceNatureExistsAsync(string natureName, short? excludeId = null);
+
     }
 
-    public class PurchaseNatureService : IPurchaseNatureService
+    public class ServiceNatureService : IServiceNatureService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<PurchaseNatureService> _logger;
+        private readonly ILogger<ServiceNatureService> _logger;
 
-        public PurchaseNatureService(ApplicationDbContext context, ILogger<PurchaseNatureService> logger)
+        public ServiceNatureService(ApplicationDbContext context, ILogger<ServiceNatureService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<IEnumerable<PurchaseNatureListViewModel>> GetPurchaseNaturesAsync(bool activeOnly = true, string searchTerm = null)
+        public async Task<IEnumerable<ServiceNatureListViewModel>> GetServiceNaturesAsync(bool activeOnly = true, string searchTerm = null)
         {
             try
             {
-                var query = _context.PurchaseNatures
+                var query = _context.ServiceNatures
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
                     .AsQueryable();
@@ -41,15 +42,17 @@ namespace ProcureToPay.Areas.Master.Services
 
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    query = query.Where(x => x.PurchaseNatureName.Contains(searchTerm));
+                    query = query.Where(x => x.NatureName.Contains(searchTerm));
                 }
 
                 var result = await query
-                    .OrderBy(x => x.PurchaseNatureName)
-                    .Select(x => new PurchaseNatureListViewModel
+                    .OrderBy(x => x.NatureName)
+                    .Select(x => new ServiceNatureListViewModel
                     {
-                        PurchaseNatureId = x.PurchaseNatureId,
-                        PurchaseNatureName = x.PurchaseNatureName,
+                        NatureId = x.NatureId,
+                        NatureName = x.NatureName,
+                        IsOpex = x.IsOpex,
+                        IsCapex = x.IsCapex,
                         IsActive = x.IsActive,
                         CreatedBy = x.CreatedByUser != null ? $"{x.CreatedByUser.FirstName} {x.CreatedByUser.LastName}" : "System",
                         CreatedOn = x.CreatedOn,
@@ -62,26 +65,28 @@ namespace ProcureToPay.Areas.Master.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving purchaseNatures");
+                _logger.LogError(ex, "Error retrieving service natures");
                 throw;
             }
         }
 
-        public async Task<PurchaseNatureViewModel> GetPurchaseNatureByIdAsync(short id)
+        public async Task<ServiceNatureViewModel> GetServiceNatureByIdAsync(short id)
         {
             try
             {
-                var entity = await _context.PurchaseNatures
+                var entity = await _context.ServiceNatures
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
-                    .FirstOrDefaultAsync(x => x.PurchaseNatureId == id);
+                    .FirstOrDefaultAsync(x => x.NatureId == id);
 
                 if (entity == null) return null;
 
-                return new PurchaseNatureViewModel
+                return new ServiceNatureViewModel
                 {
-                    PurchaseNatureId = entity.PurchaseNatureId,
-                    PurchaseNatureName = entity.PurchaseNatureName,
+                    NatureId = entity.NatureId,
+                    NatureName = entity.NatureName,
+                    IsOpex = entity.IsOpex,
+                    IsCapex = entity.IsCapex,
                     IsActive = entity.IsActive,
                     CreatedBy = entity.CreatedByUser != null ? $"{entity.CreatedByUser.FirstName} {entity.CreatedByUser.LastName}" : "System",
                     CreatedOn = entity.CreatedOn,
@@ -91,37 +96,41 @@ namespace ProcureToPay.Areas.Master.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving purchaseNature with ID {PurchaseNatureId}", id);
+                _logger.LogError(ex, "Error retrieving service nature with ID {NatureId}", id);
                 throw;
             }
         }
 
-        public async Task<bool> SavePurchaseNatureAsync(PurchaseNatureViewModel model)
+        public async Task<bool> SaveServiceNatureAsync(ServiceNatureViewModel model)
         {
             try
             {
-                PurchaseNature entity;
+                ServiceNature entity;
 
-                if (model.PurchaseNatureId.HasValue && model.PurchaseNatureId > 0)
+                if (model.NatureId.HasValue && model.NatureId > 0)
                 {
                     // Update existing
-                    entity = await _context.PurchaseNatures.FindAsync(model.PurchaseNatureId.Value);
+                    entity = await _context.ServiceNatures.FindAsync(model.NatureId.Value);
                     if (entity == null) return false;
 
-                    entity.PurchaseNatureName = model.PurchaseNatureName;
+                    entity.NatureName = model.NatureName;
+                    entity.IsOpex = model.IsOpex;
+                    entity.IsCapex = model.IsCapex;
                     entity.IsActive = model.IsActive;
                     // No need to set UpdatedBy/UpdatedOn - handled automatically by DbContext
                 }
                 else
                 {
                     // Create new
-                    entity = new PurchaseNature
+                    entity = new ServiceNature
                     {
-                        PurchaseNatureName = model.PurchaseNatureName,
+                        NatureName = model.NatureName,
+                        IsOpex = model.IsOpex,
+                        IsCapex = model.IsCapex,
                         IsActive = model.IsActive
                         // No need to set CreatedBy/CreatedOn - handled automatically by DbContext
                     };
-                    _context.PurchaseNatures.Add(entity);
+                    _context.ServiceNatures.Add(entity);
                 }
 
                 await _context.SaveChangesAsync();
@@ -129,47 +138,48 @@ namespace ProcureToPay.Areas.Master.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error saving purchaseNature");
+                _logger.LogError(ex, "Error saving service nature");
                 throw;
             }
         }
 
-        public async Task<bool> DeletePurchaseNatureAsync(short id)
+        public async Task<bool> DeleteServiceNatureAsync(short id)
         {
             try
             {
-                var entity = await _context.PurchaseNatures.FindAsync(id);
+                var entity = await _context.ServiceNatures.FindAsync(id);
                 if (entity == null) return false;
 
-                _context.PurchaseNatures.Remove(entity);
+                _context.ServiceNatures.Remove(entity);
                 await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error deleting purchaseNature with ID {PurchaseNatureId}", id);
+                _logger.LogError(ex, "Error deleting service nature with ID {NatureId}", id);
                 throw;
             }
         }
 
-        public async Task<bool> PurchaseNatureExistsAsync(string purchaseNatureName, short? excludeId = null)
+        public async Task<bool> ServiceNatureExistsAsync(string natureName, short? excludeId = null)
         {
             try
             {
-                var query = _context.PurchaseNatures.Where(x => x.PurchaseNatureName == purchaseNatureName);
+                var query = _context.ServiceNatures.Where(x => x.NatureName == natureName);
 
                 if (excludeId.HasValue)
                 {
-                    query = query.Where(x => x.PurchaseNatureId != excludeId.Value);
+                    query = query.Where(x => x.NatureId != excludeId.Value);
                 }
 
                 return await query.AnyAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error checking if purchaseNature exists");
+                _logger.LogError(ex, "Error checking if service nature exists");
                 throw;
             }
         }
+
     }
 }

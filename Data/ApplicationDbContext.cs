@@ -79,7 +79,7 @@ namespace ProcureToPay.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductNature> ProductNatures { get; set; }
-        public DbSet<PurchaseNature> PurchaseNatures { get; set; }
+        public DbSet<ServiceNature> ServiceNatures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<AssetDocument> AssetDocuments { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }

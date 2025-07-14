@@ -34,8 +34,8 @@ namespace ProcureToPay.Areas.Inventory.Models
         [Display(Name = "Product Nature")]
         public short? ProductNatureId { get; set; } // Nullable
          
-        [Display(Name = "Purchase Nature")]
-        public short? PurchaseNatureId { get; set; } // Nullable
+        [Display(Name = "Service Nature")]
+        public short? ServiceNatureId { get; set; } // Nullable
 
         [Display(Name = "Request Type")]
         public short? RequestTypeId { get; set; } // Nullable
@@ -81,12 +81,12 @@ namespace ProcureToPay.Areas.Inventory.Models
         [ForeignKey("ProductNatureId")]
         public virtual ProductNature ProducNature { get; set; }
 
-        [ForeignKey("PurchaseNatureId")]
-        public virtual PurchaseNature PurchaseNature { get; set; }
+        [ForeignKey("ServiceNatureId")]
+        public virtual ServiceNature ServiceNature { get; set; }
 
         //[ForeignKey("StateId")]
         //public virtual State State { get; set; }
 
-        // Removed: public virtual ICollection<PurchaseRequisitionDetail> Details { get; set; }
+         // Removed: public virtual ICollection<PurchaseRequisitionDetail> Details { get; set; }
     }
 }

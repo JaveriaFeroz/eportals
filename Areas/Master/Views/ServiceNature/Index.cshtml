@@ -1,7 +1,7 @@
-﻿@model ProcureToPay.Areas.Master.ViewModels.PurchaseNatureIndexViewModel
+﻿@model ProcureToPay.Areas.Master.ViewModels.ServiceNatureIndexViewModel
 
 @{
-    ViewData["Title"] = "PurchaseNatures";
+    ViewData["Title"] = "Service Natures";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,14 +12,14 @@
 <div class="container-fluid px-4 py-4">
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-area="Master" asp-controller="PurchaseNature" asp-action="Index">Master</a></li>
-        <li class="breadcrumb-item active">PurchaseNature</li>
+        <li class="breadcrumb-item"><a asp-area="Master" asp-controller="ServiceNature" asp-action="Index">Master</a></li>
+        <li class="breadcrumb-item active">Service Nature</li>
     </ol>
 
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
             <h5 class="card-title text-white mb-0">
-                <i class="fas fa-tags me-2"></i> Purchase Nature
+                <i class="fas fa-tags me-2"></i> Service Nature
             </h5>
         </div>
         <div class="card-body">
@@ -43,10 +43,10 @@
                 <div class="row g-3 align-items-center">
                     <div class="col-2">
                         <div class="input-group">
-                            <span class="input-group-text" id="purchaseNatureIcon">
+                            <span class="input-group-text" id="serviceNatureIcon">
                                 <i class="fas fa-filter" style="font-size: 1rem;"></i>
                             </span>
-                            <input type="text" class="form-control form-control-sm underline-input" id="purchaseNatureSearch" placeholder="PurchaseNature Name">
+                            <input type="text" class="form-control form-control-sm underline-input" id="serviceNatureSearch" placeholder="Service Nature Name">
                         </div>
                     </div>
 
@@ -68,10 +68,10 @@
                     <div class="col-auto ms-auto">
                         <div class="create-user-container">
                             <button class="action-button create-user-text"
-                                    data-url="@Url.Action("Create", "PurchaseNature", new { area = "Master" })"
+                                    data-url="@Url.Action("Create", "ServiceNature", new { area = "Master" })"
                                     style="background-color: #092963;">
                                 <i class="fas fa-plus"></i>
-                                <span class="button-text"> Add New Purchase Nature</span>
+                                <span class="button-text"> Add New Nature</span>
                             </button>
                             <a href="#" class="btn btn-sm create-user-icon">
                                 <i class="fas fa-plus"></i>
@@ -83,19 +83,19 @@
 
             @* Column Headers *@
             <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary">
-                <div class="col-4 d-flex align-items-center"><i class="fas fa-tag me-2 text-dark"></i> Purchase Nature NAME</div>
+                <div class="col-4 d-flex align-items-center"><i class="fas fa-tag me-2 text-dark"></i> NATURE NAME</div>
                 <div class="col-2 d-flex align-items-center justify-content-center"><i class="fas fa-toggle-on me-2 text-dark"></i> STATUS</div>
                 <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user-clock text-dark me-2"></i>CREATED</div>
                 <div class="col-md-2 d-flex align-items-center"><i class="fas fa-history text-dark me-2"></i>UPDATED</div>
                 <div class="col-2 text-center d-flex align-items-center justify-content-center"><i class="fas fa-cogs me-2 text-dark"></i> ACTIONS</div>
             </div>
 
-            @if (Model.PurchaseNatures.Any())
+            @if (Model.ServiceNatures.Any())
             {
-                foreach (var item in Model.PurchaseNatures)
+                foreach (var item in Model.ServiceNatures)
                 {
                     <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
-                        <div class="col-4 fw-bold">@item.PurchaseNatureName</div>
+                        <div class="col-4 fw-bold">@item.NatureName</div>
                         <div class="col-2 text-center">
                             @if (item.IsActive)
                             {
@@ -116,15 +116,15 @@
                         </div>
                         <div class="col-2 d-flex justify-content-center gap-1">
                             <button type="button" class="btn btn-sm text-warning edit-btn action-btn"
-                                    title="Edit" data-id="@item.PurchaseNatureId" data-area="Master" data-page="PurchaseNature">
+                                    title="Edit" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature">
                                 <i class="fas fa-edit icon-warning"></i>
                             </button>
                             <button type="button" class="btn btn-sm text-info details-btn action-btn"
-                                    title="Details" data-id="@item.PurchaseNatureId" data-area="Master" data-page="PurchaseNature">
+                                    title="Details" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature">
                                 <i class="fas fa-info-circle icon-info"></i>
                             </button>
                             <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
-                                    title="Delete" data-id="@item.PurchaseNatureId" data-area="Master" data-page="PurchaseNature" data-name="@item.PurchaseNatureName">
+                                    title="Delete" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature" data-name="@item.NatureName">
                                 <i class="fas fa-trash-alt icon-danger"></i>
                             </button>
                         </div>
@@ -136,7 +136,7 @@
                 <div class="row">
                     <div class="col-12 text-center text-muted py-4">
                         <i class="fas fa-inbox fa-2x mb-2"></i>
-                        <br>No purchaseNatures found.
+                        <br>No service types found.
                     </div>
                 </div>
             }
@@ -149,7 +149,7 @@
         </div>
 
         @* This partial view will contain the empty modal shells for Edit, Details, and Delete *@
-        @await Html.PartialAsync("_PurchaseNatureModals")
+        @await Html.PartialAsync("_ServiceNatureModals")
     </div>
 </div>
 
@@ -157,4 +157,6 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    @* This script handles the modal popups *@
+    <script src="~/js/modal-handler.js" asp-append-version="true"></script>
 }

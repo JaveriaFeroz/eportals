@@ -13,8 +13,6 @@ namespace ProcureToPay.Areas.Master.Services
         Task<bool> DeleteProductNatureAsync(short id);
         Task<bool> ProductNatureExistsAsync(string natureName, short? excludeId = null);
 
-        Task<ProductNatureLookupsViewModel> GetLookupsAsync();
-
     }
 
     public class ProductNatureService : IProductNatureService
@@ -53,6 +51,8 @@ namespace ProcureToPay.Areas.Master.Services
                     {
                         NatureId = x.NatureId,
                         NatureName = x.NatureName,
+                        IsOpex = x.IsOpex,
+                        IsCapex = x.IsCapex,
                         IsActive = x.IsActive,
                         CreatedBy = x.CreatedByUser != null ? $"{x.CreatedByUser.FirstName} {x.CreatedByUser.LastName}" : "System",
                         CreatedOn = x.CreatedOn,
@@ -75,7 +75,6 @@ namespace ProcureToPay.Areas.Master.Services
             try
             {
                 var entity = await _context.ProductNatures
-                    .Include(x => x.PurchaseNature)
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
                     .FirstOrDefaultAsync(x => x.NatureId == id);
@@ -86,8 +85,8 @@ namespace ProcureToPay.Areas.Master.Services
                 {
                     NatureId = entity.NatureId,
                     NatureName = entity.NatureName,
-                    PurchaseNatureId = entity.PurchaseNatureId,
-                    PurchaseNatureName = entity.PurchaseNature?.PurchaseNatureName,
+                    IsOpex = entity.IsOpex,
+                    IsCapex = entity.IsCapex,
                     IsActive = entity.IsActive,
                     CreatedBy = entity.CreatedByUser != null ? $"{entity.CreatedByUser.FirstName} {entity.CreatedByUser.LastName}" : "System",
                     CreatedOn = entity.CreatedOn,
@@ -115,7 +114,8 @@ namespace ProcureToPay.Areas.Master.Services
                     if (entity == null) return false;
 
                     entity.NatureName = model.NatureName;
-                    entity.PurchaseNatureId = model.PurchaseNatureId;
+                    entity.IsOpex = model.IsOpex;
+                    entity.IsCapex = model.IsCapex;
                     entity.IsActive = model.IsActive;
                     // No need to set UpdatedBy/UpdatedOn - handled automatically by DbContext
                 }
@@ -125,7 +125,8 @@ namespace ProcureToPay.Areas.Master.Services
                     entity = new ProductNature
                     {
                         NatureName = model.NatureName,
-                        PurchaseNatureId = model.PurchaseNatureId,
+                        IsOpex = model.IsOpex,
+                        IsCapex = model.IsCapex,
                         IsActive = model.IsActive
                         // No need to set CreatedBy/CreatedOn - handled automatically by DbContext
                     };
@@ -180,30 +181,5 @@ namespace ProcureToPay.Areas.Master.Services
             }
         }
 
-        public async Task<ProductNatureLookupsViewModel> GetLookupsAsync()
-        {
-            try
-            {
-                var lookups = new ProductNatureLookupsViewModel();
-
-
-                lookups.PurchaseNatures = await _context.PurchaseNatures
-                   .Where(x => x.IsActive)
-                   .OrderBy(x => x.PurchaseNatureName)
-                   .Select(x => new PurchaseNatureLookupViewModel
-                   {
-                       PurchaseNatureId = x.PurchaseNatureId,
-                       PurchaseNatureName = x.PurchaseNatureName
-                   })
-                   .ToListAsync();
-
-                return lookups;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving lookups");
-                throw;
-            }
-        }
     }
 }

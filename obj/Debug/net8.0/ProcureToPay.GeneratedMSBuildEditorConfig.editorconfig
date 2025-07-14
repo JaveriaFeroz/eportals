@@ -1120,6 +1120,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ProcureToPay-Procurement/Areas/Procurement/Views/PurchaseRequest/WorkflowAction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XFdvcmtmbG93QWN0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ProcureToPay-Procurement/Areas/Procurement/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

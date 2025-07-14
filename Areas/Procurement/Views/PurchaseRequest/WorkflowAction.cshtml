@@ -1,0 +1,146 @@
+﻿@model ProcureToPay.Areas.Procurement.Models.PurchaseRequest
+
+<!-- Submit Modal -->
+<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitModalLabel">Submit for Approval</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowAction" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="submit" />
+                    <div class="mb-3">
+                        <label for="submitComments" class="form-label">Comments (Optional)</label>
+                        <textarea class="form-control" id="submitComments" name="comments" rows="3" placeholder="Add any comments..."></textarea>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> This will submit the request for approval and you will not be able to edit it until it's returned or approved.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Modal -->
+<div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveModalLabel">Approve Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowAction" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="approve" />
+                    <div class="mb-3">
+                        <label for="approveComments" class="form-label">Approval Comments</label>
+                        <textarea class="form-control" id="approveComments" name="comments" rows="3" placeholder="Add approval comments..."></textarea>
+                    </div>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> This will approve the request and move it to the next approval level or mark it as fully approved.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Approve Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Return Modal -->
+<div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="returnModalLabel">Return Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowAction" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="return" />
+                    <div class="mb-3">
+                        <label for="returnComments" class="form-label">Return Comments <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="returnComments" name="comments" rows="3" placeholder="Please provide reasons for returning..." required></textarea>
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i> This will return the request to the requester for modifications. The requester will be able to edit and resubmit.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-warning">Return Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Reject Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowAction" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="reject" />
+                    <div class="mb-3">
+                        <label for="rejectComments" class="form-label">Rejection Comments <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="rejectComments" name="comments" rows="3" placeholder="Please provide reasons for rejection..." required></textarea>
+                    </div>
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times-circle"></i> This will permanently reject the request. This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Reject Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelModalLabel">Cancel Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowAction" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="cancel" />
+                    <div class="mb-3">
+                        <label for="cancelComments" class="form-label">Cancellation Comments</label>
+                        <textarea class="form-control" id="cancelComments" name="comments" rows="3" placeholder="Please provide reason for cancellation..."></textarea>
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-ban"></i> This will cancel the request. Only the requester can cancel their own request.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-outline-dark">Cancel Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -71,6 +71,12 @@ namespace ProcureToPay.Extensions
             //Register Inventory Services
             services.AddScoped<IPurchaseRequisitionService, PurchaseRequisitionService>();
 
+            //Register Procurement Services
+            services.AddScoped<IWorkflowService, WorkflowService>();
+
+
+            
+
             return services;
         }
 

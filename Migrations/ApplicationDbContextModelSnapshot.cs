@@ -72,7 +72,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("DocumentTypes");
+                    b.ToTable("DocumentTypes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -199,7 +199,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("InsuranceCompanies");
+                    b.ToTable("InsuranceCompanies", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Insurance.Models.InsuranceType", b =>
@@ -243,7 +243,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("InsuranceTypes");
+                    b.ToTable("InsuranceTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Inventory.Models.PurchaseRequisition", b =>
@@ -339,7 +339,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("PurchaseRequisitions");
+                    b.ToTable("PurchaseRequisitions", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AccessorialCharge", b =>
@@ -386,7 +386,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AccessorialCharges");
+                    b.ToTable("AccessorialCharges", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Activity", b =>
@@ -431,7 +431,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Asset", b =>
@@ -559,7 +559,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Assets");
+                    b.ToTable("Assets", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetDocument", b =>
@@ -645,7 +645,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AssetDocuments");
+                    b.ToTable("AssetDocuments", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetStatus", b =>
@@ -696,7 +696,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AssetStatuses");
+                    b.ToTable("AssetStatuses", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetType", b =>
@@ -742,7 +742,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AssetTypes");
+                    b.ToTable("AssetTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetTyre", b =>
@@ -806,7 +806,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("AssetId", "IsActive");
 
-                    b.ToTable("AssetTyres");
+                    b.ToTable("AssetTyres", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Base", b =>
@@ -852,7 +852,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Bases");
+                    b.ToTable("Bases", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Capacity", b =>
@@ -898,7 +898,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Capacities");
+                    b.ToTable("Capacities", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Charge", b =>
@@ -944,7 +944,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Charges");
+                    b.ToTable("Charges", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.City", b =>
@@ -1005,7 +1005,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("RegionId", "IsActive");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Client", b =>
@@ -1154,7 +1154,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "IsActive");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ClientInvoiceFormat", b =>
@@ -1198,7 +1198,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("ClientId", "FormatId")
                         .IsUnique();
 
-                    b.ToTable("ClientInvoiceFormats");
+                    b.ToTable("ClientInvoiceFormats", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Company", b =>
@@ -1326,7 +1326,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Complainant", b =>
@@ -1365,7 +1365,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Complainants");
+                    b.ToTable("Complainants", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Consignee", b =>
@@ -1444,7 +1444,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Consignees");
+                    b.ToTable("Consignees", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Contractor", b =>
@@ -1483,7 +1483,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Contractors");
+                    b.ToTable("Contractors", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Detention", b =>
@@ -1525,7 +1525,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Detentions");
+                    b.ToTable("Detentions", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Driver", b =>
@@ -1658,7 +1658,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Drivers");
+                    b.ToTable("Drivers", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.IndustryVertical", b =>
@@ -1704,7 +1704,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("IndustryVerticals");
+                    b.ToTable("IndustryVerticals", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.InsuranceDocumentType", b =>
@@ -1743,7 +1743,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("InsuranceDocumentTypes");
+                    b.ToTable("InsuranceDocumentTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.InvoiceFormat", b =>
@@ -1771,7 +1771,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("IsActive");
 
-                    b.ToTable("InvoiceFormats");
+                    b.ToTable("InvoiceFormats", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.LeaseType", b =>
@@ -1810,7 +1810,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("LeaseTypes");
+                    b.ToTable("LeaseTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Make", b =>
@@ -1849,7 +1849,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Makes");
+                    b.ToTable("Makes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PaymentMode", b =>
@@ -1895,7 +1895,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("PaymentModes");
+                    b.ToTable("PaymentModes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Priority", b =>
@@ -1937,7 +1937,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Priorities");
+                    b.ToTable("Priorities", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Product", b =>
@@ -1994,7 +1994,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ProductNature", b =>
@@ -2039,7 +2039,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("ProductNatures");
+                    b.ToTable("ProductNatures", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ProductType", b =>
@@ -2078,7 +2078,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("ProductTypes");
+                    b.ToTable("ProductTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Qualification", b =>
@@ -2120,7 +2120,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Qualifications");
+                    b.ToTable("Qualifications", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.RateType", b =>
@@ -2162,7 +2162,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("RateTypes");
+                    b.ToTable("RateTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Region", b =>
@@ -2213,7 +2213,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Regions", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Relation", b =>
@@ -2252,7 +2252,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Relations");
+                    b.ToTable("Relations", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKU", b =>
@@ -2310,7 +2310,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("SKUTypeId", "IsActive");
 
-                    b.ToTable("SKU");
+                    b.ToTable("SKU", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUCategory", b =>
@@ -2363,7 +2363,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "IsActive");
 
-                    b.ToTable("SKUCategories");
+                    b.ToTable("SKUCategories", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUCategoryClient", b =>
@@ -2407,7 +2407,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("CategoryId", "ClientId")
                         .IsUnique();
 
-                    b.ToTable("SKUCategoryClients");
+                    b.ToTable("SKUCategoryClients", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUClient", b =>
@@ -2451,7 +2451,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("SKUId", "ClientId")
                         .IsUnique();
 
-                    b.ToTable("SKUClient");
+                    b.ToTable("SKUClient", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUType", b =>
@@ -2497,7 +2497,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SKUTypes");
+                    b.ToTable("SKUTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SeparationType", b =>
@@ -2543,7 +2543,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SeparationTypes");
+                    b.ToTable("SeparationTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ServiceNature", b =>
@@ -2588,7 +2588,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("ServiceNatures");
+                    b.ToTable("ServiceNatures", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Shipper", b =>
@@ -2660,7 +2660,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "IsActive");
 
-                    b.ToTable("Shippers");
+                    b.ToTable("Shippers", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SubCategory", b =>
@@ -2706,7 +2706,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SubCategories");
+                    b.ToTable("SubCategories", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Supplier", b =>
@@ -2809,7 +2809,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("SupplierTypeId", "IsActive");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierRate", b =>
@@ -2854,7 +2854,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("SupplierId", "IsActive");
 
-                    b.ToTable("SupplierRates");
+                    b.ToTable("SupplierRates", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierRateDetail", b =>
@@ -2918,7 +2918,7 @@ namespace ProcureToPay.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_SupplierRateDetail_UniqueRate");
 
-                    b.ToTable("SupplierRateDetails");
+                    b.ToTable("SupplierRateDetails", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierType", b =>
@@ -2964,7 +2964,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SupplierTypes");
+                    b.ToTable("SupplierTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Trailer", b =>
@@ -3010,7 +3010,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Trailers");
+                    b.ToTable("Trailers", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.UoM", b =>
@@ -3056,7 +3056,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("UoMs");
+                    b.ToTable("UoMs", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.VehicleGroup", b =>
@@ -3102,7 +3102,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("VehicleGroup");
+                    b.ToTable("VehicleGroup", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.WHTaxExemption", b =>
@@ -3157,7 +3157,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "DateFrom", "DateTo");
 
-                    b.ToTable("WHTaxExemptions");
+                    b.ToTable("WHTaxExemptions", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.WarningType", b =>
@@ -3203,7 +3203,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("WarningTypes");
+                    b.ToTable("WarningTypes", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.ApprovalLevel", b =>
@@ -3249,7 +3249,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("RequiredRole");
 
-                    b.ToTable("ApprovalLevels");
+                    b.ToTable("ApprovalLevels", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", b =>
@@ -3335,7 +3335,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("Status");
 
-                    b.ToTable("PurchaseRequests");
+                    b.ToTable("PurchaseRequests", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem", b =>
@@ -3375,7 +3375,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("PurchaseRequestId");
 
-                    b.ToTable("PurchaseRequestItems");
+                    b.ToTable("PurchaseRequestItems", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.RequestApproval", b =>
@@ -3422,7 +3422,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("PurchaseRequestId", "ApprovalLevelId")
                         .IsUnique();
 
-                    b.ToTable("RequestApprovals");
+                    b.ToTable("RequestApprovals", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Branch", b =>
@@ -3451,7 +3451,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("BranchId");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Department", b =>
@@ -3480,7 +3480,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Module", b =>
@@ -3508,7 +3508,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Modules", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.ModuleRoleHierarchy", b =>
@@ -3534,7 +3534,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("RoleId", "ModuleName")
                         .IsUnique();
 
-                    b.ToTable("ModuleRoleHierarchies");
+                    b.ToTable("ModuleRoleHierarchies", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Permission", b =>
@@ -3566,7 +3566,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("ModuleId", "Name")
                         .IsUnique();
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Role", b =>
@@ -3623,7 +3623,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("RolePermissions");
+                    b.ToTable("RolePermissions", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Update", b =>
@@ -3665,7 +3665,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Updates");
+                    b.ToTable("Updates", (string)null);
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.User", b =>
@@ -3858,7 +3858,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("WorkOrderTypeName")
                         .IsUnique();
 
-                    b.ToTable("WorkOrderTypes");
+                    b.ToTable("WorkOrderTypes", (string)null);
                 });
 
             modelBuilder.Entity("DocumentType", b =>

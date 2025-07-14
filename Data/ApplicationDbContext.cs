@@ -29,11 +29,7 @@ namespace ProcureToPay.Data
         public DbSet<ModuleRoleHierarchy> ModuleRoleHierarchies { get; set; }
         public DbSet<Update> Updates { get; set; }
 
-        // Procurement DbSets
-        public DbSet<PurchaseRequest> PurchaseRequests { get; set; }
-        public DbSet<PurchaseRequestItem> PurchaseRequestItems { get; set; }
-        public DbSet<RequestApproval> RequestApprovals { get; set; }
-        public DbSet<ApprovalLevel> ApprovalLevels { get; set; }
+        
 
         //Inventory Data DbSets
         public DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
@@ -97,6 +93,16 @@ namespace ProcureToPay.Data
         public DbSet<InsuranceDocumentType> InsuranceDocumentTypes { get; set; }
         public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
+
+        // Procurement DbSets
+
+        public DbSet<PurchaseRequest> PurchaseRequests { get; set; }
+        public DbSet<PurchaseRequestItem> PurchaseRequestItems { get; set; }
+        public DbSet<RequestApproval> RequestApprovals { get; set; }
+        public DbSet<ApprovalLevel> ApprovalLevels { get; set; }
+        public DbSet<WorkFlowApprovalSequence> WorkFlowApprovalSequences { get; set; }
+        public DbSet<WorkFlowState> WorkFlowStates { get; set; }
+        public DbSet<FormHistory> FormHistories { get; set; }
         public override int SaveChanges()
         {
             UpdateAuditFields();

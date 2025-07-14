@@ -1,192 +1,140 @@
-﻿@using ProcureToPay.Areas.Procurement.Models
-@model PurchaseRequest
+﻿@model ProcureToPay.Areas.Procurement.Models.PurchaseRequest
 
 @{
     ViewData["Title"] = "Purchase Request Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var workflowHistory = ViewBag.WorkflowHistory as List<ProcureToPay.Areas.Common.Models.FormHistory>;
+    var currentStateName = ViewBag.CurrentStateName as string;
 }
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Purchase Request Details</h2>
-                <div>
-                    @if (Model.Status == RequestStatus.Draft)
-                    {
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
-                    }
-                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-            </div>
-
-            <!-- Status-based Action Buttons -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="card border-info">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-1">
-                                        Current Status:
-                                        <span class="badge bg-@GetStatusColor(Model.Status) fs-6">
-                                            @Model.Status.ToString()
-                                        </span>
-                                    </h6>
-                                    <small class="text-muted">Last updated: @(Model.UpdatedAt is DateTime dt1 ? dt1.ToString("dd/MM/yyyy HH:mm") : Model.UpdatedAt.ToString())</small>
-                                </div>
-                                <div>
-                                    @if (Model.Status == RequestStatus.Draft && Model.Items.Any())
-                                    {
-                                        <button class="btn btn-success" onclick="submitForApproval(@Model.Id)">
-                                            <i class="fas fa-paper-plane"></i> Submit for Approval
-                                        </button>
-                                    }
-                                    @if (Model.Status == RequestStatus.Submitted)
-                                    {
-                                        <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#approveModal">
-                                            <i class="fas fa-check"></i> Approve
-                                        </button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-                                            <i class="fas fa-times"></i> Reject
-                                        </button>
-                                    }
-                                    @if (Model.Status != RequestStatus.Approved && Model.Status != RequestStatus.Cancelled)
-                                    {
-                                        <button class="btn btn-outline-warning ms-2" onclick="cancelRequest(@Model.Id)">
-                                            <i class="fas fa-ban"></i> Cancel
-                                        </button>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0">Request Information</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Request Number:</strong><br>
-                                    <span class="text-muted">@Model.RequestNumber</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Status:</strong><br>
-                                    <span class="badge bg-@GetStatusColor(Model.Status) fs-6">
-                                        @Model.Status.ToString()
-                                    </span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Title:</strong><br>
-                                    <span class="text-muted">@Model.Title</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Requester:</strong><br>
-                                    <span class="text-muted">@Model.RequestedByUser?.FirstName @Model.RequestedByUser?.LastName</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Department:</strong><br>
-                                    <span class="text-muted">@Model.Department?.DepartmentName</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Request Date:</strong><br>
-                                    <span class="text-muted">@(Model.RequestDate is DateTime dt2 ? dt2.ToString("dd/MM/yyyy") : Model.RequestDate.ToString())</span>
-                                </div>
-                            </div>
-                            @if (Model.RequiredDate.HasValue)
-                            {
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <strong>Required Date:</strong><br>
-                                        <span class="text-muted">@Model.RequiredDate.Value.ToString("dd/MM/yyyy")</span>
-                                    </div>
-                                </div>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Description))
-                            {
-                                <hr>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <strong>Description:</strong><br>
-                                        <span class="text-muted">@Model.Description</span>
-                                    </div>
-                                </div>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.ApprovalComments))
-                            {
-                                <hr>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <strong>Approval Comments:</strong><br>
-                                        <span class="text-muted">@Model.ApprovalComments</span>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    @TempData["Info"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
+            }
+        </div>
+    </div>
 
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0">Summary</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Total Items:</span>
-                                <strong>@Model.Items.Count</strong>
-                            </div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Total Amount:</span>
-                                <strong>$@(Model.TotalAmount is decimal amt ? amt.ToString("N2") : Model.TotalAmount.ToString())</strong>
-                            </div>
-                            <hr>
-                            <small class="text-muted">
-                                Created: @(Model.CreatedAt is DateTime dt3 ? dt3.ToString("dd/MM/yyyy HH:mm") : Model.CreatedAt.ToString())<br>
-                                Updated: @(Model.UpdatedAt is DateTime dt4 ? dt4.ToString("dd/MM/yyyy HH:mm") : Model.UpdatedAt.ToString())
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Request Items</h5>
-                    @if (Model.Status == RequestStatus.Draft)
+                    <h3 class="card-title">Purchase Request Details</h3>
+                    <div>
+                        <span class="badge bg-info fs-6">@currentStateName</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th width="40%">Request Number:</th>
+                                    <td>@Model.RequestNumber</td>
+                                </tr>
+                                <tr>
+                                    <th>Title:</th>
+                                    <td>@Model.Title</td>
+                                </tr>
+                                <tr>
+                                    <th>Request Date:</th>
+                                    <td>@Model.RequestDate.ToString("dd/MM/yyyy")</td>
+                                </tr>
+                                <tr>
+                                    <th>Required Date:</th>
+                                    <td>@(Model.RequiredDate?.ToString("dd/MM/yyyy") ?? "Not specified")</td>
+                                </tr>
+                                <tr>
+                                    <th>Requested By:</th>
+                                    <td>@Model.RequestedByUser?.UserName</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th width="40%">Department:</th>
+                                    <td>@(Model.Department?.DepartmentName ?? "Not specified")</td>
+                                </tr>
+                                <tr>
+                                    <th>Branch:</th>
+                                    <td>@(Model.Branch?.BranchName ?? "Not specified")</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Amount:</th>
+                                    <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>Current Owner:</th>
+                                    <td>@Model.Owner</td>
+                                </tr>
+                                <tr>
+                                    <th>Approval Sequence:</th>
+                                    <td>@Model.CurrentApprovalSequence</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Description))
                     {
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h5>Description</h5>
+                                <p class="text-muted">@Model.Description</p>
+                            </div>
+                        </div>
                     }
+
+                    @if (!string.IsNullOrEmpty(Model.Purpose))
+                    {
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h5>Purpose</h5>
+                                <p class="text-muted">@Model.Purpose</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Items Section -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title">Request Items</h5>
                 </div>
                 <div class="card-body">
                     @if (Model.Items.Any())
                     {
                         <div class="table-responsive">
-                            <table class="table table-sm">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
                                         <th>Description</th>
                                         <th>Quantity</th>
+                                        <th>Unit</th>
                                         <th>Unit Price</th>
-                                        <th>Total</th>
-                                        @if (Model.Status == RequestStatus.Draft)
-                                        {
-                                            <th>Actions</th>
-                                        }
+                                        <th>Total Price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -195,30 +143,129 @@
                                         <tr>
                                             <td>@item.ItemName</td>
                                             <td>@item.Description</td>
-                                            <td>@item.Quantity @item.Unit</td>
-                                            <td>$@(item.UnitPrice is decimal up ? up.ToString("N2") : item.UnitPrice.ToString())</td>
-                                            <td>$@(item.TotalPrice is decimal tp ? tp.ToString("N2") : item.TotalPrice.ToString())</td>
-                                            @if (Model.Status == RequestStatus.Draft)
-                                            {
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(@item.ItemId)">Remove</button>
-                                                </td>
-                                            }
+                                            <td>@item.Quantity</td>
+                                            <td>@item.Unit</td>
+                                            <td>@item.UnitPrice.ToString("C")</td>
+                                            <td>@item.TotalPrice.ToString("C")</td>
                                         </tr>
                                     }
                                 </tbody>
+                                <tfoot>
+                                    <tr class="table-info">
+                                        <td colspan="5"><strong>Total Amount:</strong></td>
+                                        <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     }
                     else
                     {
-                        <div class="text-center text-muted py-4">
-                            <p>No items added yet.</p>
-                            @if (Model.Status == RequestStatus.Draft)
+                        <p class="text-muted">No items added to this request.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Workflow Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Workflow Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        @if (Model.StateId == 1 || Model.StateId == 5) // Saved or Returned
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+                                <i class="fas fa-edit"></i> Edit Request
+                            </a>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#submitModal">
+                                <i class="fas fa-paper-plane"></i> Submit for Approval
+                            </button>
+                        }
+
+                        @if (Model.StateId == 2) // Submitted (In Approval)
+                        {
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#returnModal">
+                                <i class="fas fa-undo"></i> Return
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        }
+
+                        @if (Model.StateId != 3 && Model.StateId != 4 && Model.StateId != 10001) // Not Approved, Rejected, or Cancelled
+                        {
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                <i class="fas fa-ban"></i> Cancel Request
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow History -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title">Workflow History</h5>
+                </div>
+                <div class="card-body">
+                    @if (workflowHistory != null && workflowHistory.Any())
+                    {
+                        <div class="timeline">
+                            @foreach (var history in workflowHistory.OrderByDescending(h => h.ActionDate))
                             {
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">Add First Item</button>
+                                <div class="timeline-item mb-3">
+                                    <div class="timeline-marker">
+                                        @switch (history.Action.ToLower())
+                                        {
+                                            case "created":
+                                                <i class="fas fa-plus text-primary"></i>
+                                                break;
+                                            case "submit":
+                                                <i class="fas fa-paper-plane text-info"></i>
+                                                break;
+                                            case "approve":
+                                                <i class="fas fa-check text-success"></i>
+                                                break;
+                                            case "reject":
+                                                <i class="fas fa-times text-danger"></i>
+                                                break;
+                                            case "return":
+                                                <i class="fas fa-undo text-warning"></i>
+                                                break;
+                                            case "cancel":
+                                                <i class="fas fa-ban text-dark"></i>
+                                                break;
+                                            default:
+                                                <i class="fas fa-circle text-muted"></i>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h6 class="mb-1">@history.Action</h6>
+                                        <p class="text-muted mb-1">
+                                            @history.FromStateName → @history.ToStateName
+                                        </p>
+                                        <small class="text-muted">
+                                            By @history.ActionByUserName on @history.ActionDate.ToString("dd/MM/yyyy HH:mm")
+                                        </small>
+                                        @if (!string.IsNullOrEmpty(history.Comments))
+                                        {
+                                            <p class="mt-2 text-muted"><em>"@history.Comments"</em></p>
+                                        }
+                                    </div>
+                                </div>
                             }
                         </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No workflow history available.</p>
                     }
                 </div>
             </div>
@@ -226,356 +273,37 @@
     </div>
 </div>
 
-<!-- Add Item Modal (existing) -->
-<div class="modal fade" id="addItemModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="addItemForm">
-                @Html.AntiForgeryToken()
-                <input type="hidden" id="purchaseRequestId" value="@Model.Id" />
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Item Name *</label>
-                        <input type="text" id="itemName" class="form-control" required />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="itemDescription" class="form-control" rows="2"></textarea>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">Quantity *</label>
-                                <input type="number" id="quantity" class="form-control" min="1" required />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">Unit Price *</label>
-                                <input type="number" id="unitPrice" class="form-control" step="0.01" min="0" required />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">Unit</label>
-                                <select id="unit" class="form-select">
-                                    <option value="pcs">Pieces</option>
-                                    <option value="pack">Pack</option>
-                                    <option value="box">Box</option>
-                                    <option value="kg">Kilogram</option>
-                                    <option value="liter">Liter</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Item</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!-- Workflow Action Modals -->
+@await Html.PartialAsync("_WorkflowActionModals", Model)
 
-<!-- Approve Modal -->
-<div class="modal fade" id="approveModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Approve Request</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="approveForm">
-                @Html.AntiForgeryToken()
-                <div class="modal-body">
-                    <p>Are you sure you want to approve this purchase request?</p>
-                    <div class="mb-3">
-                        <label class="form-label">Comments (Optional)</label>
-                        <textarea id="approvalComments" class="form-control" rows="3" placeholder="Enter approval comments..."></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Approve Request</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Reject Modal -->
-<div class="modal fade" id="rejectModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Reject Request</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="rejectForm">
-                @Html.AntiForgeryToken()
-                <div class="modal-body">
-                    <p>Are you sure you want to reject this purchase request?</p>
-                    <div class="mb-3">
-                        <label class="form-label">Reason for Rejection *</label>
-                        <textarea id="rejectionComments" class="form-control" rows="3" placeholder="Please provide reason for rejection..." required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Reject Request</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-@functions {
-    string GetStatusColor(RequestStatus status)
-    {
-        return status switch
-        {
-            RequestStatus.Draft => "secondary",
-            RequestStatus.Submitted => "primary",
-            RequestStatus.UnderReview => "warning",
-            RequestStatus.Approved => "success",
-            RequestStatus.Rejected => "danger",
-            RequestStatus.Cancelled => "dark",
-            _ => "secondary"
-        };
-    }
-}
-
-<script>
-     document.getElementById('addItemForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const existingAlert = document.querySelector('.alert');
-        if (existingAlert) {
-            existingAlert.remove();
-        }
-
-        const formData = new FormData();
-        formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
-        formData.append('purchaseRequestId', document.getElementById('purchaseRequestId').value);
-        formData.append('itemName', document.getElementById('itemName').value);
-        formData.append('description', document.getElementById('itemDescription').value);
-        formData.append('quantity', document.getElementById('quantity').value);
-        formData.append('unitPrice', document.getElementById('unitPrice').value);
-        formData.append('unit', document.getElementById('unit').value);
-
-        fetch('@Url.Action("AddItem", "PurchaseRequest")', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
-                modal.hide();
-                document.getElementById('addItemForm').reset();
-                location.reload();
-            } else {
-                showError('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showError('An error occurred while adding the item: ' + error.message);
-        });
-    });
-
-    // Remove Item functionality
-    function removeItem(itemId) {
-        if (confirm('Are you sure you want to remove this item?')) {
-            const formData = new FormData();
-            formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
-            formData.append('itemId', itemId);
-
-            fetch('@Url.Action("RemoveItem", "PurchaseRequest")', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    showError('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showError('An error occurred while removing the item: ' + error.message);
-            });
-        }
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 30px;
     }
 
-    // Submit for Approval
-    function submitForApproval(requestId) {
-        if (confirm('Are you sure you want to submit this request for approval? You will not be able to edit it afterwards.')) {
-            const formData = new FormData();
-            formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
-            formData.append('id', requestId);
-
-            fetch('@Url.Action("SubmitForApproval", "PurchaseRequest")', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showSuccess(data.message);
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    showError('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showError('An error occurred while submitting the request');
-            });
-        }
+    .timeline-item {
+        position: relative;
+        border-left: 2px solid #e9ecef;
+        padding-left: 20px;
     }
 
-    // Approve Request
-    document.getElementById('approveForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
-        formData.append('id', @Model.Id);
-        formData.append('approvalComments', document.getElementById('approvalComments').value);
-
-        fetch('@Url.Action("Approve", "PurchaseRequest")', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('approveModal'));
-                modal.hide();
-                showSuccess(data.message);
-                setTimeout(() => location.reload(), 1500);
-            } else {
-                showError('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showError('An error occurred while approving the request');
-        });
-    });
-
-    // Reject Request
-    document.getElementById('rejectForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
-        formData.append('id', @Model.Id);
-        formData.append('approvalComments', document.getElementById('rejectionComments').value);
-
-        fetch('@Url.Action("Reject", "PurchaseRequest")', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
-                modal.hide();
-                showSuccess(data.message);
-                setTimeout(() => location.reload(), 1500);
-            } else {
-                showError('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showError('An error occurred while rejecting the request');
-        });
-    });
-
-    // Cancel Request
-    function cancelRequest(requestId) {
-        if (confirm('Are you sure you want to cancel this request?')) {
-            const formData = new FormData();
-            formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
-            formData.append('id', requestId);
-
-            fetch('@Url.Action("Cancel", "PurchaseRequest")', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showSuccess(data.message);
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    showError('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showError('An error occurred while canceling the request');
-            });
-        }
+    .timeline-marker {
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
     }
 
-    // Utility functions for showing messages
-    function showError(message) {
-        const alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-danger alert-dismissible fade show';
-        alertDiv.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-
-        const container = document.querySelector('.container');
-        container.insertBefore(alertDiv, container.firstChild);
-
-        // Auto-dismiss after 5 seconds
-        setTimeout(() => {
-            if (alertDiv.parentNode) {
-                alertDiv.remove();
-            }
-        }, 5000);
+    .timeline-content {
+        padding-bottom: 20px;
     }
-
-    function showSuccess(message) {
-        const alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-success alert-dismissible fade show';
-        alertDiv.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-
-        const container = document.querySelector('.container');
-        container.insertBefore(alertDiv, container.firstChild);
-
-        // Auto-dismiss after 3 seconds
-        setTimeout(() => {
-            if (alertDiv.parentNode) {
-                alertDiv.remove();
-            }
-        }, 3000);
-    }
-
-</script>
+</style>

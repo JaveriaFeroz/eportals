@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProcureToPay")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22eed85e686a40752a5c214b6f45d8a61805cb33")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a09dc90c81bd32fcaae5828c51fe4259e8d0154")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProcureToPay")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProcureToPay")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

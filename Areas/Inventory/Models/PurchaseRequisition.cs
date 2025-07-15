@@ -87,6 +87,6 @@ namespace ProcureToPay.Areas.Inventory.Models
         //[ForeignKey("StateId")]
         //public virtual State State { get; set; }
 
-         // Removed: public virtual ICollection<PurchaseRequisitionDetail> Details { get; set; }
+         public virtual ICollection<PurchaseRequisitionDetail> Details { get; set; }
     }
 }

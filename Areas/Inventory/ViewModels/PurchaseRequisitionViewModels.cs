@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProcureToPay.Areas.Inventory.Models;
 using ProcureToPay.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -91,6 +92,9 @@ namespace ProcureToPay.Areas.Inventory.Models
         public string? StateName { get; set; }
         public string? ProductNatureName { get; set; }
         public string? ServiceNatureName { get; set; }
+
+        public List<PurchaseRequisitionDetailViewModel> PRDetails { get; set; } = new List<PurchaseRequisitionDetailViewModel>();
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             // Conditional validation based on PurchaseItemType
@@ -107,6 +111,79 @@ namespace ProcureToPay.Areas.Inventory.Models
                     "Service Nature is required when Purchase Item Type is Service.",
                     new[] { nameof(ServiceNatureId) }
                 );
+            }
+        }
+    }
+
+    public class PurchaseRequisitionDetailViewModel
+    {
+        [Display(Name = "DetailId")]
+        public int Id { get; set; } // Maps to DetailId in EF model
+
+        public int PRNo { get; set; }
+
+        [Display(Name = "Product")]
+        public short? ProductId { get; set; }
+
+        [Display(Name = "Service")]
+        public short? ServiceId { get; set; }
+
+        [Required(ErrorMessage = "Remarks is required.")] // This is `Narration` in your DB model
+        [StringLength(500, ErrorMessage = "Remarks cannot exceed 500 characters.")]
+        [Display(Name = "Remarks")] // Display name for the UI, mapping to Narration field
+        public string Remarks { get; set; } // Changed to non-nullable if Required, otherwise string?
+
+        [Required(ErrorMessage = "Quantity is required.")]
+        [Range(0.01, (double)99999999999.99, ErrorMessage = "Quantity must be greater than 0.")] // Adjusted range for decimal, using double here. Max double is huge.
+        [Display(Name = "Quantity")]
+        public decimal Quantity { get; set; } // Changed to decimal for consistency with DB model's new decimal type
+
+        [Display(Name = "Unit of Measure")]
+        public short? UoMId { get; set; }
+
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0.00, (double)99999999999.99, ErrorMessage = "Price must be a non-negative value.")] // Adjusted range for decimal, using double here.
+        [Display(Name = "Price")]
+        public decimal Price { get; set; } // Changed to decimal
+
+        [Range(0.00, 100.00, ErrorMessage = "GST Rate must be between 0 and 100.")]
+        [Display(Name = "GST Rate")]
+        public decimal GSTRate { get; set; } // Changed to decimal
+
+        [Range(0.00, 100.00, ErrorMessage = "VAT Rate must be between 0 and 100.")] // NEW: VAT Rate
+        [Display(Name = "VAT Rate")]
+        public decimal VATRate { get; set; } // NEW: VAT Rate
+
+        // Calculated properties (setters are not strictly needed for model binding if calculated on submit)
+        [Display(Name = "Gross Amount")]
+        public decimal GrossAmount { get { return Math.Round(Quantity * Price, 2); } set { /* for model binding */ } }
+
+        [Display(Name = "GST Amount")]
+        public decimal GSTAmount { get { return Math.Round(GrossAmount * GSTRate / 100.00m, 2); } set { /* for model binding */ } }
+
+        [Display(Name = "VAT Amount")]
+        public decimal VATAmount { get { return Math.Round(GrossAmount * VATRate / 100.00m, 2); } set { /* for model binding */ } } // NEW: VAT Amount
+
+        [Display(Name = "Total Amount")]
+        public decimal TotalAmount { get { return Math.Round(GrossAmount + GSTAmount + VATAmount, 2); } set { /* for model binding */ } } // Updated total
+
+        // Properties for display purposes
+        public string? ProductName { get; set; }
+        public string? ServiceName { get; set; }
+        public string? UoMName { get; set; }
+
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // Validate that either ProductId or ServiceId is selected, but not both.
+            if (ProductId.HasValue && ProductId > 0 && ServiceId.HasValue && ServiceId > 0)
+            {
+                yield return new ValidationResult("Cannot select both Product and Service for a single detail item.", new[] { nameof(ProductId), nameof(ServiceId) });
+            }
+            // Validate that at least one of ProductId, ServiceId, OR Narration is provided
+            else if (!ProductId.HasValue && !ServiceId.HasValue && string.IsNullOrWhiteSpace(Remarks))
+            {
+                yield return new ValidationResult("Either Product, Service, or Remarks/Narration is required for each item.", new[] { nameof(ProductId), nameof(ServiceId), nameof(Remarks) });
             }
         }
     }
@@ -164,7 +241,11 @@ namespace ProcureToPay.Areas.Inventory.Models
 
         public List<SelectListItem> PurchaseNatureOptions { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> PurchaseTypeOptions { get; set; } = new List<SelectListItem>();
-    }
+
+        public List<SelectListItem> Products { get; set; } = new List<SelectListItem>(); 
+        public List<SelectListItem> UoMs { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Services { get; set; } = new List<SelectListItem>(); 
+}
 
     // PurchaseRequisitionLookupsViewModel (removed Item and Unit lookups)
     public class PurchaseRequisitionLookupsViewModel

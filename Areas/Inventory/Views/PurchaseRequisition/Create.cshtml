@@ -20,7 +20,8 @@
             </h5>
         </div>
         <div class="card-body">
-            <form method="post" asp-action="Create" asp-controller="PurchaseRequisition" asp-area="Inventory">
+            <form method="post" asp-action="Create" asp-controller="PurchaseRequisition" asp-area="Inventory" id="purchaseRequisitionForm">
+                @* Added ID for easier JS targeting *@
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
@@ -90,10 +91,10 @@
                     </div>
                 </div>
 
-                @* ==== Card 2: Request Details ==== *@
+                @* ==== Card 2: Request Type Details (Main Request Type Info) ==== *@
                 <div class="card mb-4">
                     <div class="card-header bg-light">
-                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-file-invoice-dollar me-2"></i> Request Details</h6>
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-file-invoice-dollar me-2"></i> Request Type Details</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -103,7 +104,6 @@
                                 <div class="input-group">
                                     <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-hand-holding-usd"></i></span>
                                     <div class="d-flex align-items-center ms-3" style="border: none;">
-                                        @* Added ms-3 for left margin *@
                                         @foreach (var option in Model.PurchaseNatureOptions)
                                         {
                                             <div class="form-check form-check-inline me-3">
@@ -126,7 +126,6 @@
                                 <div class="input-group">
                                     <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-shopping-cart"></i></span>
                                     <div class="d-flex align-items-center ms-3" style="border: none;">
-                                        @* Added ms-3 for left margin *@
                                         @foreach (var option in Model.PurchaseTypeOptions)
                                         {
                                             <div class="form-check form-check-inline me-3">
@@ -178,6 +177,26 @@
                                 <span asp-validation-for="PurchaseRequisition.Justification" class="text-danger"></span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                @* ==== Card 3: Purchase Requisition Line Items (Details) ==== *@
+                <div class="card mb-4">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-list-alt me-2"></i> Purchase Items/Services</h6>
+                        <button type="button" id="addDetailRowBtn" class="btn btn-primary btn-sm" style="background-color: #092963; color: white;">
+                            <i class="fas fa-plus me-1"></i> Add Product/Service
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="purchaseRequisitionDetailsContainer">
+                            @* This is where the detail rows will be rendered *@
+                            @for (int i = 0; i < Model.PurchaseRequisition.PRDetails.Count; i++)
+                            {
+                                @Html.Partial("_PurchaseRequisitionDetailRow", Model.PurchaseRequisition.PRDetails[i], new ViewDataDictionary(ViewData) { { "index", i } })
+                            }
+                        </div>
+                        <span asp-validation-for="PurchaseRequisition.PRDetails" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -287,6 +306,139 @@
             // This will ensure the correct dropdown is shown and populated if values exist in the model.
             updateNatureDropdowns();
 
+            // --- Dynamic Detail Rows Logic ---
+            let detailRowIndex = @(Model.PurchaseRequisition.PRDetails.Count); // Initialize with existing count
+
+            $('#addDetailRowBtn').click(function () {
+                // Pass current dropdown options to the partial view
+                var productsOptions = @Html.Raw(Json.Serialize(Model.Products));
+                var uomsOptions = @Html.Raw(Json.Serialize(Model.UoMs));
+                var servicesOptions = @Html.Raw(Json.Serialize(Model.Services));
+                var purchaseItemType = $purchaseItemTypeRadios.filter(':checked').val(); // Get current Purchase Item Type
+
+                $.ajax({
+                    url: '@Url.Action("GetPurchaseRequisitionDetailRow", "PurchaseRequisition", new { area = "Inventory" })',
+                    type: 'GET',
+                    data: { index: detailRowIndex }, // Pass index
+                    success: function (partialViewHtml) {
+                        const newRow = $(partialViewHtml);
+                        $('#purchaseRequisitionDetailsContainer').append(newRow);
+                        detailRowIndex++;
+
+                        // Populate dropdowns in the new row
+                        populateDetailRowDropdowns(newRow, productsOptions, uomsOptions, servicesOptions);
+
+                        // Handle visibility of Product/Service dropdowns in the new row based on Purchase Item Type
+                        updateProductServiceDropdownVisibility(newRow, purchaseItemType);
+
+                        // Re-parse unobtrusive validation for the new row
+                        var form = $('#purchaseRequisitionForm'); // Target the main form
+                        form.removeData('validator');
+                        form.removeData('unobtrusiveValidation');
+                        $.validator.unobtrusive.parse(form);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error adding detail row:", error);
+                        alert("Failed to add new detail row. Please try again.");
+                    }
+                });
+            });
+
+            // Function to populate Item/Unit/Service dropdowns in a newly added detail row
+            function populateDetailRowDropdowns(rowElement, productsOptions, uomsOptions, servicesOptions) {
+                const productDropdown = rowElement.find('select[name$=".ProductId"]');
+                const uomDropdown = rowElement.find('select[name$=".UoMId"]');
+                const serviceDropdown = rowElement.find('select[name$=".ServiceId"]'); // Assuming Service dropdown if ServiceId is used
+
+                // Populate Products
+                productDropdown.empty().append($('<option></option>').val('').text('-- Select Product --'));
+                $.each(productsOptions, function (index, item) {
+                    productDropdown.append($('<option></option>').val(item.value).text(item.text));
+                });
+
+                // Populate UoMs
+                uomDropdown.empty().append($('<option></option>').val('').text('-- Select UoM --'));
+                $.each(uomsOptions, function (index, item) {
+                    uomDropdown.append($('<option></option>').val(item.value).text(item.text));
+                });
+
+                // Populate Services (if applicable)
+                serviceDropdown.empty().append($('<option></option>').val('').text('-- Select Service --'));
+                $.each(servicesOptions, function (index, item) {
+                    serviceDropdown.append($('<option></option>').val(item.value).text(item.text));
+                });
+            }
+
+            // Function to control visibility of Product/Service dropdowns in a detail row
+            function updateProductServiceDropdownVisibility(rowElement, purchaseItemType) {
+                const productGroup = rowElement.find('.detail-product-group');
+                const serviceGroup = rowElement.find('.detail-service-group');
+
+                if (purchaseItemType === '@((int)PurchaseItemType.Goods)') {
+                    productGroup.show();
+                    serviceGroup.hide();
+                    serviceGroup.find('select').val(''); // Clear service selection
+                } else if (purchaseItemType === '@((int)PurchaseItemType.Service)') {
+                    serviceGroup.show();
+                    productGroup.hide();
+                    productGroup.find('select').val(''); // Clear product selection
+                } else { // Default or neither selected
+                    productGroup.hide();
+                    serviceGroup.hide();
+                    productGroup.find('select').val('');
+                    serviceGroup.find('select').val('');
+                }
+            }
+
+            // Event listener for changes to the main Purchase Item Type radio buttons
+            // This will affect *existing* detail rows and new ones added afterwards.
+            $purchaseItemTypeRadios.on('change', function() {
+                const currentPurchaseItemType = $(this).val();
+                $('#purchaseRequisitionDetailsContainer .purchase-requisition-detail-row').each(function() {
+                    updateProductServiceDropdownVisibility($(this), currentPurchaseItemType);
+                });
+            });
+
+            // Initial visibility update for existing rows on page load
+            $purchaseItemTypeRadios.filter(':checked').trigger('change'); // Trigger change on page load
+
+            // Event delegation for removing rows
+            $(document).on('click', '.remove-detail-row-btn', function () {
+                const row = $(this).closest('.purchase-requisition-detail-row');
+                const isExisting = row.find('input[name$=".Id"]').val() > 0;
+
+                if (isExisting) {
+                    row.find('.detail-is-deleted').val('true');
+                    row.hide();
+                } else {
+                    row.remove();
+                }
+                $('form').valid(); // Re-validate after removing/hiding a row
+            });
+
+            // Calculate Total Price dynamically for each row
+            $(document).on('input', '.detail-quantity, .detail-price, .detail-gst-rate, .detail-vat-rate', function () {
+                const row = $(this).closest('.purchase-requisition-detail-row');
+                const quantity = parseFloat(row.find('.detail-quantity').val()) || 0;
+                const price = parseFloat(row.find('.detail-price').val()) || 0;
+                const gstRate = parseFloat(row.find('.detail-gst-rate').val()) || 0;
+                const vatRate = parseFloat(row.find('.detail-vat-rate').val()) || 0;
+
+                const grossAmount = quantity * price;
+                const gstAmount = grossAmount * (gstRate / 100);
+                const vatAmount = grossAmount * (vatRate / 100);
+                const totalAmount = grossAmount + gstAmount + vatAmount;
+
+                row.find('.detail-gross-amount').val(grossAmount.toFixed(2));
+                row.find('.detail-gst-amount').val(gstAmount.toFixed(2));
+                row.find('.detail-vat-amount').val(vatAmount.toFixed(2));
+                row.find('.detail-total-amount').val(totalAmount.toFixed(2));
+            });
+
+            // Trigger initial calculation for any pre-loaded rows (on Edit page load or validation error)
+            $('#purchaseRequisitionDetailsContainer .purchase-requisition-detail-row').each(function() {
+                 $(this).find('.detail-quantity').trigger('input'); // Trigger input to calculate
+            });
         });
     </script>
 }

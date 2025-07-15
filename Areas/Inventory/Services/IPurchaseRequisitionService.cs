@@ -94,36 +94,6 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
             }
         }
 
-        public async Task<IEnumerable<WorkflowPurchaseRequisitionViewModel>> GetPurchaseRequisitionsForRWBAsync(bool completedOnly = false)
-        {
-            try
-            {
-                var query = _context.PurchaseRequisitions.AsQueryable();
-
-                if (completedOnly)
-                {
-                    query = query.Where(x => x.IsCompleted == true);
-                }
-
-                var result = await query
-                    .OrderByDescending(x => x.PRNo)
-                    .Select(x => new WorkflowPurchaseRequisitionViewModel
-                    {
-                        PRNo = x.PRNo,
-                        CompanyCode = x.CompanyCode,
-                        StateName = "Saved", // Hardcoded StateName as per request
-                        Owner = x.Owner
-                    })
-                    .ToListAsync();
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving purchase requisitions for RWB");
-                throw;
-            }
-        }
 
         public async Task<PurchaseRequisitionViewModel> GetPurchaseRequisitionByIdAsync(int id)
         {
@@ -136,20 +106,26 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     .Include(x => x.ServiceNature)
                     .Include(x => x.CreatedByUser)
                     .Include(x => x.UpdatedByUser)
+                    // >>> NEW: Include PR Details and their navigation properties <<<
+                    .Include(x => x.Details) // Assuming 'Details' is the ICollection<PurchaseRequisitionDetail> property in PurchaseRequisition model
+                        .ThenInclude(d => d.Products) // Include Product nav prop for detail Product name
+                    .Include(x => x.Details)
+                        .ThenInclude(d => d.UoMs) // Include UoM nav prop for detail UoM name
+                    .Include(x => x.Details)
                     .FirstOrDefaultAsync(x => x.PRNo == id); // Using PRNo as primary key
 
                 if (entity == null) return null;
 
-                return new PurchaseRequisitionViewModel
+                var viewModel = new PurchaseRequisitionViewModel
                 {
                     PRNo = entity.PRNo,
                     CompanyCode = entity.CompanyCode,
                     BranchId = entity.BranchId,
                     DepartmentId = entity.DepartmentId,
-                    ProductNatureId = (short)entity.ProductNatureId,
-                    ServiceNatureId = (short)entity.ServiceNatureId,
+                    ProductNatureId = entity.ProductNatureId,
+                    ServiceNatureId = entity.ServiceNatureId,
                     RequiredBy = entity.RequiredBy,
-                    StateId = entity.StateId, // Still gets StateId from entity
+                    StateId = entity.StateId,
                     Owner = entity.Owner,
                     IsCompleted = entity.IsCompleted,
                     Approved = entity.Approved,
@@ -166,11 +142,32 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                     DepartmentName = entity.Department?.DepartmentName,
                     ProductNatureName = entity.ProducNature?.NatureName,
                     ServiceNatureName = entity.ServiceNature?.NatureName,
-                    StateName = "Saved", // Hardcoded StateName as per request
-                    //ServiceGroupName = null, // Set to null as ServiceGroup is not included
-                    //RequestTypeName = null, // Set to null as RequestType is not included
-                    //WorkflowName = null // Set to null as Workflow is not included
+                    StateName = "Saved", // Hardcoded
+
+                    // Important: Map PurchaseNatureType and PurchaseItemType from entity fields
+                    PurchaseNatureType = (PurchaseNatureType)(entity.RequestTypeId.HasValue ? entity.RequestTypeId.Value : 0), // Adjust default if 0 is not valid
+                    // PurchaseItemType = (PurchaseItemType)(entity.PurchaseItemTypeId.HasValue ? entity.PurchaseItemTypeId.Value : 0), // You need to decide how to map this if it's not RequestTypeId
+
+                    // >>> NEW: Map PurchaseRequisitionDetail entities to PurchaseRequisitionDetailViewModels <<<
+                    PRDetails = entity.Details.Select(d => new PurchaseRequisitionDetailViewModel
+                    {
+                        Id = d.Id, // maps to DetailId from entity's Id
+                        PRNo = d.PRNo,
+                        ProductId = d.ProductId,
+                        Remarks = d.Remarks, // Maps Narration
+                        Quantity = d.Quantity,
+                        UoMId = d.UoMId,
+                        Price = d.Price,
+                        GSTRate = d.GSTRate,
+
+                        // Calculated properties in ViewModel will automatically compute
+                        ProductName = d.Products?.ProductName, // Nav prop from ProductId
+                        UoMName = d.UoMs?.UoMName, // Nav prop from UoMId
+                    }).ToList()
+                    // >>> END NEW <<<
                 };
+
+                return viewModel;
             }
             catch (Exception ex)
             {
@@ -178,102 +175,112 @@ namespace ProcureToPay.Areas.Inventory.Services // Changed namespace to Inventor
                 throw;
             }
         }
-
-        public async Task<bool> SavePurchaseRequisitionAsync(PurchaseRequisitionViewModel model)
+public async Task<bool> SavePurchaseRequisitionAsync(PurchaseRequisitionViewModel model)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                PurchaseRequisition entity;
-
-                // Placeholder for getting current user's ID/Name
-                // In a real application, you'd typically get this from IHttpContextAccessor or an authentication service.
-                // Example: var currentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                // Example: var currentUserName = _httpContextAccessor.HttpContext.User.Identity.Name;
-
-                // For demonstration, let's assume a placeholder user name
-                string currentUserName = "CurrentUser"; // Replace with actual current user logic
-
-                // Hardcode StateId for "Saved"
-                // Assuming '1' is the ID for the "Saved" state. Adjust if your actual State table's ID for "Saved" is different.
-                short savedStateId = 1;
-
-                if (model.PRNo > 0) // Check if we are UPDATING an existing purchase requisition
+                try
                 {
-                    entity = await _context.PurchaseRequisitions
-                        .FirstOrDefaultAsync(x => x.PRNo == model.PRNo);
+                    PurchaseRequisition entity;
 
-                    if (entity == null)
+                    string currentUserName = "CurrentUser"; // Placeholder for demonstration  
+                    string currentUserId = "current_user_id"; // Placeholder for demonstration  
+
+                    short savedStateId = 1;
+
+                    if (model.PRNo > 0) // Updating existing PR  
                     {
-                        _logger.LogWarning("Attempted to update a purchase requisition that does not exist. PR No: {PRNo}", model.PRNo);
-                        return false;
+                        entity = await _context.PurchaseRequisitions
+                                               .Include(pr => pr.Details)
+                                               .FirstOrDefaultAsync(pr => pr.PRNo == model.PRNo);
+
+                        if (entity == null)
+                        {
+                            _logger.LogWarning("Attempted to update a purchase requisition that does not exist. PR No: {PRNo}", model.PRNo);
+                            return false;
+                        }
+
+                        // --- UPDATE MAIN PR LOGIC ---  
+                        entity.CompanyCode = model.CompanyCode;
+                        entity.BranchId = model.BranchId;
+                        entity.DepartmentId = model.DepartmentId;
+                        entity.ProductNatureId = model.ProductNatureId;
+                        entity.ServiceNatureId = model.ServiceNatureId;
+                        entity.RequiredBy = model.RequiredBy;
+                        entity.StateId = savedStateId; // Set State to the hardcoded ID for "Saved"  
+                        entity.Owner = currentUserName;
+                        entity.Justification = model.Justification;
+                    }
+                    else // Creating new PR  
+                    {
+                        entity = new PurchaseRequisition
+                        {
+                            CompanyCode = model.CompanyCode,
+                            BranchId = model.BranchId,
+                            DepartmentId = model.DepartmentId,
+                            ProductNatureId = model.ProductNatureId,
+                            ServiceNatureId = model.ServiceNatureId,
+                            RequiredBy = model.RequiredBy,
+                            StateId = savedStateId, // Set State to the hardcoded ID for "Saved"  
+                            Owner = currentUserName,
+                            Justification = model.Justification,
+                            // Audit fields (CreatedOn, CreatedBy)  
+                            CreatedOn = DateTime.Now,
+                        };
+                        _context.PurchaseRequisitions.Add(entity);
                     }
 
-                    // --- UPDATE LOGIC ---
-                    entity.CompanyCode = model.CompanyCode;
-                    entity.BranchId = model.BranchId;
-                    entity.DepartmentId = model.DepartmentId;
-                    entity.ProductNatureId = model.ProductNatureId;
-                    entity.ServiceNatureId = model.ServiceNatureId;
-                    entity.RequiredBy = model.RequiredBy;
-                    entity.StateId = savedStateId; // Set State to the hardcoded ID for "Saved"
-                    //entity.ProductGroupId = model.ProductGroupId;
-                    //entity.ServiceGroupId = model.ServiceGroupId;
-                    //entity.RequestNatureId = model.RequestNatureId.GetValueOrDefault();
-                    //entity.RequestTypeId = model.RequestTypeId.GetValueOrDefault();
-                    //entity.WorkFlowId = model.WorkFlowId.GetValueOrDefault();
-                    entity.Owner = currentUserName; // Set Owner to current user
-                    entity.IsCompleted = model.IsCompleted;
-                    entity.Approved = model.Approved;
-                    entity.Rejected = model.Rejected;
-                    entity.Budgeted = model.Budgeted;
-                    entity.BudgetAmount = model.BudgetAmount;
-                    entity.BudgetRemarks = model.BudgetRemarks;
-                    entity.Justification = model.Justification;
+                    await _context.SaveChangesAsync(); // Save main PR first to get PRNo for new entities  
 
-                    entity.UpdatedOn = DateTime.Now;
-                    // entity.UpdatedBy = currentUserId; // Set updated by user ID if available
-                }
-                else // Otherwise, we are CREATING a new purchase requisition
-                {
-                    // --- CREATE LOGIC ---
-                    entity = new PurchaseRequisition
+                    // --- Handle Purchase Requisition Details ---  
+                    // Get IDs of details that were submitted from the form and are not marked for deletion  
+                    var incomingDetailIds = model.PRDetails
+                                                .Where(d => d.Id > 0) // Filter existing & not deleted  
+                                                .Select(d => d.Id)
+                                                .ToList();
+
+                    foreach (var detailViewModel in model.PRDetails)
                     {
-                        CompanyCode = model.CompanyCode,
-                        BranchId = model.BranchId,
-                        DepartmentId = model.DepartmentId,
-                        ProductNatureId = model.ProductNatureId,
-                        ServiceNatureId = model.ServiceNatureId,
-                        RequiredBy = model.RequiredBy,
-                        StateId = savedStateId, // Set State to the hardcoded ID for "Saved"
-                        //ProductGroupId = model.ProductGroupId,
-                        //ServiceGroupId = model.ServiceGroupId,
-                        //RequestNatureId = model.RequestNatureId.GetValueOrDefault(),
-                        //RequestTypeId = model.RequestTypeId.GetValueOrDefault(),
-                        //WorkFlowId = model.WorkFlowId.GetValueOrDefault(),
-                        Owner = currentUserName, // Set Owner to current user
-                        IsCompleted = model.IsCompleted,
-                        Approved = model.Approved,
-                        Rejected = model.Rejected,
-                        Budgeted = model.Budgeted,
-                        BudgetAmount = model.BudgetAmount,
-                        BudgetRemarks = model.BudgetRemarks,
-                        Justification = model.Justification,
-                        CreatedOn = DateTime.Now,
-                        // CreatedBy = currentUserId; // Set created by user ID if available
-                    };
-                    _context.PurchaseRequisitions.Add(entity);
-                }
+                        PurchaseRequisitionDetail detailEntity;
+                        if (detailViewModel.Id > 0) // Existing detail item (update)
+                        {
+                            detailEntity = entity.Details.FirstOrDefault(d => d.Id == detailViewModel.Id);
+                            if (detailEntity != null)
+                            {
+                                detailEntity.ProductId = detailViewModel.ProductId;
+                                detailEntity.Remarks = detailViewModel.Remarks; // Maps Narration
+                                detailEntity.Quantity = detailViewModel.Quantity;
+                                detailEntity.UoMId = detailViewModel.UoMId;
+                                detailEntity.Price = detailViewModel.Price;
+                                detailEntity.GSTRate = detailViewModel.GSTRate;
+                            }
+                        }
+                        else // New detail item (add)
+                        {
+                            detailEntity = new PurchaseRequisitionDetail
+                            {
+                                PRNo = entity.PRNo, // Link to the parent PR's PRNo (now guaranteed to have a value)
+                                ProductId = detailViewModel.ProductId,
+                                Remarks = detailViewModel.Remarks, // Maps Narration
+                                Quantity = detailViewModel.Quantity,
+                                UoMId = detailViewModel.UoMId,
+                                Price = detailViewModel.Price,
+                                GSTRate = detailViewModel.GSTRate,
+                            };
+                            entity.Details.Add(detailEntity); // Correctly add to the parent entity's Details collection
+                        }
+                    }
 
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync();
-                _logger.LogError(ex, "Error saving purchase requisition");
-                throw;
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    _logger.LogError(ex, "Error saving purchase requisition with details");
+                    throw;
+                }
             }
         }
 

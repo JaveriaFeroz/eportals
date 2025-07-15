@@ -33,6 +33,9 @@ namespace ProcureToPay.Data
 
         //Inventory Data DbSets
         public DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
+        public DbSet<PurchaseRequisition> PurchaseRequisitionDetails { get; set; }
+
+        
         // Master Data DbSets
         public DbSet<AccessorialCharge> AccessorialCharges { get; set; }
         public DbSet<Activity> Activities { get; set; }
@@ -94,6 +97,7 @@ namespace ProcureToPay.Data
         public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
 
+        
         // Procurement DbSets
 
         public DbSet<PurchaseRequest> PurchaseRequests { get; set; }

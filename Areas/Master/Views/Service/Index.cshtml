@@ -1,0 +1,215 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.ServiceIndexViewModel
+
+@{
+    ViewData["Title"] = "Services";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-boxes me-2"></i> Services Management
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="serviceSearch"
+                                   placeholder="Service Name" data-filter="serviceName">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select class="form-select form-select-sm underline-input" id="serviceNatureSearch" data-filter="serviceNature">
+                                <option value="">All Service Natures</option>
+                                @{
+                                    var uniqueServiceNatures = Model.Services
+                                    .Select(s => s.ServiceNatureName)
+                                    .Where(t => !string.IsNullOrEmpty(t))
+                                    .Distinct()
+                                    .OrderBy(t => t)
+                                    .ToList();
+                                }
+                                @foreach (var serviceNatureName in uniqueServiceNatures)
+                                {
+                                    <option value="@serviceNatureName">@serviceNatureName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select class="form-select form-select-sm underline-input" id="statusSearch" data-filter="status">
+                                <option value="">All</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <button class="action-button create-user-text"
+                                    data-url="@Url.Action("Create", "Service", new { area = "Master" })"
+                                    style="background-color: #092963;">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Add New Service</span>
+                            </button>
+                            <a href="#" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-box-open text-dark me-2"></i>SERVICE NAME</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-tag text-dark me-2"></i>PRICE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-sitemap text-dark me-2"></i>SERVICE NATURE</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-balance-scale text-dark me-2"></i>UoM</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user-clock text-dark me-2"></i>CREATED</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-history text-dark me-2"></i>UPDATED</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-toggle-on text-dark me-2"></i>STATUS</div>
+                <div class="col-md-1 text-center d-flex align-items-center justify-content-center"><i class="fas fa-cogs text-dark me-2"></i>ACTIONS</div>
+            </div>
+
+            @if (Model.Services.Any())
+            {
+                @foreach (var service in Model.Services)
+                {
+            <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
+
+                <div class="col-12 col-md-2" data-column="serviceName"><strong class="fw-bold">@service.ServiceName</strong></div>
+
+                <div class="col-6 col-md-1">@service.UnitPrice.ToString("C")</div>
+
+                <div class="col-6 col-md-2" data-column="serviceNature">@service.ServiceNatureName</div>
+
+                <div class="col-6 col-md-1 text-md-center" data-column="uom">@service.UoMName</div>
+
+                <div class="col-6 col-md-2 small">
+                    <div title="Created by"><i class="fas fa-user-edit me-1 text-muted"></i> @service.CreatedBy</div>
+                    <div title="Created on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @service.CreatedOn.ToString("dd MMM yyyy")</div>
+                </div>
+
+                <div class="col-6 col-md-2 small">
+                    <div title="Updated by"><i class="fas fa-user-edit me-1 text-muted"></i> @(service.UpdatedBy ?? "N/A")</div>
+                    <div title="Updated on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @(service.UpdatedOn?.ToString("dd MMM yyyy") ?? "N/A")</div>
+                </div>
+
+                <div class="col-6 col-md-1 text-md-center" data-column="status">
+                    @if (service.IsActive)
+                    {
+                        <span class="badge status-badge" data-state-name="active">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge status-badge bg-danger" data-state-name="inactive">Inactive</span>
+                    }
+                </div>
+
+                <div class="col-12 col-md-1 d-flex justify-content-md-center gap-1 mt-2 mt-md-0">
+                    <button type="button" class="btn btn-sm text-warning edit-btn action-btn" title="Edit" data-id="@service.ServiceId" data-area="Master" data-page="Service"><i class="fas fa-edit icon-warning"></i></button>
+                    <button type="button" class="btn btn-sm text-info details-btn action-btn" title="Details" data-id="@service.ServiceId" data-area="Master" data-page="Service"><i class="fas fa-info-circle icon-info"></i></button>
+                </div>
+            </div>
+                        }
+                        }
+                        else
+            {
+                <div class="row"><div class="col-12 text-center text-muted py-4"><i class="fas fa-inbox fa-2x mb-2"></i><br>No services found.</div></div>
+            }
+        </div>
+        @await Html.PartialAsync("_ServiceModals")
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 1. Get all search/filter elements
+        const serviceSearch = document.getElementById('serviceSearch');
+        const serviceNatureSearch = document.getElementById('serviceNatureSearch'); // Updated ID
+        const statusSearch = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const rows = document.querySelectorAll('.service-row');
+
+        // 2. Define the filtering function
+        function filterRows() {
+            // Get values from input/select fields and convert to lowercase for case-insensitive comparison
+            const serviceNameValue = serviceSearch.value.toLowerCase().trim();
+            const serviceNatureValue = serviceNatureSearch.value.toLowerCase().trim(); // Updated variable name
+            const statusValue = statusSearch.value.toLowerCase().trim();
+
+            rows.forEach(row => {
+                // Get text content from corresponding data columns/attributes
+                const serviceNameText = row.querySelector('[data-column-value="serviceName"]').textContent.trim().toLowerCase();
+                const serviceNatureText = row.querySelector('[data-column-value="serviceNature"]').textContent.trim().toLowerCase(); // Updated data attribute
+                const rowStatusName = row.querySelector('.status-badge').getAttribute('data-state-name');
+
+                // Check for matches
+                const serviceNameMatch = serviceNameValue === '' || serviceNameText.includes(serviceNameValue);
+                const serviceNatureMatch = serviceNatureValue === '' || serviceNatureText === serviceNatureValue;
+                const statusMatch = statusValue === '' || rowStatusName === statusValue;
+
+                // Show/hide the row based on all matches
+                if (serviceNameMatch && serviceNatureMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // 3. Attach event listeners
+        serviceSearch.addEventListener('input', filterRows);
+        serviceNatureSearch.addEventListener('change', filterRows); // Updated ID
+        statusSearch.addEventListener('change', filterRows);
+
+        // 4. Clear button functionality
+        clearButton.addEventListener('click', function () {
+            serviceSearch.value = '';
+            serviceNatureSearch.value = ''; // Updated ID
+            statusSearch.value = '';
+            filterRows(); // Re-filter to show all rows
+        });
+
+        // 5. Initial filter
+        filterRows();
+    });
+</script>

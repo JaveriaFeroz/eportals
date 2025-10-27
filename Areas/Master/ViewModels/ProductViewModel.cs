@@ -12,13 +12,10 @@ namespace ProcureToPay.Areas.Master.ViewModels
         [StringLength(200)]
         public string ProductName { get; set; }
 
-        [Required(ErrorMessage = "Purchase Price is required")]
-        [Display(Name = "Purchase Price")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Purchase Price must be greater than 0")]
-        public double PurchasePrice { get; set; }
-
-        [Display(Name = "Product Type")]
-        public short? ProductTypeId { get; set; }
+        [Required(ErrorMessage = "Unit Price is required")]
+        [Display(Name = "Unit Price")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Unit Price must be greater than 0")]
+        public double UnitPrice { get; set; }
 
         [Display(Name = "UOM")]
         public short? UoMId { get; set; }
@@ -52,8 +49,7 @@ namespace ProcureToPay.Areas.Master.ViewModels
     {
         public short ProductId { get; set; }
         public string ProductName { get; set; }
-        public double PurchasePrice { get; set; }
-        public string ProductTypeName { get; set; }
+        public double UnitPrice { get; set; }
         public string UoMName { get; set; }
         public string ProductNatureName { get; set; }
         public bool IsActive { get; set; }
@@ -72,9 +68,28 @@ namespace ProcureToPay.Areas.Master.ViewModels
 
     public class ProductLookupsViewModel
     {
-        public List<ProductTypeListViewModel> ProductTypes { get; set; } = new List<ProductTypeListViewModel>();
         public List<UoMListViewModel> UoMs { get; set; } = new List<UoMListViewModel>();
         public List<ProductNatureListViewModel> ProductNatures { get; set; } = new List<ProductNatureListViewModel>();
     }
 
+
+
+    public class ProductPriceUpdateResult
+    {
+        public bool Success { get; set; }
+        public List<ProductPriceChange> Changes { get; set; } = new List<ProductPriceChange>();
+        public string Message { get; set; } = string.Empty;
+    }
+    public class ProductPriceChange
+    {
+        public short ProductId { get; set; }
+        public string ProductName { get; set; } = string.Empty;
+        public decimal OldPrice { get; set; }
+        public decimal NewPrice { get; set; }
+
+
+        public string PriceChangeDisplay => $"{ProductName}: ${OldPrice:N2} ? ${NewPrice:N2}";
+        public decimal PriceDifference => NewPrice - OldPrice;
+        public decimal PercentageChange => OldPrice > 0 ? ((NewPrice - OldPrice) / OldPrice) * 100 : 0;
+    }
 }

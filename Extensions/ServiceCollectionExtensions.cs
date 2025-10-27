@@ -1,7 +1,11 @@
 ﻿using ProcureToPay.Areas.Common.Services;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Insurance.Services;
-using ProcureToPay.Areas.Inventory.Services;
+using ProcureToPay.Areas.Procurement.Services;
+using ProcureToPay.Areas.Receiving.Services;
+using ProcureToPay.Areas.Finance.Services;
+using ProcureToPay.Areas.Reports.Services;
+//using ProcureToPay.Areas.Inventory.Services;
 
 namespace ProcureToPay.Extensions
 {
@@ -11,7 +15,7 @@ namespace ProcureToPay.Extensions
         {
             // Register all application services
             services.AddMasterServices();
-     
+
 
             return services;
         }
@@ -34,14 +38,18 @@ namespace ProcureToPay.Extensions
             services.AddScoped<IIndustryVerticalService, IndustryVerticalService>();
             services.AddScoped<IMakeService, MakeService>();
             services.AddScoped<IPaymentModeService, PaymentModeService>();
+            services.AddScoped<IPaymentNatureService, PaymentNatureService>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeService>();
             services.AddScoped<IServiceNatureService, ServiceNatureService>();
             services.AddScoped<IPriorityService, PriorityService>();
             services.AddScoped<IQualificationService, QualificationService>();
             services.AddScoped<IRateTypeService, RateTypeService>();
             services.AddScoped<IVehicleGroupService, VehicleGroupService>();
             services.AddScoped<ISeparationTypeService, SeparationTypeService>();
+            services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<ISKUService, SKUService>();
             services.AddScoped<ISKUTypeService, SKUTypeService>();
+            services.AddScoped<ISubNatureService, SubNatureService>();
             services.AddScoped<ISKUCategoryService, SKUCategoryService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<ISupplierRateService, SupplierRateService>();
@@ -62,6 +70,7 @@ namespace ProcureToPay.Extensions
             services.AddScoped<IDetentionService, DetentionService>();
             services.AddScoped<ILeaseTypeService, LeaseTypeService>();
             services.AddScoped<IContractorService, ContractorService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
 
             // Register Insurance Services
             services.AddScoped<IInsuranceTypeService, InsuranceTypeService>();
@@ -69,18 +78,25 @@ namespace ProcureToPay.Extensions
             services.AddScoped<IInsuranceCompanyService, InsuranceCompanyService>();
 
             //Register Inventory Services
-            services.AddScoped<IPurchaseRequisitionService, PurchaseRequisitionService>();
+            // services.AddScoped<IPurchaseRequisitionService, PurchaseRequisitionService>();
 
             //Register Procurement Services
+            services.AddScoped<IPurchaseRequestFleetService, PurchaseRequestFleetService>();
+            services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
             services.AddScoped<IWorkflowService, WorkflowService>();
 
+            // services.AddScoped<IPurchaseRequisitionService, PurchaseRequisitionService>();            
+            services.AddScoped<IGRNService, GRNService>();
 
-            
+            //Register Reports Services
+            services.AddScoped<IReportService, ReportService>();
+
+            services.AddScoped<IPaymentRequestService, PaymentRequestService>();
 
             return services;
         }
 
-       
+
 
     }
 }

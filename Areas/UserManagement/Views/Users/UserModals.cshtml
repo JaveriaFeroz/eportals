@@ -55,11 +55,12 @@
         document.addEventListener('DOMContentLoaded', function () {
         // Helper function to build URLs
         function getUrl(area, page, action, id) {
-            // Handle cases where ID is optional for the action URL (e.g., POST Edit without ID in route)
+            let baseUrl = '@Url.Content("~/")';
+
             if (id) {
-                return `/${area}/${page}/${action}/${id}`;
+                return `${baseUrl}${area}/${page}/${action}/${id}`;
             }
-            return `/${area}/${page}/${action}`;
+            return `${baseUrl}${area}/${page}/${action}`;
         }
 
         // --- Function to attach/re-attach form submission handler for the Edit modal ---

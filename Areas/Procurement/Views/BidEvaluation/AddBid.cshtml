@@ -1,0 +1,394 @@
+﻿@model ProcureToPay.Areas.Procurement.ViewModels.BidCreateViewModel
+
+@{
+    ViewData["Title"] = "Add Supplier Bid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="col-md-12">
+            <h3 class="fw-bold m-0">Add Supplier Bid</h3>
+            <p class="text-muted">Add bid for: <strong>@Model.BidEvaluationNumber</strong></p>
+        </div>
+    </div>
+
+    <form id="bidForm"asp-area="Procurement"asp-controller="BidEvaluation"asp-action="AddBid"method="post"enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="BidNo" />
+        <input type="hidden" asp-for="BidEvaluationNumber" />
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card mb-3 shadow border-0">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">Bid Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="SupplierId" class="form-label"></label>
+                            <select asp-for="SupplierId" class="form-select" required>
+                                <option value="">---Select Supplier---</option>
+                                @foreach (var supplier in ViewBag.Suppliers as List<SelectListItem>)
+                                {
+                                    <option value="@supplier.Value">@supplier.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="SupplierId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="QuotationNumber" class="form-label"></label>
+                            <input asp-for="QuotationNumber" class="form-control" placeholder="Supplier's quotation reference" />
+                            <span asp-validation-for="QuotationNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="SubmissionDate" class="form-label"></label>
+                            <input asp-for="SubmissionDate" type="date" class="form-control" />
+                            <span asp-validation-for="SubmissionDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quotationDocument" class="form-label">
+                                Quotation Document
+                                <small class="text-muted">(PDF, DOCX, or Image)</small>
+                            </label>
+                            <input type="file" name="quotationDocument" id="quotationDocument"
+                                   class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-3 shadow border-0">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-list-alt me-2"></i>
+                            <span class="d-inline-block me-2">Item Pricing</span>
+                            <small class="float-end">Enter supplier's quoted prices</small>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Important:</strong> Enter the supplier's quoted prices for each item.
+                            These may differ from the Purchase Request prices.
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="bidItemsTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 5%">#</th>
+                                        <th style="width: 25%">Item Name</th>
+                                        <th style="width: 10%">Quantity</th>
+                                        <th style="width: 10%">UoM</th>
+                                        <th style="width: 15%; text-align: right;">Unit Price <span class="text-danger">*</span></th>
+                                        <th style="width: 15%; text-align: right;">Total Price</th>
+                                        <th style="width: 5%">
+                                            <i class="bi bi-check-circle" title="Meets Specs"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.BidItems.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>@(i + 1)</td>
+                                            <td>
+                                                <input type="hidden" asp-for="BidItems[i].PurchaseRequestItemId" />
+                                                <input type="hidden" asp-for="BidItems[i].ItemName" />
+                                                <input type="hidden" asp-for="BidItems[i].UoMId" />
+                                                <strong>@Model.BidItems[i].ItemName</strong>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="hidden" asp-for="BidItems[i].Quantity" />
+                                                <span class="badge bg-secondary">@Model.BidItems[i].Quantity</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <small>@Model.BidItems[i].UOM</small>
+                                            </td>
+                                            <td>
+                                                <input asp-for="BidItems[i].UnitPrice"
+                                                       type="number"
+                                                       step="0.01"
+                                                       min="0"
+                                                       class="form-control form-control-sm unit-price"
+                                                       data-index="@i"
+                                                       onchange="calculateItemTotal(@i)"
+                                                       required
+                                                       placeholder="0.00" />
+                                                <span asp-validation-for="BidItems[i].UnitPrice" class="text-danger"></span>
+                                            </td>
+                                            <td>
+                                                <input asp-for="BidItems[i].TotalPrice"
+                                                       type="number"
+                                                       step="0.01"
+                                                       class="form-control form-control-sm total-price"
+                                                       id="totalPrice_@i"
+                                                       readonly />
+                                            </td>
+                                            <td class="text-center">
+                                                <input asp-for="BidItems[i].MeetsSpecifications"
+                                                       type="checkbox"
+                                                       class="form-check-input" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="7">
+                                                <input asp-for="BidItems[i].Remarks"
+                                                       class="form-control form-control-sm"
+                                                       placeholder="Additional remarks for this item (optional)" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <th colspan="6" class="text-end">Subtotal:</th>
+                                        <th id="footerSubtotal" class="text-end">0.00</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3 shadow border-0">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h6 class="card-title text-white mb-0">Terms & Conditions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="DeliveryDays" class="form-label"></label>
+                                    <input asp-for="DeliveryDays" type="number" class="form-control" min="1" />
+                                    <span asp-validation-for="DeliveryDays" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="PaymentTerms" class="form-label"></label>
+                                    <input asp-for="PaymentTerms" class="form-control" />
+                                    <span asp-validation-for="PaymentTerms" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="ValidityPeriod" class="form-label"></label>
+                                    <input asp-for="ValidityPeriod" class="form-control" />
+                                    <span asp-validation-for="ValidityPeriod" class="text-danger"></span>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input asp-for="MeetsRequirements" class="form-check-input" />
+                                    <label asp-for="MeetsRequirements" class="form-check-label"></label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input asp-for="IsResponsive" class="form-check-input" />
+                                    <label asp-for="IsResponsive" class="form-check-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="TaxAmount" class="form-label"></label>
+                                    <input asp-for="TaxAmount" type="number" step="0.01" class="form-control"
+                                           id="taxAmount" onchange="calculateGrandTotal()" />
+                                    <span asp-validation-for="TaxAmount" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3">
+                                <label asp-for="Remarks" class="form-label"></label>
+                                <textarea asp-for="Remarks" class="form-control" rows="1"></textarea>
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-success shadow">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="card-title text-white mb-0">Bid Summary</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm mb-0">
+                            <tr>
+                                <td>Subtotal:</td>
+                                <td class="text-end"><strong id="subtotalDisplay">0.00</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Tax:</td>
+                                <td class="text-end"><strong id="taxDisplay">0.00</strong></td>
+                            </tr>
+                            <tr class="table-success">
+                                <td><strong>Grand Total:</strong></td>
+                                <td class="text-end"><strong id="grandTotalDisplay">0.00</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row text-end">
+                            <div class="col-12">
+                                <button type="submit" class="btn" style="background-color: #092963; color: white;">
+                                    <i class="bi bi-check-circle"></i> Save Bid
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Calculate total price for a single item
+        function calculateItemTotal(index) {
+            var quantity = parseFloat($('#BidItems_' + index + '__Quantity').val()) || 0;
+            var unitPrice = parseFloat($('#BidItems_' + index + '__UnitPrice').val()) || 0;
+            var totalPrice = quantity * unitPrice;
+
+            $('#BidItems_' + index + '__TotalPrice').val(totalPrice.toFixed(2));
+            $('#totalPrice_' + index).val(totalPrice.toFixed(2));
+
+            calculateGrandTotal();
+        }
+
+        // Calculate grand total
+        function calculateGrandTotal() {
+            var subtotal = 0;
+
+            $('.total-price').each(function() {
+                var value = parseFloat($(this).val()) || 0;
+                subtotal += value;
+            });
+
+            var tax = parseFloat($('#taxAmount').val()) || 0;
+            var grandTotal = subtotal + tax;
+
+            // Update displays
+            $('#subtotalDisplay').text(subtotal.toFixed(2));
+            $('#taxDisplay').text(tax.toFixed(2));
+            $('#grandTotalDisplay').text(grandTotal.toFixed(2));
+            $('#footerSubtotal').text(subtotal.toFixed(2));
+        }
+
+        // Initialize calculations on page load
+        $(document).ready(function() {
+            // Calculate totals for all items on load
+            @for (int i = 0; i < Model.BidItems.Count; i++)
+            {
+                        <text>
+                        calculateItemTotal(@i);
+                        </text>
+            }
+
+            calculateGrandTotal();
+
+            // Add validation for unit prices
+            $('.unit-price').on('blur', function() {
+                var value = parseFloat($(this).val());
+                if (isNaN(value) || value < 0) {
+                    $(this).val('0.00');
+                    var index = $(this).data('index');
+                    calculateItemTotal(index);
+                }
+            });
+
+            // Validate form before submission
+            $('#bidForm').on('submit', function(e) {
+                var hasValidPrices = true;
+                var emptyPrices = [];
+
+                $('.unit-price').each(function(index) {
+                    var value = parseFloat($(this).val());
+                    if (isNaN(value) || value <= 0) {
+                        hasValidPrices = false;
+                        emptyPrices.push(index + 1);
+                    }
+                });
+
+                if (!hasValidPrices) {
+                    e.preventDefault();
+                    alert('Please enter valid unit prices for all items. Items with missing prices: ' + emptyPrices.join(', '));
+                    return false;
+                }
+
+                // Check if supplier is selected
+                if (!$('#SupplierId').val()) {
+                    e.preventDefault();
+                    alert('Please select a supplier.');
+                    $('#SupplierId').focus();
+                    return false;
+                }
+
+                // Confirm submission
+                var grandTotal = $('#grandTotalDisplay').text();
+                var supplier = $('#SupplierId option:selected').text();
+
+                return confirm('Submit bid from ' + supplier + ' with Grand Total: ' + grandTotal + '?');
+            });
+
+            // Highlight fields that need attention
+            $('.unit-price').on('focus', function() {
+                $(this).select();
+            });
+        });
+
+        // Format numbers on blur
+        $('.unit-price').on('blur', function() {
+            var val = parseFloat($(this).val());
+            if (!isNaN(val)) {
+                $(this).val(val.toFixed(2));
+            }
+        });
+    </script>
+
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .unit-price:focus {
+            background-color: #fffbcc;
+            border-color: #ffc107;
+        }
+
+        .form-control-sm {
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            font-size: 0.875rem;
+        }
+
+        #bidItemsTable input[type="number"] {
+            text-align: right;
+        }
+
+        .card-header {
+            font-weight: 600;
+        }
+    </style>
+}

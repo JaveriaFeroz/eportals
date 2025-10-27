@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels; // Ensure you have a using for ViewModels
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -119,8 +120,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         model.Driver.CreatedBy = currentUserId;
                         model.Driver.UpdatedBy = currentUserId;
-                        model.Driver.CreatedOn = DateTime.UtcNow;
-                        model.Driver.UpdatedOn = DateTime.UtcNow;
+                        model.Driver.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                        model.Driver.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                         // Pass the correct object (model.Driver) to the service
                         var success = await _driverService.SaveDriverAsync(model.Driver);
@@ -190,7 +191,7 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.Driver.UpdatedBy = currentUserId;
-                    viewModel.Driver.UpdatedOn = DateTime.UtcNow;
+                    viewModel.Driver.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     var success = await _driverService.SaveDriverAsync(viewModel.Driver);
 

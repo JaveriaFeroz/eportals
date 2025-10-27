@@ -1,13 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Procurement.Models;
 using ProcureToPay.Areas.UserManagement.Models;
 using ProcureToPay.Areas.UserManagement.Services;
 using ProcureToPay.Data;
-using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Extensions;
 using ProcureToPay.Services;
+using ProcureToPay.Utilities;
 
+
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,8 +27,8 @@ builder.Services.AddIdentity<User, Role>(options =>
 {
     // Password settings
     options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequireLowercase = true;
 
@@ -57,7 +61,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddScoped<IUpdateService, UpdateService>();
 builder.Services.AddApplicationServices();
 
-
+builder.Services.AddScoped<NavigationHelper>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -82,6 +87,9 @@ app.Use(async (context, next) =>
     await next();
 });
 
+
+app.UsePathBase("/p2p");
+
 app.UseStaticFiles();
 app.UseRouting();
 
@@ -98,15 +106,26 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // If you want to redirect root to Auth/Account/Login
+//app.MapGet("/", (HttpContext context) =>
+//{
+//    if (context.User.Identity.IsAuthenticated)
+//    {
+//        return Results.Redirect("/Home/Index");
+//    }
+//    else
+//    {
+//        return Results.Redirect("/Auth/Account/Login");
+//    }
+//});
 app.MapGet("/", (HttpContext context) =>
 {
     if (context.User.Identity.IsAuthenticated)
     {
-        return Results.Redirect("/Home/Index");
+        return Results.LocalRedirect("~/Home/Index");
     }
     else
     {
-        return Results.Redirect("/Auth/Account/Login");
+        return Results.LocalRedirect("~/Auth/Account/Login");
     }
 });
 // Seed data BEFORE app.Run()
@@ -124,10 +143,3 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-
-
-
-
-
-
-

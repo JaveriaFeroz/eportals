@@ -1,0 +1,263 @@
+﻿@model ProcureToPay.Areas.Receiving.ViewModels.GRNDetailsViewModel
+
+<!-- Submit Modal -->
+<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitModalLabel">Submit for Approval</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowActionGRN" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="submit" />
+                    <div class="mb-3">
+                        <label for="submitComments" class="form-label">Comments </label>
+                        <textarea class="form-control" id="submitComments" name="comments" rows="3" placeholder="Add any comments..." ></textarea>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> This will submit the request for approval and you will not be able to edit it until it's returned or approved.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Submit GRN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Modal -->
+<div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveModalLabel">Approve GRN</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowActionGRN" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="approve" />
+                    <div class="mb-3">
+                        <label for="approveComments" class="form-label">Approval Comments </label>
+                        <textarea class="form-control" id="approveComments" name="comments" rows="3" placeholder="Add approval comments..." ></textarea>
+                    </div>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> This will approve the request and move it to the next approval level or mark it as fully approved.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Approve GRN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- UPDATED: Detailed Return Modal (replaces simple one) -->
+<div class="modal fade" id="returnToSpecificUserModal" tabindex="-1" aria-labelledby="returnToSpecificUserModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="returnToSpecificUserModalLabel">
+                    <i class="fas fa-undo me-2"></i>
+                    Return GRN
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="returnForm" method="post" action="@Url.Action("WorkflowActionGRN", "GRN", new { area = "Receiving" })">
+                <div class="modal-body">
+                    <div id="returnToSpecificUserModalError" class="alert alert-danger d-none" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span class="alert-text"></span>
+                    </div>
+
+                    <div id="loadingSpinner" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted">Loading previous users...</p>
+                    </div>
+
+                    <div id="returnUserSection" style="display: none;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" id="grnId" value="@Model.Id" />
+                        <input type="hidden" name="action" value="return" />
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Return Instructions:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li>Select a previous user from the workflow to return the request to.</li>
+                                <li>Provide clear comments explaining the reason for return.</li>
+                                <li>The selected user will be notified and can reprocess the request.</li>
+                            </ul>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label for="returnToUserId" class="form-label fw-bold">
+                                        <i class="fas fa-user me-2"></i>
+                                        Select User to Return To <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" id="returnToUserId" name="returnToUserId" required disabled>
+                                        <option value="">Loading users...</option>
+                                    </select>
+                                    <div class="form-text">
+                                        Choose from users who have previously processed this request or can handle returns.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label for="returnComments" class="form-label fw-bold">
+                                        <i class="fas fa-comment-alt me-2"></i>
+                                        Return Comments 
+                                    </label>
+                                    <textarea class="form-control"
+                                              id="returnComments"
+                                              name="comments"
+                                              rows="4"
+                                              
+                                              placeholder="Please provide detailed comments explaining why you are returning this request..."
+                                              maxlength="500"></textarea>
+                                    <div class="form-text">
+                                        Provide clear, constructive feedback to help the assignee understand what needs to be addressed.
+                                    </div>
+                                    <div class="text-end mt-1">
+                                        <small class="text-muted">
+                                            <span id="commentCharCount">0</span>/1000 characters
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-light">
+                            <div class="card-body py-2">
+                                <h6 class="card-title mb-2">
+                                    <i class="fas fa-eye me-2"></i>
+                                    Return Summary
+                                </h6>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <strong>Action:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span class="badge bg-warning text-dark">Return GRN</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col-sm-4">
+                                        <strong>Return To:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span id="selectedUserPreview" class="text-muted">
+                                            <em>Select a user above</em>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col-sm-4">
+                                        <strong>Status After Return:</strong>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span class="badge bg-secondary">Returned</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    
+                    <button type="submit" class="btn btn-warning" id="confirmReturnButton" disabled>
+                        <i class="fas fa-undo me-2"></i>
+                        Confirm Return
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Reject GRN</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowActionGRN" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="reject" />
+                    <div class="mb-3">
+                        <label for="rejectComments" class="form-label">Rejection Comments </label>
+                        <textarea class="form-control" id="rejectComments" name="comments" rows="3" placeholder="Please provide reasons for rejection..." ></textarea>
+                    </div>
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times-circle"></i> This will permanently reject the request. This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Reject GRN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelModalLabel">Cancel GRN</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="WorkflowActionGRN" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="action" value="cancel" />
+                    <div class="mb-3">
+                        <label for="cancelComments" class="form-label">Cancellation Comments </label>
+                        <textarea class="form-control" id="cancelComments" name="comments" rows="3" placeholder="Please provide reason for cancellation..." ></textarea>
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-ban"></i> This will cancel the request. Only the requester can cancel their own request.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-dark">Cancel GRN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal for GRN -->
+<div class="modal fade" id="grnEditModal" tabindex="-1" aria-labelledby="grnEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #092963">
+                <h5 class="modal-title text-white" id="grnEditModalLabel">
+                    <i class="fas fa-edit me-2" ></i> Edit GRN
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="grnEditModalBody">
+                @* Content will be loaded via AJAX here *@
+            </div>
+        </div>
+    </div>
+</div>

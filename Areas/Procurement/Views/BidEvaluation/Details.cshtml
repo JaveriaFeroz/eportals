@@ -1,0 +1,978 @@
+﻿@using ProcureToPay.Areas.Procurement.Models
+@using ProcureToPay.Areas.Common.Models
+@using ProcureToPay.Areas.Common.Enums
+@model BidEvaluation
+
+@{
+    ViewData["Title"] = "Bid Evaluation Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Workflow related variables from ViewBag/Model (similar to PO)
+    var workflowHistory = ViewBag.WorkflowHistory as List<FormHistory>;
+    var currentStateName = ViewBag.CurrentStateName as string;
+    var currentUserId = (int)ViewBag.CurrentUserId;
+    var currentUserName = (string)ViewBag.CurrentUserName;
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int> ?? new List<int>();
+
+    // Bid Evaluation Specific Logic
+    bool canAddBids = Model.StateId == 1 || Model.StateId == 5; // Draft or Returned state
+    bool hasSelectedBid = Model.SelectedBidId.HasValue;
+
+    // Workflow action visibility logic (similar to PO, adjusted for BE)
+    bool isCreator = currentUserId == Model.CreatedByUserId;
+    bool isOwner = currentUserName == Model.Owner;
+
+    // Determine which actions are available
+    bool showEditSubmit = (Model.StateId == 1 || Model.StateId == 5) && isCreator;
+    bool showApprovalActions = (Model.StateId == 2 || (Model.StateId == 5 && !isCreator)) && isOwner;
+    bool showRejectionActions = showApprovalActions;
+
+    bool isEligibleToSubmit = (Model.StateId == 1 || Model.StateId == 5) && isCreator;
+    bool isSubmissionReady = isEligibleToSubmit && hasSelectedBid;
+
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3 class="fw-bold m-0">@ViewData["Title"]</h3>
+
+        @* --- Right side actions and status --- *@
+        
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (!hasSelectedBid && Model.Bids.Any()) // Warning for no winner selected
+            {
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i> You must Select a Winning Bid before submitting the evaluation for approval.
+                </div>
+            }
+            else if (!Model.Bids.Any() && isEligibleToSubmit) // Warning for no bids added yet
+            {
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Please Add Bids before submitting the Bid Evaluation for approval.
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        
+        @* ==================================================================== *@
+        @* LEFT COLUMN (8)                                                      *@
+        @* ==================================================================== *@
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-gavel me-2"></i> Bid Evaluation Information
+                    </h5>
+                    <div class="col-auto ms-auto d-flex align-items-center">
+                        <span class="badge bg-info fs-6 me-3">@currentStateName</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-5">BE Number:</dt>
+                                <dd class="col-sm-7">@Model.BidEvaluationNumber</dd>
+
+                                <dt class="col-sm-5">PR Number:</dt>
+                                <dd class="col-sm-7">
+                                    <a asp-area="Procurement" asp-controller="PurchaseRequest" asp-action="Details" asp-route-id="@Model.PRNo" class="text-decoration-none">
+                                        @Model.PurchaseRequest?.RequestNumber
+                                    </a>
+                                </dd>
+
+                                <dt class="col-sm-5">Title:</dt>
+                                <dd class="col-sm-7">@Model.Title</dd>
+
+                                <dt class="col-sm-5">Evaluation Date:</dt>
+                                <dd class="col-sm-7">@Model.EvaluationDate.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-5">Submission Deadline:</dt>
+                                <dd class="col-sm-7">
+                                    @(Model.SubmissionDeadline?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")
+                                </dd>
+
+                                <dt class="col-sm-5">Created By:</dt>
+                                <dd class="col-sm-7">@Model.CreatedByUser?.UserName</dd>
+
+                                <dt class="col-sm-5">Created On:</dt>
+                                <dd class="col-sm-7">@Model.CreatedOn.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-5">Current Owner:</dt>
+                                <dd class="col-sm-7">@Model.Owner</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <hr class="my-3" />
+                    <h6>Justification:</h6>
+                    <p class="text-muted">@Model.Justification</p>
+                </div>
+            </div>
+
+            @* --- Purchase Request Items Card (NEW SECTION) --- *@
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-box-open me-2"></i> Purchase Request Items
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.PurchaseRequest?.Items != null && Model.PurchaseRequest.Items.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Item Name</th>
+                                        <th class="text-center">Qty</th>
+                                        <th>UoM</th>
+                                        <th>GST %</th>
+                                        <th>GST Amt</th>
+                                        <th class="text-end">Est. Unit Price</th>
+                                        <th class="text-end">Est. Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var prItemCounter = 1;
+                                    }
+                                    @foreach (var item in Model.PurchaseRequest.Items.OrderBy(i => i.DetailId))
+                                    {
+                                        <tr>
+                                            <td>@(prItemCounter++)</td>
+                                            <td><strong>@item.ItemName</strong></td>
+                                            <td class="text-center">@item.Quantity</td>
+                                            <td>@item.UoM?.UoMName</td>
+                                            <td>@item.GSTRate</td>
+                                            <td>@item.GSTAmount</td>
+                                            <td class="text-end">@item.UnitPrice.ToString("N2")</td>
+                                            <td class="text-end">@item.TotalAmount.ToString("N2")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <th colspan="6" class="text-end">Total Estimated Cost:</th>
+                                        <th class="text-end">@Model.PurchaseRequest.Items.Sum(i => i.TotalAmount).ToString("N2")</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No items found for the associated Purchase Request.</p>
+                    }
+                </div>
+            </div>
+
+
+
+            @* --- Submitted Bids Card (Combined with Bid Evaluation Details) --- *@
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-list-alt me-2"></i> Submitted Bids
+                    </h5>
+                    @if (canAddBids)
+                    {
+                        <a asp-action="AddBid" asp-route-bidEvaluationId="@Model.BidNo"
+                           class="btn btn-sm btn-success">
+                            <i class="fas fa-plus-circle me-1"></i> Add Bid
+                        </a>
+                    }
+                </div>
+                <div class="card-body">
+                    @if (!Model.Bids.Any())
+                    {
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> No bids have been added yet.
+                            @if (canAddBids)
+                            {
+                                <a asp-action="AddBid" asp-route-bidEvaluationId="@Model.BidNo"
+                                   class="alert-link">Click here to add the first bid</a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Supplier</th>
+                                        <th>Submission Date</th>
+                                        <th class="text-end">Total</th>
+                                        <th class="text-end">Tax</th>
+                                        <th class="text-end">Grand Total</th>
+                                        <th>Delivery</th>
+                                        <th>Status</th>
+                                        <th>Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var bid in Model.Bids.OrderBy(b => b.GrandTotal))
+                                    {
+                                        <tr class="@(bid.BidId == Model.SelectedBidId ? "table-success" : "")"
+                                            data-bs-toggle="collapse" data-bs-target="#bidItems_@bid.BidId" style="cursor: pointer;">
+                                            <td>
+                                                <strong>@bid.Supplier?.SupplierName</strong>
+                                                @if (bid.BidId == Model.SelectedBidId)
+                                                {
+                                                    <br />
+                                                    <span class="badge bg-success"><i class="fas fa-trophy"></i> Winner</span>
+                                                }
+
+                                                @* --- UPDATED LOGIC FOR SELECT BUTTON --- *@
+                                                else if (Model.Bids.Count > 1 && (Model.StateId == 1 || Model.StateId == 5)) // State 1: Draft, State 5: Returned
+                                                {
+                                                    // Check if the current user is the owner/creator and the document is editable
+                                                    if (isCreator)
+                                                    {
+                                                        <a href="#" onclick="selectWinner(@Model.BidNo, @bid.BidId, '@bid.Supplier?.SupplierName'); return false;" class="badge bg-primary text-white ms-2">
+                                                            Select
+                                                        </a>
+                                                    }
+                                                }
+                                                @* --- END UPDATED LOGIC --- *@
+                                            </td>
+                                            <td>@bid.SubmissionDate.ToString("dd/MM/yyyy")</td>
+                                            <td class="text-end">@bid.TotalAmount.ToString("N2")</td>
+                                            <td class="text-end">@bid.TaxAmount.ToString("N2")</td>
+                                            <td class="text-end fw-bold">@bid.GrandTotal.ToString("N2")</td>
+                                            <td><span class="badge bg-info">@bid.DeliveryDays days</span></td>
+                                            <td>
+                                                @if (bid.MeetsRequirements && bid.IsResponsive)
+                                                {
+                                                    <span class="badge bg-success">Compliant</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">Non-compliant</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(bid.QuotationDocumentPath))
+                                                {
+                                                    <a href="@bid.QuotationDocumentPath"
+                                                       class="btn btn-sm btn-outline-custom-theme me-1"
+                                                       target="_blank"
+                                                       title="View Quotation">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+
+                                                    <a href="@Url.Action("DownloadQuotationDocument", "BidEvaluation", new { bidId = bid.BidId })"
+                                                       class="btn btn-sm btn-outline-custom-theme"
+                                                       title="Download Quotation">
+                                                        <i class="fas fa-download"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">No Document</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                        @* Bid Items Details (Collapsible) *@
+                                        <tr>
+                                            <td colspan="9" class="p-0 border-0">
+                                                <div class="collapse bg-light border-top" id="bidItems_@bid.BidId">
+                                                    <div class="p-3">
+                                                        <h6>Bid Items:</h6>
+                                                        <table class="table table-sm table-bordered mb-0">
+                                                            <thead class="table-secondary">
+                                                                <tr>
+                                                                    <th>Item</th>
+                                                                    <th class="text-center">Qty</th>
+                                                                    <th class="text-end">Unit Price</th>
+                                                                    <th class="text-end">Total</th>
+                                                                    <th>Meets Specs</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var item in bid.BidItems)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@item.ItemName</td>
+                                                                        <td class="text-center">@item.Quantity</td>
+                                                                        <td class="text-end">@item.UnitPrice.ToString("N2")</td>
+                                                                        <td class="text-end">@item.TotalPrice.ToString("N2")</td>
+                                                                        <td>
+                                                                            @if (item.MeetsSpecifications)
+                                                                            {
+                                                                                <i class="fas fa-check-circle text-success"></i>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <i class="fas fa-times-circle text-danger"></i>
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }
+                </div>
+            </div>
+
+            @* --- Selected Winning Bid Card (NEW SECTION) --- *@
+            @if (Model.SelectedBidId.HasValue && Model.SelectedBid != null)
+            {
+                <div class="card shadow border-success mt-3">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-trophy me-2"></i> Selected Winning Bid
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-5">Supplier:</dt>
+                                    <dd class="col-sm-7"><strong>@Model.SelectedBid.Supplier?.SupplierName</strong></dd>
+
+                                    <dt class="col-sm-5">Delivery Days:</dt>
+                                    <dd class="col-sm-7">@Model.SelectedBid.DeliveryDays days</dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-5">Total Amount:</dt>
+                                    <dd class="col-sm-7">@Model.SelectedBid.TotalAmount.ToString("N2")</dd>
+
+                                    <dt class="col-sm-5">Tax Amount:</dt>
+                                    <dd class="col-sm-7">@Model.SelectedBid.TaxAmount.ToString("N2")</dd>
+
+                                    <dt class="col-sm-5">Grand Total:</dt>
+                                    <dd class="col-sm-7"><span class="text-success fw-bold fs-5">@Model.SelectedBid.GrandTotal.ToString("N2")</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.SelectionJustification))
+                        {
+                            <hr class="my-3" />
+                            <h6>Selection Justification:</h6>
+                            <p class="alert alert-light p-2 mb-0 border-0">@Model.SelectionJustification</p>
+                        }
+                    </div>
+                </div>
+            }
+            else if (Model.Bids.Any())
+            {
+                <div class="alert alert-warning mt-3" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i> A winning bid has not been selected yet. Please select a winner to proceed.
+                </div>
+            }
+
+        </div>
+
+        @* ==================================================================== *@
+        @* RIGHT COLUMN (4)                           *@
+        @* ==================================================================== *@
+        <div class="col-md-4">
+            <!-- FIXED: Simplified the condition to show Actions card -->
+            @{
+                // The "Actions" card should be shown by default, unless specific conditions are met.
+                bool showActionsCard = true;
+
+                // Condition 1: Hide the card if the current user is the requester AND the state is 'Submitted'.
+                // This prevents the requester from acting on their own pending request.
+                if (Model.StateId == 2 && Model.CreatedByUser?.UserName == currentUserName)
+                {
+                    showActionsCard = false;
+                }
+
+                // Condition 2: Hide the card if the state is 'Approved' (3), 'Rejected' (4), or 'Cancelled' (10001).
+                // These are final states where no further action is possible.
+                else if (Model.StateId == 4 || Model.StateId == 10001)
+                {
+                    showActionsCard = false;
+                }
+
+                // Condition 3: Hide the card if the current user is NOT the owner, and the state is 'Submitted' or 'Returned'.
+                // This prevents users who are not the current assignee from taking action.
+                else if (Model.Owner != currentUserName && (Model.StateId == 2 || Model.StateId == 5))
+                {
+                    showActionsCard = false;
+                }
+
+                else if (Model.StateId == 5 && Model.Owner == currentUserName)
+                {
+                    showActionsCard = true;
+                }
+
+                // Condition 4: You cannot edit or submit if you are not the creator, even in a saved/returned state.
+                else if (Model.StateId == 1 || Model.StateId == 5)
+                {
+                    if (currentUserId != Model.CreatedByUserId)
+                    {
+                        showActionsCard = false;
+                    }
+                }
+                
+                else if (Model.StateId == 3)
+                {
+                    showActionsCard = false;
+                }
+            }
+
+            @if (showActionsCard)
+            {
+                <!-- Workflow Actions -->
+                <div class="card shadow border-0">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-cogs me-2"></i> Actions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+
+                            @* Submit button *@
+                            @if (isEligibleToSubmit)
+                            {
+                                @if (isSubmissionReady)
+                                {
+                                    @if ((Model.StateId == 1 && currentUserId == Model.CreatedByUserId) || (Model.StateId == 5 && currentUserId == Model.CreatedByUserId))
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#submitModal">
+                                            <i class="fas fa-paper-plane me-2"></i> <span class="button-text">Submit for Approval</span>
+                                        </button>
+                                    }
+                                }
+                                else
+                                {
+                                    string disabledTitle = Model.Bids.Any()
+                                    ? "A winning bid must be selected before submission."
+                                    : "No bids added to evaluate. Cannot submit.";
+
+                                    <button type="button" class="btn action-button-alt disabled" disabled title="@disabledTitle">
+                                        <i class="fas fa-paper-plane me-2"></i> <span class="button-text">Submit for Approval</span>
+                                    </button>
+                                }
+                            }
+                            @* Approval actions *@
+                            @if (((Model.StateId == 5 && currentUserId != Model.CreatedByUserId) || Model.StateId == 2) && (currentUserName == Model.Owner))
+                            {
+                                <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                    <i class="fas fa-check me-2"></i> <span class="button-text">Approve</span>
+                                </button>
+                                <button type="button" class="btn action-button-alt"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#returnToSpecificUserModal"
+                                        data-bid-evaluation-id="@Model.BidNo"
+                                        id="returnButton">
+                                    <i class="fas fa-undo me-2"></i> <span class="button-text">Return</span>
+                                </button>
+                                <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                    <i class="fas fa-times me-2"></i> <span class="button-text">Reject</span>
+                                </button>
+                            }
+                            @* Cancel and Return actions *@
+                            @if (Model.StateId == 1 || Model.StateId == 4 || (Model.StateId == 5 && currentUserId == Model.CreatedByUserId))
+                            {
+                                @if (currentUserId == Model.CreatedByUserId || currentUserName == Model.Owner)
+                                {
+                                    <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                        <i class="fas fa-ban me-2"></i> <span class="button-text">Cancel Evaluation</span>
+                                    </button>
+                                }
+                                @if (currentUserName == Model.Owner && Model.StateId != 1 && Model.StateId != 5)
+                                {
+                                    <button type="button" class="btn action-button-alt"
+                                            data-bs-toggle="modal" data-bs-target="#returnToSpecificUserModal"
+                                            data-bid-evaluation-id="@Model.BidNo" id="returnButton">
+                                        <i class="fas fa-undo me-2"></i> <span class="button-text">Return</span>
+                                    </button>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Workflow History -->
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-history me-2"></i> Workflow History
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (workflowHistory != null && workflowHistory.Any())
+                    {
+                        <div class="timeline">
+                            @foreach (var history in workflowHistory.OrderByDescending(h => h.ActionDate))
+                            {
+                                <div class="timeline-item mb-3">
+                                    <div class="timeline-marker">
+                                        @switch (history.Action.ToLower())
+                                        {
+                                            case "created":
+                                                <i class="fas fa-plus text-primary"></i>
+                                                break;
+                                            case "submit":
+                                                <i class="fas fa-paper-plane text-info"></i>
+                                                break;
+                                            case "approve":
+                                                <i class="fas fa-check text-success"></i>
+                                                break;
+                                            case "reject":
+                                                <i class="fas fa-times text-danger"></i>
+                                                break;
+                                            case "return":
+                                                <i class="fas fa-undo text-warning"></i>
+                                                break;
+                                            case "cancel":
+                                                <i class="fas fa-ban text-dark"></i>
+                                                break;
+                                            default:
+                                                <i class="fas fa-circle text-muted"></i>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h6 class="mb-1">@history.Action</h6>
+                                        <p class="text-muted mb-1">
+                                            @history.FromStateName &rarr; @history.ToStateName
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            From: <strong>@history.ActionByUserName</strong> To: <strong>@(history.ToUserName ?? history.ActionByUserName)</strong>
+                                        </p>
+                                        <small class="text-muted">
+                                            By @history.ActionByUserName on @history.ActionDate.ToString("dd/MM/yyyy HH:mm")
+                                        </small>
+                                        @if (!string.IsNullOrEmpty(history.Comments))
+                                        {
+                                            <p class="mt-2 text-muted"><em>"@history.Comments"</em></p>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No workflow history available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_WorkflowActionModals", Model)
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var baseUrl = '@Url.Content("~/")';
+    </script>
+    <script src="~/js/Procurement/bidEvaluationReturn.js"></script>
+    <script>
+        // Helper function to build URLs
+        function getUrl(area, page, action, id) {
+            let baseUrl = '@Url.Content("~/")';
+            if (id) {
+                return `${baseUrl}${area}/${page}/${action}/${id}`;
+            }
+            return `${baseUrl}${area}/${page}/${action}`;
+        }
+
+        const bidEvaluationId = @Model.BidNo;
+        // NOTE: Keeping the currentApprovalSeq line for consistency, but it's not used in the BE workflow logic below.
+        const currentApprovalSeq = @(Model.CurrentApprovalSequence);
+
+        // Function to show the specific winner selection modal (already defined in your existing code, but placed here for context)
+                // Function to handle winner selection via AJAX POST
+        function selectWinner(bidEvaluationId, selectedBidId, supplierName) {
+            if (!confirm(`Confirm selection of ${supplierName} as the winner for this Bid Evaluation?`)) {
+                return;
+            }
+
+            const url = getUrl('Procurement', 'BidEvaluation', 'SelectWinnerAction');
+
+            // Show a loading/confirmation toast
+            if (typeof toastr !== 'undefined') {
+                toastr.info(`Selecting ${supplierName}...`, 'Processing', { timeOut: 0, extendedTimeOut: 0 });
+            }
+
+            // Use jQuery POST for simple AJAX submission
+            $.post(url, {
+                bidEvaluationId: bidEvaluationId,
+                selectedBidId: selectedBidId,
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // Ensure CSRF token is sent
+            })
+            .done(function(data) {
+                if (data.success) {
+                    if (typeof toastr !== 'undefined') {
+                        toastr.clear();
+                        toastr.success(data.message || `Winner set to ${supplierName}. Please submit for approval.`);
+                    }
+                    // Reload the page to show the new winner selection and enable the Submit button
+                    window.location.reload();
+                } else {
+                    if (typeof toastr !== 'undefined') {
+                        toastr.clear();
+                        toastr.error(data.message || 'Failed to select winner.');
+                    }
+                }
+            })
+            .fail(function(xhr) {
+                if (typeof toastr !== 'undefined') {
+                    toastr.clear();
+                    toastr.error('An unexpected error occurred during selection.');
+                }
+                console.error("Winner selection AJAX failed:", xhr);
+            });
+        }
+        window.selectWinner = selectWinner; // Attach to window for onclick access
+
+        // --- SCRIPT FOR THE SUBMIT MODAL (Bid Evaluation) ---
+        const submitModal = document.getElementById('submitModal');
+        const submitToUserIdSelect = document.getElementById('submitToUserId');
+        const submitButton = document.getElementById('submitButton');
+
+        if (submitModal) {
+            submitModal.addEventListener('show.bs.modal', function () {
+                submitToUserIdSelect.innerHTML = '<option value="">Loading users...</option>';
+                submitToUserIdSelect.disabled = true;
+                submitButton.disabled = true;
+
+                // 💡 FIX: For SUBMIT, we must look for approvers for the next state, usually State ID 2 (Submitted/Approval step).
+                // The C# backend GetApprovers API needs to use `approvalSeq` or `nextStateId` correctly.
+                // Assuming '1' was used to signal the START of the workflow, and GetApprovers handles the rest.
+                const nextApprovalSeqForSubmit = 1; // Assuming this signals the first step in the sequence
+                const submitUrl = getUrl('Procurement', 'BidEvaluation', 'GetApprovers') + `?bidEvaluationId=${bidEvaluationId}&approvalSeq=${nextApprovalSeqForSubmit}`;
+
+                fetch(submitUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success && data.users.length > 0) {
+                            submitToUserIdSelect.innerHTML = '';
+                            const defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.textContent = '-- Select an Approver --';
+                            submitToUserIdSelect.appendChild(defaultOption);
+
+                            data.users.forEach(user => {
+                                const option = document.createElement('option');
+                                option.value = user.value;
+                                option.textContent = user.text;
+                                submitToUserIdSelect.appendChild(option);
+                            });
+                            submitToUserIdSelect.disabled = false;
+                            submitButton.disabled = false;
+                            // Ensure the select element is required if approvers are found
+                            submitToUserIdSelect.setAttribute('required', 'required');
+                        } else {
+                            // If no next approvers, allow submission to complete the draft/return cycle if no further steps needed
+                            submitToUserIdSelect.innerHTML = `<option value="">${data.message || 'No approvers found. This will finalize submission.'}</option>`;
+                            submitToUserIdSelect.disabled = true;
+                            submitButton.disabled = false; // Allow submission without selecting an approver
+                            submitToUserIdSelect.removeAttribute('required');
+                            if (typeof toastr !== 'undefined') {
+                                toastr.info(data.message || 'No explicit approvers found, proceeding to next state.');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching submit approvers:', error);
+                        submitToUserIdSelect.innerHTML = '<option value="">Error loading users</option>';
+                        submitToUserIdSelect.disabled = true;
+                        submitButton.disabled = true;
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error('An unexpected error occurred while loading approvers.');
+                        }
+                    });
+            });
+        }
+
+        // --- SCRIPT FOR THE APPROVE MODAL (Bid Evaluation) ---
+        const approveModal = document.getElementById('approveModal');
+        const approveToUserIdSelect = document.getElementById('approveToUserId');
+        const approveButton = document.getElementById('approveButton');
+        const nextApproverSelectionDiv = document.getElementById('approverSelection-approve');
+
+        if (approveModal) {
+            approveModal.addEventListener('show.bs.modal', function () {
+                approveToUserIdSelect.innerHTML = '<option value="">Loading next approvers...</option>';
+                approveToUserIdSelect.disabled = true;
+                approveButton.disabled = true;
+
+                // Assuming BidEvaluation approval uses sequential logic like PO
+                const nextApprovalSeqForApprove = currentApprovalSeq + 1;
+                const approveUrl = getUrl('Procurement', 'BidEvaluation', 'GetApprovers') + `?bidEvaluationId=${bidEvaluationId}&approvalSeq=${nextApprovalSeqForApprove}`;
+
+                fetch(approveUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success && data.users.length > 0) {
+                            approveToUserIdSelect.innerHTML = '';
+                            const defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.textContent = '-- Select Next Approver --';
+                            approveToUserIdSelect.appendChild(defaultOption);
+
+                            data.users.forEach(user => {
+                                const option = document.createElement('option');
+                                option.value = user.value;
+                                option.textContent = user.text;
+                                approveToUserIdSelect.appendChild(option);
+                            });
+                            approveToUserIdSelect.disabled = false;
+                            approveButton.disabled = false;
+                            nextApproverSelectionDiv.style.display = 'block';
+                            approveToUserIdSelect.setAttribute('required', 'required');
+                        } else {
+                            // Final approval step
+                            nextApproverSelectionDiv.style.display = 'none';
+                            approveToUserIdSelect.disabled = true;
+                            approveToUserIdSelect.removeAttribute('required');
+                            approveButton.disabled = false; // Enable the button for final action
+                            if (typeof toastr !== 'undefined') {
+                                toastr.info('No further approvers found. This will be the final approval.');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching next approvers:', error);
+                        approveToUserIdSelect.innerHTML = '<option value="">Error loading approvers</option>';
+                        approveToUserIdSelect.disabled = true;
+                        approveButton.disabled = true;
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error('An unexpected error occurred while loading approvers.');
+                        }
+                    });
+            });
+        }
+
+        // --- SCRIPT FOR THE EDIT MODAL (BidEvaluation) ---
+        // NOTE: This complex AJAX logic for loading/submitting the edit form is kept structurally intact,
+        // but refers to 'BidEvaluation' instead of 'BidEvaluation' for controller/form names.
+
+        window.attachBidEvaluationEditFormSubmissionHandler = function() {
+            const editForm = document.getElementById('bidEvaluationEditForm');
+            if (editForm) {
+                $(editForm).off('submit', handleBidEvaluationEditFormSubmit);
+                $(editForm).on('submit', handleBidEvaluationEditFormSubmit);
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    jQuery(editForm).removeData("validator");
+                    jQuery(editForm).removeData("unobtrusiveValidation");
+                    jQuery.validator.unobtrusive.parse(editForm);
+                }
+            }
+        };
+
+        async function handleBidEvaluationEditFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                return;
+            }
+            const formData = new FormData(form);
+            const modalBodyElement = document.getElementById('bidEvaluationEditModalBody');
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    }
+                });
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.success) {
+                        const modalInstance = bootstrap.Modal.getInstance(document.getElementById('bidEvaluationEditModal'));
+                        if (modalInstance) {
+                            modalInstance.hide();
+                        }
+                        if (typeof toastr !== 'undefined') {
+                            toastr.success(jsonResponse.message || "Bid Evaluation updated successfully!");
+                        }
+                        if (jsonResponse.redirectUrl) {
+                            window.location.href = jsonResponse.redirectUrl;
+                        } else {
+                            window.location.reload();
+                        }
+                    } else {
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(jsonResponse.message || "An error occurred.");
+                        }
+                    }
+                } else if (contentType && contentType.includes("text/html")) {
+                    const responseHtml = await response.text();
+                    if (modalBodyElement) {
+                        modalBodyElement.innerHTML = responseHtml;
+                        window.initializeBidEvaluationFormForModal(modalBodyElement);
+                    }
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error("Please correct the validation errors.");
+                    }
+                } else {
+                    console.error("Unexpected server response content type:", contentType);
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error("Server error: " + (response.statusText || "Unknown error"));
+                    }
+                }
+            } catch (error) {
+                console.error("AJAX submission failed:", error);
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("An unexpected error occurred during submission.");
+                }
+            }
+        };
+
+        window.initializeBidEvaluationFormForModal = function(modalBody) {
+            const loadedForm = modalBody.querySelector('#bidEvaluationEditForm');
+            if (loadedForm) {
+                window.attachBidEvaluationEditFormSubmissionHandler();
+                if (typeof window.initBidEvaluationForm === 'function') {
+                    window.initBidEvaluationForm(loadedForm);
+                }
+            } else {
+                console.error("Loaded HTML does not contain #bidEvaluationEditForm.");
+                if (modalBody) {
+                    modalBody.innerHTML = `<div class="alert alert-danger" role="alert">Failed to load edit form content.</div>`;
+                }
+            }
+        };
+
+        $('#bidEvaluationEditModal').on('show.bs.modal', async function (event) {
+            const button = event.relatedTarget;
+            const bidEvaluationId = button.getAttribute('data-id');
+            const url = getUrl('Procurement', 'BidEvaluation', 'Edit', bidEvaluationId);
+            const modalBody = this.querySelector('#bidEvaluationEditModalBody');
+
+            if (modalBody) {
+                modalBody.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Loading...</div>';
+            }
+            try {
+                const response = await fetch(url, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to load edit form.');
+                }
+                const html = await response.text();
+                if (modalBody) {
+                    modalBody.innerHTML = html;
+                    window.initializeBidEvaluationFormForModal(modalBody);
+                }
+            } catch (error) {
+                console.error('Error loading bid evaluation edit form:', error);
+                if (modalBody) {
+                    modalBody.innerHTML = `<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle me-2"></i> Failed to load the edit form. Please try again.</div>`;
+                }
+                if (typeof toastr !== 'undefined') {
+                    toastr.error("Failed to load edit form.");
+                }
+            }
+        });
+    </script>
+    <style>
+        /* Styles needed for the PO detail appearance */
+        .action-button-alt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #092963;
+            background-color: transparent;
+            color: #092963;
+        }
+
+            .action-button-alt:hover {
+                background-color: #092963;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+        /* Styles for timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-item {
+            position: relative;
+            border-left: 2px solid #e9ecef;
+            padding-left: 20px;
+        }
+
+            .timeline-item:last-child {
+                border-left: none;
+            }
+
+        .timeline-marker {
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+    </style>
+}

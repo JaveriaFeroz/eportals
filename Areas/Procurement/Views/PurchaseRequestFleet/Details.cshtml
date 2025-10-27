@@ -1,0 +1,487 @@
+﻿@model ProcureToPay.Areas.Procurement.ViewModels.DisplayPurchaseRequestFleetViewModel
+@{
+    ViewData["Title"] = $"Purchase Request - {Model.PRNo}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var detailSummary = ViewBag.DetailSummary as ProcureToPay.Areas.Procurement.ViewModels.PurchaseRequestDetailFleetSummaryViewModel;
+}
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-0">Purchase Request #@Model.PRNo</h2>
+            <small class="text-muted">View purchase request details</small>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+            @if (Model.StateName.ToLower() == "draft")
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary me-2">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <form asp-action="Submit" asp-route-id="@Model.Id" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-success me-2">
+                        <i class="fas fa-paper-plane"></i> Submit
+                    </button>
+                </form>
+            }
+            @if (Model.StateName.ToLower() == "pending")
+            {
+                <a asp-action="Approve" asp-route-id="@Model.Id" class="btn btn-success me-2">
+                    <i class="fas fa-check"></i> Approve
+                </a>
+                <a asp-action="Reject" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                    <i class="fas fa-times"></i> Reject
+                </a>
+            }
+            <div class="dropdown d-inline">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-cog"></i> Actions
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-print"></i> Print</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-download"></i> Export PDF</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-share"></i> Share</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Status Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="mb-1">
+                                Status:
+                                <span class="badge bg-@Model.StatusClass fs-6">
+                                    <i class="@Model.StatusIcon"></i> @Model.StateName
+                                </span>
+                            </h5>
+                            <p class="text-muted mb-0">
+                                @if (Model.IsCompleted)
+                                {
+                                    <span>Process completed</span>
+                                }
+                                else
+                                {
+                                    <span>Current approval sequence: @Model.CurrentApprovalSequence</span>
+                                }
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            @if (Model.Approved)
+                            {
+                                <i class="fas fa-check-circle text-success fa-2x"></i>
+                            }
+                            else if (Model.Rejected)
+                            {
+                                <i class="fas fa-times-circle text-danger fa-2x"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-clock text-warning fa-2x"></i>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basic Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Basic Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless table-sm">
+                                <tr>
+                                    <th width="40%">Company:</th>
+                                    <td>@Model.CompanyName</td>
+                                </tr>
+                                <tr>
+                                    <th>Branch:</th>
+                                    <td>@Model.BranchName</td>
+                                </tr>
+                                <tr>
+                                    <th>Department:</th>
+                                    <td>@Model.DepartmentName</td>
+                                </tr>
+                                <tr>
+                                    <th>Owner:</th>
+                                    <td><strong>@Model.Owner</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless table-sm">
+                                <tr>
+                                    <th width="40%">Required By:</th>
+                                    <td>@Model.RequiredBy?.ToString("dd/MM/yyyy")</td>
+                                </tr>
+                                <tr>
+                                    <th>Product Nature:</th>
+                                    <td>@(Model.ProductNatureName ?? "N/A")</td>
+                                </tr>
+                                <tr>
+                                    <th>Service Nature:</th>
+                                    <td>@(Model.ServiceNatureName ?? "N/A")</td>
+                                </tr>
+                                <tr>
+                                    <th>Workflow:</th>
+                                    <td>@Model.WorkFlowName</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>Justification:</h6>
+                            <p class="border rounded p-3 bg-light">@Model.Justification</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Information -->
+            @if (Model.BudgetAmount.HasValue || !string.IsNullOrEmpty(Model.BudgetRemarks))
+            {
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Budget Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Budget Amount:</h6>
+                                <p class="fs-5 text-primary mb-0">
+                                    @(Model.BudgetAmount?.ToString("C") ?? "Not specified")
+                                    @if (Model.Budgeted)
+                                    {
+                                        <span class="badge bg-success ms-2">Budgeted</span>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.BudgetRemarks))
+                        {
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h6>Budget Remarks:</h6>
+                                    <p class="border rounded p-3 bg-light">@Model.BudgetRemarks</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Purchase Request Details -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Purchase Request Details</h5>
+                    @if (detailSummary != null)
+                    {
+                        <small class="text-muted">@detailSummary.TotalItems items</small>
+                    }
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.Details.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Type</th>
+                                        <th class="text-end">Qty</th>
+                                        <th>UoM</th>
+                                        <th class="text-end">Unit Price</th>
+                                        <th class="text-end">GST %</th>
+                                        <th class="text-end">Gross Amount</th>
+                                        <th class="text-end">GST Amount</th>
+                                        <th class="text-end">Net Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in Model.Details)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <strong>@detail.ItemName</strong>
+                                                    @if (!string.IsNullOrEmpty(detail.Remarks))
+                                                    {
+                                                        <br>
+                                            
+                                                        <small class="text-muted">@detail.Remarks</small>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary">@detail.ItemType</span>
+                                            </td>
+                                            <td class="text-end">@detail.Quantity.ToString("N2")</td>
+                                            <td>@detail.UoMName</td>
+                                            <td class="text-end">@detail.Price.ToString("C")</td>
+                                            <td class="text-end">@detail.FormattedGSTRate</td>
+                                            <td class="text-end">@detail.GrossAmount.ToString("C")</td>
+                                            <td class="text-end">@detail.GSTAmount.ToString("C")</td>
+                                            <td class="text-end"><strong>@detail.NetAmount.ToString("C")</strong></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Summary Footer -->
+                        @if (detailSummary != null)
+                        {
+                            <div class="card-footer bg-light">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <strong>Summary:</strong>
+                                        @detailSummary.TotalItems items,
+                                        Total Qty: @detailSummary.TotalQuantity.ToString("N2"),
+                                        Avg GST: @detailSummary.AverageGSTRate.ToString("F2")%
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <div>Gross: @detailSummary.TotalGrossAmount.ToString("C")</div>
+                                        <div>GST: @detailSummary.TotalGSTAmount.ToString("C")</div>
+                                        <div><strong>Total: @detailSummary.TotalNetAmount.ToString("C")</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                            <p class="text-muted">No items added to this purchase request.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Info -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <small class="text-muted">PR Number</small>
+                        <div class="fs-5 fw-bold">#@Model.PRNo</div>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted">Total Amount</small>
+                        <div class="fs-5 fw-bold text-primary">
+                            @(detailSummary?.TotalNetAmount.ToString("C") ?? "₹0.00")
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted">Required By</small>
+                        <div>@Model.RequiredBy?.ToString("dd MMM yyyy")</div>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted">Current State</small>
+                        <div>
+                            <span class="badge bg-@Model.StatusClass">
+                                <i class="@Model.StatusIcon"></i> @Model.StateName
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audit Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Audit Trail</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <small class="text-muted">Created</small>
+                        <div>@Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</div>
+                        <small class="text-muted">by @Model.CreatedBy</small>
+                    </div>
+                    @if (Model.ModifiedDate.HasValue)
+                    {
+                        <div class="mb-3">
+                            <small class="text-muted">Last Modified</small>
+                            <div>@Model.ModifiedDate?.ToString("dd/MM/yyyy HH:mm")</div>
+                            <small class="text-muted">by @Model.ModifiedBy</small>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Workflow Progress -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Workflow Progress</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item @(Model.StateName != "Draft" ? "completed" : "current")">
+                            <div class="timeline-marker">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h6>Draft</h6>
+                                <small class="text-muted">Request created</small>
+                            </div>
+                        </div>
+                        <div class="timeline-item @(Model.StateName == "Pending" || Model.Approved || Model.Rejected ? "completed" : "")">
+                            <div class="timeline-marker">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h6>Submitted</h6>
+                                <small class="text-muted">Pending approval</small>
+                            </div>
+                        </div>
+                        <div class="timeline-item @(Model.Approved ? "completed" : Model.Rejected ? "rejected" : "")">
+                            <div class="timeline-marker">
+                                <i class="fas @(Model.Approved ? "fa-check" : Model.Rejected ? "fa-times" : "fa-clock")"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h6>@(Model.Approved ? "Approved" : Model.Rejected ? "Rejected" : "Approval")</h6>
+                                <small class="text-muted">
+                                    @if (Model.Approved)
+                                    {
+                                        <span>Request approved</span>
+                                    }
+                                    else if (Model.Rejected)
+                                    {
+                                        <span>Request rejected</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Awaiting approval</span>
+                                    }
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        @if (Model.StateName.ToLower() == "draft")
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                                <i class="fas fa-edit"></i> Edit Request
+                            </a>
+                            <form asp-action="Submit" asp-route-id="@Model.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fas fa-paper-plane"></i> Submit for Approval
+                                </button>
+                            </form>
+                        }
+                        <button type="button" class="btn btn-outline-secondary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                        <a href="#" class="btn btn-outline-info">
+                            <i class="fas fa-download"></i> Export PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #dee2e6;
+        }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: -22px;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #6c757d;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 2px #dee2e6;
+    }
+
+    .timeline-item.completed .timeline-marker {
+        background: #198754;
+    }
+
+    .timeline-item.current .timeline-marker {
+        background: #0d6efd;
+    }
+
+    .timeline-item.rejected .timeline-marker {
+        background: #dc3545;
+    }
+
+    .timeline-content h6 {
+        margin-bottom: 2px;
+        font-size: 14px;
+    }
+
+  
+
+    }
+</style>

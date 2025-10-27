@@ -1,0 +1,234 @@
+﻿
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+body {
+    background-color: #f7f7f7;
+}
+
+/* Main container */
+.login-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+/* Left section - Dark navy gradient background with updates */
+.left-section {
+    width: 450px;
+    background: linear-gradient(to bottom, #031a30, #0a3d62);
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.logo {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.whats-new-heading {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.updates-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.update-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 20px;
+}
+
+.update-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+}
+
+.update-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.update-content {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+}
+
+/* Right section - Login area */
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Modern form style inspired by image 2 */
+.login-area {
+    width: 100%;
+    max-width: 500px;
+    padding: 40px 60px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+    .login-area h1 {
+        color: #333;
+        font-size: 2.5rem;
+        font-weight: 300;
+        margin-bottom: 40px;
+    }
+
+.form-group {
+    margin-bottom: 30px;
+    text-align: left;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+    .form-group label {
+        display: block;
+        color: #666;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+/* Updated input style to remove blue background */
+.form-control {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent; /* Remove background color */
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: none;
+    }
+
+    .form-control::placeholder {
+        color: #aaa;
+    }
+
+.password-dots {
+    display: none;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    justify-content: flex-start;
+}
+
+    .remember-me input {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .remember-me label {
+        font-size: 0.9rem;
+        color: #666;
+        cursor: pointer;
+    }
+
+.login-btn {
+    background-color: #0037a5; /* Dark blue color similar to the last image */
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+    .login-btn:hover {
+        background-color: #00288c;
+    }
+
+.forgot-password {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: block;
+    transition: color 0.3s ease;
+    margin-top: 5px;
+}
+
+    .forgot-password:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+.text-danger {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .left-section {
+        width: 100%;
+        max-height: 40vh;
+    }
+
+    .right-section {
+        flex: 1;
+        min-height: 60vh;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-area {
+        padding: 30px;
+    }
+
+        .login-area h1 {
+            font-size: 2rem;
+        }
+}
+

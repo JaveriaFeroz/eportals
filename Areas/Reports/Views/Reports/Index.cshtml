@@ -1,0 +1,239 @@
+﻿@{
+    ViewData["Title"] = "Reports Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Custom Card Styles for Reports Section */
+    .card-custom {
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .bg-gradient-blue {
+        background: linear-gradient(135deg, #092963, #1e458e);
+    }
+
+    .card-custom .card-body-custom {
+        padding: 2rem 1.5rem;
+    }
+
+    .btn-outline-light-custom {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50px;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-light-custom:hover {
+            background-color: #fff;
+            color: #092963;
+        }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 1rem;
+    }
+
+    /* Custom Card Styles for Quick Stats Section */
+    .card-quick-stats {
+        border: none;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Radial Progress Bar */
+    .radial-progress-bar {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+    }
+
+        .radial-progress-bar .circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 10px;
+            left: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #092963;
+        }
+
+        .radial-progress-bar .value {
+            position: relative;
+        }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-chart-bar me-2"></i> Reports Dashboard
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-custom bg-gradient-blue text-white mb-4">
+                        <div class="card-body-custom text-center">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-file-alt fa-2x"></i>
+                            </div>
+                            <h5>Purchase Requests</h5>
+                            <p class="mb-3">View and export PR reports</p>
+                            <a asp-action="PurchaseRequests" asp-area="Reports" class="btn btn-outline-light-custom">
+                                View Report
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-custom bg-gradient-blue text-white mb-4">
+                        <div class="card-body-custom text-center">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-shopping-cart fa-2x"></i>
+                            </div>
+                            <h5>Purchase Orders</h5>
+                            <p class="mb-3">View and export PO reports</p>
+                            <a asp-action="PurchaseOrders" asp-area="Reports" class="btn btn-outline-light-custom">
+                                View Report
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-custom bg-gradient-blue text-white mb-4">
+                        <div class="card-body-custom text-center">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-file-invoice-dollar fa-2x"></i>
+                            </div>
+                            <h5>Payment Requests</h5>
+                            <p class="mb-3">View and export PRQ reports</p>
+                            <a asp-action="PaymentRequests" asp-area="Reports" class="btn btn-outline-light-custom">
+                                View Report
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-custom bg-gradient-blue text-white mb-4">
+                        <div class="card-body-custom text-center">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-redo fa-2x"></i>
+                            </div>
+                            <h5>PO Reorders</h5>
+                            <p class="mb-3">Track reorder patterns</p>
+                            <a asp-action="POReorders" asp-area="Reports" class="btn btn-outline-light-custom">
+                                View Report
+                            </a>
+                        </div>
+                    </div>
+                </div>
+@*                 <div class="col-lg-3 col-md-6">
+                    <div class="card-custom bg-gradient-blue text-white mb-4">
+                        <div class="card-body-custom text-center">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-chart-line fa-2x"></i>
+                            </div>
+                            <h5>Workflow Analysis</h5>
+                            <p class="mb-3">Analyze workflow performance</p>
+                            <a asp-action="WorkflowAnalysis" asp-area="Reports" class="btn btn-outline-light-custom">
+                                View Analysis
+                            </a>
+                        </div>
+                    </div>
+                </div>
+ *@            </div>
+
+            <div class="row g-3 mt-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-quick-stats bg-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <div class="radial-progress-bar" data-percentage="@ViewBag.ThisMonthPRs" data-total="100">
+                                <div class="circle">
+                                    <span class="value">@ViewBag.ThisMonthPRs</span>
+                                </div>
+                            </div>
+                            <h6 class="mt-3 mb-0">This Month PRs</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-quick-stats bg-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <div class="radial-progress-bar" data-percentage="@ViewBag.ThisMonthPOs" data-total="100">
+                                <div class="circle">
+                                    <span class="value">@ViewBag.ThisMonthPOs</span>
+                                </div>
+                            </div>
+                            <h6 class="mt-3 mb-0">This Month POs</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-quick-stats bg-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <div class="radial-progress-bar" data-percentage="@ViewBag.ThisMonthPRQs" data-total="100">
+                                <div class="circle">
+                                    <span class="value">@ViewBag.ThisMonthPRQs</span>
+                                </div>
+                            </div>
+                            <h6 class="mt-3 mb-0">This Month PRQs</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card-quick-stats bg-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <div class="radial-progress-bar" data-percentage="@ViewBag.PendingApprovals" data-total="100">
+                                <div class="circle">
+                                    <span class="value">@ViewBag.PendingApprovals</span>
+                                </div>
+                            </div>
+                            <h6 class="mt-3 mb-0">Pending Approvals</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.radial-progress-bar');
+        progressBars.forEach(bar => {
+            const percentage = parseInt(bar.dataset.percentage);
+            const total = parseInt(bar.dataset.total);
+            const ratio = (percentage / total) * 100;
+            const deg = (ratio / 100) * 360;
+
+            bar.style.backgroundImage = `conic-gradient(#092963 ${deg}deg, #f0f0f0 ${deg}deg)`;
+        });
+    });
+</script>

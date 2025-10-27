@@ -1,0 +1,161 @@
+﻿@using ProcureToPay.Areas.Procurement.Models
+@model ProcureToPay.Areas.Procurement.Models.PurchaseRequest
+
+<form method="post" asp-action="Edit" asp-controller="PurchaseRequest" asp-area="Procurement" id="purchaseRequestEditForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+    <input type="hidden" asp-for="PurchaseNatureType" id="PurchaseNatureType_Hidden" />
+    <input type="hidden" asp-for="PurchaseItemType" id="PurchaseItemType_Hidden" />
+    <input type="hidden" asp-for="ProductNatureId" id="ProductNatureId_Hidden" />
+    <input type="hidden" asp-for="ServiceNatureId" id="ServiceNatureId_Hidden" />
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Request Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="RequestNumber" class="form-label">PR Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-hashtag"></i></span>
+                        <input asp-for="RequestNumber" class="form-control" placeholder="Auto-generated" readonly />
+                    </div>
+                    <span asp-validation-for="RequestNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="RequiredDate" class="form-label">Required Date</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-calendar-check"></i></span>
+                        <input asp-for="RequiredDate" class="form-control" type="datetime-local" />
+                    </div>
+                    <span asp-validation-for="RequiredDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DepartmentId" class="form-label">Department</label>
+                    <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments"></select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="BranchId" class="form-label">Branch</label>
+                    <select asp-for="BranchId" class="form-select" asp-items="ViewBag.Branches"></select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Purchase Nature Type <span class="text-danger">*</span></label>
+                    <div class="d-flex align-items-center ms-3" style="border: none;">
+                        @foreach (var option in ViewBag.PurchaseNatureTypes as List<SelectListItem>)
+                        {
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input purchase-nature-type-radio" type="radio"
+                                                           name="PurchaseNatureType"
+                                                           id="purchaseNatureType_@(option.Value)"
+                                                           value="@option.Value"
+                                                           @( (Model != null && ((int)Model.PurchaseNatureType).ToString() == option.Value) ? "checked" : "" ) />
+                                <label class="form-check-label" for="purchaseNatureType_@(option.Value)">@option.Text</label>
+                            </div>
+                        }
+                    </div>
+                    <span asp-validation-for="PurchaseNatureType" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Purchase Item Type <span class="text-danger">*</span></label>
+                    <div class="d-flex align-items-center ms-3" style="border: none;">
+                        @foreach (var option in ViewBag.PurchaseItemTypes as List<SelectListItem>)
+                        {
+                            <div class="form-check form-check-inline me-3">
+                                <input class="form-check-input purchase-item-type-radio" type="radio"
+                                                           name="PurchaseItemType"
+                                                           id="purchaseItemType_@(option.Value)"
+                                                           value="@option.Value"
+                                                           @( (Model != null && ((int)Model.PurchaseItemType).ToString() == option.Value) ? "checked" : "" ) />
+                                <label class="form-check-label" for="purchaseItemType_@(option.Value)">@option.Text</label>
+                            </div>
+                        }
+                    </div>
+                    <span asp-validation-for="PurchaseItemType" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3" id="productNatureGroup">
+                    <label asp-for="ProductNatureId" class="form-label">Product Nature <span class="text-danger">*</span></label>
+                    <select asp-for="ProductNatureId" class="form-select" id="productNatureDropdown" asp-items="ViewBag.ProductNatures" data-initial-value="@Model.ProductNatureId">
+                        <option value="">-- Select Product Nature --</option>
+                    </select>
+                    <span asp-validation-for="ProductNatureId" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3" id="serviceNatureGroup">
+                    <label asp-for="ServiceNatureId" class="form-label">Service Nature <span class="text-danger">*</span></label>
+                    <select asp-for="ServiceNatureId" class="form-select" id="serviceNatureDropdown" asp-items="ViewBag.ServiceNatures"
+                            data-val="true" data-val-required="Service Nature is required when Purchase Item Type is Service"
+                            data-initial-value="@Model.ServiceNatureId">
+                        <option value="">-- Select Service Nature --</option>
+                    </select>
+                    <span asp-validation-for="ServiceNatureId" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Description" class="form-label">Justification</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #092963; color: white;"><i class="fas fa-file-alt"></i></span>
+                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter detailed description of the requested items/services"></textarea>
+                        </div>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input asp-for="RequestedByUserId" type="hidden" />
+    <input asp-for="Status" type="hidden" />
+    <input asp-for="StateId" type="hidden" />
+    <input asp-for="CompanyCode" type="hidden" />
+    <input asp-for="Owner" type="hidden" />
+    <input asp-for="DepartmentCode" type="hidden" />
+    <input asp-for="BranchCode" type="hidden" />
+
+    <div class="card mb-4">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-list-alt me-2"></i> Purchase Items/Services</h6>
+            <button type="button" id="addDetailRowBtn" class="btn btn-primary btn-sm" style="background-color: #092963; color: white;">
+                <i class="fas fa-plus me-1"></i> Add Product/Service
+            </button>
+        </div>
+        <div class="card-body">
+            <div id="purchaseRequisitionDetailsContainer">
+                @{
+                    var itemsList = Model.Items?.ToList();
+                }
+                @if (itemsList != null && itemsList.Any())
+                {
+                    for (int i = 0; i < itemsList.Count; i++)
+                    {
+                        @Html.Partial("_PurchaseRequestDetailRow", itemsList[i], new ViewDataDictionary(ViewData) {
+                        { "index", i },
+                                { "initialProductId", itemsList[i].ProductId },
+                                { "initialServiceId", itemsList[i].ServiceId },
+                                { "initialNarration", itemsList[i].Narration }
+                    })
+                                }
+                                }
+            </div>
+            <span asp-validation-for="Items" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn" style="background-color: #092963; color: white;">
+            <i class="fas fa-save me-1" style="color: white;"></i> Save Changes
+        </button>
+    </div>
+</form>

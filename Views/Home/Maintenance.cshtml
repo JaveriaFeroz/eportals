@@ -1,0 +1,29 @@
+﻿@{
+    // Sets the title for this specific page, which will usually be displayed in the browser tab.
+    ViewData["Title"] = "System Maintenance";
+
+    // You can optionally specify a different layout if needed, but if omitted, it will use the default one
+    // defined by _ViewStart.cshtml, which is typically your main application layout.
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="full-page-maintenance text-center">
+
+    <div class="maintenance-image-container">
+        <img src="~/png/System_Maintainance.png" alt="System Maintenance in Progress" class="maintenance-image" />
+    </div>
+
+    <p class="check-back-message">Please check back later.</p>
+</div>
+
+@* Optional: Add local CSS for styling this page.
+*@
+<style>
+    /* Ensures the image doesn't exceed its parent's width */
+    .maintenance-image {
+        max-width: 100%;
+        height: auto;
+        /* Optional: set a max width for the image itself for better presentation */
+        max-height: 500px;
+    }
+</style>

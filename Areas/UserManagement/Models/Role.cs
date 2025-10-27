@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProcureToPay.Areas.Common.Models;
 
 namespace ProcureToPay.Areas.UserManagement.Models
 {
@@ -53,5 +54,7 @@ namespace ProcureToPay.Areas.UserManagement.Models
         public string DisplayName { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; } = true;
+        public virtual WorkFlowType? WorkFlowType { get; set; }
+
     }
 }

@@ -1,0 +1,250 @@
+﻿@model IEnumerable<ProcureToPay.Areas.Procurement.Models.BidEvaluation>
+
+@{
+    ViewData["Title"] = "Bid Evaluations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    // NOTE: Permissions logic (canCreate) is omitted here but can be added back if needed.
+}
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<style>
+    /* Ensure action buttons are always visible */
+    .action-btn {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-gavel me-2"></i> @ViewData["Title"]
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    @* Filter 1: BE Number *@
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="beNumberSearch"
+                                   placeholder="BE Number">
+                        </div>
+                    </div>
+
+                    @* Filter 2: PR Number *@
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="prNumberSearch"
+                                   placeholder="PR Number">
+                        </div>
+                    </div>
+
+                    @* Filter 3: Winner Status (To check if a winner has been selected) *@
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="winnerStatusSearch">
+                            <option value="">All Winner Status</option>
+                            <option value="awarded">Awarded</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+
+                    @* Filter 4: Status (StateId) *@
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                            <option value="">All Statuses</option>
+                            <option value="1">Draft</option>
+                            <option value="2">Submitted</option>
+                            <option value="3">Approved</option>
+                            <option value="4">Rejected</option>
+                            <option value="5">Returned</option>
+                        </select>
+                    </div>
+
+                    @* Clear Button *@
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+
+                    @* Create Button (Select PR) *@
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <button class="action-button create-user-text"
+                                    data-url="@Url.Action("CreateFromPR", "BidEvaluation", new { area = "Procurement" })"
+                                    style="background-color: #092963;" require-permission="Add">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Select PR</span>
+                            </button>
+                            <a href="#" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Table Header (FIXED: Actions column removed, widths adjusted to sum to 12) *@
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>BE NO.</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PR NO.</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>EVAL DATE</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-money-bill-wave text-dark me-2"></i>EST. AMT.</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-gavel text-dark me-2"></i>BIDS</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-award text-dark me-2"></i>WINNER</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>OWNER</div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center"><i class="fas fa-check-circle text-dark me-2"></i>STATUS</div>
+            </div>
+
+            @* Table Body *@
+            <div id="bidEvaluationsContainer">
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        // Helper variables for filtering and display
+                        string prNumber = item.PurchaseRequest?.RequestNumber ?? "N/A";
+                        bool hasWinner = item.SelectedBid != null;
+                        string winnerStatus = hasWinner ? "awarded" : "pending";
+                        string winnerName = item.SelectedBid?.Supplier?.SupplierName ?? "Not Selected";
+
+                        <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0" data-winner-status="@winnerStatus">
+                            @* BE Number - col-md-1 *@
+                            <div class="col-12 col-md-2" data-column-value="beNumber">
+                                <strong class="fw-bold">
+                                    <a href="@Url.Action("Details", "BidEvaluation", new { area = "Procurement", id = item.FormId })" class="text-decoration-none">
+                                        @item.BidEvaluationNumber
+                                    </a>
+                                </strong>
+                            </div>
+                            @* PR Number - col-md-1 *@
+                            <div class="col-12 col-md-2" data-column-value="prNumber">
+                                <a href="@Url.Action("Details", "PurchaseRequest", new { area = "Procurement", id = item.PurchaseRequest?.Id })" class="text-decoration-none">
+                                    @prNumber
+                                </a>
+                            </div>
+                            @* Evaluation Date - col-md-1 *@
+                            <div class="col-6 col-md-1">@item.EvaluationDate.ToString("dd MMM yyyy")</div>
+                            @* Estimated Amount - col-md-1 *@
+                            <div class="col-6 col-md-1">@item.EstimatedAmount.ToString("N2")</div>
+                            <div class="col-6 col-md-1">
+                                <span class="badge bg-info">@item.Bids.Count</span>
+                            </div>
+                            <div class="col-6 col-md-2 text-md-left">
+                                @if (hasWinner)
+                                {
+                                    <span class="badge bg-success">@winnerName</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">@winnerName</span>
+                                }
+                            </div>
+                            <div class="col-6 col-md-1">@item.Owner</div>
+                            <div class="col-6 col-md-2 text-md-center" data-column-value="status">
+                                @{
+                                    string statusBadgeClass = "";
+                                    string statusText = "";
+                                    switch (item.StateId)
+                                    {
+                                        case 1: statusBadgeClass = "bg-secondary"; statusText = "Draft"; break;
+                                        case 2: statusBadgeClass = "bg-warning"; statusText = "Submitted"; break;
+                                        case 3: statusBadgeClass = "bg-success"; statusText = "Approved"; break;
+                                        case 4: statusBadgeClass = "bg-danger"; statusText = "Rejected"; break;
+                                        case 5: statusBadgeClass = "bg-info"; statusText = "Returned"; break;
+                                        default: statusBadgeClass = "bg-light text-dark"; statusText = "Unknown"; break;
+                                    }
+                                }
+                                <span class="badge status-badge @statusBadgeClass" data-state-id="@item.StateId">@statusText</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12 text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-2"></i><br>No bid evaluations found.
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const beNumberSearch = document.getElementById('beNumberSearch');
+        const prNumberSearch = document.getElementById('prNumberSearch');
+        const winnerStatusSearch = document.getElementById('winnerStatusSearch');
+        const statusSearch = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const rows = document.querySelectorAll('.user-row');
+
+        function filterRows() {
+            const beNumberValue = beNumberSearch.value.toLowerCase();
+            const prNumberValue = prNumberSearch.value.toLowerCase();
+            const winnerStatusValue = winnerStatusSearch.value;
+            const statusValue = statusSearch.value;
+
+            rows.forEach(row => {
+                // Adjusting selectors to match the new column structure
+                const beNumberText = row.querySelector('[data-column-value="beNumber"]').textContent.trim().toLowerCase();
+                const prNumberText = row.querySelector('[data-column-value="prNumber"]').textContent.trim().toLowerCase();
+                const rowWinnerStatus = row.dataset.winnerStatus;
+                const rowStatusId = row.querySelector('.status-badge').getAttribute('data-state-id');
+
+                const beMatch = beNumberValue === '' || beNumberText.includes(beNumberValue);
+                const prMatch = prNumberValue === '' || prNumberText.includes(prNumberValue);
+                const winnerMatch = winnerStatusValue === '' || rowWinnerStatus === winnerStatusValue;
+                const statusMatch = statusValue === '' || rowStatusId === statusValue;
+
+                if (beMatch && prMatch && winnerMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Event Listeners ---
+        beNumberSearch.addEventListener('input', filterRows);
+        prNumberSearch.addEventListener('input', filterRows);
+        winnerStatusSearch.addEventListener('change', filterRows);
+        statusSearch.addEventListener('change', filterRows);
+
+        clearButton.addEventListener('click', function () {
+            beNumberSearch.value = '';
+            prNumberSearch.value = '';
+            winnerStatusSearch.value = '';
+            statusSearch.value = '';
+            filterRows();
+        });
+
+        // Initial filter on load
+        filterRows();
+    });
+</script>

@@ -52,9 +52,10 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
             try
             {
                 var users = await _context.Users
-                    .Include(u => u.Branch)
-                    .Include(u => u.Department)
-                    .ToListAsync();
+                .Include(u => u.Branch)
+                .Include(u => u.Department)
+                .OrderBy(u => u.UserName) // Add this line to sort by UserName
+                .ToListAsync();
 
                 var viewModel = new UsersIndexViewModel
                 {
@@ -330,7 +331,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
 
             try
             {
-                // Get user with navigation properties
                 var user = await _context.Users
                     .Include(u => u.Branch)
                     .Include(u => u.Department)
@@ -341,13 +341,13 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                     return NotFound();
                 }
 
-                // Create and populate view model
                 var model = new AdminEditUserViewModel
                 {
-                    User = user
+                    User = user,
+                    // Add this line to get the lockout status
+                    IsLockedOut = await _userManager.IsLockedOutAsync(user)
                 };
 
-                // Get current role
                 var roles = await _userManager.GetRolesAsync(user);
                 if (roles.Any())
                 {
@@ -358,7 +358,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                     }
                 }
 
-                // Load dropdown data
                 await PopulateFormViewModel(model);
 
                 return View(model);
@@ -374,18 +373,15 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
         // POST: UserManagement/Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Edit(int id, AdminEditUserViewModel model)
         {
             // Initial check: Ensure the ID from the URL matches the ID in the model's User object.
-            // This is important if your routing sends the User ID in the URL.
             if (id != model.User.Id)
             {
-                // Return JSON for an ID mismatch, indicating an error that should close the modal
                 return Json(new { success = false, message = "User ID mismatch." });
             }
 
-            // Always check ModelState.IsValid first to catch any basic validation errors (e.g., [Required])
-            // If ModelState is not valid at this point, return the PartialView to show errors in modal.
             if (!ModelState.IsValid)
             {
                 await PopulateFormViewModel(model); // Repopulate dropdowns before returning the view
@@ -394,33 +390,28 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
 
             try
             {
-                var existingUser = await _userManager.FindByIdAsync(id.ToString()); // Use 'id' from route parameter
+                var existingUser = await _userManager.FindByIdAsync(id.ToString());
                 if (existingUser == null)
                 {
-                    // Return JSON for not found, indicating an error that should close the modal
                     return Json(new { success = false, message = "User not found." });
                 }
 
                 // --- Custom Validation for Email and Username Uniqueness ---
-                // Check if email already exists for another user
                 var userWithSameEmail = await _userManager.FindByEmailAsync(model.User.Email);
                 if (userWithSameEmail != null && userWithSameEmail.Id != existingUser.Id)
                 {
                     ModelState.AddModelError("User.Email", "This email address is already in use by another user.");
                 }
-
-                // Check if username already exists for another user
                 var userWithSameUserName = await _userManager.FindByNameAsync(model.User.UserName);
                 if (userWithSameUserName != null && userWithSameUserName.Id != existingUser.Id)
                 {
                     ModelState.AddModelError("User.UserName", "This username is already taken by another user.");
                 }
 
-                // If custom validation failed, return the PartialView with errors
                 if (!ModelState.IsValid)
                 {
-                    await PopulateFormViewModel(model); // Repopulate dropdowns
-                    return PartialView(model); // Assuming this is your partial view name
+                    await PopulateFormViewModel(model);
+                    return PartialView(model);
                 }
                 // --- End Custom Validation ---
 
@@ -436,7 +427,25 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                     existingUser.DepartmentId = model.User.DepartmentId;
                     existingUser.IsActive = model.User.IsActive;
 
-                    // Update the user
+                    // --- Lockout/Unlock Logic ---
+                    var isCurrentlyLockedOut = await _userManager.IsLockedOutAsync(existingUser);
+                    if (model.IsLockedOut && !isCurrentlyLockedOut)
+                    {
+                        // Action: Lock user
+                        await _userManager.SetLockoutEndDateAsync(existingUser, DateTimeOffset.MaxValue);
+                    }
+                    else if (!model.IsLockedOut && isCurrentlyLockedOut)
+                    {
+                        // Action: Unlock user
+                        await _userManager.SetLockoutEndDateAsync(existingUser, DateTimeOffset.Now);
+
+                        // IMPORTANT: Reset the failed access count when unlocking manually
+                        await _userManager.ResetAccessFailedCountAsync(existingUser);
+                        _logger.LogInformation("User {UserId} manually unlocked and access failed count reset.", existingUser.Id);
+                    }
+                    // --- End Lockout/Unlock Logic ---
+
+                    // Update the user details
                     var updateResult = await _userManager.UpdateAsync(existingUser);
                     if (!updateResult.Succeeded)
                     {
@@ -446,10 +455,10 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                         }
                         await transaction.RollbackAsync();
                         await PopulateFormViewModel(model);
-                        return PartialView("_EditUserPartial", model); // Return PartialView on UserManager error
+                        return PartialView("_EditUserPartial", model);
                     }
 
-                    // Handle role assignment if changed
+                    // Handle role assignment if changed (code omitted for brevity)
                     if (model.RoleId.HasValue)
                     {
                         var currentRoles = await _userManager.GetRolesAsync(existingUser);
@@ -485,29 +494,64 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                     }
 
                     await transaction.CommitAsync();
-                    // On successful update, return JSON to indicate success and close the modal
                     return Json(new { success = true, message = "User updated successfully!" });
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    // Log the error more specifically for transaction issues
                     _logger.LogError(ex, "Transaction rolled back during user update for ID: {UserId}", id);
                     ModelState.AddModelError(string.Empty, "An unexpected database error occurred during update. Please try again.");
-                    await PopulateFormViewModel(model); // Repopulate dropdowns in case of transaction error
-                    return PartialView(model); // Return PartialView on transaction error
+                    await PopulateFormViewModel(model);
+                    return PartialView(model);
                 }
             }
             catch (Exception ex)
             {
-                // General error handling
                 _logger.LogError(ex, "Error updating user {UserId}", id);
                 ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-                await PopulateFormViewModel(model); // Repopulate dropdowns
-                return PartialView(model); // Return PartialView on general error
+                await PopulateFormViewModel(model);
+                return PartialView(model);
             }
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LockUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found." });
+            }
 
+            // Lock the user indefinitely
+            var lockoutResult = await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
+            if (lockoutResult.Succeeded)
+            {
+                return Json(new { success = true, message = $"User {user.UserName} has been locked successfully." });
+            }
+
+            return Json(new { success = false, message = "Failed to lock the user account." });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnlockUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found." });
+            }
+
+            // Unlock the user by setting the lockout end date to a past time
+            var unlockResult = await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.Now);
+            if (unlockResult.Succeeded)
+            {
+                return Json(new { success = true, message = $"User {user.UserName} has been unlocked successfully." });
+            }
+
+            return Json(new { success = false, message = "Failed to unlock the user account." });
+        }
         // GET: UserManagement/Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

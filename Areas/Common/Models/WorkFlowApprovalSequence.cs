@@ -11,7 +11,7 @@ namespace ProcureToPay.Areas.Common.Models
         public int WorkFlowApprovalSeqID { get; set; }
 
         [Required]
-        public short WorkFlowTypeId { get; set; }
+        public int WorkFlowTypeId { get; set; }
 
         public short? PaymentNatureID { get; set; }
         public short? PaymentSubNatureID { get; set; }

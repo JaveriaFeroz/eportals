@@ -1,0 +1,145 @@
+﻿@model IEnumerable<ProcureToPay.Areas.Procurement.Models.PurchaseRequest>
+
+@{
+    ViewData["Title"] = "Select Purchase Request for Bid Evaluation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<style>
+    /* Ensure the action button is always visible */
+    .action-btn {
+        opacity: 1 !important; /* Forces full visibility */
+        visibility: visible !important; /* Ensures it's always rendered */
+        transform: translateX(0) !important; /* Resets any hover-triggered translations */
+        transition: none !important; /* Removes any transition effects */
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-hand-pointer me-2"></i> Select Purchase Request for Bid Evaluation
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <p class="mb-3 text-muted">Select an approved Purchase Request below to create a new Bid Evaluation.</p>
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="prNumberSearch"
+                                   placeholder="Search PR Number" data-filter="prNumber">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PR NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>REQUESTED BY</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PR DATE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-building text-dark me-2"></i>DEPARTMENT</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-code-branch text-dark me-2"></i>BRANCH</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-info-circle text-dark me-2"></i>STATUS</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>Purchase Type</div>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
+                        <div class="col-12 col-md-2" data-column-value="prNumber">
+                            <strong class="fw-bold">
+                                <a href="@Url.Action("Details", "PurchaseRequest", new { area = "Procurement", id = item.Id })" class="text-decoration-none">
+                                    @item.RequestNumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-6 col-md-2">@item.RequestedByUser?.UserName</div>
+                        <div class="col-6 col-md-1">@item.RequestDate.ToString("dd MMM yyyy")</div>
+                        <div class="col-6 col-md-2">@(item.Department?.DepartmentName ?? "N/A")</div>
+                        <div class="col-6 col-md-2">@(item.Branch?.BranchName ?? "N/A")</div>
+                        <div class="col-6 col-md-1 text-md-center">
+                            <span class="badge status-badge bg-success">Approved</span>
+                        </div>
+                        <div class="col-6 col-md-2">@item.PurchaseItemType</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i><br>No approved Purchase Requests currently eligible for conversion to Bid Evaluations.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // --- Filtering Logic ---
+            const prNumberSearch = document.getElementById('prNumberSearch');
+            const clearButton = document.querySelector('.clear-button');
+            const rows = document.querySelectorAll('.user-row');
+
+            function filterRows() {
+                const prNumberValue = prNumberSearch.value.toLowerCase();
+
+                rows.forEach(row => {
+                    // Fetch text from the dedicated column, or use the data attribute
+                    const prNumberText = row.querySelector('[data-column-value="prNumber"]').textContent.trim().toLowerCase();
+
+                    const prMatch = prNumberValue === '' || prNumberText.includes(prNumberValue);
+
+                    if (prMatch) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            // --- Event Listeners ---
+            prNumberSearch.addEventListener('input', filterRows);
+
+            clearButton.addEventListener('click', function () {
+                prNumberSearch.value = '';
+                filterRows();
+            });
+        });
+    </script>
+}

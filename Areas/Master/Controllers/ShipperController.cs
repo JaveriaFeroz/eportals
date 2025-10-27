@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using ProcureToPay.Areas.Master.Models;
+using ProcureToPay.Helpers;
 
 namespace ProcureToPay.Areas.Master.Controllers
 {
@@ -151,7 +152,7 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.Shipper.UpdatedBy = currentUserId;
-                    viewModel.Shipper.UpdatedOn = DateTime.UtcNow;
+                    viewModel.Shipper.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
                     var success = await _shipperService.SaveShipperAsync(viewModel.Shipper);
                     if (success)
                     {

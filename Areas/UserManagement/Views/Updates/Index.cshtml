@@ -1,61 +1,197 @@
 ﻿@using ProcureToPay.Areas.UserManagement.Models
 @model List<Update>
+
 @{
     ViewData["Title"] = "Manage Updates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Manage Updates</h2>
-            <a href="@Url.Action("Create")" class="btn btn-primary mb-3">Create New Update</a>
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
 
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Created Date</th>
-                            <th>Active</th>
-                            <th>Priority</th>
-                            <th>Created By</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var update in Model)
-                        {
-                            <tr>
-                                <td>@update.Title</td>
-                                <td>@update.CreatedDate.ToString("MMM dd, yyyy")</td>
-                                <td>
-                                    <span class="badge badge-@(update.IsActive ? "success" : "secondary")">
-                                        @(update.IsActive ? "Active" : "Inactive")
-                                    </span>
-                                </td>
-                                <td>@update.Priority</td>
-                                <td>@update.CreatedBy</td>
-                                <td>
-                                    <a href="@Url.Action("Edit", new { id = update.Id })" class="btn btn-sm btn-outline-primary">Edit</a>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUpdate(@update.Id)">Delete</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-arrow-rotate-right me-2"></i> System Updates
+            </h5>
+        </div>
+        <div class="card-body">
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="titleSearch"
+                                   placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select id="prioritySearch" class="form-select form-select-sm underline-input">
+                                <option value="">All Priorities</option>
+                                @{
+                                    var uniquePriorities = Model.Select(u => u.Priority).Distinct().OrderBy(p => p).ToList();
+                                }
+                                @foreach (var priority in uniquePriorities)
+                                {
+                                    <option value="@priority">@priority</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select class="form-select form-select-sm underline-input" id="statusSearch">
+                                <option value="">All Statuses</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <a class="action-button create-user-text"
+                               href="@Url.Action("Create", "Updates", new { area = "UserManagement" })"
+                               style="background-color: #092963;">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Create Update</span>
+                            </a>
+                            <a href="@Url.Action("Create", "Updates", new { area = "UserManagement" })" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-3 d-flex align-items-center"><i class="fas fa-info-circle me-1 text-dark"></i> TITLE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-calendar-alt me-1 text-dark"></i> CREATED DATE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-sliders-h me-1 text-dark"></i> PRIORITY</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user me-1 text-dark"></i> CREATED BY</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-toggle-on me-1 text-dark"></i> STATUS</div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center"><i class="fas fa-cogs me-1 text-dark"></i> ACTIONS</div>
+            </div>
+
+            @foreach (var update in Model)
+            {
+                <div class="row align-items-center border-bottom py-3 px-2 update-row" tabindex="0">
+                    <div class="col-12 col-md-3" data-column-value="title">
+                        <strong class="fw-bold">@update.Title</strong>
+                    </div>
+                    <div class="col-12 col-md-2">@update.CreatedDate.ToString("MMM dd, yyyy")</div>
+                    <div class="col-12 col-md-2" data-column-value="priority">
+                        <span>@update.Priority</span>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <span>@update.CreatedBy</span>
+                    </div>
+                    <div class="col-12 col-md-1 text-center">
+                        @if (update.IsActive)
+                        {
+                            <span class="badge status-badge" data-state-id="1" style="background-color: #198754;">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge status-badge bg-danger" data-state-id="0">Inactive</span>
+                        }
+                    </div>
+                    <div class="col-12 col-md-2 d-flex justify-content-center gap-1 mt-2 mt-md-0">
+                        <a asp-action="Edit" asp-route-id="@update.Id" class="btn btn-sm text-warning action-btn" title="Edit">
+                            <i class="fas fa-edit icon-warning"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@update.Id" class="btn btn-sm text-info action-btn" title="Details">
+                            <i class="fas fa-info-circle icon-info"></i>
+                        </a>
+                        <button type="button" class="btn btn-sm text-danger action-btn" onclick="deleteUpdate(@update.Id)" title="Delete">
+                            <i class="fas fa-trash-alt icon-danger"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i><br>No updates found.
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const titleSearch = document.getElementById('titleSearch');
+        const prioritySearch = document.getElementById('prioritySearch');
+        const statusSearch = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const allRows = document.querySelectorAll('.update-row');
+
+        function filterUpdates() {
+            const titleValue = titleSearch.value.toLowerCase();
+            const priorityValue = prioritySearch.value.toLowerCase();
+            const statusValue = statusSearch.value;
+            let foundMatch = false;
+
+            allRows.forEach(row => {
+                const rowTitle = row.querySelector('[data-column-value="title"]').textContent.trim().toLowerCase();
+                const rowPriority = row.querySelector('[data-column-value="priority"]').textContent.trim().toLowerCase();
+                const rowStatusId = row.querySelector('.status-badge').getAttribute('data-state-id');
+
+                const titleMatch = titleValue === '' || rowTitle.includes(titleValue);
+                const priorityMatch = priorityValue === '' || rowPriority.includes(priorityValue);
+                const statusMatch = statusValue === '' || rowStatusId === statusValue;
+
+                if (titleMatch && priorityMatch && statusMatch) {
+                    row.style.display = '';
+                    foundMatch = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            const noResultsRow = document.querySelector('.card-body .row .col-12.text-center');
+            if (noResultsRow) {
+                noResultsRow.style.display = foundMatch ? 'none' : 'block';
+            }
+        }
+
+        titleSearch.addEventListener('input', filterUpdates);
+        prioritySearch.addEventListener('change', filterUpdates);
+        statusSearch.addEventListener('change', filterUpdates);
+
+        clearButton.addEventListener('click', function () {
+            titleSearch.value = '';
+            prioritySearch.value = '';
+            statusSearch.value = '';
+            filterUpdates();
+        });
+
+        filterUpdates();
+    });
+
     function deleteUpdate(id) {
         if (confirm('Are you sure you want to delete this update?')) {
-            fetch('@Url.Action("Delete")/' + id, {
+            fetch(`@Url.Action("Delete")/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                 }
             })
             .then(response => response.json())
@@ -63,8 +199,12 @@
                 if (data.success) {
                     location.reload();
                 } else {
-                    alert('Error deleting update');
+                    alert('Error deleting update: ' + data.message);
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred while deleting the update.');
             });
         }
     }

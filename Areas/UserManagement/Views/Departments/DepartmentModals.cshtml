@@ -22,6 +22,9 @@
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- THIS WAS MISSING - Added the modal body div -->
+            <div class="modal-body" id="departmentDetailsModalBody">
+            </div>
         </div>
     </div>
 </div>
@@ -48,21 +51,27 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Helper function to build URLs
+        // Use the basePath from the layout
+        const basePath = window.basePath || '/';
+        // Helper function to build URLs with proper base path
         function getUrl(area, page, action, id) {
+            // Remove trailing slash from basePath if it exists, then build URL
+            const cleanBasePath = basePath.replace(/\/$/, '');
+            let url = `${cleanBasePath}/${area}/${page}/${action}`;
             if (id) {
-                return `/${area}/${page}/${action}/${id}`;
+                url += `/${id}`;
             }
-            return `/${area}/${page}/${action}`;
+            return url;
         }
-
+        
         // --- Function to attach/re-attach form submission handler for the Edit modal ---
         function attachEditFormSubmissionHandler() {
-            const editForm = document.getElementById('departmentEditForm'); // Target the department edit form
+            const editForm = document.getElementById('departmentEditForm');
             if (editForm) {
-                editForm.removeEventListener('submit', handleEditFormSubmit); // Ensure no duplicate listeners
+                editForm.removeEventListener('submit', handleEditFormSubmit);
                 editForm.addEventListener('submit', handleEditFormSubmit);
 
                 // Re-parse client-side validation
@@ -114,8 +123,11 @@
                         departmentEditModalInstance.hide();
                     }
                     console.log("Department update successful. Redirecting to Index page.");
-                    // Use data attributes on the form for dynamic redirection
-                    window.location.href = `/${form.getAttribute('data-area') || 'UserManagement'}/${form.getAttribute('data-controller') || 'Departments'}/Index`;
+                    // Use proper base path for redirect
+                    const area = form.getAttribute('data-area') || 'UserManagement';
+                    const controller = form.getAttribute('data-controller') || 'Departments';
+                    const cleanBasePath = basePath.replace(/\/$/, '');
+                    window.location.href = `${cleanBasePath}/${area}/${controller}/Index`;
                 }
 
             } catch (error) {
@@ -125,9 +137,6 @@
                         A network or unexpected error occurred. Please check your connection and try again.
                     </div>
                 `;
-                // If you want the form to persist after an error, you'd re-attach the handler here,
-                // but for network errors, simply showing a message is often sufficient.
-                // attachEditFormSubmissionHandler();
             }
         }
 
@@ -141,6 +150,8 @@
                 const page = this.getAttribute('data-page'); // 'Departments'
                 const url = getUrl(area, page, 'Edit', id);
 
+                console.log('Requesting URL:', url); // Debug log
+
                 try {
                     const response = await fetch(url);
                     const data = await response.text();
@@ -150,7 +161,6 @@
                     departmentEditModal.show();
 
                     // IMPORTANT: Now attach the form submission handler to the newly loaded form
-                    // Adding a small timeout can sometimes help Bootstrap modals fully render.
                     setTimeout(attachEditFormSubmissionHandler, 50);
 
                 } catch (error) {
@@ -164,7 +174,7 @@
             });
         });
 
-        // Department Details Modal Opener
+        // Department Details Modal Opener - FIXED
         document.querySelectorAll('.department-details-btn').forEach(function (button) {
             button.addEventListener('click', async function () {
                 const id = this.getAttribute('data-id');
@@ -172,18 +182,34 @@
                 const page = this.getAttribute('data-page');
                 const url = getUrl(area, page, 'Details', id);
 
+                console.log('Requesting Details URL:', url); // Debug log
+
                 try {
                     const response = await fetch(url);
                     const data = await response.text();
-                    document.getElementById('departmentDetailsModalBody').innerHTML = data;
-                    new bootstrap.Modal(document.getElementById('departmentDetailsModal')).show();
+
+                    // Populate the modal body with the response
+                    const modalBody = document.getElementById('departmentDetailsModalBody');
+                    if (modalBody) {
+                        modalBody.innerHTML = data;
+                        console.log('Department details content loaded successfully');
+                    } else {
+                        console.error('departmentDetailsModalBody element not found');
+                    }
+
+                    // Show the modal
+                    const modal = new bootstrap.Modal(document.getElementById('departmentDetailsModal'));
+                    modal.show();
                 } catch (error) {
                     console.error('Error loading department details modal:', error);
-                    document.getElementById('departmentDetailsModalBody').innerHTML = `
-                        <div class="alert alert-danger" role="alert">
-                            Failed to load department details. Please try again.
-                        </div>
-                    `;
+                    const modalBody = document.getElementById('departmentDetailsModalBody');
+                    if (modalBody) {
+                        modalBody.innerHTML = `
+                            <div class="alert alert-danger" role="alert">
+                                Failed to load department details. Please try again.
+                            </div>
+                        `;
+                    }
                 }
             });
         });
@@ -194,20 +220,21 @@
                 const id = this.getAttribute('data-id');
                 const area = this.getAttribute('data-area');
                 const page = this.getAttribute('data-page');
-                const departmentName = this.getAttribute('data-department-name'); // Assuming you'll add this data attribute
+                const departmentName = this.getAttribute('data-department-name');
 
                 const url = getUrl(area, page, 'Delete', id);
 
-                // If you want to display the department name in the delete confirmation modal
-                const deleteModalDepartmentNameSpan = document.getElementById('deleteModalDepartmentName'); // Add this span in your modal
+                console.log('Delete URL:', url); // Debug log
+
+                // Display the department name in the delete confirmation modal
+                const deleteModalDepartmentNameSpan = document.getElementById('deleteModalDepartmentName');
                 if (deleteModalDepartmentNameSpan) {
                     deleteModalDepartmentNameSpan.textContent = departmentName;
                 }
-                const deleteModalDepartmentNameConfirmSpan = document.getElementById('deleteModalDepartmentNameConfirm'); // Add this span in your modal
+                const deleteModalDepartmentNameConfirmSpan = document.getElementById('deleteModalDepartmentNameConfirm');
                 if (deleteModalDepartmentNameConfirmSpan) {
                     deleteModalDepartmentNameConfirmSpan.textContent = departmentName;
                 }
-
 
                 document.getElementById('departmentDeleteForm').setAttribute('action', url);
                 new bootstrap.Modal(document.getElementById('departmentDeleteModal')).show();

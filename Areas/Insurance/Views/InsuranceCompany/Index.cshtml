@@ -10,12 +10,6 @@
 
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-area="Insurance" asp-controller="InsuranceCompany" asp-action="Index">Insurance</a></li>
-        <li class="breadcrumb-item active">InsuranceCompany</li>
-    </ol>
-
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
             <h5 class="card-title text-white mb-0">
@@ -140,12 +134,7 @@
                     </div>
                 </div>
             }
-
-            <div class="d-flex justify-content-end mt-3">
-                <a class="btn btn-light text-primary" href="/Home/Index">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </a>
-            </div>
+            
         </div>
 
         @* This partial view will contain the empty modal shells for Edit, Details, and Delete *@

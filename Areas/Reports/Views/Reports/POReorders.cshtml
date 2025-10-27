@@ -1,0 +1,396 @@
+﻿@model ProcureToPay.Areas.Reports.Models.POReorderReportFilter
+@{
+    ViewData["Title"] = "PO Reorders Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .filter-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .filter-header {
+        background: linear-gradient(135deg, #092963, #1e458e);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 1rem 1rem 0 0;
+    }
+
+    .badge-reorder {
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+    }
+
+    .positive-change {
+        color: #28a745;
+    }
+
+    .negative-change {
+        color: #dc3545;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-0">
+                <i class="fas fa-redo text-primary me-2"></i>
+                Purchase Order Reorders Report
+            </h2>
+            <p class="text-muted mb-0">Track and analyze purchase order reorder patterns</p>
+        </div>
+    </div>
+
+    <!-- Filters Card -->
+    <div class="card filter-card">
+        <div class="filter-header">
+            <h5 class="mb-0">
+                <i class="fas fa-filter me-2"></i>Filter Reorders
+            </h5>
+        </div>
+        <div class="card-body">
+            <form id="filterForm" method="get">
+                <div class="row g-3">
+                    <!-- Date Range -->
+                    <div class="col-md-3">
+                        <label asp-for="FromDate" class="form-label"></label>
+                        <input asp-for="FromDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ToDate" class="form-label"></label>
+                        <input asp-for="ToDate" class="form-control" type="date" />
+                    </div>
+
+                    <!-- Department and Branch -->
+                    <div class="col-md-3">
+                        <label asp-for="DepartmentId" class="form-label"></label>
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments">
+                            <option value="">All Departments</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BranchId" class="form-label"></label>
+                        <select asp-for="BranchId" class="form-select" asp-items="ViewBag.Branches">
+                            <option value="">All Branches</option>
+                        </select>
+                    </div>
+
+                    <!-- Supplier and User -->
+                    <div class="col-md-3">
+                        <label asp-for="SupplierId" class="form-label"></label>
+                        <select asp-for="SupplierId" class="form-select" asp-items="ViewBag.Suppliers">
+                            <option value="">All Suppliers</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ReorderedByUserId" class="form-label"></label>
+                        <select asp-for="ReorderedByUserId" class="form-select" asp-items="ViewBag.Users">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Original PO Number and Frequency -->
+                    <div class="col-md-3">
+                        <label asp-for="OriginalPONumber" class="form-label"></label>
+                        <input asp-for="OriginalPONumber" class="form-control" placeholder="Search PO Number" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Frequency" class="form-label"></label>
+                        <select asp-for="Frequency" class="form-select">
+                            <option value="">All Count</option>
+                            <option value="1">First Time</option>
+                            <option value="2">2-3 Times</option>
+                            <option value="3">4+ Times</option>
+                        </select>
+                    </div>
+
+                    <!-- Only My Reorders -->
+                    <div class="col-md-3">
+                        <div class="form-check mt-4">
+                            <input asp-for="OnlyMyReorders" class="form-check-input" type="checkbox" />
+                            <label asp-for="OnlyMyReorders" class="form-check-label"></label>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-md-9">
+                        <div class="mt-4">
+                            <button type="button" id="btnApplyFilters" class="btn btn-primary">
+                                <i class="fas fa-search me-2"></i>Apply Filters
+                            </button>
+                            <button type="button" id="btnClearFilters" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Clear
+                            </button>
+                            <button type="button" id="btnExport" class="btn btn-success">
+                                <i class="fas fa-file-excel me-2"></i>Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Card -->
+    <div class="card filter-card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="reordersTable" class="table table-hover table-striped" style="width:100%">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Reordered PO#</th>
+                            <th>Original PO#</th>
+                            <th>Title</th>
+                            <th>Reorder Date</th>
+                            <th>Reordered By</th>
+                            <th>Supplier</th>
+                            <th>Department</th>
+                            <th>Original Amt</th>
+                            <th>Reordered Amt</th>
+                            <th>Change</th>
+                            <th>% Change</th>
+                            <th>Reorder Count</th>
+                            <th>Original Qty</th>
+                            <th>Reordered Qty</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let table;
+        const poDetailsUrlTemplate = "@Url.Action("Details", "PurchaseOrder", new { area = "Procurement", id = "_ID_" })";
+
+        $(document).ready(function () {
+            // Initialize the main DataTable
+            initializeDataTable();
+
+            // Bind filter buttons
+            $('#btnApplyFilters').on('click', applyFilters);
+            $('#btnClearFilters').on('click', clearFilters);
+            $('#btnExport').on('click', exportToExcel);
+        });
+
+        // Helper function for status badges (Re-added for completeness)
+        function getStatusBadgeClass(status) {
+            switch(status) {
+                case 'Approved':
+                case 'Issued':
+                case 'Completed': return 'bg-success';
+                case 'Submitted': return 'bg-primary';
+                case 'Rejected': return 'bg-danger';
+                case 'Returned': return 'bg-warning text-dark';
+                case 'Draft': return 'bg-secondary';
+                default: return 'bg-light text-dark';
+            }
+        }
+
+        function initializeDataTable() {
+            console.log('Initializing PO Reorders DataTable...');
+
+            table = $('#reordersTable').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                paging: true,
+                pageLength: 25,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                ajax: {
+                    // PurchaseOrders action call
+                    url: '@Url.Action("POReorders", "Reports", new { area = "Reports" })',
+                    type: 'GET',
+                    data: function (d) {
+                        // Map all filter and pagination parameters
+                        return {
+                            FromDate: $('#FromDate').val(),
+                            ToDate: $('#ToDate').val(),
+                            DepartmentId: $('#DepartmentId').val(),
+                            BranchId: $('#BranchId').val(),
+                            SupplierId: $('#SupplierId').val(),
+                            ReorderedByUserId: $('#ReorderedByUserId').val(),
+                            MinAmount: $('#MinAmount').val(),
+                            MaxAmount: $('#MaxAmount').val(),
+                            OriginalPONumber: $('#OriginalPONumber').val(), // Combined PO Number Search
+                            Frequency: $('#Frequency').val(),
+                            OnlyMyReorders: $('#OnlyMyReorders').is(':checked'),
+
+                            // DataTables parameters
+                            draw: d.draw,
+                            PageIndex: Math.floor(d.start / d.length),
+                            PageSize: d.length,
+                            SearchValue: d.search.value,
+                            SortColumnIndex: d.order.length > 0 ? d.order[0].column : 3, // Default sort by Reorder Date
+                            SortDirection: d.order.length > 0 ? d.order[0].dir : 'desc',
+                        };
+                    },
+                    error: function (xhr, error, code) {
+                        console.error('DataTable AJAX Error:', error, xhr.responseText);
+                        toastr.error('Failed to load reorder data. Check console for details.');
+                    }
+                },
+                columns: [
+                    // 1. Reordered PO Number (Hyperlink)
+                    {
+                        data: 'reorderedPONumber',
+                        name: 'reorderedPONumber',
+                        render: function (data, type, row) {
+                            if (!row.reorderedPOId) return data;
+                            var url = poDetailsUrlTemplate.replace('_ID_', row.reorderedPOId);
+                            return '<a href="' + url + '" class="text-primary text-decoration-none fw-bold">' + data + '</a>';
+                        }
+                    },
+                    // 2. Original PO Number (Hyperlink)
+                    {
+                        data: 'originalPONumber',
+                        name: 'originalPONumber',
+                        render: function (data, type, row) {
+                            if (!row.originalPOId) return data || 'N/A';
+                            var url = poDetailsUrlTemplate.replace('_ID_', row.originalPOId);
+                            // Keep the primary color for now, as per your last request
+                            return '<a href="' + url + '" class="text-primary text-decoration-none fw-bold">' + data + '</a>';
+                        }
+                    },
+                    { data: 'title', name: 'title' },
+                    {
+                        data: 'reorderDate',
+                        name: 'reorderDate',
+                        render: function (data) {
+                            return new Date(data).toLocaleDateString();
+                        }
+                    },
+                    { data: 'reorderedByUserName', name: 'reorderedByUserName' },
+                    { data: 'supplierName', name: 'supplierName' },
+                    { data: 'departmentName', name: 'departmentName' },
+                    {
+                        data: 'originalAmount',
+                        name: 'originalAmount',
+                        render: function (data) {
+                            return '$' + parseFloat(data).toFixed(2);
+                        }
+                    },
+                    {
+                        data: 'reorderedAmount',
+                        name: 'reorderedAmount',
+                        render: function (data) {
+                            return '$' + parseFloat(data).toFixed(2);
+                        }
+                    },
+                    {
+                        data: 'amountDifference',
+                        name: 'amountDifference',
+                        render: function (data) {
+                            var className = data >= 0 ? 'positive-change' : 'negative-change';
+                            var sign = data >= 0 ? '+' : '';
+                            return '<span class="' + className + '">' + sign + '$' + parseFloat(data).toFixed(2) + '</span>';
+                        }
+                    },
+                    {
+                        data: 'percentageChange',
+                        name: 'percentageChange',
+                        render: function (data) {
+                            var className = data >= 0 ? 'positive-change' : 'negative-change';
+                            var sign = data >= 0 ? '+' : '';
+                            return '<span class="' + className + '">' + sign + parseFloat(data).toFixed(1) + '%</span>';
+                        }
+                    },
+                    { data: 'reorderCount', name: 'reorderCount' },
+                    {
+                        data: 'originalQty',
+                        name: 'originalQty',
+                        render: function (data) { return parseFloat(data).toFixed(0); }
+                    },
+                    {
+                        data: 'reorderQty',
+                        name: 'reorderQty',
+                        render: function (data) { return parseFloat(data).toFixed(0); }
+                    },
+                    {
+                        data: 'statusName',
+                        name: 'statusName',
+                        render: function (data) {
+                            var badgeClass = getStatusBadgeClass(data);
+                            return '<span class="badge ' + badgeClass + '">' + data + '</span>';
+                        }
+                    },
+                ],
+                order: [[3, 'desc']],
+                pageLength: 25,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                language: {
+                    processing: '<i class="fas fa-spinner fa-spin fa-3x"></i><p>Loading reorder data...</p>'
+                }
+            });
+        }
+
+        function applyFilters() {
+            table.ajax.reload();
+        }
+
+        function clearFilters() {
+            $('#filterForm')[0].reset();
+            // Clear Filters ke liye sirf reset kafi hai
+            table.ajax.reload();
+        }
+
+        function exportToExcel() {
+             // Create a temporary form for submission
+            const exportForm = document.createElement('form');
+            exportForm.action = '@Url.Action("ExportPOReordersToExcel", "Reports")';
+            exportForm.method = 'post';
+            exportForm.style.display = 'none';
+
+            // Function to create and append hidden input fields
+            function appendInput(name, value) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                exportForm.appendChild(input);
+            }
+
+            // Append anti-forgery token
+            const token = $('input[name="__RequestVerificationToken"]').val();
+            if (token) appendInput('__RequestVerificationToken', token);
+
+            // Append all filter values to the temporary form
+            const filterData = {
+                FromDate: $('#FromDate').val(),
+                ToDate: $('#ToDate').val(),
+                DepartmentId: $('#DepartmentId').val(),
+                BranchId: $('#BranchId').val(),
+                SupplierId: $('#SupplierId').val(),
+                ReorderedByUserId: $('#ReorderedByUserId').val(),
+                MinAmount: $('#MinAmount').val(),
+                MaxAmount: $('#MaxAmount').val(),
+                OriginalPONumber: $('#OriginalPONumber').val(),
+                Frequency: $('#Frequency').val(),
+                OnlyMyReorders: $('#OnlyMyReorders').is(':checked')
+            };
+
+            $.each(filterData, function (key, value) {
+                if (value !== undefined && value !== null) {
+                    appendInput(key, value);
+                }
+            });
+
+            // Append the form to the body and submit
+            document.body.appendChild(exportForm);
+            exportForm.submit();
+            document.body.removeChild(exportForm);
+
+            toastr.success('Export started. Your download will begin shortly.');
+        }
+    </script>
+}

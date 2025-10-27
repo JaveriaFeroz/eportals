@@ -8,6 +8,7 @@ namespace ProcureToPay.Services
     {
         Task SendEmailAsync(string email, string subject, string htmlMessage);
         Task SendCredentialsEmailAsync(string email, string username, string temporaryPassword);
+        Task SendConfirmationEmailAsync(string email, string confirmationLink);
     }
     public class EmailSettings
     {
@@ -63,7 +64,7 @@ namespace ProcureToPay.Services
 
         public async Task SendCredentialsEmailAsync(string email, string username, string temporaryPassword)
         {
-            string subject = "Your ProcureToPay Account Credentials";
+            string subject = "Your ePortal Account Credentials";
 
             string htmlBody = $@"
                 <html>
@@ -80,11 +81,11 @@ namespace ProcureToPay.Services
                 <body>
                     <div class='container'>
                         <div class='header'>
-                            <h2>ProcureToPay - Account Created</h2>
+                            <h2>ePortal - Account Created</h2>
                         </div>
                         <div class='content'>
                             <p>Hello,</p>
-                            <p>Your account has been created in the ProcureToPay system. Please use the following credentials to log in:</p>
+                            <p>Your account has been created in the ePortal system. Please use the following credentials to log in:</p>
                             
                             <div class='credentials'>
                                 <p><strong>Username:</strong> {username}</p>
@@ -100,6 +101,46 @@ namespace ProcureToPay.Services
                     </div>
                 </body>
                 </html>";
+
+            await SendEmailAsync(email, subject, htmlBody);
+        }
+
+        public async Task SendConfirmationEmailAsync(string email, string confirmationLink)
+        {
+            string subject = "Confirm your ePortal Account";
+
+            string htmlBody = $@"
+            <html>
+            <head>
+                <style>
+                    body {{ font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }}
+                    .container {{ background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }}
+                    .header {{ text-align: center; background-color: #092963; color: white; padding: 20px; border-radius: 8px 8px 0 0; }}
+                    .content {{ padding: 20px 0; }}
+                    .button-link {{ display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #092963; text-decoration: none; border-radius: 5px; }}
+                    .footer {{ text-align: center; font-size: 12px; color: #666; margin-top: 20px; }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <div class='header'>
+                        <h2>Email Confirmation Required</h2>
+                    </div>
+                    <div class='content'>
+                        <p>Hello,</p>
+                        <p>Thank you for creating an account with ePortal. Please confirm your email address by clicking the link below:</p>
+                        <p style='text-align: center;'>
+                            <a href='{confirmationLink}' class='button-link'>Confirm Email</a>
+                        </p>
+                        <p>This confirmation is required to activate your account. Once confirmed, you will be able to log in.</p>
+                        <p>If you did not create this account, please ignore this email.</p>
+                    </div>
+                    <div class='footer'>
+                        <p>This is an automated message. Please do not reply.</p>
+                    </div>
+                </div>
+            </body>
+            </html>";
 
             await SendEmailAsync(email, subject, htmlBody);
         }

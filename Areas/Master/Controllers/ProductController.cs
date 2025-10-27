@@ -77,7 +77,6 @@ namespace ProcureToPay.Areas.Master.Controllers
                 var lookups = await _productService.GetLookupsAsync();
 
                 // Load dropdowns
-                model.ProductTypes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(lookups.ProductTypes, "TypeId", "TypeName");
                 model.UoMs = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(lookups.UoMs, "UoMId", "UoMName");
                 model.ProductNatures = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(lookups.ProductNatures, "NatureId", "NatureName");
 
@@ -281,7 +280,6 @@ namespace ProcureToPay.Areas.Master.Controllers
                 var lookups = await _productService.GetLookupsAsync();
                 return Json(new
                 {
-                    lstProductType = lookups.ProductTypes,
                     lstUoM = lookups.UoMs,
                     lstProductNature = lookups.ProductNatures
                 });
@@ -298,7 +296,6 @@ namespace ProcureToPay.Areas.Master.Controllers
             try
             {
                 var lookups = await _productService.GetLookupsAsync();
-                model.ProductTypes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(lookups.ProductTypes, "TypeId", "TypeName", model.ProductTypeId);
                 model.UoMs = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(lookups.UoMs, "UoMId", "UoMName", model.UoMId);
                 model.ProductNatures = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(lookups.ProductNatures, "NatureId", "NatureName", model.ProductNatureId);
             }

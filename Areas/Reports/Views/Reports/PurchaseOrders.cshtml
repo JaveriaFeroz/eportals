@@ -1,0 +1,460 @@
+﻿@model ProcureToPay.Areas.Reports.Models.PurchaseOrderReportFilter
+@{
+    ViewData["Title"] = "Purchase Orders Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-shopping-cart me-2"></i> Purchase Orders Report
+            </h5>
+        </div>
+        <div class="card-body">
+            <form id="filterForm" method="get">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="FromDate" class="form-label"></label>
+                        <input asp-for="FromDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ToDate" class="form-label"></label>
+                        <input asp-for="ToDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="DepartmentId" class="form-label"></label>
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments">
+                            <option value="">All Departments</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BranchId" class="form-label"></label>
+                        <select asp-for="BranchId" class="form-select" asp-items="ViewBag.Branches">
+                            <option value="">All Branches</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-3">
+                        <label asp-for="PONumber" class="form-label"></label>
+                        <input asp-for="PONumber" class="form-control" placeholder="Enter PO number" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="SupplierId" class="form-label"></label>
+                        <select asp-for="SupplierId" class="form-select" asp-items="ViewBag.Suppliers">
+                            <option value="">All Suppliers</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="CreatedByUserId" class="form-label"></label>
+                        <select asp-for="CreatedByUserId" class="form-select" asp-items="ViewBag.Users">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="StateId" class="form-label"></label>
+                        <select asp-for="StateId" class="form-select" asp-items="ViewBag.States">
+                            <option value="">All Statuses</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-3">
+                        <label asp-for="ProductNatureId" class="form-label"></label>
+                        <select asp-for="ProductNatureId" class="form-select" asp-items="ViewBag.ProductNatures">
+                            <option value="">All Product Natures</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ProductId" class="form-label"></label>
+                        <select asp-for="ProductId" class="form-select">
+                            <option value="">All Products</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ServiceNatureId" class="form-label"></label>
+                        <select asp-for="ServiceNatureId" class="form-select" asp-items="ViewBag.ServiceNatures">
+                            <option value="">All Service Natures</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ServiceId" class="form-label"></label>
+                        <select asp-for="ServiceId" class="form-select">
+                            <option value="">All Service</option>
+                        </select>
+                    </div>
+                </div>
+
+                @*   <div class="row g-3 mt-2">
+                    <div class="col-md-3">
+                        <label asp-for="MinAmount" class="form-label"></label>
+                        <input asp-for="MinAmount" class="form-control" type="number" step="0.01" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="MaxAmount" class="form-label"></label>
+                        <input asp-for="MaxAmount" class="form-control" type="number" step="0.01" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ExpectedDeliveryFrom" class="form-label"></label>
+                        <input asp-for="ExpectedDeliveryFrom" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ExpectedDeliveryTo" class="form-label"></label>
+                        <input asp-for="ExpectedDeliveryTo" class="form-control" type="date" />
+                    </div>
+                </div> *@
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                        <div class="form-check me-4">
+                            <input asp-for="OnlyMyOrders" class="form-check-input" type="checkbox" />
+                            <label asp-for="OnlyMyOrders" class="form-check-label"></label>
+                        </div>
+                        <button type="button" class="btn btn-primary me-2 d-flex align-items-center" onclick="applyFilters()" style="background-color: #092963;">
+                            <i class="fas fa-search me-2"></i> Apply
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary me-2 d-flex align-items-center" onclick="clearFilters()">
+                            <i class="fas fa-times me-2"></i> Clear
+                        </button>
+                        <button type="button" class="btn btn-success d-flex align-items-center" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel me-2"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-table me-2"></i> Report Results
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="purchaseOrdersTable" class="table table-bordered table-striped w-100">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>PO Number</th>
+                            <th>Title</th>
+                            <th>PO Date</th>
+                            <th>Supplier</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Grand Total</th>
+                            <th>Expected Delivery</th>
+                            <th>Items</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let table;
+
+        // URL templates for PO Details
+        const poDetailsUrlTemplate = "@Url.Action("Details", "PurchaseOrder", new { area = "Procurement", id = "_ID_" })";
+
+        $(document).ready(function () {
+            // Initialize the main DataTable
+            initializeDataTable();
+
+            // Product Nature dropdown ka change event handle karega
+            $('#ProductNatureId').on('change', function () {
+                var productNatureId = $(this).val();
+                var productDropdown = $('#ProductId');
+
+                productDropdown.empty().append('<option value="">All Products</option>');
+
+                if (productNatureId) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductsByNatureId", "Reports")',
+                        type: 'GET',
+                        data: { natureId: productNatureId },
+                        success: function (data) {
+                            if (data && data.length > 0) {
+                                $.each(data, function (index, item) {
+                                    productDropdown.append($('<option></option>').val(item.value).text(item.text));
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.error("Error fetching products:", error);
+                        }
+                    });
+                }
+            });
+
+            // Service Nature dropdown ka change event handle karega
+            $('#ServiceNatureId').on('change', function () {
+                var serviceNatureId = $(this).val();
+                var serviceDropdown = $('#ServiceId');
+
+                serviceDropdown.empty().append('<option value="">All Services</option>');
+
+                if (serviceNatureId) {
+                    $.ajax({
+                        url: '@Url.Action("GetServicesByNatureId", "Reports")',
+                        type: 'GET',
+                        data: { natureId: serviceNatureId },
+                        success: function (data) {
+                            if (data && data.length > 0) {
+                                $.each(data, function (index, item) {
+                                    serviceDropdown.append($('<option></option>').val(item.value).text(item.text));
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.error("Error fetching services:", error);
+                        }
+                    });
+                }
+            });
+
+            // --- Validation Logic ---
+            $('#ProductId').on('click', function (e) {
+                if (!$('#ProductNatureId').val()) {
+                    e.preventDefault();
+                    alert('Please select a Product Nature first.');
+                    return false;
+                }
+            });
+
+            $('#ServiceId').on('click', function (e) {
+                if (!$('#ServiceNatureId').val()) {
+                    e.preventDefault();
+                    alert('Please select a Service Nature first.');
+                    return false;
+                }
+            });
+            // --- End of Validation Logic ---
+
+            // Filters ke buttons par events bind karein
+            $('#btnApplyFilters').on('click', applyFilters);
+            $('#btnClearFilters').on('click', clearFilters);
+            $('#btnExport').on('click', exportToExcel);
+        });
+
+        function getStatusBadgeClass(status) {
+             switch(status) {
+                case 'Draft':
+                case 'Saved': return 'bg-secondary';
+                case 'Submitted':
+                case 'In Approval': return 'bg-primary';
+                case 'Approved':
+                case 'Issued':
+                case 'Completed': return 'bg-success';
+                case 'Rejected': return 'bg-danger';
+                case 'Returned': return 'bg-warning text-dark';
+                case 'Cancelled': return 'bg-dark';
+                default: return 'bg-light text-dark';
+            }
+        }
+
+        function initializeDataTable() {
+            table = $('#purchaseOrdersTable').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                paging: true,
+                pageLength: 25,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                ajax: {
+                    // PurchaseOrders action call
+                    url: '@Url.Action("PurchaseOrders", "Reports", new { area = "Reports" })',
+                    type: 'GET',
+                    data: function (d) {
+                        // Map all filter and pagination parameters
+                        return {
+                            FromDate: $('#FromDate').val(),
+                            ToDate: $('#ToDate').val(),
+                            DepartmentId: $('#DepartmentId').val(),
+                            BranchId: $('#BranchId').val(),
+                            PONumber: $('#PONumber').val(),
+                            SupplierId: $('#SupplierId').val(),
+                            CreatedByUserId: $('#CreatedByUserId').val(),
+                            StateId: $('#StateId').val(),
+                            MinAmount: $('#MinAmount').val(),
+                            MaxAmount: $('#MaxAmount').val(),
+                            ExpectedDeliveryFrom: $('#ExpectedDeliveryFrom').val(),
+                            ExpectedDeliveryTo: $('#ExpectedDeliveryTo').val(),
+                            OnlyMyOrders: $('#OnlyMyOrders').is(':checked'),
+                            ProductNatureId: $('#ProductNatureId').val(),
+                            ProductId: $('#ProductId').val(),
+                            ServiceNatureId: $('#ServiceNatureId').val(),
+                            ServiceId: $('#ServiceId').val(),
+
+                            // DataTables parameters
+                            draw: d.draw,
+                            PageIndex: Math.floor(d.start / d.length),
+                            PageSize: d.length,
+                            SearchValue: d.search.value,
+                            SortColumnIndex: d.order[0].column,
+                            SortDirection: d.order[0].dir,
+                        };
+                    },
+                    error: function (xhr, error, code) {
+                         // Error handling is necessary for Live environments
+                        console.error('DataTable AJAX Error:', error, xhr.responseText);
+                        alert('Error loading data: Check console for details.');
+                    }
+                },
+                columns: [
+                    // 1. PO Number (Hyperlink)
+                    {
+                        data: 'poNumber',
+                        name: 'PONumber',
+                        render: function(data, type, row) {
+                            if (!row || !row.id) return data;
+                            const url = poDetailsUrlTemplate.replace('_ID_', row.id);
+                            return `<a href="${url}" class="text-decoration-none">${data}</a>`;
+                        }
+                    },
+                    { data: 'title', name: 'Title' },
+                    {
+                        data: 'poDate',
+                        name: 'PODate',
+                        render: function (data) {
+                            return new Date(data).toLocaleDateString();
+                        }
+                    },
+                    { data: 'supplierName', name: 'SupplierName' },
+                    { data: 'departmentName', name: 'DepartmentName' },
+                    {
+                        data: 'statusName',
+                        name: 'StatusName',
+                        render: function (data) {
+                            const statusColors = {
+                                'Draft': 'secondary',
+                                'Submitted': 'primary',
+                                'Approved': 'success',
+                                'Rejected': 'danger',
+                                'Returned': 'warning',
+                                'Cancelled': 'dark',
+                                'Closed': 'info'
+                            };
+                            const color = statusColors[data] || 'secondary';
+                            const textColorClass = ['warning', 'info'].includes(color) ? 'text-dark' : 'text-white';
+                            return `<span class="badge bg-${color} ${textColorClass}">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'grandTotal',
+                        name: 'GrandTotal',
+                        render: function (data) {
+                            return '$' + parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2 });
+                        }
+                    },
+                    {
+                        data: 'expectedDeliveryDate',
+                        name: 'ExpectedDeliveryDate',
+                        render: function (data) {
+                            return data ? new Date(data).toLocaleDateString() : 'N/A';
+                        }
+                    },
+                    {
+                        data: 'itemDisplay',
+                        name: 'Items',
+                        orderable: false,
+                        render: function(data) {
+                            return data || '';
+                        }
+                    },
+                ],
+                order: [[2, 'desc']], // Sort by PO date (index 2) descending
+                pageLength: 25,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                responsive: true,
+                language: {
+                    processing: '<i class="fas fa-spinner fa-spin"></i> Loading...'
+                }
+            });
+        }
+
+        function applyFilters() {
+            table.ajax.reload();
+        }
+
+        function clearFilters() {
+            $('#filterForm')[0].reset();
+            // Manually reset cascading dropdowns to their initial state
+            $('#ProductId').empty().append('<option value="">All Products</option>');
+            $('#ServiceId').empty().append('<option value="">All Service</option>');
+            table.ajax.reload();
+        }
+
+        function exportToExcel() {
+             // Create a temporary form for submission
+            const exportForm = document.createElement('form');
+            exportForm.action = '@Url.Action("ExportPurchaseOrdersToExcel", "Reports")';
+            exportForm.method = 'post';
+            exportForm.style.display = 'none';
+
+            // Function to create and append hidden input fields
+            function appendInput(name, value) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                exportForm.appendChild(input);
+            }
+
+            // Append filter values to the temporary form
+            appendInput('FromDate', $('#FromDate').val());
+            appendInput('ToDate', $('#ToDate').val());
+            appendInput('DepartmentId', $('#DepartmentId').val());
+            appendInput('BranchId', $('#BranchId').val());
+            appendInput('PONumber', $('#PONumber').val());
+            appendInput('SupplierId', $('#SupplierId').val());
+            appendInput('CreatedByUserId', $('#CreatedByUserId').val());
+            appendInput('StateId', $('#StateId').val());
+            appendInput('MinAmount', $('#MinAmount').val());
+            appendInput('MaxAmount', $('#MaxAmount').val());
+            appendInput('ExpectedDeliveryFrom', $('#ExpectedDeliveryFrom').val());
+            appendInput('ExpectedDeliveryTo', $('#ExpectedDeliveryTo').val());
+            appendInput('OnlyMyOrders', $('#OnlyMyOrders').is(':checked'));
+            appendInput('ProductNatureId', $('#ProductNatureId').val());
+            appendInput('ProductId', $('#ProductId').val());
+            appendInput('ServiceNatureId', $('#ServiceNatureId').val());
+            appendInput('ServiceId', $('#ServiceId').val());
+
+            // Append Anti-Forgery Token
+            const token = $('input[name="__RequestVerificationToken"]').val();
+            if (token) appendInput('__RequestVerificationToken', token);
+
+
+            // Append the form to the body and submit
+            document.body.appendChild(exportForm);
+            exportForm.submit();
+            document.body.removeChild(exportForm);
+
+            // Show toastr notification (optional, depends on whether your export is instant or asynchronous)
+             toastr.success('Export started. Your download will begin shortly.');
+        }
+    </script>
+}

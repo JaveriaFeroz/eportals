@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels;
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -99,8 +100,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties on the model before saving.
                     model.CreatedBy = currentUserId;
                     model.UpdatedBy = currentUserId; // As requested, UpdatedBy is same as CreatedBy on create
-                    model.CreatedOn = DateTime.UtcNow; // It's best practice to also set the timestamp
-                    model.UpdatedOn = DateTime.UtcNow; // Set timestamp for update as well
+                    model.CreatedOn = DateTimeHelper.GetPakistanStandardTime(); // It's best practice to also set the timestamp
+                    model.UpdatedOn = DateTimeHelper.GetPakistanStandardTime(); // Set timestamp for update as well
 
                     // --- End: Add Audit Information ---
 

@@ -1,0 +1,172 @@
+﻿@model ProcureToPay.Areas.Procurement.ViewModels.BidEvaluationCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Bid Evaluation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .input-group-text.custom-blue {
+        background-color: #092963;
+        color: white;
+    }
+
+    .card {
+        border: 1px solid rgba(0,0,0,.125); /* Ensure default shadow/border presence */
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-gavel me-2"></i> @ViewData["Title"] for PR: @Model.PurchaseRequestNumber
+            </h5>
+        </div>
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="PRNo" />
+                <input type="hidden" asp-for="PurchaseRequestNumber" />
+
+                @* Validation Summary *@
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-3 shadow border-0">
+                            <div class="card-header bg-light">
+                                <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                                    <i class="fas fa-info-circle me-2"></i> Evaluation Setup
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label asp-for="Title" class="form-label">Title <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text custom-blue"><i class="fas fa-heading"></i></span>
+                                        <input asp-for="Title" class="form-control" placeholder="Evaluation Title" required readonly />
+                                    </div>
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="EvaluationDate" class="form-label">Evaluation Date <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-calendar-check"></i></span>
+                                            <input asp-for="EvaluationDate" type="date" class="form-control" required />
+                                        </div>
+                                        <span asp-validation-for="EvaluationDate" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="SubmissionDeadline" class="form-label">Submission Deadline <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-calendar-times"></i></span>
+                                            <input asp-for="SubmissionDeadline" type="date" class="form-control" required />
+                                        </div>
+                                        <span asp-validation-for="SubmissionDeadline" class="text-danger"></span>
+                                        <small class="form-text text-muted">Last date for suppliers to submit bids</small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="EstimatedAmount" class="form-label">Estimated Amount (PR Total)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text custom-blue"><i class="fas fa-money-bill-wave"></i></span>
+                                        <input asp-for="EstimatedAmount" type="text" class="form-control text-end" readonly />
+                                    </div>
+                                    <span asp-validation-for="EstimatedAmount" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Justification" class="form-label">Justification for Evaluation</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text custom-blue" style="vertical-align: top;"><i class="fas fa-comment-alt"></i></span>
+                                        <textarea asp-for="Justification" class="form-control" rows="4" placeholder="Explain why this purchase requires bid evaluation"></textarea>
+                                    </div>
+                                    <span asp-validation-for="Justification" class="text-danger"></span>
+                                    <small class="form-text text-muted">A clear explanation is required for audit.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-3 shadow border-0">
+                            <div class="card-header bg-light">
+                                <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                                    <i class="fas fa-list-alt me-2"></i> Source PR Items
+                                </h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-striped mb-0">
+                                        <thead>
+                                            <tr class="small">
+                                                <th class="py-2">Item</th>
+                                                <th class="text-end py-2" style="width: 25%;">Qty</th>
+                                                <th class="text-end py-2" style="width: 30%;">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.PurchaseRequestItems)
+                                            {
+                                                <tr>
+                                                    <td class="small">
+                                                        <strong>@item.ItemName</strong>
+                                                        <br />
+                                                        <small class="text-muted">(@item.UoMName)</small>
+                                                    </td>
+                                                    <td class="text-end small">@item.Quantity</td>
+                                                    <td class="text-end small">@item.TotalAmount.ToString("N2")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot class="bg-light">
+                                            <tr class="fw-bold">
+                                                <td colspan="2" class="py-2">Total Estimated Amount</td>
+                                                <td class="text-end py-2">@Model.PurchaseRequestItems.Sum(i => i.TotalAmount).ToString("N2")</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card shadow border-0">
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-lg" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-check-circle me-1"></i> Create Bid Evaluation
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+}

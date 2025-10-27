@@ -1,101 +1,178 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ProcureToPay.Areas.Common.Models;
+using ProcureToPay.Areas.Finance.Models;
+using ProcureToPay.Areas.Master.Services;
+using ProcureToPay.Areas.Procurement.Models;
+using ProcureToPay.Areas.Receiving.Models;
 using ProcureToPay.Areas.UserManagement.Models;
 using ProcureToPay.Data;
-using ProcureToPay.Areas.Procurement.Models; // Ensure this points to your PurchaseRequest model
+using ProcureToPay.Helpers;
+using System.Globalization;
+using static ProcureToPay.Areas.Procurement.Models.PurchaseOrder;
 
 namespace ProcureToPay.Areas.Common.Services
 {
     public interface IWorkflowService
     {
-        Task<User?> FindNextApproverAsync(IWorkflowEntity entity); // Made nullable as it can return null
-        Task<User?> FindApproverForSequenceAsync(IWorkflowEntity entity, int approvalSeq); // Made nullable
+        Task<List<User>> GetUsersForApprovalSequenceAsync(IWorkflowEntity entity, int approvalSeq);
+        Task<User?> FindNextApproverAsync(IWorkflowEntity entity);
+        Task<User?> FindApproverForSequenceAsync(IWorkflowEntity entity, int approvalSeq);
         Task<string> GetStateNameAsync(short workFlowTypeId, short stateId);
         Task<List<WorkFlowState>> GetWorkflowStatesAsync(short workFlowTypeId);
-        Task<FormHistory> AddFormHistoryAsync(short workFlowTypeId, int formId, short fromStateId, short toStateId, string action, string comments, int actionByUserId);
+        Task<FormHistory> AddFormHistoryAsync(short workFlowTypeId, int formId, short fromStateId, short toStateId, string action, string comments, int actionByUserId, int? toUserId);
         Task<List<FormHistory>> GetFormHistoryAsync(short workFlowTypeId, int formId);
         Task<bool> CanUserPerformActionAsync(int userId, IWorkflowEntity entity, string action);
-        Task<(bool Success, string Message, User? NextApprover)> ProcessWorkflowActionAsync(IWorkflowEntity entity, string action, string comments, int actionByUserId);
+        Task<int> GetCurrentPaymentApprovalRoleId(PaymentRequest payReq);
+        Task<(bool Success, string Message, User? NextApprover)> ProcessWorkflowActionAsync(IWorkflowEntity entity,string action,string comments,int actionByUserId,int? toUserIdOverride = null);
     }
 
     public class WorkflowService : IWorkflowService
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<WorkflowService> _logger;
+        private readonly IProductService _productService;
 
-        // Define workflow states as constants
         public const short STATE_SAVED = 1;
         public const short STATE_SUBMITTED = 2; // Now means "In Approval"
         public const short STATE_APPROVED = 3;  // Fully approved
         public const short STATE_REJECTED = 4;
         public const short STATE_RETURNED = 5;
-        public const short STATE_CANCELLED = 10001; // Example for a cancel state
+        public const short STATE_ISSUED = 6; // Added for Purchase Orders
         public const short STATE_COMPLETED = 99; // More generic completed state, distinct from approved if needed
+        public const short STATE_CANCELLED = 10001; // Example for a cancel state
 
-        public WorkflowService(ApplicationDbContext context, ILogger<WorkflowService> logger)
+        public WorkflowService(ApplicationDbContext context, ILogger<WorkflowService> logger, IProductService productService)
         {
             _context = context;
             _logger = logger;
+            _productService = productService;
         }
 
-        /// <summary>
-        /// Finds the next approver in the sequence for the given workflow entity.
-        /// This assumes the entity (e.g., PurchaseRequest) has a CurrentApprovalSequence property.
-        /// </summary>
-        /// <param name="entity">The workflow entity.</param>
-        /// <returns>The next User to approve, or null if no next approver is found.</returns>
-        public async Task<User?> FindNextApproverAsync(IWorkflowEntity entity)
-        {
-            // IMPORTANT: Cast to PurchaseRequest to access CurrentApprovalSequence
-            // If PurchaseRequisition is the actual class name, change this to PurchaseRequisition
-            if (!(entity is PurchaseRequest pr))
-            {
-                _logger.LogWarning("FindNextApproverAsync called with non-PurchaseRequest entity for sequential approval.");
-                return null; // Or handle other workflow entity types differently
-            }
-
-            int nextSeq = pr.CurrentApprovalSequence + 1;
-
-            // Pass the original IWorkflowEntity to the helper method
-            return await FindApproverForSequenceAsync(entity, nextSeq);
-        }
-
-        /// <summary>
-        /// Finds the approver for a specific approval sequence number based on entity criteria.
-        /// </summary>
-        /// <param name="entity">The workflow entity.</param>
-        /// <param name="approvalSeq">The target approval sequence number.</param>
-        /// <returns>The User for the specified sequence, or null if not found.</returns>
-        public async Task<User?> FindApproverForSequenceAsync(IWorkflowEntity entity, int approvalSeq)
+        public async Task<List<User>> GetUsersForApprovalSequenceAsync(IWorkflowEntity entity, int approvalSeq)
         {
             try
             {
-                var approvalSequence = await _context.WorkFlowApprovalSequences
+                // The logic to determine the starting point has been moved to the controller.
+                // This method now simply finds users for the provided approvalSeq.
+
+                var query = _context.WorkFlowApprovalSequences
                     .Include(ws => ws.Role)
                     .ThenInclude(r => r.UserRoles)
                     .ThenInclude(ur => ur.User)
                     .Where(ws => ws.WorkFlowTypeId == entity.WorkFlowTypeId &&
-                                 ws.IsActive &&
-                                 ws.ApprovalSeq == approvalSeq && // Targeting a specific sequence number
-                                 (ws.RequestNatureId == null || ws.RequestNatureId == entity.RequestNatureId) &&
-                                 (ws.RequestTypeId == null || ws.RequestTypeId == entity.RequestTypeId) &&
-                                 (ws.DepartmentCode == null || ws.DepartmentCode == entity.DepartmentCode) &&
-                                 (ws.BranchCode == null || ws.BranchCode == entity.BranchCode) &&
-                                 (ws.CompanyCode == null || ws.CompanyCode == entity.CompanyCode) &&
-                                 (ws.MinAmount == null || entity.TotalAmount >= ws.MinAmount) &&
-                                 (ws.MaxAmount == null || entity.TotalAmount <= ws.MaxAmount))
-                    .OrderBy(ws => ws.ApprovalSeq) // Ordering ensures consistency if multiple match (though ApprovalSeq should make it unique)
+                                 ws.ApprovalSeq == approvalSeq &&
+                                 ws.IsActive);
+
+                // Conditional filter for PaymentRequest and other entities
+                if (entity is PaymentRequest payReq)
+                {
+                    query = query.Where(ws => ws.PaymentNatureID == payReq.PaymentNatureId && ws.PaymentSubNatureID == payReq.PaymentSubNatureId);
+                }
+
+                var approvalSequence = await query.FirstOrDefaultAsync();
+
+                if (approvalSequence == null || approvalSequence.Role?.UserRoles == null)
+                {
+                    _logger.LogWarning("No approval sequence or users found for workflow type {WorkFlowTypeId} at sequence {ApprovalSeq}", entity.WorkFlowTypeId, approvalSeq);
+                    return new List<User>();
+                }
+
+                return approvalSequence.Role.UserRoles
+                    .Where(ur => ur.User.IsActive)
+                    .Select(ur => ur.User)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting users for approval sequence {ApprovalSeq} for workflow type {WorkFlowTypeId}", approvalSeq, entity.WorkFlowTypeId);
+                return new List<User>();
+            }
+        }
+
+        public async Task<User?> FindNextApproverAsync(IWorkflowEntity entity)
+        {
+            int nextSeq = 0;
+
+            if (entity is PurchaseRequest pr)
+            {
+                nextSeq = pr.CurrentApprovalSequence + 1;
+            }
+            else if (entity is PurchaseOrder po)
+            {
+                nextSeq = po.CurrentApprovalSequence + 1;
+            }
+            else
+            {
+                _logger.LogWarning("FindNextApproverAsync called with unsupported entity type: {EntityType}", entity.GetType().Name);
+                return null;
+            }
+
+            return await FindApproverForSequenceAsync(entity, nextSeq);
+        }
+
+        public async Task<User?> FindApproverForSequenceAsync(IWorkflowEntity entity, int approvalSeq)
+        {
+            try
+            {
+                _logger.LogInformation(
+                    "Finding approver for: WorkFlowTypeId={WorkFlowTypeId}, ApprovalSeq={ApprovalSeq}, " +
+                    "DepartmentCode={DepartmentCode}, BranchCode={BranchCode}, CompanyCode={CompanyCode}, " +
+                    "RequestNatureId={RequestNatureId}, RequestTypeId={RequestTypeId}",
+                    entity.WorkFlowTypeId, approvalSeq,
+                    entity.DepartmentCode, entity.BranchCode,
+                    entity.CompanyCode,
+                    entity.RequestNatureId, entity.RequestTypeId);
+
+                var query = _context.WorkFlowApprovalSequences
+                    .Include(ws => ws.Role)
+                    .ThenInclude(r => r.UserRoles)
+                    .ThenInclude(ur => ur.User)
+                    .Where(ws => ws.WorkFlowTypeId == entity.WorkFlowTypeId);
+
+                query = query.Where(ws => ws.IsActive);
+                query = query.Where(ws => ws.ApprovalSeq == approvalSeq);
+
+                // **ADD THIS: Apply PaymentNature and SubNature filters for Payment Requests**
+                if (entity is PaymentRequest payReq)
+                {
+                    query = query.Where(ws => ws.PaymentNatureID == payReq.PaymentNatureId &&
+                                              ws.PaymentSubNatureID == payReq.PaymentSubNatureId);
+                }
+
+                var approvalSequence = await query
+                    .OrderBy(ws => ws.ApprovalSeq)
                     .FirstOrDefaultAsync();
+
+                if (approvalSequence == null)
+                {
+                    _logger.LogWarning("No approval sequence found matching all criteria");
+                    return null;
+                }
+
+                _logger.LogInformation("Found approval sequence: ID={Id}, RoleId={RoleId}",
+                    approvalSequence.WorkFlowApprovalSeqID,
+                    approvalSequence.Role?.Id);
 
                 if (approvalSequence?.Role?.UserRoles?.Any() == true)
                 {
-                    // Get the first active user in the role
                     var approver = approvalSequence.Role.UserRoles
                         .FirstOrDefault(ur => ur.User.IsActive)?.User;
+
+                    if (approver == null)
+                    {
+                        _logger.LogWarning("No active users found in role {RoleId}", approvalSequence.Role.Id);
+                    }
+                    else
+                    {
+                        _logger.LogInformation("Found approver: UserId={UserId}, UserName={UserName}",
+                                approver.Id, approver.UserName);
+                    }
 
                     return approver;
                 }
 
+                _logger.LogWarning("No UserRoles found for Role {RoleId}", approvalSequence.Role?.Id);
                 return null;
             }
             catch (Exception ex)
@@ -105,7 +182,6 @@ namespace ProcureToPay.Areas.Common.Services
                 return null;
             }
         }
-
         public async Task<string> GetStateNameAsync(short workFlowTypeId, short stateId)
         {
             var state = await _context.WorkFlowStates
@@ -124,29 +200,29 @@ namespace ProcureToPay.Areas.Common.Services
                 .ToListAsync();
         }
 
-        public async Task<FormHistory> AddFormHistoryAsync(short workFlowTypeId, int formId, short fromStateId, short toStateId, string action, string comments, int actionByUserId)
+        public async Task<FormHistory> AddFormHistoryAsync(short workFlowTypeId, int formId, short fromStateId, short toStateId, string action, string comments, int actionByUserId, int? toUserId)
         {
-            var user = await _context.Users.FindAsync(actionByUserId);
+            var actionByUser = await _context.Users.FindAsync(actionByUserId);
+            var toUser = toUserId.HasValue ? await _context.Users.FindAsync(toUserId.Value) : null;
 
             var history = new FormHistory
             {
                 WorkFlowTypeId = workFlowTypeId,
                 FormId = formId,
                 FromStateId = fromStateId,
-                FromStateName = await GetStateNameAsync(workFlowTypeId, fromStateId), // Store name for easier auditing
+                FromStateName = await GetStateNameAsync(workFlowTypeId, fromStateId),
                 ToStateId = toStateId,
-                ToStateName = await GetStateNameAsync(workFlowTypeId, toStateId),      // Store name for easier auditing
+                ToStateName = await GetStateNameAsync(workFlowTypeId, toStateId),
                 Action = action,
                 Comments = comments,
                 ActionByUserId = actionByUserId,
-                ActionByUserName = user?.UserName ?? "Unknown User", // Handle null user more gracefully
-                ActionDate = DateTime.UtcNow
+                ActionByUserName = actionByUser?.UserName ?? "Unknown User",
+                ToUserId = toUserId,
+                ToUserName = toUser?.UserName,
+                ActionDate = DateTimeHelper.GetPakistanStandardTime()
             };
 
             _context.FormHistories.Add(history);
-            // SaveChanges will be called by the controller after the main entity update
-            // await _context.SaveChangesAsync();  
-
             return history;
         }
 
@@ -159,9 +235,6 @@ namespace ProcureToPay.Areas.Common.Services
                 .ToListAsync();
         }
 
-        /// <summary>
-        /// Determines if a user can perform a specific action on a workflow entity.
-        /// </summary>
         public async Task<bool> CanUserPerformActionAsync(int userId, IWorkflowEntity entity, string action)
         {
             var user = await _context.Users
@@ -171,198 +244,1450 @@ namespace ProcureToPay.Areas.Common.Services
 
             if (user == null || !user.IsActive) return false;
 
-            // IMPORTANT: Cast to PurchaseRequest to access CreatedByUserId and CurrentApprovalSequence
-            // If PurchaseRequisition is the actual class name, change this to PurchaseRequisition
-            if (!(entity is PurchaseRequest pr))
+            if (entity is PurchaseRequest pr)
             {
-                _logger.LogWarning("CanUserPerformActionAsync called with non-PurchaseRequest entity.");
-                return false; // Or handle other workflow entity types differently
+                return await CanUserPerformPRActionAsync(userId, pr, action, user);
             }
 
+            if (entity is PurchaseOrder po)
+            {
+                return await CanUserPerformPOActionAsync(userId, po, action, user);
+            }
+
+            if (entity is GoodsReceiptNote grn)
+            {
+                return await CanUserPerformGRNActionAsync(userId, grn, action, user);
+            }
+
+            if (entity is PaymentRequest payReq)
+            {
+                return await CanUserPerformPaymentRequestActionAsync(userId, payReq, action, user);
+            }
+
+            if (entity is BidEvaluation be)
+            {
+                return await CanUserPerformBEActionAsync(userId, be, action, user);
+            }
+
+
+            _logger.LogWarning("CanUserPerformActionAsync called with unsupported entity type: {EntityType}", entity.GetType().Name);
+            return false;
+        }
+
+        private async Task<bool> CanUserPerformPRActionAsync(int userId, PurchaseRequest pr, string action, User user)
+        {
+            var currentUserName = user.UserName;
             bool isCreator = userId == pr.CreatedByUserId;
+            bool isOwner = currentUserName == pr.Owner;
 
             switch (action.ToLower())
             {
                 case "submit":
-                    // Only the creator can submit, and only if in Saved or Returned state
-                    return (pr.StateId == STATE_SAVED || pr.StateId == STATE_RETURNED) && isCreator;
+                    // ⭐ FIX: Allow submission if it's SAVED/CREATED by the creator OR if it's RETURNED and the user is the current OWNER.
+                    if (pr.StateId == STATE_SAVED)
+                    {
+                        return isCreator;
+                    }
+                    if (pr.StateId == STATE_RETURNED)
+                    {
+                        return isOwner;
+                    }
+                    return false;
+                case "approve":
+                case "reject":
+                case "return":
+                    if (pr.StateId != STATE_SUBMITTED && pr.StateId != STATE_RETURNED) return false;
+                    var currentApprovalSequenceRoleID = await GetCurrentApprovalRoleId(pr);
+                    if (currentApprovalSequenceRoleID == 0) return false;
+                    return user.UserRoles.Any(ur => ur.RoleId == currentApprovalSequenceRoleID);
+                case "cancel":
+                    return (pr.StateId != STATE_APPROVED && pr.StateId != STATE_REJECTED && pr.StateId != STATE_COMPLETED) && isCreator;
+                default:
+                    return false;
+            }
+        }
+
+        private async Task<bool> CanUserPerformPOActionAsync(int userId, PurchaseOrder po, string action, User user)
+        {
+            var currentUserName = user.UserName;
+            bool isCreator = userId == po.CreatedByUserId;
+            bool isOwner = currentUserName == po.Owner;
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    // ⭐ FIX: Allow submission if it's SAVED/CREATED by the creator OR if it's RETURNED and the user is the current OWNER.
+                    if (po.StateId == STATE_SAVED)
+                    {
+                        return isCreator;
+                    }
+                    if (po.StateId == STATE_RETURNED)
+                    {
+                        return isOwner;
+                    }
+                    return false;
 
                 case "approve":
                 case "reject":
                 case "return":
-                    // Must be in submitted state and the current user must be the expected approver
-                    if (pr.StateId != STATE_SUBMITTED) return false;
-
-                    // Find the role required for the current approval sequence
-                    var currentApprovalSequenceRoleID = await _context.WorkFlowApprovalSequences
-                        .AsNoTracking()
-                        .Where(ws => ws.WorkFlowTypeId == pr.WorkFlowTypeId &&
-                                     ws.IsActive &&
-                                     ws.ApprovalSeq == pr.CurrentApprovalSequence && // Match the entity's current sequence
-                                     (ws.RequestNatureId == null || ws.RequestNatureId == pr.RequestNatureId) &&
-                                     (ws.RequestTypeId == null || ws.RequestTypeId == pr.RequestTypeId) &&
-                                     (ws.DepartmentCode == null || ws.DepartmentCode == pr.DepartmentCode) &&
-                                     (ws.BranchCode == null || ws.BranchCode == pr.BranchCode) &&
-                                     (ws.CompanyCode == null || ws.CompanyCode == pr.CompanyCode) &&
-                                     (ws.MinAmount == null || pr.TotalAmount >= ws.MinAmount) &&
-                                     (ws.MaxAmount == null || pr.TotalAmount <= ws.MaxAmount))
-                        .Select(ws => ws.RoleID)
-                        .FirstOrDefaultAsync();
-
-                    if (currentApprovalSequenceRoleID == 0) // No matching approval sequence found for the current step
-                        return false;
-
-                    // Check if the current user has the required role
+                    if (po.StateId != STATE_SUBMITTED && po.StateId != STATE_RETURNED) return false;
+                    var currentApprovalSequenceRoleID = await GetCurrentApprovalRoleId(po);
+                    if (currentApprovalSequenceRoleID == 0) return false;
                     return user.UserRoles.Any(ur => ur.RoleId == currentApprovalSequenceRoleID);
 
                 case "cancel":
-                    // Only creator can cancel, and only if not already approved/rejected/completed
-                    return (pr.StateId != STATE_APPROVED && pr.StateId != STATE_REJECTED && pr.StateId != STATE_COMPLETED) && isCreator;
+                    return (po.StateId != STATE_APPROVED && po.StateId != STATE_REJECTED && po.StateId != STATE_COMPLETED) && isCreator;
+
+                case "issue":
+                    return po.StateId == STATE_APPROVED && user.UserRoles.Any(ur => ur.Role.Name.Contains("Procurement") || ur.Role.Name.Contains("Purchase"));
 
                 default:
                     return false;
             }
         }
 
+        private async Task<bool> CanUserPerformGRNActionAsync(int userId, GoodsReceiptNote grn, string action, User user)
+        {
+            bool isCreator = userId == grn.CreatedByUserId;
 
-        /// <summary>
-        /// Processes a workflow action (submit, approve, reject, return) for a given entity.
-        /// </summary>
-        /// <param name="entity">The workflow entity (e.g., PurchaseRequest).</param>
-        /// <param name="action">The action to perform (e.g., "submit", "approve").</param>
-        /// <param name="comments">Comments for the action.</param>
-        /// <param name="actionByUserId">The ID of the user performing the action.</param>
-        /// <returns>A tuple indicating success, a message, and the next approver (if applicable).</returns>
-        public async Task<(bool Success, string Message, User? NextApprover)> ProcessWorkflowActionAsync(IWorkflowEntity entity, string action, string comments, int actionByUserId)
+            switch (action.ToLower())
+            {
+                case "submit":
+                    return (grn.StateId == STATE_SAVED || grn.StateId == STATE_RETURNED) && isCreator;
+                case "approve":
+                case "reject":
+                case "return":
+                    if (grn.StateId != STATE_SUBMITTED && grn.StateId != STATE_RETURNED) return false;
+                    var currentApprovalSequenceRoleID = await GetCurrentApprovalRoleId(grn);
+                    if (currentApprovalSequenceRoleID == 0) return false;
+                    return user.UserRoles.Any(ur => ur.RoleId == currentApprovalSequenceRoleID);
+                case "cancel":
+                    return (grn.StateId != STATE_APPROVED && grn.StateId != STATE_REJECTED && grn.StateId != STATE_COMPLETED) && isCreator;
+                default:
+                    return false;
+            }
+        }
+
+        private async Task<bool> CanUserPerformPaymentRequestActionAsync(int userId, PaymentRequest pr, string action, User user)
+        {
+            var currentUserName = user.UserName;
+            bool isCreator = userId == pr.CreatedByUserId;
+            bool isOwner = currentUserName == pr.Owner;
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    // ⭐ FIX: Allow submission if it's SAVED/CREATED by the creator OR if it's RETURNED and the user is the current OWNER.
+                    if (pr.StateId == STATE_SAVED)
+                    {
+                        return isCreator;
+                    }
+                    if (pr.StateId == STATE_RETURNED)
+                    {
+                        return isOwner;
+                    }
+                    return false;
+                case "approve":
+                case "reject":
+                case "return":
+                    if (pr.StateId != STATE_SUBMITTED && pr.StateId != STATE_RETURNED) return false;
+                    var currentApprovalSequenceRoleID = await GetCurrentPaymentApprovalRoleId(pr);
+                    if (currentApprovalSequenceRoleID == 0) return false;
+                    return user.UserRoles.Any(ur => ur.RoleId == currentApprovalSequenceRoleID);
+                case "cancel":
+                    return (pr.StateId != STATE_APPROVED && pr.StateId != STATE_REJECTED && pr.StateId != STATE_COMPLETED) && isCreator;
+                default:
+                    return false;
+            }
+        }
+
+        private async Task<bool> CanUserPerformBEActionAsync(int userId, BidEvaluation be, string action, User user)
+        {
+            var currentUserName = user.UserName;
+            // 1. Rename variable and use BidEvaluation properties
+            bool isCreator = userId == be.CreatedByUserId;
+            bool isOwner = currentUserName == be.Owner;
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    // ⭐ FIX: Allow submission if it's SAVED/CREATED by the creator OR if it's RETURNED and the user is the current OWNER.
+                    // 2. Use BidEvaluation state
+                    if (be.StateId == STATE_SAVED)
+                    {
+                        return isCreator;
+                    }
+                    // 3. Use BidEvaluation state
+                    if (be.StateId == STATE_RETURNED)
+                    {
+                        return isOwner;
+                    }
+                    return false;
+
+                case "approve":
+                case "reject":
+                case "return":
+                    // 4. Use BidEvaluation state
+                    if (be.StateId != STATE_SUBMITTED && be.StateId != STATE_RETURNED) return false;
+                    // 5. Use BidEvaluation object for GetCurrentApprovalRoleId
+                    var currentApprovalSequenceRoleID = await GetCurrentApprovalRoleId(be);
+                    if (currentApprovalSequenceRoleID == 0) return false;
+                    return user.UserRoles.Any(ur => ur.RoleId == currentApprovalSequenceRoleID);
+
+                case "cancel":
+                    // 6. Use BidEvaluation state
+                    return (be.StateId != STATE_APPROVED && be.StateId != STATE_REJECTED && be.StateId != STATE_COMPLETED) && isCreator;
+
+                case "issue":
+                    // 7. Use BidEvaluation state. Role check remains as is, as 'Procurement' roles might still issue a final document.
+                    return be.StateId == STATE_APPROVED && user.UserRoles.Any(ur => ur.Role.Name.Contains("Procurement") || ur.Role.Name.Contains("Purchase"));
+
+                default:
+                    return false;
+            }
+        }
+        private async Task<int> GetCurrentApprovalRoleId(IWorkflowEntity entity)
+        {
+            int currentSequence = 0;
+
+            if (entity is PurchaseRequest pr)
+            {
+                // This line correctly gets the current sequence from the entity.
+                currentSequence = pr.CurrentApprovalSequence;
+            }
+            else if (entity is PurchaseOrder po)
+            {
+                currentSequence = po.CurrentApprovalSequence;
+            }
+            else if (entity is GoodsReceiptNote grn)
+            {
+                currentSequence = grn.CurrentApprovalSequence;
+            }
+
+            else if (entity is BidEvaluation be)
+            {
+                currentSequence = be.CurrentApprovalSequence;
+            }
+
+            // Pre-calculate lower-case values for entity properties
+            var entityDepartmentCodeLower = entity.DepartmentCode?.ToLower();
+            var entityBranchCodeLower = entity.BranchCode?.ToLower();
+            var entityCompanyCodeLower = entity.CompanyCode?.ToLower();
+
+            var query = _context.WorkFlowApprovalSequences
+                .AsNoTracking()
+                .Where(ws => ws.WorkFlowTypeId == entity.WorkFlowTypeId &&
+                             ws.IsActive &&
+                             // The query correctly looks for a role at the document's current sequence.
+                             ws.ApprovalSeq == currentSequence
+                            // Use pre-calculated lower-case values here
+                            );
+
+            return await query.Select(ws => ws.RoleID).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> GetCurrentPaymentApprovalRoleId(PaymentRequest payReq)
+        {
+            int nextApprovalSequence = payReq.CurrentApprovalSequence ;
+
+            var query = _context.WorkFlowApprovalSequences
+                .AsNoTracking()
+                .Where(ws => ws.WorkFlowTypeId == payReq.WorkFlowTypeId &&
+                             ws.IsActive &&
+                             ws.ApprovalSeq == nextApprovalSequence &&
+                             ws.PaymentNatureID == payReq.PaymentNatureId &&
+                             ws.PaymentSubNatureID == payReq.PaymentSubNatureId);
+
+            return await query.Select(ws => ws.RoleID).FirstOrDefaultAsync();
+        }
+        public async Task<(bool Success, string Message, User? NextApprover)> ProcessWorkflowActionAsync(IWorkflowEntity entity,string action,string comments,int actionByUserId,int? toUserIdOverride = null)
         {
             try
             {
-                // IMPORTANT: Cast to PurchaseRequest here since this service is specifically for PR workflow logic
-                // If PurchaseRequisition is the actual class name, change this to PurchaseRequisition
-                if (!(entity is PurchaseRequest pr))
+                if (entity is PurchaseRequest pr)
                 {
-                    return (false, "Invalid entity type for Purchase Requisition workflow.", null);
+                    return await ProcessPRWorkflowActionAsync(pr, action, comments, actionByUserId, toUserIdOverride);
                 }
 
-                short fromStateId = pr.StateId;
-                short toStateId = fromStateId; // Default to current state, change below
-                User? nextApprover = null; // Made nullable
-
-                switch (action.ToLower())
+                if (entity is PurchaseOrder po)
                 {
-                    case "submit":
-                        if (pr.StateId != STATE_SAVED && pr.StateId != STATE_RETURNED)
-                        {
-                            return (false, "Purchase Requisition can only be submitted from 'Saved' or 'Returned' state.", null);
-                        }
 
-                        // Set initial approval sequence to 0 before finding the first approver (for seq 1)
-                        pr.CurrentApprovalSequence = 0;
-                        nextApprover = await FindNextApproverAsync(pr); // Find approver for sequence 1
+                    return await ProcessPOWorkflowActionAsync(po, action, comments, actionByUserId, toUserIdOverride);
+                }
+                if (entity is GoodsReceiptNote grn)
+                {
 
-                        if (nextApprover == null)
-                        {
-                            return (false, "No initial approver found for this Purchase Requisition based on configured workflow sequences.", null);
-                        }
-
-                        toStateId = STATE_SUBMITTED;
-                        pr.StateId = toStateId;
-                        pr.Owner = nextApprover.UserName;
-                        pr.CurrentApprovalSequence = 1; // Set to the first approval sequence
-                        pr.IsCompleted = false; // Ensure it's not marked completed
-                        pr.Approved = false;
-                        pr.Rejected = false;
-                        break;
-
-                    case "approve":
-                        if (pr.StateId != STATE_SUBMITTED)
-                        {
-                            return (false, "Purchase Requisition can only be approved from 'Submitted' state.", null);
-                        }
-
-                        // Increment current approval sequence and try to find next approver
-                        pr.CurrentApprovalSequence++;
-                        nextApprover = await FindApproverForSequenceAsync(pr, pr.CurrentApprovalSequence);
-
-                        if (nextApprover != null)
-                        {
-                            // Still more approvals in the sequence
-                            toStateId = STATE_SUBMITTED; // Remains in "Submitted" state, but now owned by the next approver
-                            pr.StateId = toStateId;
-                            pr.Owner = nextApprover.UserName;
-                        }
-                        else
-                        {
-                            // No more approvers in the sequence, so it's fully APPROVED
-                            toStateId = STATE_APPROVED;
-                            pr.StateId = toStateId;
-                            pr.Owner = "System"; // Or null, or original creator, indicating no pending approval
-                            pr.IsCompleted = true;
-                            pr.Approved = true;
-                            pr.Rejected = false;
-                        }
-                        break;
-
-                    case "reject":
-                        if (pr.StateId != STATE_SUBMITTED)
-                        {
-                            return (false, "Purchase Requisition can only be rejected from 'Submitted' state.", null);
-                        }
-                        toStateId = STATE_REJECTED;
-                        pr.StateId = toStateId;
-                        pr.IsCompleted = true;
-                        pr.Rejected = true;
-                        pr.Approved = false;
-                        pr.CurrentApprovalSequence = 0; // Reset sequence on rejection
-                        // Set owner back to creator for review
-                        var creatorUser = await _context.Users.FindAsync(pr.CreatedByUserId);
-                        pr.Owner = creatorUser?.UserName ?? "Unknown Creator";
-                        break;
-
-                    case "return":
-                        if (pr.StateId != STATE_SUBMITTED)
-                        {
-                            return (false, "Purchase Requisition can only be returned from 'Submitted' state.", null);
-                        }
-                        toStateId = STATE_RETURNED;
-                        pr.StateId = toStateId;
-                        pr.IsCompleted = false; // Can be resubmitted
-                        pr.Approved = false;
-                        pr.Rejected = false;
-                        pr.CurrentApprovalSequence = 0; // Reset sequence on return
-                        // Set owner back to creator for rework
-                        var creatorUserForReturn = await _context.Users.FindAsync(pr.CreatedByUserId);
-                        pr.Owner = creatorUserForReturn?.UserName ?? "Unknown Creator";
-                        break;
-
-                    case "cancel":
-                        if (pr.StateId == STATE_APPROVED || pr.StateId == STATE_REJECTED || pr.StateId == STATE_COMPLETED)
-                        {
-                            return (false, "An already approved, rejected, or completed Purchase Requisition cannot be cancelled.", null);
-                        }
-                        toStateId = STATE_CANCELLED;
-                        pr.StateId = toStateId;
-                        pr.IsCompleted = true; // Mark as completed (cancelled)
-                        pr.Approved = false;
-                        pr.Rejected = false;
-                        pr.CurrentApprovalSequence = 0; // Reset sequence on cancellation
-                        pr.Owner = "System"; // Or null
-                        break;
-
-                    default:
-                        return (false, "Invalid workflow action specified.", null);
+                    return await ProcessGRNWorkflowActionAsync(grn, action, comments, actionByUserId, toUserIdOverride);
                 }
 
-                // Add history entry (Note: _context.SaveChangesAsync() is expected to be called by the controller)
-                await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.PRNo, fromStateId, toStateId, action, comments, actionByUserId);
+                if (entity is PaymentRequest paymentRequest)
+                {
+                    return await ProcessPaymentRequestWorkflowActionAsync(paymentRequest, action, comments, actionByUserId, toUserIdOverride);
+                }
 
-                return (true, $"Purchase Requisition {action}ed successfully.", nextApprover);
+                if (entity is BidEvaluation be)
+                {
+                    return await ProcessBEWorkflowActionAsync(be, action, comments, actionByUserId, toUserIdOverride);
+                }
+                return (false, "Invalid entity type for workflow processing.", null);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing workflow action: {Action} for WorkFlowTypeId: {WorkFlowTypeId}, FormId: {FormId}",
                     action, entity.WorkFlowTypeId, entity.FormId);
                 return (false, "An unexpected error occurred while processing the workflow action.", null);
+            }
+        }
+
+        public async Task<(bool Success, string Message, User? NextApprover)> ProcessPRWorkflowActionAsync(PurchaseRequest pr, string action, string comments, int actionByUserId, int? toUserIdOverride = null)
+        {
+            short fromStateId = pr.StateId;
+            short toStateId = fromStateId;
+            User? nextApprover = null;
+            int? toUserId = null;
+
+            var currentUserRoles = await _context.UserRoles
+                .Where(ur => ur.UserId == actionByUserId)
+                .Select(ur => ur.RoleId)
+                .ToListAsync();
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    if (pr.StateId != STATE_SAVED && pr.StateId != STATE_RETURNED)
+                    {
+                        return (false, "Purchase Requisition can only be submitted from 'Saved' or 'Returned' state.", null);
+                    }
+
+                    // Determine the starting point based on the submitting user's role
+                    var highestApprovalSequence = await _context.WorkFlowApprovalSequences
+                        .Where(ws => ws.WorkFlowTypeId == pr.WorkFlowTypeId &&
+                                     ws.IsActive &&
+                                     currentUserRoles.Contains(ws.RoleID))
+                        .OrderByDescending(ws => ws.ApprovalSeq)
+                        .Select(ws => (int?)ws.ApprovalSeq)
+                        .FirstOrDefaultAsync();
+
+                    // Start the approval from one level above the highest role the user holds.
+                    int startingSequence = highestApprovalSequence.HasValue ? highestApprovalSequence.Value + 1 : 1;
+                    pr.CurrentApprovalSequence = startingSequence;
+
+
+
+                    // Check for manual override on submit
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            return (false, "The selected approver was not found.", null);
+                        }
+                        toUserId = nextApprover.Id;
+                    }
+                    else
+                    {
+                        // Fallback to automatic logic if no user was manually selected.
+                        nextApprover = await FindApproverForSequenceAsync(pr, pr.CurrentApprovalSequence + 1);
+                        if (nextApprover == null)
+                        {
+                            return (false, "No valid approver found for the first step of this workflow.", null);
+                        }
+                        toUserId = nextApprover.Id;
+                    }
+
+                    // Increment the sequence to the first actual approval step.
+                    if (nextApprover != null && startingSequence != 0)
+                    {
+                        // Only increment if we're not starting at 0.
+                        // The first call to `FindApproverForSequenceAsync` already uses the correct starting point.
+                        // For example, if the submitting user is ApprovalSeq 2, the next approver is at 3.
+                        // The `CurrentApprovalSequence` should be set to 2 before moving on.
+                    }
+
+                    toStateId = STATE_SUBMITTED;
+                    pr.StateId = toStateId;
+                    pr.Owner = nextApprover?.UserName;
+                    pr.IsCompleted = false;
+                    pr.Approved = false;
+                    pr.Rejected = false;
+
+                    // A crucial step: update the CurrentApprovalSequence to reflect the user's highest role.
+                    // This is the starting point of the next approval, so we don't accidentally skip the first step.
+                    if (startingSequence > 0)
+                    {
+                        pr.CurrentApprovalSequence = startingSequence;
+                    }
+                    else
+                    {
+                        pr.CurrentApprovalSequence = 1;
+                    }
+
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, $"Purchase Requisition submitted successfully to {nextApprover?.UserName}.", nextApprover);
+
+                case "approve":
+                    if (pr.StateId != STATE_SUBMITTED && pr.StateId != STATE_RETURNED)
+                    {
+                        return (false, "Purchase Requisition can only be approved from 'Submitted for Review' state.", null);
+                    }
+
+                    int nextApprovalSequence = pr.CurrentApprovalSequence + 1;
+
+                    // Find the next approver, prioritizing manual selection.
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            // If the manually selected user is not found, default to sending it back to the creator.
+                            nextApprover = await _context.Users.FindAsync(pr.CreatedByUserId);
+                            // If the creator isn't found either, return an error.
+                            if (nextApprover == null)
+                            {
+                                return (false, "The selected approver was not found, and the original creator could not be identified.", null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Fallback to automatic logic if no user was manually selected.
+                        nextApprover = await FindApproverForSequenceAsync(pr, nextApprovalSequence);
+                    }
+
+                    // Determine the outcome of the approval
+                    short finalStateId;
+                    User? finalNextApprover;
+                    int? finalToUserId;
+                    string returnMessage;
+
+                    if (nextApprover != null)
+                    {
+                        // Case: There is a next approver.
+                        finalStateId = STATE_SUBMITTED;
+                        pr.CurrentApprovalSequence = nextApprovalSequence;
+                        pr.IsCompleted = false;
+                        pr.Approved = false;
+                        pr.Rejected = false;
+                        finalNextApprover = nextApprover;
+                        finalToUserId = nextApprover.Id;
+                        returnMessage = $"Purchase Requisition approved. Sent to next assignee: {nextApprover.UserName}.";
+                    }
+                    else
+                    {
+                        // Case: This is the final approval.
+                        finalStateId = STATE_APPROVED;
+                        pr.CurrentApprovalSequence = 0;
+                        pr.IsCompleted = true;
+                        pr.Approved = true;
+                        pr.Rejected = false;
+
+                        // Retrieve the creator's user object and set them as the final owner.
+                        var creator = await _context.Users.FindAsync(pr.CreatedByUserId);
+                        finalNextApprover = creator;
+                        finalToUserId = creator?.Id;
+                        returnMessage = "Purchase Requisition fully approved.";
+                    }
+
+                    // Apply the determined state and owner based on the outcome.
+                    pr.StateId = finalStateId;
+                    pr.Owner = finalNextApprover?.UserName ?? "System"; // Use the determined next approver name.
+
+                    // Add history and return the result.
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, pr.StateId, action, comments, actionByUserId, finalToUserId);
+
+                    // Return a message that reflects the final outcome.
+                    return (true, returnMessage, finalNextApprover);
+
+                case "reject":
+                    if (pr.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "Purchase Requisition can only be rejected from 'Submitted for Review' state.", null);
+                    }
+                    toStateId = STATE_REJECTED;
+                    pr.StateId = toStateId;
+                    pr.IsCompleted = true;
+                    pr.Rejected = true;
+                    pr.Approved = false;
+                    pr.CurrentApprovalSequence = 0;
+                    var creatorUserRejected = await _context.Users.FindAsync(pr.CreatedByUserId);
+                    pr.Owner = creatorUserRejected?.UserName ?? "Unknown Creator";
+                    toUserId = pr.CreatedByUserId;
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, "Purchase Requisition rejected successfully.", null);
+
+                case "return":
+                    if (pr.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "Purchase Requisition can only be returned from 'Submitted for Review' state.", null);
+                    }
+
+                    // Manual override (toUserIdOverride) must be provided for a 'return' action.
+                    if (!toUserIdOverride.HasValue)
+                    {
+                        return (false, "Return action requires selecting a user to return the requisition to.", null);
+                    }
+
+                    var targetUser = await _context.Users.FindAsync(toUserIdOverride.Value);
+                    if (targetUser == null)
+                    {
+                        return (false, "The target user for return was not found.", null);
+                    }
+                    var targetUserRoles = await _context.UserRoles
+                        .Where(ur => ur.UserId == targetUser.Id)
+                        .Select(ur => ur.RoleId)
+                        .ToListAsync();
+
+                    var targetUserHighestApprovalSequence = await _context.WorkFlowApprovalSequences
+                        .Where(ws => ws.WorkFlowTypeId == pr.WorkFlowTypeId &&
+                                     ws.IsActive &&
+                                     targetUserRoles.Contains(ws.RoleID))
+                        .OrderByDescending(ws => ws.ApprovalSeq)
+                        .Select(ws => (int?)ws.ApprovalSeq)
+                        .FirstOrDefaultAsync();
+
+                    toStateId = STATE_RETURNED;
+                    pr.StateId = toStateId;
+                    pr.IsCompleted = false;
+                    pr.Approved = false;
+                    pr.Rejected = false;
+
+                    int returnedToSequence = targetUserHighestApprovalSequence.HasValue ? targetUserHighestApprovalSequence.Value : 0;
+                    pr.CurrentApprovalSequence = returnedToSequence;
+
+                    pr.Owner = targetUser.UserName;
+                    toUserId = targetUser.Id;
+
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+
+                    return (true, $"Purchase Requisition returned to {targetUser.UserName} successfully.", targetUser);
+
+                case "cancel":
+                    if (pr.StateId == STATE_APPROVED || pr.StateId == STATE_REJECTED || pr.StateId == STATE_COMPLETED)
+                    {
+                        return (false, "An already approved, rejected, or completed Purchase Requisition cannot be cancelled.", null);
+                    }
+                    toStateId = STATE_CANCELLED;
+                    pr.StateId = toStateId;
+                    pr.IsCompleted = true;
+                    pr.Approved = false;
+                    pr.Rejected = false;
+                    pr.CurrentApprovalSequence = 0;
+                    var creatorUserCancelled = await _context.Users.FindAsync(pr.CreatedByUserId);
+                    pr.Owner = creatorUserCancelled?.UserName ?? "Unknown Creator";
+                    toUserId = null;
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, "Purchase Requisition cancelled successfully.", null);
+
+                default:
+                    return (false, "Invalid workflow action specified.", null);
+            }
+        }
+
+        // You will also need to add these helper methods to your class
+        private async Task<Role?> FindApproverRoleForSequenceAsync(PurchaseRequest pr, int sequence)
+        {
+            var approverRole = await (from s in _context.WorkFlowApprovalSequences
+                                      join mrh in _context.ModuleRoleHierarchies on new { s.RoleID, s.ApprovalSeq } equals new { RoleID = mrh.RoleId, ApprovalSeq = mrh.HierarchyLevel }
+                                      join r in _context.Roles on s.RoleID equals r.Id
+                                      where s.WorkFlowTypeId == pr.WorkFlowTypeId &&
+                                            s.ApprovalSeq == sequence
+                                      select new Role
+                                      {
+                                          Id = r.Id,
+                                          Name = r.Name
+                                      })
+                                      .FirstOrDefaultAsync();
+            return approverRole;
+        }
+
+        private async Task<User?> FindApproverForRoleAsync(int roleId)
+        {
+            // This method finds a user belonging to the specified role.
+            // You might want to add more complex logic here, such as
+            // finding a user who is currently active or has a specific permission.
+            var user = await (from ur in _context.UserRoles
+                              join u in _context.Users on ur.UserId equals u.Id
+                              where ur.RoleId == roleId
+                              select u)
+                              .FirstOrDefaultAsync();
+            return user;
+        }
+        private async Task<(bool Success, string Message, User? NextApprover)> ProcessPOWorkflowActionAsync(PurchaseOrder po, string action, string comments, int actionByUserId, int? toUserIdOverride = null)
+        {
+            short fromStateId = po.StateId;
+            short toStateId = fromStateId;
+            User? nextApprover = null;
+            int? toUserId = null;
+
+            var currentUserRoles = await _context.UserRoles
+                .Where(ur => ur.UserId == actionByUserId)
+                .Select(ur => ur.RoleId)
+                .ToListAsync();
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    if (po.StateId != STATE_SAVED && po.StateId != STATE_RETURNED)
+                    {
+                        return (false, "Purchase Order can only be submitted from 'Saved' or 'Returned' state.", null);
+                    }
+
+                    // Determine the starting point based on the submitting user's role
+                    var highestApprovalSequence = await _context.WorkFlowApprovalSequences
+                        .Where(ws => ws.WorkFlowTypeId == po.WorkFlowTypeId &&
+                                     ws.IsActive &&
+                                     currentUserRoles.Contains(ws.RoleID))
+                        .OrderByDescending(ws => ws.ApprovalSeq)
+                        .Select(ws => (int?)ws.ApprovalSeq)
+                        .FirstOrDefaultAsync();
+
+                    // Start the approval from one level above the highest role the user holds.
+                    int startingSequence = highestApprovalSequence.HasValue ? highestApprovalSequence.Value : 1;
+                    po.CurrentApprovalSequence = startingSequence;
+
+                    // Check for manual override on submit
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            return (false, "The selected approver was not found.", null);
+                        }
+                        toUserId = nextApprover.Id;
+                    }
+                    else
+                    {
+                        po.CurrentApprovalSequence = 0;
+                        nextApprover = await FindApproverForSequenceAsync(po, 1);
+                    }
+
+                    if (nextApprover == null)
+                    {
+                        return (false, "No initial approver found for this Purchase Order based on configured workflow sequences.", null);
+                    }
+
+                    toStateId = STATE_SUBMITTED;
+                    po.StateId = toStateId;
+                    po.Owner = nextApprover.UserName;
+                    po.CurrentApprovalSequence = 1;
+                    po.IsCompleted = false;
+                    po.Approved = false;
+                    po.Rejected = false;
+                    toUserId = nextApprover.Id;
+
+                    break;
+
+                case "approve":
+                    if (po.StateId != STATE_SUBMITTED && po.StateId != STATE_RETURNED)
+                    {
+                        return (false, "Purchase Order can only be approved from 'Submitted' state.", null);
+                    }
+
+                    int nextApprovalSequence = po.CurrentApprovalSequence + 1;
+
+                    // Find the next approver, prioritizing manual selection.
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            // If the manually selected user is not found, default to sending it back to the creator.
+                            nextApprover = await _context.Users.FindAsync(po.CreatedByUserId);
+                            if (nextApprover == null)
+                            {
+                                return (false, "The selected approver was not found, and the original creator could not be identified.", null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Fallback to automatic logic if no user was manually selected.
+                        nextApprover = await FindApproverForSequenceAsync(po, nextApprovalSequence);
+                    }
+
+                    // Determine the outcome of the approval.
+                    short finalStateId;
+                    User? finalNextApprover = null;
+                    int? finalToUserId = null;
+                    string returnMessage;
+
+                    if (nextApprover != null)
+                    {
+                        // Case: There is a next approver.
+                        finalStateId = STATE_SUBMITTED;
+                        po.CurrentApprovalSequence = nextApprovalSequence;
+                        po.IsCompleted = false;
+                        po.Approved = false;
+                        po.Rejected = false;
+                        finalNextApprover = nextApprover;
+                        finalToUserId = nextApprover.Id;
+                        returnMessage = $"Purchase Order approved. Sent to next assignee: {nextApprover.UserName}.";
+                    }
+                    else
+                    {
+                        // Case: This is the final approval.
+                        finalStateId = STATE_APPROVED;
+                        po.CurrentApprovalSequence = 0;
+                        po.IsCompleted = true;
+                        po.Approved = true;
+                        po.Rejected = false;
+
+                        // Retrieve the creator's user object and set them as the final owner.
+                        var creator = await _context.Users.FindAsync(po.CreatedByUserId);
+                        finalNextApprover = creator;
+                        finalToUserId = creator?.Id;
+                        returnMessage = "Purchase Order fully approved.";
+                    }
+
+                    // Apply the determined state and owner.
+                    po.StateId = finalStateId;
+                    po.Owner = finalNextApprover?.UserName ?? "System";
+
+                    toUserId = finalToUserId;
+                    nextApprover = finalNextApprover;
+
+                    break;
+
+                case "reject":
+                    if (po.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "Purchase Order can only be rejected from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_REJECTED;
+                    po.StateId = toStateId;
+                    po.IsCompleted = true;
+                    po.Rejected = true;
+                    po.Approved = false;
+                    po.CurrentApprovalSequence = 0;
+                    var creatorUserRejected = await _context.Users.FindAsync(po.CreatedByUserId);
+                    po.Owner = creatorUserRejected?.UserName ?? "Unknown Creator";
+                    toUserId = po.CreatedByUserId;
+                    break;
+
+                case "return":
+                    if (po.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "Purchase Order can only be returned from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_RETURNED;
+                    po.StateId = toStateId;
+                    po.IsCompleted = false;
+                    po.Approved = false;
+                    po.Rejected = false;
+                    po.CurrentApprovalSequence = 0;
+                    var creatorUserForReturn = await _context.Users.FindAsync(po.CreatedByUserId);
+                    po.Owner = creatorUserForReturn?.UserName ?? "Unknown Creator";
+                    toUserId = po.CreatedByUserId;
+                    break;
+
+                case "cancel":
+                    if (po.StateId == STATE_APPROVED || po.StateId == STATE_REJECTED || po.StateId == STATE_COMPLETED || po.StateId == STATE_ISSUED)
+                    {
+                        return (false, "An already approved, rejected, completed, or issued Purchase Order cannot be cancelled.", null);
+                    }
+                    toStateId = STATE_CANCELLED;
+                    po.StateId = toStateId;
+                    po.IsCompleted = true;
+                    po.Approved = false;
+                    po.Rejected = false;
+                    po.CurrentApprovalSequence = 0;
+                    var creatorUserCancelled = await _context.Users.FindAsync(po.CreatedByUserId);
+                    po.Owner = creatorUserCancelled?.UserName ?? "Unknown Creator";
+                    toUserId = null;
+                    break;
+
+                case "issue":
+                    if (po.StateId != STATE_APPROVED)
+                    {
+                        return (false, "Only approved Purchase Orders can be issued.", null);
+                    }
+                    toStateId = STATE_ISSUED;
+                    po.StateId = toStateId;
+                    po.Owner = "System";
+                    po.IsCompleted = true;
+                    po.Approved = true;
+                    toUserId = null;
+                    break;
+
+                default:
+                    return (false, "Invalid workflow action specified.", null);
+            }
+
+            await AddFormHistoryAsync(po.WorkFlowTypeId, po.Id, fromStateId, po.StateId, action, comments, actionByUserId, toUserId);
+
+            // Determine the final message based on the new state
+            if (po.StateId == STATE_APPROVED)
+            {
+                return (true, "Purchase Order fully approved.", null);
+            }
+            else if (po.StateId == STATE_ISSUED)
+            {
+                return (true, "Purchase Order issued successfully.", null);
+            }
+            else
+            {
+                return (true, $"Purchase Order {action}ed successfully.", nextApprover);
+            }
+        }
+        private async Task<(bool Success, string Message, User? NextApprover)> ProcessGRNWorkflowActionAsync(GoodsReceiptNote grn, string action, string comments, int actionByUserId, int? toUserIdOverride = null)
+        {
+            short fromStateId = grn.StateId;
+            short toStateId = fromStateId;
+            User? nextApprover = null;
+            int? toUserId = null;
+
+            var currentUserRoles = await _context.UserRoles
+                .Where(ur => ur.UserId == actionByUserId)
+                .Select(ur => ur.RoleId)
+                .ToListAsync();
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    if (grn.StateId != STATE_SAVED && grn.StateId != STATE_RETURNED)
+                    {
+                        return (false, "GRN can only be submitted from 'Saved' or 'Returned' state.", null);
+                    }
+
+                    // Check for manual override on submit
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            return (false, "The selected approver was not found.", null);
+                        }
+                        grn.CurrentApprovalSequence = 1;
+                    }
+                    else
+                    {
+                        grn.CurrentApprovalSequence = 0;
+                        nextApprover = await FindApproverForSequenceAsync(grn, 1);
+                    }
+
+                    if (nextApprover == null)
+                    {
+                        return (false, "No initial approver found for this GRN based on configured workflow sequences.", null);
+                    }
+
+                    toStateId = STATE_SUBMITTED;
+                    grn.StateId = toStateId;
+                    grn.Owner = nextApprover.UserName;
+                    grn.CurrentApprovalSequence = 1;
+                    grn.IsCompleted = false;
+                    grn.Approved = false;
+                    grn.Rejected = false;
+                    toUserId = nextApprover.Id;
+
+                    break;
+
+                case "approve":
+                    if (grn.StateId != STATE_SUBMITTED && grn.StateId != STATE_RETURNED)
+                    {
+                        return (false, "GRN can only be approved from 'Submitted' state.", null);
+                    }
+
+                    int nextApprovalSequence = grn.CurrentApprovalSequence + 1;
+
+                    // Find the next approver, prioritizing manual selection.
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            nextApprover = await _context.Users.FindAsync(grn.CreatedByUserId);
+                            if (nextApprover == null)
+                            {
+                                return (false, "The selected approver was not found, and the original creator could not be identified.", null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        nextApprover = await FindApproverForSequenceAsync(grn, nextApprovalSequence);
+                    }
+
+                    // Determine the outcome of the approval.
+                    short finalStateId;
+                    User? finalNextApprover = null;
+                    int? finalToUserId = null;
+                    string returnMessage;
+
+                    if (nextApprover != null)
+                    {
+                        finalStateId = STATE_SUBMITTED;
+                        grn.CurrentApprovalSequence = nextApprovalSequence;
+                        grn.IsCompleted = false;
+                        grn.Approved = false;
+                        grn.Rejected = false;
+                        finalNextApprover = nextApprover;
+                        finalToUserId = nextApprover.Id;
+                        returnMessage = $"GRN approved. Sent to next assignee: {nextApprover.UserName}.";
+                    }
+                    else
+                    {
+                        finalStateId = STATE_APPROVED;
+                        grn.CurrentApprovalSequence = 0;
+                        grn.IsCompleted = true;
+                        grn.Approved = true;
+                        grn.Rejected = false;
+
+                        var creator = await _context.Users.FindAsync(grn.CreatedByUserId);
+                        finalNextApprover = creator;
+                        finalToUserId = creator?.Id;
+                        returnMessage = "GRN fully approved.";
+                    }
+
+                    grn.StateId = finalStateId;
+                    grn.Owner = finalNextApprover?.UserName ?? "System";
+
+                    toUserId = finalToUserId;
+                    nextApprover = finalNextApprover;
+
+                    break;
+
+                case "reject":
+                    if (grn.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "GRN can only be rejected from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_REJECTED;
+                    grn.StateId = toStateId;
+                    grn.IsCompleted = true;
+                    grn.Rejected = true;
+                    grn.Approved = false;
+                    grn.CurrentApprovalSequence = 0;
+                    var creatorUserRejected = await _context.Users.FindAsync(grn.CreatedByUserId);
+                    grn.Owner = creatorUserRejected?.UserName ?? "Unknown Creator";
+                    toUserId = grn.CreatedByUserId;
+                    break;
+
+                case "return":
+                    if (grn.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "GRN can only be returned from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_RETURNED;
+                    grn.StateId = toStateId;
+                    grn.IsCompleted = false;
+                    grn.Approved = false;
+                    grn.Rejected = false;
+                    grn.CurrentApprovalSequence = 0;
+                    var creatorUserForReturn = await _context.Users.FindAsync(grn.CreatedByUserId);
+                    grn.Owner = creatorUserForReturn?.UserName ?? "Unknown Creator";
+                    toUserId = grn.CreatedByUserId;
+                    break;
+
+                case "cancel":
+                    if (grn.StateId == STATE_APPROVED || grn.StateId == STATE_REJECTED || grn.StateId == STATE_COMPLETED || grn.StateId == STATE_ISSUED)
+                    {
+                        return (false, "An already approved, rejected, completed, or issued GRN cannot be cancelled.", null);
+                    }
+                    toStateId = STATE_CANCELLED;
+                    grn.StateId = toStateId;
+                    grn.IsCompleted = true;
+                    grn.Approved = false;
+                    grn.Rejected = false;
+                    grn.CurrentApprovalSequence = 0;
+                    grn.Owner = "System";
+                    toUserId = null;
+                    break;
+
+                case "issue":
+                    // "issue" action doesn't exist for GRN, so this is a placeholder.
+                    return (false, "Invalid workflow action for GRN specified.", null);
+
+                default:
+                    return (false, "Invalid workflow action specified.", null);
+            }
+
+            await AddFormHistoryAsync(grn.WorkFlowTypeId, grn.FormId, fromStateId, grn.StateId, action, comments, actionByUserId, toUserId);
+
+            if (grn.StateId == STATE_APPROVED)
+            {
+                return (true, "GRN fully approved.", nextApprover);
+            }
+            else
+            {
+                return (true, $"GRN {action}ed successfully.", nextApprover);
+            }
+        }
+        public async Task<(bool Success, string Message, User? NextApprover)> ProcessPaymentRequestWorkflowActionAsync(PaymentRequest pr, string action, string comments, int actionByUserId, int? toUserIdOverride = null)
+        {
+            short fromStateId = pr.StateId;
+            short toStateId = fromStateId;
+            User? nextApprover = null;
+            int? toUserId = null;
+
+            var currentUserRoles = await _context.UserRoles
+               .Where(ur => ur.UserId == actionByUserId)
+               .Select(ur => ur.RoleId)
+               .ToListAsync();
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    if (pr.StateId != STATE_SAVED && pr.StateId != STATE_RETURNED)
+                    {
+                        return (false, "Payment Request can only be submitted from 'Saved' or 'Returned' state.", null);
+                    }
+
+                    // 1. DETERMINE THE STARTING SEQUENCE
+                    // Find the highest sequence the current user's roles can approve.
+                    var highestApprovalSequence = await _context.WorkFlowApprovalSequences
+                        .Where(ws => ws.WorkFlowTypeId == pr.WorkFlowTypeId &&
+                                     ws.IsActive &&
+                                     currentUserRoles.Contains(ws.RoleID))
+                        .OrderByDescending(ws => ws.ApprovalSeq)
+                        .Select(ws => (int?)ws.ApprovalSeq)
+                        .FirstOrDefaultAsync();
+
+                    // Start the approval at one level *above* the highest role the user holds, or 1 if no role is found.
+                    int startingSequence = highestApprovalSequence.HasValue ? highestApprovalSequence.Value : 1;
+                    pr.CurrentApprovalSequence = startingSequence;
+
+                    // 2. DETERMINE THE NEXT APPROVER
+                    if (toUserIdOverride.HasValue)
+                    {
+                        // MANUAL SELECTION: Skip automatic lookup, use the override user.
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            return (false, "The selected approver was not found.", null);
+                        }
+                    }
+                    else
+                    {
+                        // AUTOMATIC SELECTION: Use the calculated startingSequence to find the approver.
+                        nextApprover = await FindApproverForSequenceAsync(pr, startingSequence); // Use calculated sequence!
+                        if (nextApprover == null)
+                        {
+                            return (false, $"No valid approver found for step {startingSequence} of this workflow.", null);
+                        }
+                    }
+
+                    // 3. SET THE STATE AND OWNER
+                    toStateId = STATE_SUBMITTED;
+                    pr.StateId = toStateId;
+                    pr.Owner = nextApprover.UserName;
+                    pr.IsCompleted = false;
+                    pr.Approved = false;
+                    pr.Rejected = false;
+                    toUserId = nextApprover.Id;
+
+                    // 4. Add history and return the result
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, $"Payment Request submitted successfully to {nextApprover.UserName}.", nextApprover);
+
+                case "approve":
+                    if (pr.StateId != STATE_SUBMITTED && pr.StateId != STATE_RETURNED)
+                    {
+                        return (false, "Payment Request can only be approved from 'Submitted' state.", null);
+                    }
+
+                    int nextApprovalSequence = pr.CurrentApprovalSequence + 1;
+
+                    // Find the next approver, prioritizing manual selection.
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            nextApprover = await _context.Users.FindAsync(pr.CreatedByUserId);
+                            if (nextApprover == null)
+                            {
+                                return (false, "The selected approver was not found, and the original creator could not be identified.", null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        nextApprover = await FindApproverForSequenceAsync(pr, nextApprovalSequence);
+                    }
+
+                    // Determine the outcome of the approval.
+                    short finalStateId;
+                    User? finalNextApprover = null;
+                    int? finalToUserId = null;
+                    string returnMessage;
+
+                    if (nextApprover != null)
+                    {
+                        finalStateId = STATE_SUBMITTED;
+                        pr.CurrentApprovalSequence = nextApprovalSequence;
+                        pr.IsCompleted = false;
+                        pr.Approved = false;
+                        pr.Rejected = false;
+                        finalNextApprover = nextApprover;
+                        finalToUserId = nextApprover.Id;
+                        returnMessage = $"Payment Request approved. Sent to next assignee: {nextApprover.UserName}.";
+                    }
+                    else
+                    {
+                        finalStateId = STATE_APPROVED;
+                        pr.CurrentApprovalSequence = 0;
+                        pr.IsCompleted = true;
+                        pr.Approved = true;
+                        pr.Rejected = false;
+
+                        var creator = await _context.Users.FindAsync(pr.CreatedByUserId);
+                        finalNextApprover = creator;
+                        finalToUserId = creator?.Id;
+                        returnMessage = "Payment Request fully approved.";
+                    }
+
+                    pr.StateId = finalStateId;
+                    pr.Owner = finalNextApprover?.UserName ?? "System";
+
+                    toUserId = finalToUserId;
+                    toStateId = finalStateId;
+                    nextApprover = finalNextApprover;
+                    // Add history and return the result
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, $"Payment Request submitted successfully to {nextApprover.UserName}.", nextApprover);
+
+                case "reject":
+                    if (pr.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "Payment Request can only be rejected from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_REJECTED;
+                    pr.StateId = toStateId;
+                    pr.IsCompleted = true;
+                    pr.Rejected = true;
+                    pr.Approved = false;
+                    pr.CurrentApprovalSequence = 0;
+                    var creatorUserRejected = await _context.Users.FindAsync(pr.CreatedByUserId);
+                    pr.Owner = creatorUserRejected?.UserName ?? "Unknown Creator";
+                    toUserId = pr.CreatedByUserId; // Send it back to the creator.
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, "Payment Request rejected successfully.", null);
+
+                case "return":
+                    if (pr.StateId != STATE_SUBMITTED)
+                    {
+                        return (false, "Payment Request can only be returned from 'Submitted' state.", null);
+                    }
+
+                    toStateId = STATE_RETURNED;
+                    pr.StateId = toStateId;
+                    pr.IsCompleted = false;
+                    pr.Approved = false;
+                    pr.Rejected = false;
+                    pr.CurrentApprovalSequence = 0;
+
+                    // Prioritize returning to a specific user if provided
+                    if (toUserIdOverride.HasValue)
+                    {
+                        var returnToUser = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        pr.Owner = returnToUser?.UserName ?? "Unknown User";
+                        toUserId = returnToUser?.Id;
+                        nextApprover = returnToUser;
+                    }
+                    else
+                    {
+                        // Fallback to returning to the creator if no specific user is provided
+                        var creatorUserReturned = await _context.Users.FindAsync(pr.CreatedByUserId);
+                        pr.Owner = creatorUserReturned?.UserName ?? "Unknown Creator";
+                        toUserId = pr.CreatedByUserId;
+                        nextApprover = creatorUserReturned;
+                    }
+
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, "Payment Request returned successfully.", nextApprover);
+
+                case "cancel":
+                    if (pr.StateId == STATE_APPROVED || pr.StateId == STATE_REJECTED || pr.StateId == STATE_COMPLETED)
+                    {
+                        return (false, "An already approved, rejected, or completed Payment Request cannot be cancelled.", null);
+                    }
+                    toStateId = STATE_CANCELLED;
+                    pr.StateId = toStateId;
+                    pr.IsCompleted = true;
+                    pr.Approved = false;
+                    pr.Rejected = false;
+                    pr.CurrentApprovalSequence = 0;
+                    var creatorUserCancelled = await _context.Users.FindAsync(pr.CreatedByUserId);
+                    pr.Owner = creatorUserCancelled?.UserName ?? "Unknown Creator";
+                    toUserId = null;
+                    await AddFormHistoryAsync(pr.WorkFlowTypeId, pr.Id, fromStateId, toStateId, action, comments, actionByUserId, toUserId);
+                    return (true, "Payment Request cancelled successfully.", null);
+
+                default:
+                    return (false, "Invalid workflow action specified.", null);
+            }
+        }
+
+        private async Task<(bool Success, string Message, User? NextApprover)> ProcessBEWorkflowActionAsync(BidEvaluation be, string action, string comments, int actionByUserId, int? toUserIdOverride = null)
+        {
+            short fromStateId = be.StateId;
+            short toStateId = fromStateId;
+            User? nextApprover = null;
+            int? toUserId = null;
+
+            var currentUserRoles = await _context.UserRoles
+                .Where(ur => ur.UserId == actionByUserId)
+                .Select(ur => ur.RoleId)
+                .ToListAsync();
+
+            switch (action.ToLower())
+            {
+                case "submit":
+                    if (be.StateId != STATE_SAVED && be.StateId != STATE_RETURNED)
+                    {
+                        // Update message
+                        return (false, "Bid Evaluation can only be submitted from 'Saved' or 'Returned' state.", null);
+                    }
+
+                    // Determine the starting point based on the submitting user's role
+                    var highestApprovalSequence = await _context.WorkFlowApprovalSequences
+                        // Use be object
+                        .Where(ws => ws.WorkFlowTypeId == be.WorkFlowTypeId &&
+                                     ws.IsActive &&
+                                     currentUserRoles.Contains(ws.RoleID))
+                        .OrderByDescending(ws => ws.ApprovalSeq)
+                        .Select(ws => (int?)ws.ApprovalSeq)
+                        .FirstOrDefaultAsync();
+
+                    // Start the approval from one level above the highest role the user holds.
+                    int startingSequence = highestApprovalSequence.HasValue ? highestApprovalSequence.Value : 1;
+                    // Use be object
+                    be.CurrentApprovalSequence = startingSequence;
+
+                    // Check for manual override on submit
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            return (false, "The selected approver was not found.", null);
+                        }
+                        toUserId = nextApprover.Id;
+                    }
+                    else
+                    {
+                        // Use be object
+                        be.CurrentApprovalSequence = 0;
+                        // Use be object
+                        nextApprover = await FindApproverForSequenceAsync(be, 1);
+                    }
+
+                    if (nextApprover == null)
+                    {
+                        // Update message
+                        return (false, "No initial approver found for this Bid Evaluation based on configured workflow sequences.", null);
+                    }
+
+                    toStateId = STATE_SUBMITTED;
+                    // Use be object
+                    be.StateId = toStateId;
+                    be.Owner = nextApprover.UserName;
+                    be.CurrentApprovalSequence = 1;
+                    be.IsCompleted = false;
+                    be.Approved = false;
+                    be.Rejected = false;
+                    toUserId = nextApprover.Id;
+
+                    break;
+
+                case "approve":
+                    if (be.StateId != STATE_SUBMITTED && be.StateId != STATE_RETURNED)
+                    {
+                        // Update message
+                        return (false, "Bid Evaluation can only be approved from 'Submitted' or 'Returned' state.", null);
+                    }
+
+                    // Use be object
+                    int nextApprovalSequence = be.CurrentApprovalSequence + 1;
+
+                    // Find the next approver, prioritizing manual selection.
+                    if (toUserIdOverride.HasValue)
+                    {
+                        nextApprover = await _context.Users.FindAsync(toUserIdOverride.Value);
+                        if (nextApprover == null)
+                        {
+                            // If the manually selected user is not found, default to sending it back to the creator.
+                            // Use be object
+                            nextApprover = await _context.Users.FindAsync(be.CreatedByUserId);
+                            if (nextApprover == null)
+                            {
+                                return (false, "The selected approver was not found, and the original creator could not be identified.", null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Fallback to automatic logic if no user was manually selected.
+                        // Use be object
+                        nextApprover = await FindApproverForSequenceAsync(be, nextApprovalSequence);
+                    }
+
+                    // Determine the outcome of the approval.
+                    short finalStateId;
+                    User? finalNextApprover = null;
+                    int? finalToUserId = null;
+                    string returnMessage;
+
+                    if (nextApprover != null)
+                    {
+                        // Case: There is a next approver.
+                        finalStateId = STATE_SUBMITTED;
+                        // Use be object
+                        be.CurrentApprovalSequence = nextApprovalSequence;
+                        be.IsCompleted = false;
+                        be.Approved = false;
+                        be.Rejected = false;
+                        finalNextApprover = nextApprover;
+                        finalToUserId = nextApprover.Id;
+                        // Update message
+                        returnMessage = $"Bid Evaluation approved. Sent to next assignee: {nextApprover.UserName}.";
+                    }
+                    else
+                    {
+                        // Case: This is the final approval.
+                        finalStateId = STATE_APPROVED;
+                        // Use be object
+                        be.CurrentApprovalSequence = 0;
+                        be.IsCompleted = true;
+                        be.Approved = true;
+                        be.Rejected = false;
+
+                        // Retrieve the creator's user object and set them as the final owner.
+                        // Use be object
+                        var creator = await _context.Users.FindAsync(be.CreatedByUserId);
+                        finalNextApprover = creator;
+                        finalToUserId = creator?.Id;
+                        // Update message
+                        returnMessage = "Bid Evaluation fully approved.";
+
+                        if (be.SelectedBidId.HasValue)
+                        {
+                            var priceUpdateResult = await _productService.UpdateProductPricesFromBidAsync(
+                                be.SelectedBidId.Value,
+                                actionByUserId); // Use the user who performed the action
+
+                            if (priceUpdateResult.Success && priceUpdateResult.Changes.Any())
+                            {
+                                // Append the success message, letting the controller handle TempData
+                                returnMessage += $" Automatically updated {priceUpdateResult.Changes.Count} product price(s).";
+                            }
+                            else
+                            {
+                                // Log the price update failure but don't fail the approval process itself
+                                _logger.LogWarning($"Product price update skipped or failed for Bid Evaluation {be.BidNo}. Reason: {priceUpdateResult.Message}");
+                            }
+                        }
+                        else
+                        {
+                            // Log if final approval occurs without a selected bid
+                            _logger.LogWarning($"Bid Evaluation {be.BidNo} approved without a SelectedBidId. Product price update skipped.");
+                        }
+                    }
+
+                    // Apply the determined state and owner.
+                    // Use be object
+                    be.StateId = finalStateId;
+                    be.Owner = finalNextApprover?.UserName ?? "System";
+
+                    toUserId = finalToUserId;
+                    nextApprover = finalNextApprover;
+
+                    break;
+
+                case "reject":
+                    if (be.StateId != STATE_SUBMITTED)
+                    {
+                        // Update message
+                        return (false, "Bid Evaluation can only be rejected from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_REJECTED;
+                    // Use be object
+                    be.StateId = toStateId;
+                    be.IsCompleted = true;
+                    be.Rejected = true;
+                    be.Approved = false;
+                    be.CurrentApprovalSequence = 0;
+                    // Use be object
+                    var creatorUserRejected = await _context.Users.FindAsync(be.CreatedByUserId);
+                    be.Owner = creatorUserRejected?.UserName ?? "Unknown Creator";
+                    toUserId = be.CreatedByUserId;
+                    break;
+
+                case "return":
+                    if (be.StateId != STATE_SUBMITTED)
+                    {
+                        // Update message
+                        return (false, "Bid Evaluation can only be returned from 'Submitted' state.", null);
+                    }
+                    toStateId = STATE_RETURNED;
+                    // Use be object
+                    be.StateId = toStateId;
+                    be.IsCompleted = false;
+                    be.Approved = false;
+                    be.Rejected = false;
+                    be.CurrentApprovalSequence = 0;
+                    // Use be object
+                    var creatorUserForReturn = await _context.Users.FindAsync(be.CreatedByUserId);
+                    be.Owner = creatorUserForReturn?.UserName ?? "Unknown Creator";
+                    toUserId = be.CreatedByUserId;
+                    break;
+
+                case "cancel":
+                    if (be.StateId == STATE_APPROVED || be.StateId == STATE_REJECTED || be.StateId == STATE_COMPLETED || be.StateId == STATE_ISSUED)
+                    {
+                        // Update message
+                        return (false, "An already approved, rejected, completed, or issued Bid Evaluation cannot be cancelled.", null);
+                    }
+                    toStateId = STATE_CANCELLED;
+                    // Use be object
+                    be.StateId = toStateId;
+                    be.IsCompleted = true;
+                    be.Approved = false;
+                    be.Rejected = false;
+                    be.CurrentApprovalSequence = 0;
+                    // Use be object
+                    var creatorUserCancelled = await _context.Users.FindAsync(be.CreatedByUserId);
+                    be.Owner = creatorUserCancelled?.UserName ?? "Unknown Creator";
+                    toUserId = null;
+                    break;
+
+                case "issue":
+                    if (be.StateId != STATE_APPROVED)
+                    {
+                        // Update message
+                        return (false, "Only approved Bid Evaluations can be issued.", null);
+                    }
+                    toStateId = STATE_ISSUED;
+                    // Use be object
+                    be.StateId = toStateId;
+                    be.Owner = "System";
+                    be.IsCompleted = true;
+                    be.Approved = true;
+                    toUserId = null;
+                    break;
+
+                default:
+                    return (false, "Invalid workflow action specified.", null);
+            }
+
+            // Use be object
+            await AddFormHistoryAsync(be.WorkFlowTypeId, be.BidNo, fromStateId, be.StateId, action, comments, actionByUserId, toUserId);
+
+            // Determine the final message based on the new state
+            if (be.StateId == STATE_APPROVED)
+            {
+                // Update message
+                return (true, "Bid Evaluation fully approved.", null);
+            }
+            else if (be.StateId == STATE_ISSUED)
+            {
+                // Update message
+                return (true, "Bid Evaluation issued successfully.", null);
+            }
+            else
+            {
+                // Update message
+                return (true, $"Bid Evaluation {action}ed successfully.", nextApprover);
             }
         }
     }

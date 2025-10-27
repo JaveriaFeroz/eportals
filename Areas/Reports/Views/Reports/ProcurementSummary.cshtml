@@ -1,0 +1,305 @@
+﻿@model ProcureToPay.Areas.Reports.Models.ProcurementSummaryFilter
+
+@{
+    ViewData["Title"] = "Procurement Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-chart-pie me-2"></i> Procurement Summary Report
+            </h5>
+        </div>
+        <div class="card-body">
+            <form id="filterForm">
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="FromDate" class="form-label"></label>
+                        <input asp-for="FromDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ToDate" class="form-label"></label>
+                        <input asp-for="ToDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="SupplierId" class="form-label"></label>
+                        <select asp-for="SupplierId" class="form-select" asp-items="ViewBag.Suppliers">
+                            <option value="">All Suppliers</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="GroupBy" class="form-label"></label>
+                        <select asp-for="GroupBy" class="form-select">
+                            <option value="1">Department</option>
+                            <option value="2">Branch</option>
+                            <option value="3">User</option>
+                            <option value="4">Supplier</option>
+                            <option value="5">Month</option>
+                            <option value="6">Status</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label asp-for="SummaryType" class="form-label"></label>
+                        <select asp-for="SummaryType" class="form-select">
+                            <option value="1">Overview</option>
+                            <option value="2">Financial</option>
+                            <option value="3">Operational</option>
+                            <option value="4">Compliance</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check pt-4">
+                            <input asp-for="IncludeDrafts" class="form-check-input" type="checkbox" />
+                            <label asp-for="IncludeDrafts" class="form-check-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end align-items-end">
+                        <button type="button" class="btn btn-primary me-2 d-flex align-items-center" onclick="loadSummaryData()" style="background-color: #092963;">
+                            <i class="fas fa-search me-2"></i> Generate Report
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary me-2 d-flex align-items-center" onclick="clearFilters()">
+                            <i class="fas fa-times me-2"></i> Clear
+                        </button>
+                        <button type="button" class="btn btn-success d-flex align-items-center" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel me-2"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-4" id="summaryCards">
+    </div>
+
+    <div class="row g-3 mt-4" id="chartsContainer">
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-table me-2"></i> Detailed Summary
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="summaryTable" class="table table-bordered table-striped w-100">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Request Count</th>
+                                    <th>Request Amount</th>
+                                    <th>Order Count</th>
+                                    <th>Order Amount</th>
+                                    <th>Conversion Rate</th>
+                                    <th>Avg Processing Days</th>
+                                </tr>
+                            </thead>
+                            <tbody id="summaryTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        let charts = [];
+
+        $(document).ready(function () {
+            loadSummaryData();
+        });
+
+        function loadSummaryData() {
+            const filterData = {
+                fromDate: $('#FromDate').val(),
+                toDate: $('#ToDate').val(),
+                supplierId: $('#SupplierId').val(),
+                groupBy: $('#GroupBy').val(),
+                summaryType: $('#SummaryType').val(),
+                includeDrafts: $('#IncludeDrafts').is(':checked')
+            };
+
+            $.ajax({
+                url: '@Url.Action("ProcurementSummary", "Reports")',
+                type: 'GET',
+                data: filterData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function (data) {
+                    updateSummaryCards(data.cards);
+                    updateCharts(data.charts);
+                    updateSummaryTable(data.tableData);
+                },
+                error: function () {
+                    $('#summaryCards, #chartsContainer, #summaryTableBody').empty().append('<div class="col-12 text-center text-muted py-4"><i class="fas fa-exclamation-triangle fa-2x mb-2"></i><br>Error loading report data. Please try again later.</div>');
+                }
+            });
+        }
+
+        function updateSummaryCards(cards) {
+            const container = $('#summaryCards');
+            container.empty();
+
+            if (cards && cards.length > 0) {
+                cards.forEach(card => {
+                    const cardHtml = `
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card shadow h-100 py-2 border-left-${card.color}">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-${card.color} text-uppercase mb-1">
+                                                ${card.title}
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${card.value}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="${card.icon} fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                    ${card.subValue ? `<div class="text-muted mt-2">${card.subValue}</div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(cardHtml);
+                });
+            } else {
+                container.append('<div class="col-12 text-center text-muted py-4"><i class="fas fa-inbox fa-2x mb-2"></i><br>No summary cards found.</div>');
+            }
+        }
+
+        function updateCharts(chartData) {
+            charts.forEach(chart => chart.destroy());
+            charts = [];
+
+            const container = $('#chartsContainer');
+            container.empty();
+
+            if (chartData && chartData.length > 0) {
+                chartData.forEach((chart, index) => {
+                    const chartId = `chart_${index}`;
+                    const chartHtml = `
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow border-0 h-100">
+                                <div class="card-header" style="background-color: #092963;">
+                                    <h5 class="card-title text-white mb-0">
+                                        <i class="fas fa-chart-bar me-2"></i> ${chart.title}
+                                    </h5>
+                                </div>
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <canvas id="${chartId}"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(chartHtml);
+
+                    const ctx = document.getElementById(chartId).getContext('2d');
+                    const newChart = new Chart(ctx, {
+                        type: chart.type,
+                        data: {
+                            labels: chart.labels,
+                            datasets: chart.datasets.map(dataset => ({
+                                label: dataset.label,
+                                data: dataset.data,
+                                backgroundColor: dataset.backgroundColor,
+                                borderColor: dataset.borderColor || dataset.backgroundColor,
+                                borderWidth: 1
+                            }))
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: chart.type === 'pie' || chart.type === 'doughnut' ? 'bottom' : 'top'
+                                }
+                            },
+                            scales: chart.type === 'pie' || chart.type === 'doughnut' ? {} : {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                    charts.push(newChart);
+                });
+            } else {
+                container.append('<div class="col-12 text-center text-muted py-4"><i class="fas fa-chart-pie fa-2x mb-2"></i><br>No chart data available.</div>');
+            }
+        }
+
+        function updateSummaryTable(tableData) {
+            const tbody = $('#summaryTableBody');
+            tbody.empty();
+
+            if (tableData && tableData.length > 0) {
+                tableData.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.category}</td>
+                            <td>${item.requestCount}</td>
+                            <td>$${item.requestAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                            <td>${item.orderCount}</td>
+                            <td>$${item.orderAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                            <td>${item.conversionRate.toFixed(1)}%</td>
+                            <td>${item.avgProcessingDays.toFixed(1)}</td>
+                        </tr>
+                    `;
+                    tbody.append(row);
+                });
+            } else {
+                tbody.append('<tr><td colspan="7" class="text-center text-muted">No summary data found.</td></tr>');
+            }
+        }
+
+        function applyFilters() {
+            loadSummaryData();
+        }
+
+        function clearFilters() {
+            $('#filterForm')[0].reset();
+            loadSummaryData();
+        }
+
+        function exportToExcel() {
+            const exportForm = document.createElement('form');
+            exportForm.action = '@Url.Action("ExportProcurementSummaryToExcel", "Reports")';
+            exportForm.method = 'post';
+            exportForm.style.display = 'none';
+
+            function appendInput(name, value) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                exportForm.appendChild(input);
+            }
+
+            appendInput('FromDate', $('#FromDate').val());
+            appendInput('ToDate', $('#ToDate').val());
+            appendInput('SupplierId', $('#SupplierId').val());
+            appendInput('GroupBy', $('#GroupBy').val());
+            appendInput('SummaryType', $('#SummaryType').val());
+            appendInput('IncludeDrafts', $('#IncludeDrafts').is(':checked'));
+
+            document.body.appendChild(exportForm);
+            exportForm.submit();
+            document.body.removeChild(exportForm);
+        }
+    </script>
+}

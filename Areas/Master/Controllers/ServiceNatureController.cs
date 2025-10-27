@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels; // Ensure you have a using for ViewModels
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -77,8 +78,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         model.ServiceNature.CreatedBy = currentUserId;
                         model.ServiceNature.UpdatedBy = currentUserId;
-                        model.ServiceNature.CreatedOn = DateTime.UtcNow;
-                        model.ServiceNature.UpdatedOn = DateTime.UtcNow;
+                        model.ServiceNature.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                        model.ServiceNature.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                         // Pass the correct object (model.ServiceNature) to the service
                         var success = await _serviceNatureService.SaveServiceNatureAsync(model.ServiceNature);
@@ -147,7 +148,7 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.ServiceNature.UpdatedBy = currentUserId;
-                    viewModel.ServiceNature.UpdatedOn = DateTime.UtcNow;
+                    viewModel.ServiceNature.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     var success = await _serviceNatureService.SaveServiceNatureAsync(viewModel.ServiceNature);
 

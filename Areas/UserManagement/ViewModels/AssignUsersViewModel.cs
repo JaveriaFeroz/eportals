@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic; // Make sure this is included for List and IEnumerable
 
 namespace ProcureToPay.Areas.UserManagement.ViewModels
-{   
+{
     public class AssignUsersViewModel
     {
-        public Role Role { get; set; } // Assuming this is your custom role class (e.g., inherits from IdentityRole<int>)
-        public IEnumerable<IdentityUser<int>> UsersInRole { get; set; }
-        public IEnumerable<IdentityUser<int>> AvailableUsers { get; set; }
+        public Role Role { get; set; }
+        // Change the types from IdentityUser<int> to your custom User class
+        public IEnumerable<User> UsersInRole { get; set; }
+        public IEnumerable<User> AvailableUsers { get; set; }
 
         // Crucial for binding selected checkboxes from the form
-        public List<int> SelectedUsers { get; set; } // Change to int if your User IDs are int
+        public List<int> SelectedUsers { get; set; }
     }
 }

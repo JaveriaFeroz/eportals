@@ -11,6 +11,12 @@
         string DepartmentCode { get; }
         string BranchCode { get; }
         string CompanyCode { get; }
-        decimal TotalAmount { get; }
+
+        int CurrentApprovalSequence { get; set; }
+        int CreatedByUserId { get; }
+        bool IsCompleted { get; set; }
+        bool Approved { get; set; }
+        bool Rejected { get; set; }
+
     }
 }

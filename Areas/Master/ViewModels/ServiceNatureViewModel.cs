@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using ProcureToPay.Areas.Inventory.Models;
+//using ProcureToPay.Areas.Inventory.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProcureToPay.Areas.Master.ViewModels

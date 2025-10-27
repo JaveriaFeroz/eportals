@@ -1,0 +1,448 @@
+﻿@model ProcureToPay.Areas.Reports.Models.PurchaseRequestReportFilter
+
+@{
+    ViewData["Title"] = "Purchase Requests Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-file-invoice me-2"></i> Purchase Requests Report
+            </h5>
+        </div>
+        <div class="card-body">
+            <form id="filterForm" method="get">
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="FromDate" class="form-label"></label>
+                        <input asp-for="FromDate" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ToDate" class="form-label"></label>
+                        <input asp-for="ToDate" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="DepartmentId" class="form-label"></label>
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments">
+                            <option value="">All Departments</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BranchId" class="form-label"></label>
+                        <select asp-for="BranchId" class="form-select" asp-items="ViewBag.Branches">
+                            <option value="">All Branches</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="RequestNumber" class="form-label"></label>
+                        <input asp-for="RequestNumber" class="form-control" placeholder="Enter request number" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="RequestedByUserId" class="form-label"></label>
+                        <select asp-for="RequestedByUserId" class="form-select" asp-items="ViewBag.Users">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="StateId" class="form-label"></label>
+                        <select asp-for="StateId" class="form-select" asp-items="ViewBag.States">
+                            <option value="">All States</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check pt-4">
+                            <input asp-for="OnlyMyRequests" class="form-check-input" />
+                            <label asp-for="OnlyMyRequests" class="form-check-label">Only My Requests</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="ProductNatureId" class="form-label"></label>
+                        <select asp-for="ProductNatureId" class="form-select" asp-items="ViewBag.ProductNatures">
+                            <option value="">All Product Natures</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ProductId" class="form-label"></label>
+                        <select asp-for="ProductId" class="form-select">
+                            <option value="">All Products</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ServiceNatureId" class="form-label"></label>
+                        <select asp-for="ServiceNatureId" class="form-select" asp-items="ViewBag.ServiceNatures">
+                            <option value="">All Service Natures</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ServiceId" class="form-label"></label>
+                        <select asp-for="ServiceId" class="form-select">
+                            <option value="">All Service</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end">
+                   
+                    <div class="col-md-6 d-flex align-items-end justify-content-start">
+                        <button type="button" class="btn btn-primary me-2 d-flex align-items-center" onclick="applyFilters()" style="background-color: #092963;">
+                            <i class="fas fa-search me-2"></i> Apply
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary me-2 d-flex align-items-center" onclick="clearFilters()">
+                            <i class="fas fa-times me-2"></i> Clear
+                        </button>
+                        <button type="button" class="btn btn-success d-flex align-items-center" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel me-2"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-table me-2"></i> Report Results
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="purchaseRequestsTable" class="table table-bordered table-striped w-100">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Request Number</th>
+                            <th>Title</th>
+                            <th>Request Date</th>
+                            <th>Requested By</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Total Amount</th>
+                            <th>Days in State</th>
+                            <th>Items</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="exportForm" asp-action="ExportPurchaseRequestsToExcel" method="post" style="display: none;" asp-area="Reports">
+    <input type="hidden" name="FromDate" value="" />
+    <input type="hidden" name="ToDate" value="" />
+    <input type="hidden" name="DepartmentId" value="" />
+    <input type="hidden" name="BranchId" value="" />
+    <input type="hidden" name="RequestNumber" value="" />
+    <input type="hidden" name="RequestedByUserId" value="" />
+    <input type="hidden" name="StateId" value="" />
+    <input type="hidden" name="MinAmount" value="" />
+    <input type="hidden" name="MaxAmount" value="" />
+    <input type="hidden" name="OnlyMyRequests" value="false" />
+</form>
+
+@section Scripts {
+    <script>
+        var table;
+
+        // Dynamic URL templates
+        const prDetailsUrlTemplate = "@Url.Action("Details", "PurchaseRequest", new { area = "Procurement", id = "_ID_" })";
+
+
+        $(document).ready(function() {
+            console.log('Initializing Purchase Requests DataTable...');
+
+            table = $('#purchaseRequestsTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "searching": false,
+                "paging": true,
+                "pageLength": 10,
+                "lengthChange": true,
+                "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                "ajax": {
+                    "url": "@Url.Action("PurchaseRequests", "Reports", new { area = "Reports" })",
+                    "type": "GET",
+                    "data": function(d) {
+                        console.log('DataTables request data:', d);
+
+                        // Filters aur naye cascading dropdown parameters add kiye gaye hain
+                        return {
+                            FromDate: $('#FromDate').val(),
+                            ToDate: $('#ToDate').val(),
+                            DepartmentId: $('#DepartmentId').val(),
+                            BranchId: $('#BranchId').val(),
+                            RequestNumber: $('#RequestNumber').val(),
+                            RequestedByUserId: $('#RequestedByUserId').val(),
+                            StateId: $('#StateId').val(),
+                            OnlyMyRequests: $('#OnlyMyRequests').is(':checked'),
+                            MinAmount: $('#MinAmount').val(),
+                            MaxAmount: $('#MaxAmount').val(),
+
+                            // ⬅️ Naye Filters
+                            ProductNatureId: $('#ProductNatureId').val(),
+                            ProductId: $('#ProductId').val(),
+                            ServiceNatureId: $('#ServiceNatureId').val(),
+                            ServiceId: $('#ServiceId').val(),
+                            // ⬅️ End Naye Filters
+
+                            // DataTables pagination parameters
+                            start: d.start,
+                            length: d.length,
+                            draw: d.draw,
+                            PageIndex: Math.floor(d.start / d.length),
+                            PageSize: d.length,
+                            SearchValue: d.search ? d.search.value : '',
+                            SortColumnIndex: (d.order && d.order.length > 0) ? d.order[0].column : 2,
+                            SortDirection: (d.order && d.order.length > 0) ? d.order[0].dir : 'desc',
+                            Draw: d.draw
+                        };
+                    },
+                    "dataSrc": function(json) {
+                        console.log('Server response:', json);
+                        return json.data;
+                    },
+                    "error": function(xhr, error, code) {
+                        console.error('DataTable AJAX Error:', error);
+                        console.error('Status:', xhr.status);
+                        console.error('Response Text:', xhr.responseText);
+
+                        try {
+                            var errorResponse = JSON.parse(xhr.responseText);
+                            console.error('Parsed error:', errorResponse);
+                            alert('Error loading data: ' + (errorResponse.message || error));
+                        } catch(e) {
+                            alert('Error loading data. Check console for details.');
+                        }
+                    }
+                },
+                "columns": [
+                    {
+                        "data": "requestNumber",
+                        "defaultContent": "",
+                        "render": function(data, type, row) {
+                            if (!row || !row.id) return '';
+                            // URL ko dynamic banaya gaya
+                            var url = prDetailsUrlTemplate.replace('_ID_', row.id);
+                            return `<a href="${url}" class="text-decoration-none">${data}</a>`;
+                        }
+                    },
+                    { "data": "title", "defaultContent": "" },
+                    {
+                        "data": "requestDate",
+                        "render": function(data) {
+                            if (!data) return '';
+                            return new Date(data).toLocaleDateString();
+                        },
+                        "defaultContent": ""
+                    },
+                    { "data": "requestedByUserName", "defaultContent": "" },
+                    { "data": "departmentName", "defaultContent": "" },
+                    {
+                        "data": "statusName",
+                        "render": function(data, type, row) {
+                            if (!data) return '';
+                            var badgeClass = getStatusBadgeClass(data);
+                            return '<span class="badge ' + badgeClass + '">' + data + '</span>';
+                        },
+                        "defaultContent": ""
+                    },
+                    {
+                        "data": "totalAmount",
+                        "render": function(data) {
+                            if (data === null || data === undefined) return 'Rs.0.00';
+                            return 'Rs.' + parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2 });
+                        },
+                        "defaultContent": "Rs.0.00"
+                    },
+                    { "data": "daysInCurrentState", "defaultContent": "0" },
+                    {
+                        data: 'itemDisplay',
+                        name: 'Items',
+                        orderable: false,
+                        render: function(data) {
+                            return data || '';
+                        }
+                    },
+                ],
+                "order": [[2, "desc"]],
+                "drawCallback": function(settings) {
+                    console.log('DataTable draw complete. Rows:', settings.aoData.length);
+                }
+            });
+
+            console.log('DataTable initialized');
+
+            // =========================================================
+            //  START: CASCADING DROPDOWN LOGIC
+            // =========================================================
+
+            // Product Nature dropdown ka change event handle karega
+            $('#ProductNatureId').on('change', function () {
+                var productNatureId = $(this).val();
+                var productDropdown = $('#ProductId');
+
+                // Products dropdown ko clear karega aur default option add karega
+                productDropdown.empty().append('<option value="">All Products</option>');
+
+                // Agar koi product nature select ki gai hai, toh related products fetch karein
+                if (productNatureId) {
+                    $.ajax({
+                        url: '@Url.Action("GetProductsByNatureId", "Reports")', // Controller/Action ko verify kar lein
+                        type: 'GET',
+                        data: { natureId: productNatureId },
+                        success: function (data) {
+                            if (data && data.length > 0) {
+                                $.each(data, function (index, item) {
+                                    productDropdown.append($('<option></option>').val(item.value).text(item.text));
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.error("Error fetching products:", error);
+                        }
+                    });
+                }
+            });
+
+            // Service Nature dropdown ka change event handle karega
+            $('#ServiceNatureId').on('change', function () {
+                var serviceNatureId = $(this).val();
+                var serviceDropdown = $('#ServiceId');
+
+                // Services dropdown ko clear karega aur default option add karega
+                serviceDropdown.empty().append('<option value="">All Service</option>');
+
+                // Agar koi service nature select ki gai hai, toh related services fetch karein
+                if (serviceNatureId) {
+                    $.ajax({
+                        url: '@Url.Action("GetServicesByNatureId", "Reports")', // Controller/Action ko verify kar lein
+                        type: 'GET',
+                        data: { natureId: serviceNatureId },
+                        success: function (data) {
+                            if (data && data.length > 0) {
+                                $.each(data, function (index, item) {
+                                    serviceDropdown.append($('<option></option>').val(item.value).text(item.text));
+                                });
+                            }
+                        },
+                        error: function (error) {
+                            console.error("Error fetching services:", error);
+                        }
+                    });
+                }
+            });
+
+            // --- Validation Logic ---
+
+            // Product dropdown par click event, validation ke liye
+            $('#ProductId').on('click', function (e) {
+                if (!$('#ProductNatureId').val()) {
+                    e.preventDefault(); // Default dropdown behavior rokein
+                    alert('Please select a Product Nature first.');
+                    return false;
+                }
+            });
+
+            // Service dropdown par click event, validation ke liye
+            $('#ServiceId').on('click', function (e) {
+                if (!$('#ServiceNatureId').val()) {
+                    e.preventDefault(); // Default dropdown behavior rokein
+                    alert('Please select a Service Nature first.');
+                    return false;
+                }
+            });
+            // =========================================================
+            //  END: CASCADING DROPDOWN LOGIC
+            // =========================================================
+        });
+
+        function applyFilters() {
+            console.log('Applying filters...');
+            if (table) {
+                table.ajax.reload(); // DataTables ko reload karein
+            }
+        }
+
+        function clearFilters() {
+            console.log('Clearing filters...');
+            $('#filterForm')[0].reset();
+
+            // Manually reset cascading dropdowns to their initial state
+            $('#ProductId').empty().append('<option value="">All Products</option>');
+            $('#ServiceId').empty().append('<option value="">All Service</option>');
+
+            if (table) {
+                table.ajax.reload();
+            }
+        }
+
+        function exportToExcel() {
+            var exportForm = $('#exportForm');
+            exportForm.find('input[name="FromDate"]').val($('#FromDate').val());
+            exportForm.find('input[name="ToDate"]').val($('#ToDate').val());
+            exportForm.find('input[name="DepartmentId"]').val($('#DepartmentId').val());
+            exportForm.find('input[name="BranchId"]').val($('#BranchId').val());
+            exportForm.find('input[name="RequestNumber"]').val($('#RequestNumber').val());
+            exportForm.find('input[name="RequestedByUserId"]').val($('#RequestedByUserId').val());
+            exportForm.find('input[name="StateId"]').val($('#StateId').val());
+            exportForm.find('input[name="MinAmount"]').val($('#MinAmount').val());
+            exportForm.find('input[name="MaxAmount"]').val($('#MaxAmount').val());
+            exportForm.find('input[name="OnlyMyRequests"]').val($('#OnlyMyRequests').is(':checked') ? 'True' : 'False');
+
+            // ⬅️ Naye Filters Export Form mein add kiye gaye hain
+            exportForm.find('input[name="ProductNatureId"]').val($('#ProductNatureId').val());
+            exportForm.find('input[name="ProductId"]').val($('#ProductId').val());
+            exportForm.find('input[name="ServiceNatureId"]').val($('#ServiceNatureId').val());
+            exportForm.find('input[name="ServiceId"]').val($('#ServiceId').val());
+            // ⬅️ End Naye Filters
+
+            exportForm.submit();
+        }
+
+        function getStatusBadgeClass(status) {
+            switch(status) {
+                case 'Saved':
+                case 'Draft':
+                    return 'bg-secondary';
+                case 'Submitted':
+                case 'In Approval':
+                    return 'bg-warning text-dark';
+                case 'Approved':
+                    return 'bg-success';
+                case 'Rejected':
+                    return 'bg-danger';
+                case 'Returned':
+                    return 'bg-info text-dark';
+                case 'Cancelled':
+                    return 'bg-dark';
+                default:
+                    return 'bg-light text-dark';
+            }
+        }
+    </script>
+}

@@ -73,6 +73,17 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label"><i class="fas fa-lock me-2"></i> Account Lockout</label>
+            <div class="form-check form-switch">
+                <input asp-for="IsLockedOut" type="checkbox" class="form-check-input" />
+                <label class="form-check-label" asp-for="IsLockedOut" id="lockoutStatusLabel">
+                    @(Model.IsLockedOut ? "Locked" : "Unlocked")
+                </label>
+            </div>
+            <span asp-validation-for="IsLockedOut" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
             <label asp-for="User.IsActive" class="form-label"><i class="fas fa-power-off me-2"></i> Status</label>
             <div class="form-check form-switch">
                 <input asp-for="User.IsActive" type="checkbox" class="form-check-input" />
@@ -83,7 +94,7 @@
         </div>
 
         <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal" onclick="window.location.href='/UserManagement/Users/Index';">Cancel</button>
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal" onclick="window.location.href='@Url.Action("Index", "Users", new { area = "UserManagement" })';">Cancel</button>
             <button type="submit" class="btn" style="background-color: #092963; color: white;">
                 <i class="fas fa-save me-1" style="color: white;"></i> Save User
             </button>
@@ -93,4 +104,17 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        $(document).ready(function () {
+            // Update the label text based on the checkbox state
+            $('#IsLockedOut').on('change', function() {
+                const label = $('#lockoutStatusLabel');
+                if ($(this).is(':checked')) {
+                    label.text('Locked');
+                } else {
+                    label.text('Unlocked');
+                }
+            });
+        });
+    </script>
 }

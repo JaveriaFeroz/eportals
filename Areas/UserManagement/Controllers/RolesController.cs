@@ -1,13 +1,15 @@
-﻿using ProcureToPay.Areas.UserManagement.Models;
-using ProcureToPay.Areas.UserManagement.ViewModels;
-using ProcureToPay.Data;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ProcureToPay.Areas.Common.Models;
+using ProcureToPay.Areas.UserManagement.Models;
 using ProcureToPay.Areas.UserManagement.Models;
 using ProcureToPay.Areas.UserManagement.ViewModels;
+using ProcureToPay.Areas.UserManagement.ViewModels;
+using ProcureToPay.Data;
 using ProcureToPay.Data;
 
 namespace ProcureToPay.Areas.UserManagement.Controllers
@@ -47,13 +49,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
         public IActionResult Create()
         {
             var model = new RoleCreateViewModel();
-
-            // Get the maximum HierarchyLevel from the database
-            // Use .DefaultIfEmpty(0) to handle the case where no roles exist yet
-            var maxHierarchyLevel = _context.Roles.Any() ? _context.Roles.Max(r => r.HierarchyLevel) : 0;
-
-            // Set the next available hierarchy level
-            model.HierarchyLevel = maxHierarchyLevel + 1;
 
             return View(model);
         }
@@ -100,7 +95,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
             {
                 Name = viewModel.Name,
                 Description = viewModel.Description,
-                HierarchyLevel = viewModel.HierarchyLevel,
                 IsActive = viewModel.IsActive
             };
 
@@ -148,7 +142,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                 Id = role.Id,
                 Name = role.Name,
                 Description = role.Description,
-                HierarchyLevel = role.HierarchyLevel,
                 IsActive = role.IsActive
             };
 
@@ -189,7 +182,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                 existingRole.Name = viewModel.Name;
                 existingRole.NormalizedName = viewModel.Name.ToUpper();
                 existingRole.Description = viewModel.Description;
-                existingRole.HierarchyLevel = viewModel.HierarchyLevel;
                 existingRole.IsActive = viewModel.IsActive;
 
                 var result = await _roleManager.UpdateAsync(existingRole);
@@ -308,13 +300,25 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageModuleHierarchy(string moduleName)
         {
+
+
             if (string.IsNullOrEmpty(moduleName))
             {
-                //  all modules for selection
-                var modules = await _context.Modules.Where(m => m.IsActive).ToListAsync();
+                // ⭐ FIX: Add condition to exclude the module with Id == 15.
+                var modules = await _context.Modules
+                    .Where(m => m.IsActive && m.Id != 15)
+                    .ToListAsync();
+
                 return View("SelectModule", modules);
             }
 
+            // Check if the module is "Payment Request" and redirect to the new selection page
+            if (moduleName == "Payment Request")
+            {
+                return RedirectToAction(nameof(SelectPaymentHierarchy), new { moduleName = moduleName });
+            }
+
+            // Existing logic for other modules
             var module = await _context.Modules.FirstOrDefaultAsync(m => m.Name == moduleName);
             if (module == null)
             {
@@ -347,7 +351,12 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateModuleHierarchy(string moduleName, List<int> roleIds, List<int> hierarchyLevels)
+        public async Task<IActionResult> UpdateModuleHierarchy(
+    string moduleName,
+    List<int> roleIds,
+    List<int> hierarchyLevels,
+    int? paymentNatureId = null, // Add these parameters
+    int? paymentSubNatureId = null) // Add these parameters
         {
             if (string.IsNullOrEmpty(moduleName) || roleIds.Count != hierarchyLevels.Count)
             {
@@ -361,30 +370,90 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                 return NotFound("Module not found");
             }
 
-            // Remove existing hierarchies for this module
-            var existingHierarchies = await _context.ModuleRoleHierarchies
-                .Where(m => m.ModuleName == moduleName)
-                .ToListAsync();
+            // Yahan hum paymentNatureId aur paymentSubNatureId ko short? mein convert kar rahe hain
+            short? natureId = paymentNatureId.HasValue ? (short)paymentNatureId.Value : (short?)null;
+            short? subNatureId = paymentSubNatureId.HasValue ? (short)paymentSubNatureId.Value : (short?)null;
 
-            _context.ModuleRoleHierarchies.RemoveRange(existingHierarchies);
-
-            //  new hierarchies
-            for (int i = 0; i < roleIds.Count; i++)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                var roleHierarchy = new ModuleRoleHierarchy
+                try
                 {
-                    RoleId = roleIds[i],
-                    ModuleName = moduleName,
-                    HierarchyLevel = hierarchyLevels[i]
-                };
+                    // Step 1: Remove existing hierarchies for the specific module and, if provided, nature/sub-nature combination
+                    var existingHierarchies = await _context.ModuleRoleHierarchies
+                        .Where(m => m.ModuleName == moduleName)
+                        .ToListAsync();
+                    _context.ModuleRoleHierarchies.RemoveRange(existingHierarchies);
 
-                _context.ModuleRoleHierarchies.Add(roleHierarchy);
+                    // Step 2: Remove existing WorkflowApprovalSequences for this workflow type and combination
+                    var existingWorkflowSequences = await _context.WorkFlowApprovalSequences
+                        .Where(s => s.WorkFlowTypeId == module.Id &&
+                                    s.PaymentNatureID == natureId && // Use the new variables here
+                                    s.PaymentSubNatureID == subNatureId) // Use the new variables here
+                        .ToListAsync();
+
+                    _context.WorkFlowApprovalSequences.RemoveRange(existingWorkflowSequences);
+
+                    // Step 3: Add new ModuleRoleHierarchies and WorkflowApprovalSequences
+                    for (int i = 0; i < roleIds.Count; i++)
+                    {
+                        var roleHierarchy = new ModuleRoleHierarchy
+                        {
+                            RoleId = roleIds[i],
+                            ModuleName = moduleName,
+                            HierarchyLevel = hierarchyLevels[i]
+                        };
+
+                        _context.ModuleRoleHierarchies.Add(roleHierarchy);
+
+                        // Combine user role and user data to get BranchId and DepartmentId
+                        var userDetails = await (from ur in _context.UserRoles
+                                                 join u in _context.Users on ur.UserId equals u.Id
+                                                 where ur.RoleId == roleIds[i]
+                                                 select new
+                                                 {
+                                                     u.BranchId,
+                                                     u.DepartmentId
+                                                 }).FirstOrDefaultAsync();
+
+                        if (userDetails != null)
+                        {
+                            var workflowSequence = new WorkFlowApprovalSequence
+                            {
+                                WorkFlowTypeId = module.Id,
+                                RoleID = roleIds[i],
+                                ApprovalSeq = hierarchyLevels[i],
+                                DepartmentCode = userDetails.DepartmentId.ToString(),
+                                BranchCode = userDetails.BranchId.ToString(),
+                                IsActive = true,
+                                // Yahan par new IDs store kar rahe hain
+                                PaymentNatureID = natureId,
+                                PaymentSubNatureID = subNatureId,
+                                // Other fields remain as placeholders or as defined by your logic
+                                RequestNatureId = 0,
+                                RequestTypeId = 0,
+                                CompanyCode = "XYZ",
+                                MinAmount = 0,
+                                MaxAmount = 999999999
+                            };
+                            _context.WorkFlowApprovalSequences.Add(workflowSequence);
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    return RedirectToAction(nameof(ManageModuleHierarchy), new { moduleName = moduleName });
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    // Log the exception and handle it appropriately
+                    return StatusCode(500, "An error occurred while updating the module hierarchy.");
+                }
             }
-
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(ManageModuleHierarchy), new { moduleName = moduleName });
         }
+
+
 
         private bool RoleExists(int id)
         {
@@ -409,7 +478,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
             {
                 Name = $"{role.Name} (Copy)",
                 Description = role.Description,
-                HierarchyLevel = role.HierarchyLevel,
                 IsActive = role.IsActive
             };
 
@@ -439,62 +507,43 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //  role export method
-        public async Task<IActionResult> Export()
-        {
-            var roles = await _roleManager.Roles.ToListAsync();
-            var moduleHierarchies = await _context.ModuleRoleHierarchies
-                .Include(m => m.Role)
-                .ToListAsync();
-
-            var exportData = new
-            {
-                Roles = roles,
-                ModuleHierarchies = moduleHierarchies
-            };
-
-            var json = System.Text.Json.JsonSerializer.Serialize(exportData, new System.Text.Json.JsonSerializerOptions
-            {
-                WriteIndented = true,
-                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
-            });
-
-            return File(System.Text.Encoding.UTF8.GetBytes(json), "application/json", "roles_export.json");
-        }
-
 
         //  user role assignment method
-        public async Task<IActionResult> AssignUsers(int? id, [FromServices] UserManager<User> userManager)
+        public async Task<IActionResult> AssignUsers(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var role = await _roleManager.FindByIdAsync(id.ToString()); // FindByIdAsync expects string
+            // Use RoleManager to find the role by ID
+            var role = await _roleManager.FindByIdAsync(id.ToString());
             if (role == null)
             {
                 return NotFound();
             }
 
-            // Get all users from the database
-            var allUsers = await userManager.Users.ToListAsync();
-
-            // Filter users who are currently in this role
-            var usersInRole = new List<IdentityUser<int>>();
-            var availableUsers = new List<IdentityUser<int>>();
-
-            foreach (var user in allUsers)
-            {
-                if (await userManager.IsInRoleAsync(user, role.Name))
+            // Get all users and their role assignments in a single query
+            // This is the efficient part that solves the N+1 problem
+            var usersWithRoles = await _context.Users
+                .Include(u => u.UserRoles) // Make sure to include the navigation property
+                .Select(u => new
                 {
-                    usersInRole.Add(user);
-                }
-                else
-                {
-                    availableUsers.Add(user);
-                }
-            }
+                    User = u,
+                    IsInRole = u.UserRoles.Any(ur => ur.RoleId == role.Id)
+                })
+                .ToListAsync();
+
+            // Now, split the results into two lists in memory (which is very fast)
+            var usersInRole = usersWithRoles
+                .Where(x => x.IsInRole)
+                .Select(x => x.User)
+                .ToList();
+
+            var availableUsers = usersWithRoles
+                .Where(x => !x.IsInRole)
+                .Select(x => x.User)
+                .ToList();
 
             var viewModel = new AssignUsersViewModel
             {
@@ -505,8 +554,6 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
 
             return View(viewModel);
         }
-
-
 
         // POST: UserManagement/Roles/AssignUsers
         [HttpPost]
@@ -625,6 +672,206 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { id = id });
+        }
+
+        // GET: UserManagement/Roles/SelectPaymentHierarchy
+        [HttpGet]
+        public async Task<IActionResult> SelectPaymentHierarchy(string moduleName)
+        {
+            var module = await _context.Modules.FirstOrDefaultAsync(m => m.Name == moduleName);
+            if (module == null)
+            {
+                return NotFound("Module not found.");
+            }
+
+            var viewModel = new SelectPaymentHierarchyViewModel
+            {
+                ModuleName = module.Name,
+                ModuleDisplayName = module.DisplayName,
+                // Only get active PaymentNatures
+                PaymentNatures = await _context.PaymentNatures
+                                               .Where(pn => pn.IsActive)
+                                               .ToListAsync(),
+                // Only get active PaymentSubNatures
+                PaymentSubNatures = await _context.SubNatures
+                                                  .Where(sn => sn.IsActive)
+                                                  .ToListAsync()
+            };
+
+            // Check for existing hierarchies to display on the cards
+            var existingSequences = await _context.WorkFlowApprovalSequences
+                .Where(s => s.WorkFlowTypeId == module.Id)
+                .Select(s => new { s.PaymentNatureID, s.PaymentSubNatureID })
+                .Distinct()
+                .ToListAsync();
+
+            viewModel.ExistingHierarchies = existingSequences
+                .ToDictionary(s => (s.PaymentNatureID, s.PaymentSubNatureID), s => true);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManagePaymentRequestHierarchy(string moduleName, int? paymentNatureId, int? paymentSubNatureId)
+        {
+            var module = await _context.Modules.FirstOrDefaultAsync(m => m.Name == moduleName);
+
+            if (module == null)
+            {
+                return NotFound("Module not found.");
+            }
+
+            // Default values set karein agar parameters null hon
+            var natureId = paymentNatureId ?? 0;
+            var subNatureId = paymentSubNatureId ?? 0;
+
+            // Existing hierarchy load karein
+            var roleHierarchies = new List<ModuleRoleHierarchy>();
+            if (natureId > 0 && subNatureId > 0)
+            {
+                // WorkFlowApprovalSequences ko join karke ModuleRoleHierarchy mein map karein
+                roleHierarchies = await _context.WorkFlowApprovalSequences
+                    .Include(s => s.Role) // Ensure Role navigation property is loaded
+                    .Where(s => s.WorkFlowTypeId == module.Id &&
+                                s.PaymentNatureID == natureId &&
+                                s.PaymentSubNatureID == subNatureId)
+                    .OrderBy(s => s.ApprovalSeq)
+                    .Select(s => new ModuleRoleHierarchy
+                    {
+                        RoleId = s.RoleID,
+                        Role = s.Role,
+                        HierarchyLevel = s.ApprovalSeq,
+                    })
+                    .ToListAsync();
+            }
+
+            // Available roles load karein jo is hierarchy mein nahi hain
+            var rolesInHierarchy = roleHierarchies.Select(r => r.RoleId).ToList();
+            var availableRoles = await _roleManager.Roles
+                .Where(r => !rolesInHierarchy.Contains(r.Id))
+                .ToListAsync();
+
+            // Dropdowns ke liye SelectListItem banayein
+            var paymentNaturesForDropdown = await _context.PaymentNatures.Select(n => new SelectListItem
+            {
+                Value = n.PaymentNatureId.ToString(),
+                Text = n.PaymentNatureName
+            }).ToListAsync();
+
+            var paymentSubNaturesForDropdown = await _context.SubNatures.Select(s => new SelectListItem
+            {
+                Value = s.SubNatureId.ToString(),
+                Text = s.SubNatureName
+            }).ToListAsync();
+
+            // View Model banayein
+            var viewModel = new PaymentRequestHierarchyViewModel
+            {
+                ModuleName = module.Name,
+                ModuleDisplayName = module.DisplayName,
+                PaymentNatureId = natureId,
+                PaymentSubNatureId = subNatureId,
+                RoleHierarchies = roleHierarchies,
+                AvailableRoles = availableRoles,
+                PaymentNatures = paymentNaturesForDropdown,
+                PaymentSubNatures = paymentSubNaturesForDropdown,
+            };
+
+            return View(viewModel);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdatePaymentRequestHierarchy(
+    string moduleName,
+    int? paymentNatureId,
+    int? paymentSubNatureId,
+    List<int> roleIds,
+    List<int> hierarchyLevels)
+        {
+            // Pehle validation check karein
+            if (string.IsNullOrEmpty(moduleName) || roleIds.Count != hierarchyLevels.Count)
+            {
+                return BadRequest("Invalid data. Role and hierarchy lists do not match.");
+            }
+
+            // Module find karein
+            var module = await _context.Modules.FirstOrDefaultAsync(m => m.Name == moduleName);
+            if (module == null)
+            {
+                return NotFound("Module not found.");
+            }
+
+            // PaymentNatureId aur PaymentSubNatureId ko check karein
+            short? natureId = paymentNatureId.HasValue ? (short?)paymentNatureId.Value : null;
+            short? subNatureId = paymentSubNatureId.HasValue ? (short?)paymentSubNatureId.Value : null;
+
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Step 1: Existing records remove karein
+                    // Hum hamesha existing records ko remove karte hain taaki naye records unki jagah le sakein.
+                    var existingSequences = await _context.WorkFlowApprovalSequences
+                        .Where(s => s.WorkFlowTypeId == module.Id &&
+                                    s.PaymentNatureID == natureId &&
+                                    s.PaymentSubNatureID == subNatureId)
+                        .ToListAsync();
+
+                    if (existingSequences.Any())
+                    {
+                        _context.WorkFlowApprovalSequences.RemoveRange(existingSequences);
+                    }
+
+                    // Step 2: Naye records add karein
+                    for (int i = 0; i < roleIds.Count; i++)
+                    {
+                        var roleId = roleIds[i];
+                        var hierarchyLevel = hierarchyLevels[i];
+
+                        var userDetails = await (from ur in _context.UserRoles
+                                                 join u in _context.Users on ur.UserId equals u.Id
+                                                 where ur.RoleId == roleId
+                                                 select new
+                                                 {
+                                                     u.BranchId,
+                                                     u.DepartmentId
+                                                 }).FirstOrDefaultAsync();
+
+                        var workflowSequence = new WorkFlowApprovalSequence
+                        {
+                            WorkFlowTypeId = module.Id,
+                            RoleID = roleId,
+                            ApprovalSeq = hierarchyLevel,
+                            PaymentNatureID = natureId,
+                            PaymentSubNatureID = subNatureId,
+                            IsActive = true,
+                            BranchCode = userDetails?.BranchId.ToString() ?? "N/A",
+                            DepartmentCode = userDetails?.DepartmentId.ToString() ?? "N/A",
+                            RequestNatureId = 0,
+                            RequestTypeId = 0,
+                            CompanyCode = "XYZ",
+                            MinAmount = 0,
+                            MaxAmount = 999999999
+                        };
+                        _context.WorkFlowApprovalSequences.Add(workflowSequence);
+                    }
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    TempData["SuccessMessage"] = "Payment Request hierarchy updated successfully!";
+                    return RedirectToAction(nameof(ManageModuleHierarchy));
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    TempData["ErrorMessage"] = "An error occurred while saving the hierarchy. Please try again.";
+                    return RedirectToAction(nameof(ManageModuleHierarchy));
+                }
+            }
         }
     }
 }

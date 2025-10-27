@@ -11,7 +11,7 @@ namespace ProcureToPay.Areas.UserManagement.Models.ViewModels
 
         [Required(ErrorMessage = "Module is required")]
         [Display(Name = "Module")]
-        public int ModuleId { get; set; }
+        public short ModuleId { get; set; }
 
         [StringLength(500, ErrorMessage = "Description cannot be longer than 500 characters")]
         public string Description { get; set; }

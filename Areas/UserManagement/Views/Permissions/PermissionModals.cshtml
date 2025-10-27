@@ -55,10 +55,12 @@
     document.addEventListener('DOMContentLoaded', function () {
         // Helper function to build URLs
         function getUrl(area, page, action, id) {
+            let baseUrl = '@Url.Content("~/")';
+
             if (id) {
-                return `/${area}/${page}/${action}/${id}`;
+                return `${baseUrl}${area}/${page}/${action}/${id}`;
             }
-            return `/${area}/${page}/${action}`;
+            return `${baseUrl}${area}/${page}/${action}`;
         }
 
         // --- Function to attach/re-attach form submission handler for the Permission Edit modal ---

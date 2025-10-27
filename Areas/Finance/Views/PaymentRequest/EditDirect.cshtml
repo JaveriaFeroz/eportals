@@ -1,0 +1,337 @@
+﻿@model ProcureToPay.Areas.Finance.ViewModels.EditDirectPaymentRequestViewModel
+
+<style>
+    /* These styles can be moved to a shared stylesheet if used globally */
+    .input-group-text.custom-blue {
+        background-color: #092963;
+        color: white;
+    }
+
+    .form-check-input:checked {
+        background-color: #092963;
+        border-color: #092963;
+    }
+</style>
+
+<form asp-action="EditDirect" asp-controller="PaymentRequest" method="post" id="editDirectForm" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="CreatedByUserId" />
+    <input type="hidden" asp-for="CreatedByUserName" />
+
+    <div class="modal-body">
+
+        <div class="card mb-4">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                    <i class="fas fa-info-circle me-2"></i> Payment Request
+                </h6>
+                <div class="d-flex align-items-center">
+                    <label asp-for="SelfApplicant" class="form-label mb-0 me-2" for="selfApplicantSwitch" style="color: #092963;">Self Payee</label>
+                    <div class="form-check form-switch">
+                        <input asp-for="SelfApplicant" class="form-check-input" type="checkbox" role="switch" id="selfApplicantSwitch">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3" id="supplier-field">
+                        <label asp-for="SupplierId" class="form-label">Supplier <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-truck"></i></span>
+                            <select asp-for="SupplierId" class="form-select" asp-items="@Model.Suppliers">
+                                <option value="">Select Supplier</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="PayeeName" class="form-label">Payee Name <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-user"></i></span>
+                            <input asp-for="PayeeName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="PayeeName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="RequiredDate" class="form-label">Required Date <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-calendar-alt"></i></span>
+                            <input asp-for="RequiredDate" type="date" class="form-control" required />
+                        </div>
+                        <span asp-validation-for="RequiredDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="CurrencyId" class="form-label">Currency <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-money-bill-wave"></i></span>
+                            <select asp-for="CurrencyId" class="form-select" asp-items="@Model.Currencies" required>
+                                <option value="">Select Currency</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="CurrencyId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="PaymentModeId" class="form-label">Payment Mode</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-credit-card"></i></span>
+                            <select asp-for="PaymentModeId" class="form-select" asp-items="@Model.PaymentModes">
+                                <option value="">Select Mode</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="PaymentModeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="PaymentTypeId" class="form-label">Payment Type</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-tags"></i></span>
+                            <select asp-for="PaymentTypeId" class="form-select" asp-items="@Model.PaymentTypes">
+                                <option value="">Select Type</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="PaymentNatureId" class="form-label">Payment Nature</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-leaf"></i></span>
+                            <select asp-for="PaymentNatureId" class="form-select" asp-items="@Model.PaymentNatures">
+                                <option value="">Select Payment Nature</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="PaymentNatureId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="PaymentSubNatureId" class="form-label">Sub Nature</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-leaf"></i></span>
+                            <select asp-for="PaymentSubNatureId" class="form-select" asp-items="@Model.SubNatures">
+                                <option value="">Select Sub Nature</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="PaymentSubNatureId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="DepartmentCode" class="form-label">Departments</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-building"></i></span>
+                            <select asp-for="DepartmentCode" class="form-select" asp-items="@Model.Departments"></select>
+                        </div>
+                        <span asp-validation-for="DepartmentCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="BranchCode" class="form-label">Branch</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-map-marker-alt"></i></span>
+                            <select asp-for="BranchCode" class="form-select" asp-items="@Model.Branches"></select>
+                        </div>
+                        <span asp-validation-for="BranchCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="CompanyCode" class="form-label">Company</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-building"></i></span>
+                            <select asp-for="CompanyCode" class="form-select" asp-items="@Model.Companies">
+                                <option value="">Select Company</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="CompanyCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                    <i class="fas fa-boxes me-2"></i> Payment Request Details
+                </h6>
+                <button type="button" class="btn btn-sm" style="background-color: #092963; color: white;" id="addDetailBtn">
+                    <i class="fas fa-plus me-1"></i> Add Detail
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="details-container" class="mb-3">
+                    @if (Model.Details != null && Model.Details.Any())
+                    {
+                        var today = DateTime.Today;
+                        var sixMonthsAgo = today.AddMonths(-6);
+
+                        // Format dates to YYYY-MM-DD
+                        var todayFormatted = today.ToString("yyyy-MM-dd");
+                        var sixMonthsAgoFormatted = sixMonthsAgo.ToString("yyyy-MM-dd");
+
+                        for (int i = 0; i < Model.Details.Count; i++)
+                        {
+                            <div class="card card-body mb-2 detail-row">
+                                <input type="hidden" asp-for="Details[i].Id" />
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label">Invoice Number</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-file-invoice"></i></span>
+                                            <input asp-for="Details[i].InvoiceNo" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label">Invoice Date <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-calendar-alt"></i></span>
+                                            <input asp-for="Details[i].InvoiceDate" type="date" class="form-control invoice-date-field" required
+                                                   min="@sixMonthsAgoFormatted" max="@todayFormatted" />
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mb-3">
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-comment-dots"></i></span>
+                                            <textarea asp-for="Details[i].Description" class="form-control" rows="1" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3 d-flex align-items-end">
+                                        <button type="button" class="btn btn-danger remove-detail-btn w-100">
+                                            <i class="fas fa-trash me-1"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label">Amount Ex Tax <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-dollar-sign"></i></span>
+                                            <input asp-for="Details[i].AmountExTax" type="number" step="0.01" class="form-control amount-field" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label">Sales Tax Rate (%)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-percent"></i></span>
+                                            <input asp-for="Details[i].STRate" type="number" step="0.01" class="form-control tax-field" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label">Other Tax</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-dollar-sign"></i></span>
+                                            <input asp-for="Details[i].OtherTax" type="number" step="0.01" class="form-control other-tax-field" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label">Total Amount</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-dollar-sign"></i></span>
+                                            <input type="text" class="form-control line-total-display" readonly />
+                                            <input type="hidden" asp-for="Details[i].TotalAmount" class="line-total-hidden" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div id="error-popup-message" class="alert alert-danger" style="display: none;"></div>
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <label class="form-label mb-0">Total Amount Ex Tax</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="text" id="totalAmountExTaxDisplay" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label mb-0">Total Other Tax</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="text" id="totalOtherTaxDisplay" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label mb-0">Grand Total</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="text" id="grandTotalDisplay" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4" id="costAllocationCard">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                    <i class="fas fa-chart-pie me-2"></i> Cost Allocation
+                </h6>
+                <button type="button" class="btn btn-sm" style="background-color: #092963; color: white;" id="addCostAllocationBtn">
+                    <i class="fas fa-plus me-1"></i> Add Allocation
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="cost-allocation-container" class="mb-3">
+                    @if (Model.CostAllocations != null && Model.CostAllocations.Any())
+                    {
+                        for (int i = 0; i < Model.CostAllocations.Count; i++)
+                        {
+                            <div class="card card-body mb-2 allocation-row">
+                                <input type="hidden" asp-for="CostAllocations[i].Id" />
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label asp-for="CostAllocations[i].DepartmentCode" class="form-label">Department</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-building"></i></span>
+                                            <select asp-for="CostAllocations[i].DepartmentCode" class="form-select department-select" asp-items="@Model.Departments"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label asp-for="CostAllocations[i].BranchCode" class="form-label">Branch</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-map-marker-alt"></i></span>
+                                            <select asp-for="CostAllocations[i].BranchCode" class="form-select branch-select" asp-items="@Model.Branches"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <label asp-for="CostAllocations[i].Rate" class="form-label">Rate (%) <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text custom-blue"><i class="fas fa-percent"></i></span>
+                                            <input asp-for="CostAllocations[i].Rate" type="number" step="0.01" min="0" max="100" class="form-control rate-field" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3 d-flex align-items-end">
+                                        <button type="button" class="btn btn-danger remove-allocation-btn w-100">
+                                            <i class="fas fa-trash me-1"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-light text-primary" data-bs-dismiss="modal">
+                <i class="fas fa-arrow-left me-1"></i> Close
+            </button>
+            <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                <i class="fas fa-save me-1"></i> Save Changes
+            </button>
+        </div>
+    </div>
+</form>

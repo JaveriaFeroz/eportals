@@ -2,7 +2,7 @@
 
 namespace ProcureToPay.Areas.Auth.Models
 {
-    public class ChangePasswordViewModel
+    public class ChangePasswordViewModel : AuthViewModelBase
     {
         public int UserId { get; set; }
 

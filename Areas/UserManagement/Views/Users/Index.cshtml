@@ -8,12 +8,6 @@
 <script src="~/js/scripts.js" asp-append-version="true"></script>
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-action="Index">Users</a></li>
-        <li class="breadcrumb-item active">Index</li>
-    </ol>
-
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
             <h5 class="card-title text-white mb-0">
@@ -22,33 +16,78 @@
         </div>
         <div class="card-body">
 
-            <!-- Search Filters -->
             <div class="search-container mb-3">
                 <div class="row g-3 align-items-center">
-                    <div class="col-2">
+                    <div class="col-md-2">
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                            <input type="text" class="form-control form-control-sm underline-input" id="usernameSearch" data-filter="username" placeholder="Username">
+                            <input type="text" class="form-control form-control-sm underline-input" id="usernameSearch"
+                                   placeholder="Username">
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-md-2">
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                            <input type="text" class="form-control form-control-sm underline-input" id="emailSearch" data-filter="email" placeholder="Email">
+                            <input type="text" class="form-control form-control-sm underline-input" id="emailSearch"
+                                   placeholder="Email">
                         </div>
                     </div>
-                    <div class="col-2">
-                        <select class="form-select form-select-sm underline-input" id="statusSearch" data-filter="status">
-                            <option value="">All</option>
-                            <option value="true">Active</option>
-                            <option value="false">Inactive</option>
-                        </select>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select id="branchSearch" class="form-select form-select-sm underline-input"
+                                    data-filter-type="branch">
+                                <option value="">All Branches</option>
+                                @{
+                                    var uniqueBranches = Model.Users
+                                    .Where(u => u.Branch != null)
+                                    .Select(u => u.Branch.BranchName)
+                                    .Distinct()
+                                    .OrderBy(b => b)
+                                    .ToList();
+                                }
+                                @foreach (var branchName in uniqueBranches)
+                                {
+                                    <option value="@branchName">@branchName</option>
+                                }
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select id="roleSearch" class="form-select form-select-sm underline-input"
+                                    data-filter-type="role">
+                                <option value="">All Roles</option>
+                                @{
+                                    var uniqueRoles = Model.Users
+                                    .SelectMany(u => Model.UserRoles.ContainsKey(u.Id) ? Model.UserRoles[u.Id] : new List<string>())
+                                    .Distinct()
+                                    .OrderBy(r => r)
+                                    .ToList();
+                                }
+                                @foreach (var roleName in uniqueRoles)
+                                {
+                                    <option value="@roleName">@roleName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select class="form-select form-select-sm underline-input" id="statusSearch">
+                                <option value="">All</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
-                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%;">
                             <span>Clear</span>
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
                         </button>
                     </div>
 
@@ -68,51 +107,53 @@
                 </div>
             </div>
 
-            <!-- Table Header -->
-            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary">
-                <div class="col-2 d-flex align-items-center">
-                    <i class="fas fa-user me-1 text-dark"></i> USERNAME
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <i class="fas fa-id-card me-1 text-dark"></i> FULL NAME
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <i class="fas fa-envelope me-1 text-dark"></i> EMAIL
-                </div>
-                <div class="col-1 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-code-branch me-1 text-dark"></i> BRANCH
-                </div>
-                <div class="col-1 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-building me-1 text-dark"></i> DEPT
-                </div>
-                <div class="col-1 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-toggle-on me-1 text-dark"></i> STATUS
-                </div>
-                <div class="col-2 text-center d-flex align-items-center justify-content-center">
-                    <i class="fas fa-cogs me-1 text-dark"></i> ACTIONS
-                </div>
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user me-1 text-dark"></i> USERNAME</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-id-card me-1 text-dark"></i> FULL NAME</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-envelope me-1 text-dark"></i> EMAIL</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-code-branch me-1 text-dark"></i> BRANCH</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-building me-1 text-dark"></i> DEPT</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user-tag me-1 text-dark"></i> ROLES</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-toggle-on me-1 text-dark"></i> STATUS</div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center"><i class="fas fa-cogs me-1 text-dark"></i> ACTIONS</div>
             </div>
 
-            <!-- Table Body -->
             @foreach (var user in Model.Users)
             {
                 <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
-                    <div class="col-2 fw-bold">@user.UserName</div>
-                    <div class="col-2">@user.FirstName @user.LastName</div>
-                    <div class="col-2">@user.Email</div>
-                    <div class="col-1 text-center">@(user.Branch?.BranchName ?? "N/A")</div>
-                    <div class="col-1 text-center">@(user.Department?.DepartmentName ?? "N/A")</div>
-                    <div class="col-1 text-center">
+                    <div class="col-12 col-md-2" data-column-value="username">
+                        <strong class="fw-bold">@user.UserName</strong>
+                    </div>
+                    <div class="col-12 col-md-2">@user.FirstName @user.LastName</div>
+                    <div class="col-12 col-md-2" data-column-value="email">
+                        <span>@user.Email</span>
+                    </div>
+                    <div class="col-6 col-md-1" data-column-value="branch">
+                        <span>@(user.Branch?.BranchName ?? "N/A")</span>
+                    </div>
+                    <div class="col-6 col-md-1">
+                        <span>@(user.Department?.DepartmentName ?? "N/A")</span>
+                    </div>
+                    <div class="col-12 col-md-2" data-column-value="role">
+                        @if (Model.UserRoles.ContainsKey(user.Id))
+                        {
+                            @foreach (var role in Model.UserRoles[user.Id])
+                            {
+                                <span class="badge bg-secondary me-1">@role</span>
+                            }
+                        }
+                    </div>
+                    <div class="col-12 col-md-1 text-center">
                         @if (user.IsActive)
                         {
-                            <span class="badge status-badge">Active</span>
+                            <span class="badge status-badge" data-state-id="1">Active</span>
                         }
                         else
                         {
-                            <span class="badge status-badge bg-danger">Inactive</span>
+                            <span class="badge status-badge bg-danger" data-state-id="0">Inactive</span>
                         }
                     </div>
-                    <div class="col-2 d-flex justify-content-center gap-1">
+                    <div class="col-12 col-md-1 d-flex justify-content-center gap-1 mt-2 mt-md-0">
                         <button type="button" class="btn btn-sm text-warning edit-btn action-btn"
                                 title="Edit" data-id="@user.Id" data-area="UserManagement" data-page="Users">
                             <i class="fas fa-edit icon-warning"></i>
@@ -121,21 +162,68 @@
                                 title="Details" data-id="@user.Id" data-area="UserManagement" data-page="Users">
                             <i class="fas fa-info-circle icon-info"></i>
                         </button>
-                        <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
-                                title="Delete" data-id="@user.Id" data-area="UserManagement" data-page="Users" data-user-username="@user.UserName">
-                            <i class="fas fa-trash-alt icon-danger"></i>
-                        </button>
                     </div>
                 </div>
             }
-
-            <div class="d-flex justify-content-end mt-3">
-                <a class="btn btn-light text-primary" href="/Home/Index">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </a>
-            </div>
 
         </div>
         @await Html.PartialAsync("UserModals")
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const usernameSearch = document.getElementById('usernameSearch');
+        const emailSearch = document.getElementById('emailSearch');
+        const branchSearch = document.getElementById('branchSearch');
+        const roleSearch = document.getElementById('roleSearch'); // New search field
+        const statusSearch = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const rows = document.querySelectorAll('.user-row');
+
+        function filterRows() {
+            const usernameValue = usernameSearch.value.toLowerCase();
+            const emailValue = emailSearch.value.toLowerCase();
+            const branchValue = branchSearch.value.toLowerCase();
+            const roleValue = roleSearch.value.toLowerCase(); // New filter value
+            const statusValue = statusSearch.value;
+
+            rows.forEach(row => {
+                const usernameText = row.querySelector('[data-column-value="username"]').textContent.trim().toLowerCase();
+                const emailText = row.querySelector('[data-column-value="email"]').textContent.trim().toLowerCase();
+                const branchText = row.querySelector('[data-column-value="branch"]').textContent.trim().toLowerCase();
+                const rolesText = row.querySelector('[data-column-value="role"]').textContent.trim().toLowerCase(); // Get text content of roles column
+                const rowStatusId = row.querySelector('.status-badge').getAttribute('data-state-id');
+
+                const usernameMatch = usernameValue === '' || usernameText.includes(usernameValue);
+                const emailMatch = emailValue === '' || emailText.includes(emailValue);
+                const branchMatch = branchValue === '' || branchText.includes(branchValue);
+                const roleMatch = roleValue === '' || rolesText.includes(roleValue); // Check if the role is present
+                const statusMatch = statusValue === '' || rowStatusId === statusValue;
+
+                if (usernameMatch && emailMatch && branchMatch && roleMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        usernameSearch.addEventListener('input', filterRows);
+        emailSearch.addEventListener('input', filterRows);
+        branchSearch.addEventListener('change', filterRows); // Changed from 'input' to 'change'
+        roleSearch.addEventListener('change', filterRows); // Added new 'change' listener
+        statusSearch.addEventListener('change', filterRows);
+
+        clearButton.addEventListener('click', function () {
+            usernameSearch.value = '';
+            emailSearch.value = '';
+            branchSearch.value = '';
+            roleSearch.value = '';
+            statusSearch.value = '';
+            filterRows();
+        });
+
+        filterRows();
+    });
+</script>

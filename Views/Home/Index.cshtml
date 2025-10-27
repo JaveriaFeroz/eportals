@@ -3,225 +3,125 @@
 }
 
 @await Html.PartialAsync("_Greeting")
-<!-- Main Dashboard Container -->
+
 <div class="dashboard-container">
-    <!-- Top Statistics Cards -->
     <div class="stat-cards">
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <h6 class="stat-card-title">Today's requests</h6>
-            </div>
-            <div class="stat-card-main">
-                <div class="icon-box bg-blue">
-                    <i class="bi bi-clipboard-check"></i>
+        <a href="@Url.Action("DetailsList", "Home", new { statusId = 0 })" class="stat-card-link">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h6 class="stat-card-title">Draft's requests</h6>
                 </div>
-                <div>
-                    <div class="stat-value">
-                        12 <span class="stat-total">/ 24</span>
+                <div class="stat-card-main">
+                    <div class="icon-box bg-blue">
+                        <i class="bi bi-clock-history"></i>
                     </div>
-                    <div class="stat-trend trend-up">
-                        <i class="bi bi-arrow-up-short"></i> 15% up from last month
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <h6 class="stat-card-title">All PR approvals</h6>
-                <span class="stat-badge">16 / 32</span>
-            </div>
-            <div class="stat-card-main">
-                <div class="icon-box bg-purple">
-                    <i class="bi bi-file-earmark-text"></i>
-                </div>
-                <div>
-                    <div class="stat-value">
-                        120
-                    </div>
-                    <div class="stat-trend trend-up">
-                        <i class="bi bi-arrow-up-short"></i> 10% up from last month
+                    <div>
+                        <div class="stat-value">
+                            @ViewBag.TotalDraftRequests
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <h6 class="stat-card-title">Cancelled requests</h6>
-                <span class="stat-badge">12 / 8</span>
-            </div>
-            <div class="stat-card-main">
-                <div class="icon-box bg-red">
-                    <i class="bi bi-x-circle"></i>
+        </a>
+
+        <a href="@Url.Action("DetailsList", "Home", new { statusId = 3 })" class="stat-card-link">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h6 class="stat-card-title">Approved Requests</h6>
                 </div>
-                <div>
-                    <div class="stat-value">
-                        12
+                <div class="stat-card-main">
+                    <div class="icon-box bg-green">
+                        <i class="bi bi-check-circle-fill"></i>
                     </div>
-                    <div class="stat-trend trend-down">
-                        <i class="bi bi-arrow-down-short"></i> 3% down from last month
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <h6 class="stat-card-title">Fulfilled orders</h6>
-                <span class="stat-badge">4 / 45</span>
-            </div>
-            <div class="stat-card-main">
-                <div class="icon-box bg-green">
-                    <i class="bi bi-check-circle"></i>
-                </div>
-                <div>
-                    <div class="stat-value">
-                        4
-                    </div>
-                    <div class="stat-trend trend-up">
-                        <i class="bi bi-arrow-up-short"></i> 5% up from last week
+                    <div>
+                        <div class="stat-value">
+                            @ViewBag.TotalApprovedRequests
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <h6 class="stat-card-title">New vendors</h6>
-                <span class="stat-badge">18 / 25</span>
-            </div>
-            <div class="stat-card-main">
-                <div class="icon-box bg-orange">
-                    <i class="bi bi-people"></i>
+        </a>
+
+        <a href="@Url.Action("DetailsList", "Home", new { statusId = 1 })" class="stat-card-link">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h6 class="stat-card-title">Pending requests</h6>
                 </div>
-                <div>
-                    <div class="stat-value">
-                        18
+                <div class="stat-card-main">
+                    <div class="icon-box bg-orange">
+                        <i class="bi bi-hourglass-split"></i>
                     </div>
-                    <div class="stat-trend trend-up">
-                        <i class="bi bi-arrow-up-short"></i> 12% up from last month
+                    <div>
+                        <div class="stat-value">
+                            @ViewBag.TotalPendingRequests
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
+
+        <a href="@Url.Action("DetailsList", "Home", new { statusId = 2 })" class="stat-card-link">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h6 class="stat-card-title">Sent Requests</h6>
+                </div>
+                <div class="stat-card-main">
+                    <div class="icon-box bg-purple">
+                        <i class="bi bi-send-fill"></i>
+                    </div>
+                    <div>
+                        <div class="stat-value">
+                            @ViewBag.TotalSentRequests
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="@Url.Action("DetailsList", "Home", new { statusId = 4 })" class="stat-card-link">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h6 class="stat-card-title">Rejected requests</h6>
+                </div>
+                <div class="stat-card-main">
+                    <div class="icon-box bg-red">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </div>
+                    <div>
+                        <div class="stat-value">
+                            @ViewBag.TotalRejectRequests
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
     </div>
 
-    <!-- Charts Section -->
-    <div class="chart-section">
-        <div class="chart-card chart-card-left">
-            <div class="chart-header">
-                <h5 class="chart-title">Income</h5>
-                <div class="chart-selector">
-                    <button class="active">Weekly</button>
-                    <button>Monthly</button>
-                    <button>Yearly</button>
-                </div>
-            </div>
-            <div class="chart-container">
-                <img src="/api/placeholder/650/200" alt="Income Chart" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-                <div class="chart-value">$20,560</div>
-            </div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-header">
-                <h5 class="chart-title">Month</h5>
-            </div>
-            <div class="chart-container">
-                <img src="/api/placeholder/350/200" alt="Monthly Chart" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Section: Todo List and Upcoming Requests -->
     <div class="bottom-section">
         <div class="todo-card">
             <div class="card-header">
-                <h5 class="card-title">To do list <span class="badge-counter">2</span></h5>
-                <a href="#" class="view-all">View tasks</a>
+                <h5 class="card-title">To do list <span class="badge-counter"></span></h5>
             </div>
-            <div class="todo-item">
-                <div class="todo-icon bg-blue">
-                    <i class="bi bi-check-circle"></i>
-                </div>
-                <div class="todo-content">
-                    <div class="todo-title">Task completion</div>
-                    <div class="todo-desc">Please finish the price comparison for latest procurement request from HR dept.</div>
-                </div>
-                <div class="todo-date">
-                    Today
-                </div>
-            </div>
-            <div class="todo-item">
-                <div class="todo-icon bg-green">
-                    <i class="bi bi-pencil-square"></i>
-                </div>
-                <div class="todo-content">
-                    <div class="todo-title">Sign up for a COVID-19 vaccination training course for medical vendors</div>
-                </div>
-                <div class="todo-date">
-                    02 Apr 2025
-                </div>
-            </div>
-            <a href="#" class="view-all" style="display: block; text-align: center; margin-top: 10px;">Show all</a>
         </div>
 
         <div class="requests-card">
             <div class="card-header">
                 <h5 class="card-title">Upcoming approvals</h5>
-                <a href="#" class="view-all">New appointment</a>
             </div>
-            <div class="upcoming-title">Today</div>
-            <div class="date-indicator">
-                <div class="date-text">April 24, 2025</div>
-                <div class="date-line"></div>
-            </div>
-            <div class="request-item">
-                <div class="request-time">09:30</div>
-                <div class="request-dot dot-pending"></div>
-                <div class="request-content">
-                    <div class="request-title">Rodriguez Solutions</div>
-                    <div class="request-desc">PR-2023-04589: Office Supplies</div>
-                </div>
-                <div class="request-status status-pending">Pending</div>
-            </div>
-            <div class="request-item">
-                <div class="request-time">10:45</div>
-                <div class="request-dot dot-approved"></div>
-                <div class="request-content">
-                    <div class="request-title">Micah Gordon</div>
-                    <div class="request-desc">PR-2023-04590: IT Equipment</div>
-                </div>
-                <div class="request-status">Approved</div>
-            </div>
-            <div class="request-item">
-                <div class="request-time">13:15</div>
-                <div class="request-dot dot-urgent"></div>
-                <div class="request-content">
-                    <div class="request-title">Maria Kennedy</div>
-                    <div class="request-desc">4:30 - 5:30 UTC</div>
-                </div>
-                <div class="request-status status-urgent">Urgent</div>
-            </div>
-            <div class="date-indicator">
-                <div class="date-text">April 25, 2025</div>
-                <div class="date-line"></div>
-            </div>
-            <div class="request-item">
-                <div class="request-time">08:00</div>
-                <div class="request-dot dot-pending"></div>
-                <div class="request-content">
-                    <div class="request-title">Tamara Johnson</div>
-                    <div class="request-desc">PR-2023-04592: Marketing Materials</div>
-                </div>
-                <div class="request-status status-pending">Pending</div>
-            </div>
-            <div class="request-item">
-                <div class="request-time">09:30</div>
-                <div class="request-dot dot-approved"></div>
-                <div class="request-content">
-                    <div class="request-title">Valentine Armstrong</div>
-                    <div class="request-desc">PO-2023-01248: Software Licensing</div>
-                </div>
-                <div class="request-status">Approved</div>
-            </div>
-            <a href="#" class="view-all" style="display: block; text-align: center; margin-top: 10px;">Show all</a>
         </div>
     </div>
 </div>
+
+<style>
+    /* New CSS to remove underlines from the stat card links */
+    .stat-card-link,    
+    .stat-card-link h6,
+    .stat-card-link .stat-value {
+        text-decoration: none;
+    }
+
+    .stat-card-link {
+        display: flex;
+        flex-grow: 1;
+    }
+</style>

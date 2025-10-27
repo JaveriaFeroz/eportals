@@ -1,0 +1,476 @@
+﻿@using ProcureToPay.Areas.Common.Models
+@model ProcureToPay.Areas.Receiving.ViewModels.GRNDetailsViewModel  
+@{
+    ViewData["Title"] = "GRN Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var workflowHistory = ViewBag.WorkflowHistory as List<FormHistory>;
+    var currentStateName = ViewBag.CurrentStateName as string;
+    var currentUserId = ViewBag.CurrentUserId;
+    var currentUserName = ViewBag.CurrentUserName;
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int> ?? new List<int>();
+
+    bool canCreatePO = Model.StateId == 1 && (currentUserRoles.Contains(26));
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        @if (canCreatePO)
+        {
+            <div class="col-auto ms-auto">
+                <div class="create-user-container">
+                    <a>
+                        <a asp-area="Finance" asp-controller="PaymentRequest" asp-action="CreateGRNBased" asp-route-grnId="@Model.Id"
+                           class="action-button create-user-text"
+                           style="background-color: #092963; text-decoration: none;">
+                            <i class="fas fa-plus"></i>
+                            <span class="button-text"> Create Payment Request</span>
+                        </a>
+                        <a href="#" class="btn btn-sm create-user-icon">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>@TempData["Info"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-receipt me-2"></i> Goods Receipt Note Details
+                    </h5>
+                    <div>
+                        <span class="badge bg-info fs-6">@Model.CurrentStateName</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">GRN Number:</dt>
+                                <dd class="col-sm-8">@Model.GRNNumber</dd>
+
+                                <dt class="col-sm-4">Receipt Date:</dt>
+                                <dd class="col-sm-8">@Model.ReceiptDate.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4">Received By:</dt>
+                                <dd class="col-sm-8">@Model.ReceivedByUserName</dd>
+
+                                <dt class="col-sm-4">DC No:</dt>
+                                <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.BillDCNo) ? "N/A" : Model.BillDCNo)</dd>
+
+                                <dt class="col-sm-4">DC Date:</dt>
+                                <dd class="col-sm-8">@(Model.BillDCDate?.ToString("dd/MM/yyyy") ?? "N/A")</dd>
+
+                                <dt class="col-sm-4">Remarks:</dt>
+                                <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Remarks) ? "N/A" : Model.Remarks)</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">PO Number:</dt>
+                                <dd class="col-sm-8">
+                                    <a asp-area="Procurement" asp-controller="PurchaseOrder" asp-action="Details" asp-route-id="@Model.PurchaseOrderId" class="text-decoration-none" @* target="_blank" *@>
+                                        @Model.PONumber
+                                    </a>
+                                </dd>
+
+                                <dt class="col-sm-4">PO Date:</dt>
+                                <dd class="col-sm-8">@Model.PODate.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4">Supplier:</dt>
+                                <dd class="col-sm-8">
+                                    <strong>@Model.SupplierName</strong><br />
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-list-alt me-2"></i> Received Items
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Items != null && Model.Items.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>Remarks</th>
+                                        <th>UoM</th>
+                                        <th>Received Qty</th>
+                                        <th>Unit Price</th>
+                                        <th>GST Rate</th>
+                                        <th>GST Amount</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.ItemName)</td>
+                                            <td>@(string.IsNullOrEmpty(item.Remarks) ? "N/A" : item.Remarks)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.UnitOfMeasure)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                            <td>@item.UnitPrice.ToString("C")</td>
+                                            <td>@($"{item.GSTRate}%")</td>
+                                            <td>@($"{item.GSTAmount}%")</td>
+                                            <td>@item.TotalPrice.ToString("C")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-info">
+                                        <th colspan="7" class="text-end">Grand Total:</th>
+                                        <td class="text-end"><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No items found for this Goods Receipt Note.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Workflow History -->
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-history me-2"></i> Workflow History
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.WorkflowHistory != null && Model.WorkflowHistory.Any())
+                    {
+                        <div class="timeline">
+                            @foreach (var history in Model.WorkflowHistory.OrderByDescending(h => h.ActionDate))
+                            {
+                                <div class="timeline-item mb-3">
+                                    <div class="timeline-marker">
+                                        @switch (history.ActionName?.ToLower())
+                                        {
+                                            case "created":
+                                                <i class="fas fa-plus text-primary"></i>
+                                                break;
+                                            case "submit":
+                                                <i class="fas fa-paper-plane text-info"></i>
+                                                break;
+                                            case "approve":
+                                                <i class="fas fa-check text-success"></i>
+                                                break;
+                                            case "reject":
+                                                <i class="fas fa-times text-danger"></i>
+                                                break;
+                                            case "return":
+                                                <i class="fas fa-undo text-warning"></i>
+                                                break;
+                                            case "cancel":
+                                                <i class="fas fa-ban text-dark"></i>
+                                                break;
+                                            default:
+                                                <i class="fas fa-circle text-muted"></i>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h6 class="mb-1">@history.ActionName</h6>
+                                        <p class="text-muted mb-1">
+                                            @history.FromStateName &rarr; @history.ToStateName
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            From: <strong>@history.ActionByUserName</strong> To: <strong>@(history.ToUserName ?? history.ActionByUserName)</strong>
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            By: <strong>@history.ActionByUserName</strong> on <strong>@history.ActionDate.ToString("dd/MM/yyyy HH:mm")</strong>
+                                        </p>
+                                        @if (!string.IsNullOrEmpty(history.Comments))
+                                        {
+                                            <p class="mt-2 text-muted"><em>"@history.Comments"</em></p>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No workflow history available for this GRN.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_WorkflowActionModals", Model)
+
+<style>
+    /* Custom styles for action buttons */
+    .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.375rem; /* Bootstrap default rounded corners */
+        transition: all 0.2s ease-in-out;
+        color: white; /* Default text color for dark background buttons */
+        border: 1px solid transparent; /* Default border */
+    }
+
+        .action-button i {
+            margin-right: 0.5rem;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+
+    /* Specific button styles */
+    .btn-primary.action-button,
+    .btn-success.action-button,
+    .btn-info.action-button,
+    .btn-secondary.action-button {
+        background-color: #092963;
+        border-color: #092963;
+        color: white;
+    }
+
+        .btn-primary.action-button:hover,
+        .btn-success.action-button:hover,
+        .btn-info.action-button:hover,
+        .btn-secondary.action-button:hover {
+            background-color: #07204d;
+            border-color: #07204d;
+        }
+
+    .btn-warning.action-button {
+        background-color: #ffc107; /* Bootstrap warning color */
+        border-color: #ffc107;
+        color: #212529; /* Dark text for warning */
+    }
+
+        .btn-warning.action-button:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+    .btn-danger.action-button {
+        background-color: #dc3545; /* Bootstrap danger color */
+        border-color: #dc3545;
+    }
+
+        .btn-danger.action-button:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+
+    /* Styles for status badges */
+    .status-badge {
+        padding: 0.5em 0.75em;
+        border-radius: 0.5rem;
+        font-size: 0.85em;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* Timeline styles (kept from original) */
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+
+    .timeline-item {
+        position: relative;
+        border-left: 2px solid #e9ecef;
+        padding-left: 20px;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+    }
+
+    .timeline-content {
+        padding-bottom: 20px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="~/js/Procurement/purchaseOrderReturn.js"></script>
+    <script src="~/js/Procurement/PRCreate.js"></script>
+    <script type="text/javascript">
+        // Helper function
+        function getUrl(area, page, action, id) {
+            let baseUrl = '@Url.Content("~/")';
+
+            if (id) {
+                return `${baseUrl}${area}/${page}/${action}/${id}`;
+            }
+            return `${baseUrl}${area}/${page}/${action}`;
+        }
+
+              // This function handles the AJAX form submission for the edit modal.
+                window.handlePurchaseRequestEditFormSubmit = async function (event) {
+            event.preventDefault(); // This is crucial to prevent the default browser form submission.
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    }
+                });
+
+                // The browser will automatically follow the redirect.
+                // We only need to handle non-redirect responses (like JSON errors).
+                if (!response.ok) {
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        const result = await response.json();
+                        toastr.error(result.message || "Failed to update Purchase Request.");
+                    } else if (contentType && contentType.includes("text/html")) {
+                        // If it's a validation error response in HTML,
+                        // replace the modal content with the returned HTML
+                        document.getElementById('purchaseRequestEditModalBody').innerHTML = await response.text();
+                        window.initializePurchaseRequestFormForModal(document.getElementById('purchaseRequestEditModalBody'));
+                        toastr.error("Please correct the validation errors.");
+                    } else {
+                        console.error("Server response not OK:", response.status, await response.text());
+                        toastr.error("Server error: " + (response.statusText || "Unknown error"));
+                    }
+                }
+                // No else block needed here. If the response is a redirect, the browser handles it.
+                // If the response is OK (e.g., status 200), but not a redirect,
+                // it means we got the new HTML for the modal, which is handled above.
+            } catch (error) {
+                console.error("AJAX submission failed:", error);
+                toastr.error("An unexpected error occurred during submission.");
+            }
+        };
+        // Global function to initialize the form and re-attach handlers
+        window.initializePurchaseRequestFormForModal = function(modalBody) {
+            const $loadedForm = $(modalBody).find('#purchaseRequestEditForm');
+            if ($loadedForm.length > 0) {
+                const formDom = $loadedForm.get(0);
+
+                // First, remove any existing event listeners to prevent duplicates.
+                $(formDom).off('submit', window.handlePurchaseRequestEditFormSubmit);
+
+                // Then, attach the handler for the new form content.
+                $(formDom).on('submit', window.handlePurchaseRequestEditFormSubmit);
+                console.log("Edit form submission handler re-attached.");
+
+                // Also, re-initialize any other necessary scripts (like your PRCreate.js)
+                if (typeof window.initializePurchaseRequestForm === 'function') {
+                    const initialItemCount = $loadedForm.find('#purchaseRequisitionDetailsContainer .purchase-request-item-row').length;
+                    window.initializePurchaseRequestForm($loadedForm, initialItemCount);
+                    console.log("PRCreate.js scripts initialized for the new form.");
+                } else {
+                    console.warn("initializePurchaseRequestForm function not found.");
+                }
+
+                // Re-parse client-side validation for the new form.
+                if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                    $loadedForm.removeData("validator").removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse($loadedForm);
+                    console.log("Client-side validation re-parsed for #purchaseRequestEditForm.");
+                }
+            } else {
+                console.error("Loaded HTML does not contain #purchaseRequestEditForm.");
+                modalBody.innerHTML = `<div class="alert alert-danger" role="alert">Failed to load edit form content.</div>`;
+            }
+        };
+
+        $(document).ready(function () {
+            $('#purchaseRequestEditModal').on('show.bs.modal', async function (event) {
+                const button = event.relatedTarget;
+                const purchaseRequestId = button.getAttribute('data-id');
+                const area = 'Procurement'; // Hardcode or get from data attribute
+                const controller = 'PurchaseRequest'; // Hardcode or get from data attribute
+                const action = 'Edit'; // Hardcode or get from data attribute
+                const url = getUrl(area, controller, action, purchaseRequestId);
+
+                const modalBody = this.querySelector('#purchaseRequestEditModalBody');
+                modalBody.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Loading...</div>';
+
+                try {
+                    const response = await fetch(url);
+                    const html = await response.text();
+                    modalBody.innerHTML = html;
+
+                    // Call the new global function to initialize the form
+                    window.initializePurchaseRequestFormForModal(modalBody);
+                } catch (error) {
+                    console.error('Error loading purchase request edit form:', error);
+                    modalBody.innerHTML = `<div class="alert alert-danger" role="alert">Failed to load edit form due to a network error.</div>`;
+                }
+            });
+        });
+    </script>
+}
+
+

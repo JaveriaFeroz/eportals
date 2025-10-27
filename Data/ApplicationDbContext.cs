@@ -1,12 +1,19 @@
-﻿using ProcureToPay.Areas.UserManagement.Models;
+﻿using Microsoft.AspNetCore.Http; // For IHttpContextAccessor
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProcureToPay.Areas.Procurement.Models;
-using ProcureToPay.Areas.Master.Models;
-using ProcureToPay.Areas.Common.Models;
-using ProcureToPay.Areas.Insurance.Models;
-using ProcureToPay.Areas.Inventory.Models;
+using ProcureToPay.Areas.Common.Models;      // For AuditableEntity, FormHistory, IWorkflowEntity, WorkFlowType, WorkFlowApprovalSequence, WorkFlowState
+using ProcureToPay.Areas.Finance.Models;
+using ProcureToPay.Areas.Insurance.Models;   // For InsuranceDocumentType, InsuranceCompany, InsuranceType  // For PurchaseRequisition (if it's in Inventory, otherwise put it in Procurement or Common if needed)
+using ProcureToPay.Areas.Master.Models;      // For Branch, Department, Supplier, City, Region, Capacity, Charge, Make, Priority, Qualification, RateType, VehicleGroup, WorkOrderType, WHTaxExemption, WarningType, SubCategory, UoM, SKUCategory, SKUCategoryClient, SKUClient, SKUType, SKU, Shipper, Client, ClientInvoiceFormat, PaymentMode, IndustryVertical, InvoiceFormat, Company, ProductType, ProductNature, ServiceNature, Product, AssetDocument, DocumentType, Complainant, Consignee, LeaseType, Detention, Contractor, Relation, SeparationType, Driver, SupplierRate, SupplierRateDetail, SupplierType
+using ProcureToPay.Areas.Procurement.Models; // For PurchaseRequest, PurchaseRequestItem, RequestApproval, ApprovalLevel, WorkFlowApprovalSequence, WorkFlowState, FormHistory, PurchaseOrder, PurchaseOrderItem, PurchaseRequestOrderMapping
+using ProcureToPay.Areas.Receiving.Models;
+
+// Add ALL necessary using directives for your models
+using ProcureToPay.Areas.UserManagement.Models; // For User, Role, UserRole, Permission, RolePermission, Module, ModuleRoleHierarchy, Update
+using ProcureToPay.Helpers;
+using System.Security.Claims; // For ClaimTypes.NameIdentifier
+
 
 namespace ProcureToPay.Data
 {
@@ -26,16 +33,19 @@ namespace ProcureToPay.Data
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<Module> Modules { get; set; }
+
+        public DbSet<WorkFlowType> WorkFlowTypes { get; set; }
         public DbSet<ModuleRoleHierarchy> ModuleRoleHierarchies { get; set; }
         public DbSet<Update> Updates { get; set; }
 
-        
-
         //Inventory Data DbSets
-        public DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
-        public DbSet<PurchaseRequisition> PurchaseRequisitionDetails { get; set; }
+        public DbSet<PaymentRequest> PaymentRequests { get; set; }
+        public DbSet<PaymentRequestDetail> PaymentRequestDetails { get; set; }
+        public DbSet<PaymentRequestCostAllocation> PaymentRequestCostAllocations { get; set; }
+        public DbSet<AttachmentType> AttachmentTypes { get; set; }
+        public DbSet<PaymentRequestAttachment> PaymentRequestAttachments { get; set; }
+        public DbSet<PurchaseRequestAttachment> PurchaseRequestAttachments { get; set; }
 
-        
         // Master Data DbSets
         public DbSet<AccessorialCharge> AccessorialCharges { get; set; }
         public DbSet<Activity> Activities { get; set; }
@@ -48,7 +58,6 @@ namespace ProcureToPay.Data
         public DbSet<Region> Regions { get; set; }
         public DbSet<Capacity> Capacities { get; set; }
         public DbSet<Charge> Charges { get; set; }
-
         public DbSet<Make> Makes { get; set; }
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<Qualification> Qualifications { get; set; }
@@ -68,16 +77,21 @@ namespace ProcureToPay.Data
         public DbSet<SKUCategoryClient> SKUCategoryClients { get; set; }
         public DbSet<SKUClient> SKUClients { get; set; }
         public DbSet<SKUType> SKUTypes { get; set; }
+        public DbSet<SubNature> SubNatures { get; set; }
         public DbSet<SKU> SKUs { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<ClientInvoiceFormat> ClientInvoiceFormats { get; set; }
         public DbSet<PaymentMode> PaymentModes { get; set; }
+        public DbSet<PaymentNature> PaymentNatures { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<IndustryVertical> IndustryVerticals { get; set; }
         public DbSet<InvoiceFormat> InvoiceFormats { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductNature> ProductNatures { get; set; }
+        public DbSet<Service> Services { get; set; }
         public DbSet<ServiceNature> ServiceNatures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<AssetDocument> AssetDocuments { get; set; }
@@ -92,21 +106,31 @@ namespace ProcureToPay.Data
         public DbSet<Driver> Drivers { get; set; }
 
         // Insurance DbSets
-
         public DbSet<InsuranceDocumentType> InsuranceDocumentTypes { get; set; }
         public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
 
-        
         // Procurement DbSets
-
         public DbSet<PurchaseRequest> PurchaseRequests { get; set; }
-        public DbSet<PurchaseRequestItem> PurchaseRequestItems { get; set; }
+        public DbSet<PurchaseRequestItem> PurchaseRequestDetails { get; set; }
         public DbSet<RequestApproval> RequestApprovals { get; set; }
         public DbSet<ApprovalLevel> ApprovalLevels { get; set; }
         public DbSet<WorkFlowApprovalSequence> WorkFlowApprovalSequences { get; set; }
         public DbSet<WorkFlowState> WorkFlowStates { get; set; }
         public DbSet<FormHistory> FormHistories { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+        public DbSet<PurchaseRequestOrderMapping> PurchaseRequestOrderMappings { get; set; }
+        public DbSet<PurchaseRequestsFleet> PurchaseRequestsFleets { get; set; }
+        public DbSet<PurchaseRequestDetailFleet> PurchaseRequestDetailFleets { get; set; }
+        public DbSet<GoodsReceiptNote> GoodsReceiptNotes { get; set; }
+        public DbSet<GoodsReceiptNoteItem> GoodsReceiptNoteItems { get; set; }
+
+        public DbSet<BidEvaluation> BidEvaluations { get; set; }
+
+        public DbSet<Bid> Bids { get; set; }
+        public DbSet<BidItem> BidItems { get; set; }
+
         public override int SaveChanges()
         {
             UpdateAuditFields();
@@ -124,7 +148,7 @@ namespace ProcureToPay.Data
             var currentUserId = GetCurrentUserId();
             var entries = ChangeTracker.Entries()
                 .Where(e => e.Entity is AuditableEntity &&
-                           (e.State == EntityState.Added || e.State == EntityState.Modified));
+                             (e.State == EntityState.Added || e.State == EntityState.Modified));
 
             foreach (var entry in entries)
             {
@@ -133,12 +157,12 @@ namespace ProcureToPay.Data
                 if (entry.State == EntityState.Added)
                 {
                     auditableEntity.CreatedByUserId = currentUserId;
-                    auditableEntity.CreatedOn = DateTime.UtcNow;
+                    auditableEntity.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
                 }
                 else if (entry.State == EntityState.Modified)
                 {
                     auditableEntity.UpdatedByUserId = currentUserId;
-                    auditableEntity.UpdatedOn = DateTime.UtcNow;
+                    auditableEntity.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     // Prevent modification of Created fields
                     entry.Property(nameof(AuditableEntity.CreatedByUserId)).IsModified = false;
@@ -149,21 +173,17 @@ namespace ProcureToPay.Data
 
         private int GetCurrentUserId()
         {
-            // Since you're using Identity with int keys, get the current user ID
             var user = _httpContextAccessor.HttpContext?.User;
 
             if (user?.Identity?.IsAuthenticated == true)
             {
-                // For ASP.NET Core Identity, the user ID is stored in the NameIdentifier claim
                 var userIdClaim = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
                 if (int.TryParse(userIdClaim, out var userId))
                 {
                     return userId;
                 }
             }
-
-            // Handle unauthenticated scenarios - you might want to throw an exception instead
-            throw new InvalidOperationException("Unable to determine current user ID for audit trail");
+            return 0; // Return 0 or throw exception if user ID is mandatory
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -172,6 +192,15 @@ namespace ProcureToPay.Data
 
             // Configure audit relationships for all entities inheriting from AuditableEntity
             ConfigureAuditRelationships(modelBuilder);
+
+            modelBuilder.Entity<WorkFlowApprovalSequence>(entity =>
+            {
+                // Configure decimal properties for specific precision and scale
+                entity.Property(e => e.MaxAmount)
+                    .HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.MinAmount)
+                    .HasColumnType("decimal(18, 2)");
+            });
 
             // Configure Identity relationships
             modelBuilder.Entity<UserRole>(entity =>
@@ -224,6 +253,11 @@ namespace ProcureToPay.Data
                 entity.HasIndex(e => new { e.BranchId, e.DepartmentId });
             });
 
+            modelBuilder.Entity<Module>()
+             .HasOne(m => m.WorkFlowType)
+             .WithOne(wt => wt.Module)
+             .HasForeignKey<WorkFlowType>(wt => wt.WorkFlowTypeId);
+
             // Configure PurchaseRequest relationships
             modelBuilder.Entity<PurchaseRequest>(entity =>
             {
@@ -257,7 +291,7 @@ namespace ProcureToPay.Data
                 entity.HasIndex(e => e.RequestDate);
 
                 // Decimal precision
-                entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
+                //    entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
             });
 
             // Configure PurchaseRequestItem
@@ -270,9 +304,10 @@ namespace ProcureToPay.Data
 
                 // Decimal precision
                 entity.Property(e => e.UnitPrice).HasPrecision(18, 2);
+                entity.Property(e => e.Quantity).HasPrecision(18, 4); // Consistent with (18,4)
 
-                // Computed column for TotalPrice
-                entity.Ignore(e => e.TotalPrice);
+                // Computed column for TotalPrice - if it's truly a computed property in the DB, otherwise ignore.
+                // entity.Ignore(e => e.TotalAmount);
 
                 // Index for performance
                 entity.HasIndex(e => e.PurchaseRequestId);
@@ -361,36 +396,21 @@ namespace ProcureToPay.Data
             modelBuilder.Entity<Asset>(entity =>
             {
                 entity.HasKey(e => e.AssetId);
-                // It's better to let the database handle the identity generation for short/int/long keys.
-                // entity.Property(e => e.AssetId).ValueGeneratedOnAdd(); // This is often the default.
-
-                // Indexes for performance
                 entity.HasIndex(e => e.AssetNo).IsUnique();
-
-                // Required properties with lengths
                 entity.Property(e => e.AssetNo).IsRequired().HasMaxLength(50);
-
-                // Decimal precision for KMs fields
                 entity.Property(e => e.StartKMs).HasPrecision(18, 2);
                 entity.Property(e => e.KMs).HasPrecision(18, 2);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // --- Relationships ---
-                // Note: It's best practice to name navigation properties just by their type, 
-                // e.g., 'public virtual LeaseType LeaseType { get; set; }' instead of 'LeaseTypeName'.
-                // The configuration below will work with your current naming.
-
                 entity.HasOne(a => a.AssetType)
-                    .WithMany(at => at.Assets) // Assuming AssetType has a collection of Assets
+                    .WithMany(at => at.Assets)
                     .HasForeignKey(a => a.AssetTypeId)
-                    .OnDelete(DeleteBehavior.Restrict); // Important: Prevents deleting an AssetType if it has Assets.
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(a => a.CapacityName)
-                    .WithMany() // Assuming Capacity doesn't have a direct navigation back to Asset
+                    .WithMany()
                     .HasForeignKey(a => a.CapacityId)
-                    .OnDelete(DeleteBehavior.SetNull); // If a Capacity is deleted, set CapacityId in Asset to null.
+                    .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(a => a.MakeName)
                     .WithMany()
@@ -412,8 +432,6 @@ namespace ProcureToPay.Data
                     .HasForeignKey(a => a.StatusId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // CORRECTED CODE
-
                 entity.HasOne(a => a.DriverName1)
                     .WithMany()
                     .HasForeignKey(a => a.DriverId1)
@@ -427,7 +445,7 @@ namespace ProcureToPay.Data
                 entity.HasOne(a => a.CityName)
                     .WithMany()
                     .HasForeignKey(a => a.CityId)
-                    .OnDelete(DeleteBehavior.Restrict); // City is required, so restrict deletion.
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(a => a.ClientName)
                     .WithMany()
@@ -449,11 +467,10 @@ namespace ProcureToPay.Data
                     .HasForeignKey(a => a.TrailerId)
                     .OnDelete(DeleteBehavior.SetNull);
 
-                // One-to-Many relationship with AssetTyres
                 entity.HasMany(a => a.AssetTyres)
                     .WithOne(at => at.Asset)
                     .HasForeignKey(at => at.AssetId)
-                    .OnDelete(DeleteBehavior.Cascade); // If an Asset is deleted, its tyres are also deleted.
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Configure AssetType
@@ -461,14 +478,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.TypeId);
                 entity.Property(e => e.TypeId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.TypeName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.TypeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -478,15 +489,9 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.StatusId);
                 entity.Property(e => e.StatusId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.StatusName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
                 entity.Property(e => e.Editable).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.StatusName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -496,25 +501,17 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.DetailId);
                 entity.Property(e => e.DetailId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.SerialNo).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Make).IsRequired().HasMaxLength(100);
-
-                // Decimal precision
                 entity.Property(e => e.StartKMs).HasPrecision(18, 2);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
                 entity.Property(e => e.StartKMs).HasDefaultValue(0);
 
-                // Configure relationship with Asset
                 entity.HasOne(e => e.Asset)
                     .WithMany(e => e.AssetTyres)
                     .HasForeignKey(e => e.AssetId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.SerialNo).IsUnique();
                 entity.HasIndex(e => e.AssetId);
                 entity.HasIndex(e => e.IsActive);
@@ -526,14 +523,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.BaseId);
                 entity.Property(e => e.BaseId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.BaseName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.BaseName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -543,21 +534,15 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.RegionId);
                 entity.Property(e => e.RegionId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.RegionName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.TaxRate).HasDefaultValue(0.0);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationship with Cities
                 entity.HasMany(e => e.Cities)
                     .WithOne(e => e.Region)
                     .HasForeignKey(e => e.RegionId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // Indexes
                 entity.HasIndex(e => e.RegionName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -567,21 +552,15 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.CityId);
                 entity.Property(e => e.CityId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.CityCode).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.CityName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationship with Region
                 entity.HasOne(e => e.Region)
                     .WithMany(e => e.Cities)
                     .HasForeignKey(e => e.RegionId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // Indexes
                 entity.HasIndex(e => e.CityCode).IsUnique();
                 entity.HasIndex(e => e.CityName).IsUnique();
                 entity.HasIndex(e => e.RegionId);
@@ -615,6 +594,7 @@ namespace ProcureToPay.Data
             modelBuilder.Entity<RateType>(entity =>
             {
                 entity.HasKey(e => e.RateTypeId);
+                entity.Property(e => e.RateTypeId).ValueGeneratedOnAdd();
                 entity.Property(e => e.RateTypeName)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -622,33 +602,23 @@ namespace ProcureToPay.Data
                     .IsUnique();
             });
 
-
             modelBuilder.Entity<SupplierType>(entity =>
             {
                 entity.HasKey(e => e.TypeId);
                 entity.Property(e => e.TypeId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.SupplierTypeName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.SupplierTypeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
 
-            // Configure Supplier
+            // Configure Supplier (Your existing Supplier model in Master.Models)
             modelBuilder.Entity<Supplier>(entity =>
             {
                 entity.HasKey(e => e.SupplierId);
                 entity.Property(e => e.SupplierId).ValueGeneratedOnAdd();
 
-                // Required properties with lengths
                 entity.Property(e => e.SupplierName).IsRequired().HasMaxLength(200);
-
-                // Optional properties with lengths
                 entity.Property(e => e.Address).HasMaxLength(500);
                 entity.Property(e => e.Email).HasMaxLength(100);
                 entity.Property(e => e.PhoneNo).HasMaxLength(20);
@@ -658,12 +628,10 @@ namespace ProcureToPay.Data
                 entity.Property(e => e.NTN).HasMaxLength(50);
                 entity.Property(e => e.URL).HasMaxLength(200);
                 entity.Property(e => e.ControlSupplierId).HasMaxLength(50);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
                 entity.Property(e => e.SCRate).HasDefaultValue(0.0);
 
-                // Configure relationships
+                // Configure relationships for Supplier
                 entity.HasOne(e => e.SupplierType)
                     .WithMany()
                     .HasForeignKey(e => e.SupplierTypeId)
@@ -689,23 +657,18 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.SupplierRateId);
                 entity.Property(e => e.SupplierRateId).ValueGeneratedOnAdd();
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationship with Supplier
                 entity.HasOne(e => e.Supplier)
-                    .WithMany()
+                    .WithMany(s => s.SupplierRates) // Corrected: Supplier has ICollection<SupplierRate>
                     .HasForeignKey(e => e.SupplierId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Configure relationship with SupplierRateDetails
                 entity.HasMany(e => e.Details)
                     .WithOne(e => e.SupplierRate)
                     .HasForeignKey(e => e.SupplierRateId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes for performance
                 entity.HasIndex(e => e.SupplierId);
                 entity.HasIndex(e => e.IsActive);
                 entity.HasIndex(e => new { e.SupplierId, e.IsActive });
@@ -716,32 +679,22 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.DetailId);
                 entity.Property(e => e.DetailId).ValueGeneratedOnAdd();
-
-                // Date properties
-                entity.Property(e => e.FromDate).IsRequired();
-                entity.Property(e => e.ToDate).IsRequired();
-
-                // Decimal precision for rates
+                entity.Property(e => e.FromDate).IsRequired().HasColumnType("datetime");
+                entity.Property(e => e.ToDate).IsRequired().HasColumnType("datetime");
                 entity.Property(e => e.FuelRate).IsRequired();
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationship with SupplierRate
                 entity.HasOne(e => e.SupplierRate)
                     .WithMany(e => e.Details)
                     .HasForeignKey(e => e.SupplierRateId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes for performance
                 entity.HasIndex(e => e.SupplierRateId);
                 entity.HasIndex(e => e.FromDate);
                 entity.HasIndex(e => e.ToDate);
                 entity.HasIndex(e => e.IsActive);
                 entity.HasIndex(e => new { e.SupplierRateId, e.IsActive });
                 entity.HasIndex(e => new { e.FromDate, e.ToDate });
-
-                // Unique constraint to prevent overlapping date ranges for the same supplier rate
                 entity.HasIndex(e => new { e.SupplierRateId, e.FromDate, e.ToDate })
                     .IsUnique()
                     .HasDatabaseName("IX_SupplierRateDetail_UniqueRate");
@@ -752,14 +705,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.TrailerId);
                 entity.Property(e => e.TrailerId).ValueGeneratedOnAdd();
-
-                // Required properties with lengths
                 entity.Property(e => e.TrailerName).IsRequired().HasMaxLength(100);
-
-                // Default values
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.TrailerName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -769,11 +716,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.CapacityId);
                 entity.Property(e => e.CapacityId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.CapacityName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.CapacityName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -783,11 +727,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.ChargeId);
                 entity.Property(e => e.ChargeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.ChargeName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.ChargeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -797,11 +738,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.GroupId);
                 entity.Property(e => e.GroupId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.GroupName).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.GroupName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -811,14 +749,11 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.WorkOrderTypeId);
                 entity.Property(e => e.WorkOrderTypeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.WorkOrderTypeName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.WorkOrderTypeCode).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Description).HasMaxLength(500);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
                 entity.Property(e => e.DisplayOrder).HasDefaultValue(0);
-
-                // Indexes
                 entity.HasIndex(e => e.WorkOrderTypeName).IsUnique();
                 entity.HasIndex(e => e.WorkOrderTypeCode).IsUnique();
                 entity.HasIndex(e => e.WorkFlowId);
@@ -831,12 +766,9 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.ExemptionId);
                 entity.Property(e => e.ExemptionId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.DateFrom).IsRequired().HasColumnType("datetime");
                 entity.Property(e => e.DateTo).IsRequired().HasColumnType("datetime");
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.CompanyId);
                 entity.HasIndex(e => e.DateFrom);
                 entity.HasIndex(e => e.DateTo);
@@ -849,11 +781,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.TypeId);
                 entity.Property(e => e.TypeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.TypeName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.TypeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -863,11 +792,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.TypeId);
                 entity.Property(e => e.TypeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.TypeName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.TypeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -877,11 +803,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.SubCategoryId);
                 entity.Property(e => e.SubCategoryId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.SubCategoryName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.SubCategoryName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -891,11 +814,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.UoMId);
                 entity.Property(e => e.UoMId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.UoMName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.UoMName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -905,17 +825,14 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.CategoryId);
                 entity.Property(e => e.CategoryId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.CategoryName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationship with SKUCategoryClient
                 entity.HasMany(e => e.CategoryClients)
                     .WithOne(e => e.Category)
                     .HasForeignKey(e => e.CategoryId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.CategoryName).IsUnique();
                 entity.HasIndex(e => e.CompanyId);
                 entity.HasIndex(e => e.IsActive);
@@ -928,13 +845,11 @@ namespace ProcureToPay.Data
                 entity.HasKey(e => e.DetailId);
                 entity.Property(e => e.DetailId).ValueGeneratedOnAdd();
 
-                // Configure relationship with SKUCategory
                 entity.HasOne(e => e.Category)
                     .WithMany(e => e.CategoryClients)
                     .HasForeignKey(e => e.CategoryId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.CategoryId);
                 entity.HasIndex(e => e.ClientId);
                 entity.HasIndex(e => new { e.CategoryId, e.ClientId }).IsUnique();
@@ -946,7 +861,6 @@ namespace ProcureToPay.Data
                 entity.HasKey(e => e.DetailId);
                 entity.Property(e => e.DetailId).ValueGeneratedOnAdd();
 
-                // Configure relationships
                 entity.HasOne(e => e.SKU)
                     .WithMany(e => e.SKUClients)
                     .HasForeignKey(e => e.SKUId)
@@ -957,7 +871,6 @@ namespace ProcureToPay.Data
                     .HasForeignKey(e => e.ClientId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.SKUId);
                 entity.HasIndex(e => e.ClientId);
                 entity.HasIndex(e => new { e.SKUId, e.ClientId }).IsUnique();
@@ -968,17 +881,14 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.TypeId);
                 entity.Property(e => e.TypeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.TypeName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationship with SKU
                 entity.HasMany(e => e.SKUs)
                     .WithOne(e => e.SKUType)
                     .HasForeignKey(e => e.SKUTypeId)
                     .OnDelete(DeleteBehavior.SetNull);
 
-                // Indexes
                 entity.HasIndex(e => e.TypeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -988,11 +898,9 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.SKUId);
                 entity.Property(e => e.SKUId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.SKUName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationships
                 entity.HasOne(e => e.SKUType)
                     .WithMany(e => e.SKUs)
                     .HasForeignKey(e => e.SKUTypeId)
@@ -1003,7 +911,6 @@ namespace ProcureToPay.Data
                     .HasForeignKey(e => e.SKUId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.SKUName).IsUnique();
                 entity.HasIndex(e => e.SKUTypeId);
                 entity.HasIndex(e => e.IsActive);
@@ -1015,13 +922,11 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.ShipperId);
                 entity.Property(e => e.ShipperId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.ShipperName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Address).HasMaxLength(255);
                 entity.Property(e => e.ContactNo).HasMaxLength(50);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationships
                 entity.HasOne(e => e.City)
                     .WithMany()
                     .HasForeignKey(e => e.CityId)
@@ -1037,7 +942,6 @@ namespace ProcureToPay.Data
                     .HasForeignKey(e => e.CompanyId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // Indexes
                 entity.HasIndex(e => e.ShipperName);
                 entity.HasIndex(e => e.CityId);
                 entity.HasIndex(e => e.ClientId);
@@ -1051,7 +955,6 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.ClientId);
                 entity.Property(e => e.ClientId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.ClientName).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.ShortName).HasMaxLength(50);
                 entity.Property(e => e.Address).HasMaxLength(500);
@@ -1066,7 +969,6 @@ namespace ProcureToPay.Data
                 entity.Property(e => e.TaxRate).HasPrecision(5, 2);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Configure relationships
                 entity.HasOne(e => e.City)
                     .WithMany()
                     .HasForeignKey(e => e.CityId)
@@ -1097,7 +999,6 @@ namespace ProcureToPay.Data
                     .HasForeignKey(e => e.ClientId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.ClientName);
                 entity.HasIndex(e => e.ShortName);
                 entity.HasIndex(e => e.Email);
@@ -1114,7 +1015,6 @@ namespace ProcureToPay.Data
                 entity.HasKey(e => e.DetailId);
                 entity.Property(e => e.DetailId).ValueGeneratedOnAdd();
 
-                // Configure relationships
                 entity.HasOne(e => e.Client)
                     .WithMany(e => e.ClientInvoiceFormats)
                     .HasForeignKey(e => e.ClientId)
@@ -1125,7 +1025,6 @@ namespace ProcureToPay.Data
                     .HasForeignKey(e => e.FormatId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Indexes
                 entity.HasIndex(e => e.ClientId);
                 entity.HasIndex(e => e.FormatId);
                 entity.HasIndex(e => new { e.ClientId, e.FormatId }).IsUnique();
@@ -1136,11 +1035,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.PaymentModeId);
                 entity.Property(e => e.PaymentModeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.PaymentModeName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.PaymentModeName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -1150,11 +1046,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.IndustryVerticalId);
                 entity.Property(e => e.IndustryVerticalId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.IndustryVerticalName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.IndustryVerticalName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -1164,11 +1057,8 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.FormatId);
                 entity.Property(e => e.FormatId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.FormatName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-                // Indexes
                 entity.HasIndex(e => e.FormatName).IsUnique();
                 entity.HasIndex(e => e.IsActive);
             });
@@ -1178,14 +1068,12 @@ namespace ProcureToPay.Data
             {
                 entity.HasKey(e => e.CompanyId);
                 entity.Property(e => e.CompanyId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.CompanyName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.CompanyAddress).HasMaxLength(500);
                 entity.Property(e => e.NTN).HasMaxLength(50);
                 entity.Property(e => e.PeriodName).HasMaxLength(100);
                 entity.Property(e => e.IsActive).HasDefaultValue(true);
 
-                // Default values for boolean properties
                 entity.Property(e => e.EnableGL).HasDefaultValue(false);
                 entity.Property(e => e.EnablePartialDelivery).HasDefaultValue(false);
                 entity.Property(e => e.RouteByConsignee).HasDefaultValue(false);
@@ -1193,51 +1081,202 @@ namespace ProcureToPay.Data
                 entity.Property(e => e.IsMandatoryDriver2).HasDefaultValue(false);
                 entity.Property(e => e.AllowTrailer).HasDefaultValue(false);
 
-                // Indexes
                 entity.HasIndex(e => e.CompanyName).IsUnique();
                 entity.HasIndex(e => e.NTN);
                 entity.HasIndex(e => e.IsActive);
             });
 
-            
+            modelBuilder.Entity<BidEvaluation>(entity =>
+            {
+                entity.ToTable("BidEvaluations", schema: "Procurement");
+                entity.HasKey(e => e.BidNo);
+                entity.HasIndex(e => e.BidEvaluationNumber).IsUnique();
+
+                entity.HasOne(e => e.PurchaseRequest)
+                    .WithMany(pr => pr.BidEvaluations)
+                    .HasForeignKey(e => e.PRNo)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.SelectedBid)
+                    .WithMany()
+                    .HasForeignKey(e => e.SelectedBidId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Bid Configuration
+            modelBuilder.Entity<Bid>(entity =>
+            {
+                entity.ToTable("Bids", schema: "Procurement");
+                entity.HasKey(b => b.BidId);
+
+                entity.HasOne(b => b.BidEvaluation)
+                    .WithMany(be => be.Bids)
+                    .HasForeignKey(b => b.BidNo)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(b => b.Supplier)
+                    .WithMany()
+                    .HasForeignKey(b => b.SupplierId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // BidItem Configuration
+            modelBuilder.Entity<BidItem>(entity =>
+            {
+                entity.ToTable("BidItems", schema: "Procurement");
+                entity.HasKey(bi => bi.BidItemId);
+
+                entity.HasOne(bi => bi.Bid)
+                    .WithMany(b => b.BidItems)
+                    .HasForeignKey(bi => bi.BidId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(bi => bi.PurchaseRequestItem)
+                    .WithMany()
+                    .HasForeignKey(bi => bi.PurchaseRequestItemId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+            // Add configurations for Procurement DbSets (PurchaseOrder, PurchaseOrderItem)
+            modelBuilder.Entity<PurchaseOrder>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.PONumber).IsRequired().HasMaxLength(50);
+                entity.HasIndex(e => e.PONumber).IsUnique();
+
+                entity.Property(e => e.PODate).IsRequired().HasColumnType("datetime2");
+                entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
+                entity.Property(e => e.TaxAmount).HasPrecision(18, 2);
+                entity.Property(e => e.GrandTotal).HasPrecision(18, 2);
+
+                // CORRECTED: Use VendorId as the foreign key to Supplier
+                entity.HasOne(po => po.Supplier)
+                    .WithMany(s => s.PurchaseOrders) // Ensure Supplier model has ICollection<PurchaseOrder>
+                    .HasForeignKey(po => po.VendorId) // CORRECTED: from SupplierId to VendorId
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(po => po.Items)
+                    .WithOne(poi => poi.PurchaseOrder)
+                    .HasForeignKey(poi => poi.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // Indexes for performance
+                entity.HasIndex(e => e.PODate);
+                entity.HasIndex(e => e.VendorId); // CORRECTED: from SupplierId to VendorId
+                entity.HasIndex(e => e.Status);
+            });
+
+            modelBuilder.Entity<PurchaseOrderItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.ItemName).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Description).HasMaxLength(1000);
+                entity.Property(e => e.Unit).HasMaxLength(50);
+                entity.Property(e => e.UnitPrice).HasPrecision(18, 2);
+
+                entity.Property(e => e.Quantity).HasPrecision(18, 4);
+                entity.Property(e => e.GSTRate).HasPrecision(5, 2);
+                entity.Property(e => e.GSTAmount).HasPrecision(18, 2);
+                entity.Property(e => e.DiscRate).HasPrecision(5, 2);
+                entity.Property(e => e.DiscAmount).HasPrecision(18, 2);
+                entity.Property(e => e.TaxRate).HasPrecision(5, 2);
+                entity.Property(e => e.TaxAmount).HasPrecision(18, 2);
+                entity.Property(e => e.TotalPrice).HasPrecision(18, 2);
+
+                // CORRECTED: Use SourcePurchaseRequestItem and SourcePurchaseRequestItemId
+                entity.HasOne(poi => poi.SourcePurchaseRequestItem) // CORRECTED: from PurchaseRequestItem to SourcePurchaseRequestItem
+                    .WithMany() // A PR item can be linked to many PO items (for partial ordering)
+                    .HasForeignKey(poi => poi.SourcePurchaseRequestItemId) // CORRECTED: from PurchaseRequestItemId to SourcePurchaseRequestItemId
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Indexes for performance
+                entity.HasIndex(e => e.PurchaseOrderId);
+                entity.HasIndex(e => e.SourcePurchaseRequestItemId); // CORRECTED: from PurchaseRequestItemId to SourcePurchaseRequestItemId
+                entity.HasIndex(e => e.Status);
+            });
+
+            // Configure PurchaseRequestOrderMapping
+            modelBuilder.Entity<PurchaseRequestOrderMapping>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.MappedAmount).HasPrecision(18, 2);
+                entity.Property(e => e.Notes).HasMaxLength(500);
+
+                entity.HasOne(e => e.PurchaseRequest)
+                    .WithMany(pr => pr.PurchaseRequestMappings)
+                    .HasForeignKey(e => e.PurchaseRequestId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.PurchaseOrder)
+                    .WithMany(po => po.PurchaseRequestMappings)
+                    .HasForeignKey(e => e.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(e => e.CreatedByUserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasIndex(e => e.PurchaseRequestId);
+                entity.HasIndex(e => e.PurchaseOrderId);
+                entity.HasIndex(e => new { e.PurchaseRequestId, e.PurchaseOrderId }).IsUnique();
+            });
+
+            modelBuilder.Entity<GoodsReceiptNote>()
+                .HasMany(grn => grn.Items)
+                .WithOne(item => item.GoodsReceiptNote)
+                .HasForeignKey(item => item.GoodsReceiptNoteId)
+                .OnDelete(DeleteBehavior.Cascade); // Adjust delete behavior as needed
+
+            modelBuilder.Entity<GoodsReceiptNoteItem>()
+                .HasOne(grni => grni.PurchaseOrderItem)
+                .WithMany() // Or specify a navigation property on PurchaseOrderItem if you add one
+                .HasForeignKey(grni => grni.PurchaseOrderItemId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent deleting PO item if it has GRN items
         }
 
         private void ConfigureAuditRelationships(ModelBuilder modelBuilder)
         {
-            // Get all entity types that inherit from AuditableEntity
             var auditableEntities = modelBuilder.Model.GetEntityTypes()
                 .Where(e => typeof(AuditableEntity).IsAssignableFrom(e.ClrType));
 
             foreach (var entityType in auditableEntities)
             {
-                // Configure CreatedByUser relationship
                 modelBuilder.Entity(entityType.ClrType)
                     .HasOne(typeof(User), "CreatedByUser")
                     .WithMany()
                     .HasForeignKey("CreatedByUserId")
-                    .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                // Configure UpdatedByUser relationship  
                 modelBuilder.Entity(entityType.ClrType)
                     .HasOne(typeof(User), "UpdatedByUser")
                     .WithMany()
                     .HasForeignKey("UpdatedByUserId")
                     .IsRequired(false)
-                    .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                // Add indexes for audit fields for better performance
                 modelBuilder.Entity(entityType.ClrType)
                     .HasIndex("CreatedByUserId");
 
                 modelBuilder.Entity(entityType.ClrType)
                     .HasIndex("CreatedOn");
-
-
-
             }
 
-
-
+            modelBuilder.Entity<FormHistory>(entity =>
+            {
+                entity.Property(fh => fh.FormId)
+                    .IsRequired();
+                entity.Ignore(fh => fh.WorkFlowType);
+                entity.HasOne(fh => fh.ActionByUser)
+                    .WithMany()
+                    .HasForeignKey(fh => fh.ActionByUserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
         }
     }
 }

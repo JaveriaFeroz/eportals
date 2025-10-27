@@ -15,22 +15,21 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="PurchasePrice" class="form-label">Purchase Price <span class="text-danger">*</span></label>
+            <label asp-for="UnitPrice" class="form-label">Unit Price <span class="text-danger">*</span></label>
             <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                <input asp-for="PurchasePrice" class="form-control" type="number" step="0.01" min="0.01" />
+                <input asp-for="UnitPrice"
+                       class="form-control"
+                       type="number"
+                       step="0.01"
+                       min="0.01"
+                       data-original-price="@Model.UnitPrice" />
             </div>
-            <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+            <span asp-validation-for="UnitPrice" class="text-danger"></span>
         </div>
 
         <div class="row">
-            <div class="col-md-4 mb-3">
-                <label asp-for="ProductTypeId" class="form-label"></label>
-                <select asp-for="ProductTypeId" asp-items="@Model.ProductTypes" class="form-select">
-                    <option value="">-- Select Type --</option>
-                </select>
-                <span asp-validation-for="ProductTypeId" class="text-danger"></span>
-            </div>
+            
             <div class="col-md-4 mb-3">
                 <label asp-for="UoMId" class="form-label"></label>
                 <select asp-for="UoMId" asp-items="@Model.UoMs" class="form-select">

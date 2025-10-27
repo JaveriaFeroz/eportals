@@ -1,0 +1,183 @@
+﻿@model ProcureToPay.Areas.UserManagement.ViewModels.PaymentRequestHierarchyViewModel
+
+@{
+    ViewData["Title"] = $"Manage {Model.ModuleDisplayName} Role Hierarchy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-layer-group me-2"></i> Manage @Model.ModuleDisplayName Role Hierarchy
+            </h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="UpdatePaymentRequestHierarchy" asp-controller="Roles" asp-area="UserManagement" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="moduleName" value="@Model.ModuleName" />
+                <input type="hidden" name="paymentNatureId" value="@Model.PaymentNatureId" />
+                <input type="hidden" name="paymentSubNatureId" value="@Model.PaymentSubNatureId" />
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    @{
+                        var selectedNature = Model.PaymentNatures.FirstOrDefault(n => n.Value == Model.PaymentNatureId.ToString());
+                        var selectedSubNature = Model.PaymentSubNatures.FirstOrDefault(s => s.Value == Model.PaymentSubNatureId.ToString());
+                    }
+                    <p class="text-muted mb-0">
+                        <strong>Payment Nature:</strong> @(selectedNature?.Text ?? "N/A")<br />
+                        <strong>Sub Nature:</strong> @(selectedSubNature?.Text ?? "N/A")
+                    </p>
+                </div>
+
+                <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                    <div class="col-md-3 d-flex align-items-center"><i class="fas fa-user-shield me-1 text-dark"></i> ROLE NAME</div>
+                    <div class="col-md-3 d-flex align-items-center"><i class="fas fa-info-circle me-1 text-dark"></i> DESCRIPTION</div>
+                    <div class="col-md-3 text-center d-flex align-items-center justify-content-center"><i class="fas fa-layer-group me-1 text-dark"></i> HIERARCHY LEVEL</div>
+                    <div class="col-md-3 text-center d-flex align-items-center justify-content-center"><i class="fas fa-trash-alt me-1 text-dark"></i> ACTIONS</div>
+                </div>
+
+                <div id="sortable">
+                    @foreach (var roleHierarchy in Model.RoleHierarchies.OrderBy(r => r.HierarchyLevel))
+                    {
+                        <div class="row align-items-center border-bottom py-3 px-2 sortable-item" tabindex="0" data-role-id="@roleHierarchy.RoleId">
+                            <div class="col-12 col-md-3 d-flex align-items-center">
+                                <i class="bi bi-grip-vertical handle me-2"></i>
+                                <input type="hidden" name="roleIds" value="@roleHierarchy.RoleId" />
+                                @roleHierarchy.Role.Name
+                            </div>
+                            <div class="col-12 col-md-3 text-start">
+                                @roleHierarchy.Role.Description
+                            </div>
+                            <div class="col-12 col-md-3 d-flex justify-content-center">
+                                <input type="number" class="form-control hierarchy-level" name="hierarchyLevels" value="@roleHierarchy.HierarchyLevel" min="1" readonly />
+                            </div>
+                            <div class="col-12 col-md-3 d-flex justify-content-center">
+                                <button type="button" class="btn btn-sm btn-danger delete-role" data-role-id="@roleHierarchy.RoleId" data-role-name="@roleHierarchy.Role.Name" data-role-description="@roleHierarchy.Role.Description">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group mt-4">
+                    <h5 class="mb-3">Add Role to Hierarchy</h5>
+                    <div class="row gx-2">
+                        <div class="col-md-8">
+                            <select id="availableRoles" class="form-control">
+                                <option value="">-- Select Role --</option>
+                                @foreach (var role in Model.AvailableRoles)
+                                {
+                                    <option value="@role.Id" data-description="@role.Description">@role.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-success w-100" id="addRoleBtn">Add Role</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-4 d-flex justify-content-between">
+                    @* @{
+                        if (Model.ModuleName == "Payment Request")
+                        {
+                            <a asp-action="SelectPaymentHierarchy"
+                               asp-route-moduleName="@Model.ModuleName"
+                               class="btn btn-outline-secondary">Back</a>
+                        }
+                        else
+                        {
+                            <a asp-action="ManageModuleHierarchy"
+                               asp-route-moduleName="@Model.ModuleName"
+                               class="btn btn-outline-secondary">Back</a>
+                        }
+                    } *@
+                    <button type="submit" class="btn btn-primary" style="background-color: #092963">Save Hierarchy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            // Function to update hierarchy levels based on item position
+            function updateHierarchyLevels() {
+                let level = 1;
+                $("#sortable .sortable-item").each(function () {
+                    $(this).find(".hierarchy-level").val(level++);
+                });
+            }
+
+            // Initialize jQuery UI Sortable
+            $("#sortable").sortable({
+                handle: ".handle",
+                axis: "y",
+                update: function () {
+                    updateHierarchyLevels();
+                }
+            });
+
+            // Handle adding a new role from the dropdown
+            $("#addRoleBtn").on("click", function () {
+                const selectedOption = $("#availableRoles option:selected");
+                const roleId = selectedOption.val();
+                const roleName = selectedOption.text();
+                const roleDescription = selectedOption.data("description");
+
+                if (!roleId) return;
+
+                // Create the new row HTML
+                const newRow = `
+                    <div class="row align-items-center border-bottom py-3 px-2 sortable-item" data-role-id="${roleId}">
+                        <div class="col-12 col-md-3 d-flex align-items-center">
+                            <i class="bi bi-grip-vertical handle me-2"></i>
+                            <input type="hidden" name="roleIds" value="${roleId}" />
+                            ${roleName}
+                        </div>
+                        <div class="col-12 col-md-3 text-start">
+                            ${roleDescription}
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                            <input type="number" class="form-control hierarchy-level" name="hierarchyLevels" value="0" min="1" readonly/>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                            <button type="button" class="btn btn-sm btn-danger delete-role" data-role-id="${roleId}" data-role-name="${roleName}" data-role-description="${roleDescription}">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                $("#sortable").append(newRow);
+                selectedOption.remove();
+                updateHierarchyLevels(); // Recalculate levels for all items
+            });
+
+            // Handle deleting a role from the hierarchy
+            $(document).on("click", ".delete-role", function () {
+                const roleItem = $(this).closest(".sortable-item");
+                const roleId = $(this).data("role-id");
+                const roleName = $(this).data("role-name");
+                const roleDescription = $(this).data("role-description");
+
+                $("#availableRoles").append(
+                    `<option value="${roleId}" data-description="${roleDescription}">${roleName}</option>`
+                );
+
+                roleItem.remove();
+                updateHierarchyLevels();
+            });
+            // Initial call to set hierarchy levels when the page loads
+            updateHierarchyLevels();
+        });
+    </script>
+}

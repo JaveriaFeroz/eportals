@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels;
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 
@@ -108,8 +109,8 @@ public class SupplierController : Controller
                 var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 viewModel.Supplier.CreatedBy = currentUserId;
                 viewModel.Supplier.UpdatedBy = currentUserId;
-                viewModel.Supplier.CreatedOn = DateTime.UtcNow;
-                viewModel.Supplier.UpdatedOn = DateTime.UtcNow;
+                viewModel.Supplier.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                viewModel.Supplier.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                 if (await _supplierService.SaveSupplierAsync(viewModel.Supplier))
                 {
@@ -183,7 +184,7 @@ public class SupplierController : Controller
                 // Set the audit properties for the update
                 var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 viewModel.Supplier.UpdatedBy = currentUserId;
-                viewModel.Supplier.UpdatedOn = DateTime.UtcNow;
+                viewModel.Supplier.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                 var success = await _supplierService.SaveSupplierAsync(viewModel.Supplier);
 

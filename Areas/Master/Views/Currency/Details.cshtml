@@ -1,0 +1,51 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.CurrencyViewModel
+
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Currency Name:</div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text" style="background-color: #092963; color: white;">
+                    <i class="fas fa-globe-americas"></i>
+                </span>
+                <input type="text" class="form-control" value="@Model.CurrencyName" readonly />
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 text-muted">Status:</div>
+        <div class="col-md-8">
+            <div class="form-check form-switch mt-2">
+                <input type="checkbox" class="form-check-input" @(Model.IsActive ? "checked" : "") disabled />
+                <label class="form-check-label">@(Model.IsActive ? "Active" : "Inactive")</label>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <h6 class="mb-3" style="color: #092963;"><i class="fas fa-history me-2"></i> Audit Information</h6>
+
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Created By:</div>
+        <div class="col-md-8">@Model.CreatedBy</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Created On:</div>
+        <div class="col-md-8">@(Model.CreatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Updated By:</div>
+        <div class="col-md-8">@(Model.UpdatedBy ?? "N/A")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4 text-muted">Updated On:</div>
+        <div class="col-md-8">@(Model.UpdatedOn?.ToString("dd MMM, yyyy hh:mm tt") ?? "N/A")</div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+    </div>
+</div>

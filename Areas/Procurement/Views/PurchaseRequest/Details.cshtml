@@ -1,44 +1,100 @@
-﻿@model ProcureToPay.Areas.Procurement.Models.PurchaseRequest
+﻿@using ProcureToPay.Areas.Procurement.Models
+@using ProcureToPay.Areas.Common.Enums
+@model PurchaseRequest
 
 @{
     ViewData["Title"] = "Purchase Request Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var workflowHistory = ViewBag.WorkflowHistory as List<ProcureToPay.Areas.Common.Models.FormHistory>;
     var currentStateName = ViewBag.CurrentStateName as string;
+    var loggedInUserName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+    var currentUserId = (int)ViewBag.CurrentUserId;
+    var currentUserName = (string)ViewBag.CurrentUserName;
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int> ?? new List<int>();
+
+    bool canCreatePO = Model.StateId == 3 && (currentUserRoles.Contains(26));
+    bool isAdminVerifierAndOwner = Model.Owner == currentUserName && currentUserRoles.Contains(26) && Model.StateId != 3;
+    bool canCreateBidEvaluation = Model.StateId == 3 && !Model.BidEvaluations.Any();
 }
 
-<div class="container-fluid">
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="col-auto ms-auto d-flex gap-2">
+            @if (canCreatePO)
+            {
+                <div class="create-user-container d-flex">
+                    <a asp-area="Procurement" asp-controller="PurchaseOrder" asp-action="Create" asp-route-prId="@Model.Id"
+                       class="action-button create-user-text"
+                       style="background-color: #092963; text-decoration: none;" require-permission="Add">
+                        <i class="fas fa-plus"></i>
+                        <span class="button-text"> Create PO</span>
+                    </a>
+                    
+                </div>
+            }
+
+            @if (canCreateBidEvaluation)
+            {
+                // <div class="create-user-container">
+                //     <a>
+                //         @*<a asp-area="Procurement" asp-controller="BidEvaluation" asp-action="Create" asp-route-prNo="@Model.Id"*@
+                //         <a href="@Url.Action("Maintenance", "Home", new { area = "" })"
+                //            class="action-button create-user-text"
+                //            style="background-color: #092963; text-decoration: none;">
+                //             <i class="fas fa-gavel"></i>
+                //             <span class="button-text"> Create Bid Evaluation</span>
+                //         </a>
+                //         <a href="#" class="btn btn-sm create-user-icon">
+                //             <i class="fas fa-gavel"></i>
+                //         </a>
+                //     </a>
+                // </div>
+                <a asp-area="Procurement" asp-controller="BidEvaluation" asp-action="Create" asp-route-prNo="@Model.Id"
+                   class="action-button create-user-text"
+                   style="background-color: #092963; text-decoration: none;" >
+                    <i class="fas fa-plus"></i>
+                    <span class="button-text"> Create Bid</span>
+                </a>
+            }
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             @if (TempData["Success"] != null)
             {
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    @TempData["Success"]
+                    <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
             @if (TempData["Error"] != null)
             {
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    @TempData["Error"]
+                    <i class="fas fa-exclamation-triangle me-2"></i>@TempData["Error"]
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
             @if (TempData["Info"] != null)
             {
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    @TempData["Info"]
+                    <i class="fas fa-info-circle me-2"></i>@TempData["Info"]
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
+
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title">Purchase Request Details</h3>
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-file-invoice me-2"></i> Purchase Request Details
+                    </h5>
                     <div>
                         <span class="badge bg-info fs-6">@currentStateName</span>
                     </div>
@@ -50,10 +106,6 @@
                                 <tr>
                                     <th width="40%">Request Number:</th>
                                     <td>@Model.RequestNumber</td>
-                                </tr>
-                                <tr>
-                                    <th>Title:</th>
-                                    <td>@Model.Title</td>
                                 </tr>
                                 <tr>
                                     <th>Request Date:</th>
@@ -80,16 +132,8 @@
                                     <td>@(Model.Branch?.BranchName ?? "Not specified")</td>
                                 </tr>
                                 <tr>
-                                    <th>Total Amount:</th>
-                                    <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
-                                </tr>
-                                <tr>
                                     <th>Current Owner:</th>
                                     <td>@Model.Owner</td>
-                                </tr>
-                                <tr>
-                                    <th>Approval Sequence:</th>
-                                    <td>@Model.CurrentApprovalSequence</td>
                                 </tr>
                             </table>
                         </div>
@@ -104,13 +148,28 @@
                             </div>
                         </div>
                     }
-
-                    @if (!string.IsNullOrEmpty(Model.Purpose))
+                    @* New section for Attachments, visible only to admin verifiers *@
+                    @if (isAdminVerifierAndOwner)
                     {
+                        <hr />
                         <div class="row mt-3">
-                            <div class="col-12">
-                                <h5>Purpose</h5>
-                                <p class="text-muted">@Model.Purpose</p>
+                            <div class="col-md-12">
+                                <form asp-action="AddAttachments" asp-controller="PurchaseRequest" asp-area="Procurement" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="purchaseRequestId" value="@Model.Id" />
+                                    <div class="row">
+                                        <div class="col-md-8 mb-3">
+                                            <label class="form-label">Attachments <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="file" id="fileInput" name="Attachments" multiple class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3 d-flex align-items-end">
+                                            <button type="submit" class="btn btn-primary w-100" style="background-color: #092963;">
+                                                <i class="fas fa-upload me-2"></i> Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     }
@@ -118,9 +177,11 @@
             </div>
 
             <!-- Items Section -->
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5 class="card-title">Request Items</h5>
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-list-alt me-2"></i> Request Items
+                    </h5>
                 </div>
                 <div class="card-body">
                     @if (Model.Items.Any())
@@ -130,11 +191,11 @@
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
-                                        <th>Description</th>
                                         <th>Quantity</th>
-                                        <th>Unit</th>
+                                        <th>GST%</th>
+                                        <th>GST Amount</th>
                                         <th>Unit Price</th>
-                                        <th>Total Price</th>
+                                        <th>Total Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -142,18 +203,20 @@
                                     {
                                         <tr>
                                             <td>@item.ItemName</td>
-                                            <td>@item.Description</td>
                                             <td>@item.Quantity</td>
-                                            <td>@item.Unit</td>
+                                            <td>@item.GSTRate</td>
+                                            <td>@item.GSTAmount</td>
                                             <td>@item.UnitPrice.ToString("C")</td>
-                                            <td>@item.TotalPrice.ToString("C")</td>
+                                            <td>@item.TotalAmount.ToString("C")</td>
                                         </tr>
                                     }
                                 </tbody>
                                 <tfoot>
-                                    <tr class="table-info">
-                                        <td colspan="5"><strong>Total Amount:</strong></td>
-                                        <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                                    <tr class="table-info text-end">
+                                        @{
+                                            decimal grandTotal = Model.Items.Sum(item => item.TotalAmount);
+                                        }
+                                        <th colspan="11">Grand Total: <strong>@grandTotal.ToString("C")</strong></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -165,53 +228,203 @@
                     }
                 </div>
             </div>
+            @if (Model.Attachments != null && Model.Attachments.Any())
+            {
+                <div class="card shadow border-0 mt-3">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-paperclip me-2"></i> Attachments
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead style="background-color: #092963;">
+                                    <tr style="background-color: #092963;">
+                                        <th scope="col" class="py-3 px-4 text-white">Attachment</th>
+                                        <th scope="col" class="py-3 px-4 text-end text-white">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var attachment in Model.Attachments)
+                                    {
+                                        <tr class="align-middle">
+                                            <td class="px-4">
+                                                <i class="fas fa-file me-2 text-custom-theme"></i>
+                                                <strong>@attachment.FileName</strong>
+                                                <small class="text-muted ms-2">(@(attachment.FileSizeKB) KB)</small>
+                                            </td>
+
+                                            <td class="px-4 text-end">
+                                                <div class="btn-group" role="group">
+
+                                                    <a href="@Url.Action("ViewAttachment", "PurchaseRequest", new { area = "Procurement", id = attachment.Id })"
+                                                       class="btn btn-sm btn-outline-custom-theme me-1"
+                                                       target="_blank"
+                                                       title="View">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+
+                                                    <a href="@Url.Action("DownloadAttachment", "PurchaseRequest", new { area = "Procurement", id = attachment.Id })"
+                                                       class="btn btn-sm btn-outline-custom-theme"
+                                                       target="_blank"
+                                                       title="Download">
+                                                        <i class="fas fa-download"></i>
+                                                    </a>
+
+                                                    @if (isAdminVerifierAndOwner)
+                                                    {
+                                                        <form asp-action="DeleteAttachment"
+                                                              asp-controller="PurchaseRequest"
+                                                              asp-area="Procurement"
+                                                              method="post"
+                                                              style="display:inline;"
+                                                              onsubmit="return confirm('Are you sure you want to delete this attachment?');">
+
+                                                            <input type="hidden" name="id" value="@attachment.Id" />
+                                                            <input type="hidden" name="purchaseRequestId" value="@Model.Id" />
+
+                                                            <button type="submit"
+                                                                    class="btn btn-sm btn-outline-custom-theme ms-1"
+                                                                    title="Delete">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
 
         <div class="col-md-4">
-            <!-- Workflow Actions -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Workflow Actions</h5>
-                </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        @if (Model.StateId == 1 || Model.StateId == 5) // Saved or Returned
-                        {
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
-                                <i class="fas fa-edit"></i> Edit Request
-                            </a>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#submitModal">
-                                <i class="fas fa-paper-plane"></i> Submit for Approval
-                            </button>
-                        }
+            <!-- FIXED: Simplified the condition to show Actions card -->
+            @{
+                // The "Actions" card should be shown by default, unless specific conditions are met.
+                bool showActionsCard = true;
 
-                        @if (Model.StateId == 2) // Submitted (In Approval)
-                        {
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
-                                <i class="fas fa-check"></i> Approve
-                            </button>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#returnModal">
-                                <i class="fas fa-undo"></i> Return
-                            </button>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-                                <i class="fas fa-times"></i> Reject
-                            </button>
-                        }
+                // Condition 1: Hide the card if the current user is the requester AND the state is 'Submitted'.
+                // This prevents the requester from acting on their own pending request.
+                if (Model.StateId == 2 && Model.CreatedByUser?.UserName == currentUserName)
+                {
+                    showActionsCard = false;
+                }
 
-                        @if (Model.StateId != 3 && Model.StateId != 4 && Model.StateId != 10001) // Not Approved, Rejected, or Cancelled
-                        {
-                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#cancelModal">
-                                <i class="fas fa-ban"></i> Cancel Request
-                            </button>
-                        }
+                // Condition 2: Hide the card if the state is 'Approved' (3), 'Rejected' (4), or 'Cancelled' (10001).
+                // These are final states where no further action is possible.
+                else if (Model.StateId == 3 || Model.StateId == 4 || Model.StateId == 10001)
+                {
+                    showActionsCard = false;
+                }
+
+                // Condition 3: Hide the card if the current user is NOT the owner, and the state is 'Submitted' or 'Returned'.
+                // This prevents users who are not the current assignee from taking action.
+                else if (Model.Owner != currentUserName && (Model.StateId == 2 || Model.StateId == 5))
+                {
+                    showActionsCard = false;
+                }
+
+                else if (Model.StateId == 5 && Model.Owner == currentUserName)
+                {
+                        showActionsCard = true;
+                }
+                // Condition 4: You cannot edit or submit if you are not the creator, even in a saved/returned state.
+                else if (Model.StateId == 1 || Model.StateId == 5)
+                {
+                    if (currentUserId != Model.CreatedByUserId)
+                    {
+                        showActionsCard = false;
+                    }
+                }
+                else if (Model.StateId == 3)
+                {
+                    showActionsCard = false;
+                }
+            }
+
+            @if (showActionsCard)
+            {
+                <!-- Workflow Actions -->
+                <div class="card shadow border-0">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-cogs me-2"></i> Actions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            @* Edit button *@
+                            @if (Model.StateId == 1 || Model.StateId == 5 && (currentUserId == Model.CreatedByUserId))
+                            {
+                                <button type="button" class="btn action-button-alt"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#purchaseRequestEditModal"
+                                        data-id="@Model.Id"
+                                        data-area="Procurement"
+                                        data-controller="PurchaseRequest"
+                                        data-action-name="Edit">
+                                    <i class="fas fa-edit me-2"></i> Edit Request
+                                </button>
+                            }
+                            @* Submit button *@
+                            @if ((Model.StateId == 1 && currentUserId == Model.CreatedByUserId) || (Model.StateId == 5 && currentUserId == Model.CreatedByUserId))
+                            {
+                                <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#submitModal">
+                                    <i class="fas fa-paper-plane me-2"></i> <span class="button-text">Submit for Approval</span>
+                                </button>
+                            }
+                            @* Approval actions *@
+                            @if (((Model.StateId == 5 && currentUserId != Model.CreatedByUserId) || Model.StateId == 2) && (currentUserName == Model.Owner))
+                            {
+                                <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                    <i class="fas fa-check me-2"></i> <span class="button-text">Approve</span>
+                                </button>
+                                <button type="button" class="btn action-button-alt"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#returnToSpecificUserModal"
+                                        data-purchase-request-id="@Model.Id"
+                                        id="returnButton">
+                                    <i class="fas fa-undo me-2"></i> <span class="button-text">Return</span>
+                                </button>
+                                <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                    <i class="fas fa-times me-2"></i> <span class="button-text">Reject</span>
+                                </button>
+                            }
+                            @* Cancel and Return actions *@
+                            @if (Model.StateId == 1 || Model.StateId == 4 || (Model.StateId == 5 && currentUserId == Model.CreatedByUserId))
+                            {
+                                @if (currentUserId == Model.CreatedByUserId || currentUserName == Model.Owner)
+                                {
+                                    <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                        <i class="fas fa-ban me-2"></i> <span class="button-text">Cancel Request</span>
+                                    </button>
+                                }
+                                @if (currentUserName == Model.Owner && Model.StateId != 1 && Model.StateId != 5)
+                                {
+                                    <button type="button" class="btn action-button-alt"
+                                            data-bs-toggle="modal" data-bs-target="#returnToSpecificUserModal"
+                                            data-purchase-order-id="@Model.Id" id="returnButton">
+                                        <i class="fas fa-undo me-2"></i> <span class="button-text">Return</span>
+                                    </button>
+                                }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
 
             <!-- Workflow History -->
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5 class="card-title">Workflow History</h5>
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-history me-2"></i> Workflow History
+                    </h5>
                 </div>
                 <div class="card-body">
                     @if (workflowHistory != null && workflowHistory.Any())
@@ -249,7 +462,10 @@
                                     <div class="timeline-content">
                                         <h6 class="mb-1">@history.Action</h6>
                                         <p class="text-muted mb-1">
-                                            @history.FromStateName → @history.ToStateName
+                                            @history.FromStateName &rarr; @history.ToStateName
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            From: <strong>@history.ActionByUserName</strong> To: <strong>@(history.ToUserName ?? history.ActionByUserName)</strong>
                                         </p>
                                         <small class="text-muted">
                                             By @history.ActionByUserName on @history.ActionDate.ToString("dd/MM/yyyy HH:mm")
@@ -277,6 +493,146 @@
 @await Html.PartialAsync("_WorkflowActionModals", Model)
 
 <style>
+    /* ------------------------------------------- */
+    /* 1. Base Action Button Styles and Hover Effects */
+    /* ------------------------------------------- */
+    .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease-in-out;
+        color: white; /* Default text color for dark backgrounds */
+        border: 1px solid transparent;
+    }
+
+        .action-button i {
+            margin-right: 0.5rem;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+
+    /* ------------------------------------------- */
+    /* 2. Custom Theme Variables (Blue: #092963) */
+    /* ------------------------------------------- */
+    .custom-theme-blue {
+        background-color: #092963;
+        border-color: #092963;
+        color: white;
+    }
+
+    .custom-theme-blue-hover {
+        background-color: #07204d !important;
+        border-color: #07204d !important;
+        color: white !important;
+    }
+
+    /* Input group text/icon style */
+    .input-group-text.custom-blue {
+        background-color: #092963;
+        color: white;
+    }
+
+    /* Form Checkbox/Switch style */
+    .form-check-input:checked {
+        background-color: #092963;
+        border-color: #092963;
+    }
+
+    /* ------------------------------------------- */
+    /* 3. Action Button Theme Overrides */
+    /* ------------------------------------------- */
+
+    /* Custom Theme Buttons (Primary, Success, Outline-Primary, Outline-Dark, Custom-Theme) */
+    .btn-outline-primary.action-button,
+    .btn-success.action-button,
+    .btn-outline-dark.action-button, /* Merged Outline-Dark, Outline-Primary */
+    .btn-primary.action-button, /* Added missing Bootstrap primary */
+    .btn-info.action-button, /* Added missing Bootstrap info */
+    .btn-secondary.action-button, /* Added missing Bootstrap secondary */
+    .btn-custom-theme { /* Merged Custom-Theme */
+        background-color: #092963;
+        border-color: #092963;
+        color: white !important; /* Ensure white text for all dark buttons */
+    }
+
+        .btn-outline-primary.action-button:hover,
+        .btn-success.action-button:hover,
+        .btn-outline-dark.action-button:hover,
+        .btn-primary.action-button:hover,
+        .btn-info.action-button:hover,
+        .btn-secondary.action-button:hover,
+        .btn-custom-theme:hover,
+        .btn-custom-theme:focus {
+            background-color: #07204d !important;
+            border-color: #07204d !important;
+            color: white !important;
+        }
+
+    /* Warning Button (Kept standard warning colors) */
+    .btn-warning.action-button {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: #212529;
+    }
+
+        .btn-warning.action-button:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+    /* Danger Button (Kept standard danger colors) */
+    .btn-danger.action-button {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger.action-button:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+
+    /* Custom Outlined Button (Non-action-button style, using theme colors) */
+    .btn-outline-custom-theme {
+        color: #092963;
+        border-color: #092963;
+    }
+
+        .btn-outline-custom-theme:hover,
+        .btn-outline-custom-theme:focus {
+            background-color: #092963;
+            color: #fff;
+        }
+
+    /* ------------------------------------------- */
+    /* 4. Text and Badge Styles */
+    /* ------------------------------------------- */
+    .badge-custom-theme {
+        background-color: #092963 !important;
+        color: #fff;
+    }
+
+    .text-custom-theme {
+        color: #092963 !important;
+    }
+
+    .status-badge {
+        padding: 0.5em 0.75em;
+        border-radius: 0.5rem;
+        font-size: 0.85em;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* ------------------------------------------- */
+    /* 5. Timeline Styles */
+    /* ------------------------------------------- */
     .timeline {
         position: relative;
         padding-left: 30px;
@@ -307,3 +663,281 @@
         padding-bottom: 20px;
     }
 </style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var baseUrl = '@Url.Content("~/")';
+    </script>
+    <script src="~/js/Procurement/purchaseRequestReturn.js"></script>
+    <script src="~/js/Procurement/PRCreate.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Helper function to build URLs
+            function getUrl(area, page, action, id) {
+            let baseUrl = '@Url.Content("~/")';
+
+            if (id) {
+                return `${baseUrl}${area}/${page}/${action}/${id}`;
+            }
+            return `${baseUrl}${area}/${page}/${action}`;
+        }
+
+            const purchaseRequestId = @Model.Id;
+            const currentApprovalSeq = @Model.CurrentApprovalSequence;
+
+            // --- SCRIPT FOR THE SUBMIT MODAL ---
+            const submitModal = document.getElementById('submitModal');
+            const submitToUserIdSelect = document.getElementById('submitToUserId');
+            const submitButton = document.getElementById('submitButton');
+
+        if (submitModal) {
+            submitModal.addEventListener('show.bs.modal', function () {
+                submitToUserIdSelect.innerHTML = '<option value="">Loading users...</option>';
+                submitToUserIdSelect.disabled = true;
+                submitButton.disabled = true;
+
+                const nextApprovalSeqForSubmit = 1;
+                const submitUrl = getUrl('Procurement', 'PurchaseRequest', 'GetApprovers') + `?purchaseRequestId=${purchaseRequestId}&approvalSeq=${nextApprovalSeqForSubmit}`;
+
+                fetch(submitUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            submitToUserIdSelect.innerHTML = '';
+                            const defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.textContent = '-- Select an Approver --';
+                            submitToUserIdSelect.appendChild(defaultOption);
+                            data.users.forEach(user => {
+                                const option = document.createElement('option');
+                                option.value = user.value;
+                                option.textContent = user.text;
+                                submitToUserIdSelect.appendChild(option);
+                            });
+                            submitToUserIdSelect.disabled = false;
+                            submitButton.disabled = false;
+                        } else {
+                            submitToUserIdSelect.innerHTML = `<option value="">${data.message}</option>`;
+                            submitToUserIdSelect.disabled = true;
+                            submitButton.disabled = true;
+                            if (typeof toastr !== 'undefined') {
+                                toastr.error(data.message || 'No approvers found for this step.');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching users:', error);
+                        submitToUserIdSelect.innerHTML = '<option value="">Error loading users</option>';
+                        submitToUserIdSelect.disabled = true;
+                        submitButton.disabled = true;
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error('An unexpected error occurred while loading approvers.');
+                        }
+                    });
+            });
+        }
+
+        // --- SCRIPT FOR THE APPROVE MODAL ---
+        const approveModal = document.getElementById('approveModal');
+        const approveToUserIdSelect = document.getElementById('approveToUserId');
+        const approveButton = document.getElementById('approveButton');
+        const nextApproverSelectionDiv = document.getElementById('approverSelection-approve');
+
+        if (approveModal) {
+            approveModal.addEventListener('show.bs.modal', function () {
+                approveToUserIdSelect.innerHTML = '<option value="">Loading next approvers...</option>';
+                approveToUserIdSelect.disabled = true;
+                approveButton.disabled = true;
+
+                const nextApprovalSeqForApprove = currentApprovalSeq + 1;
+                const approveUrl = getUrl('Procurement', 'PurchaseRequest', 'GetApprovers') + `?purchaseRequestId=${purchaseRequestId}&approvalSeq=${nextApprovalSeqForApprove}`;
+
+                fetch(approveUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success && data.users.length > 0) {
+                            approveToUserIdSelect.innerHTML = '';
+                            const defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.textContent = '-- Select Next Approver --';
+                            approveToUserIdSelect.appendChild(defaultOption);
+
+                            data.users.forEach(user => {
+                                const option = document.createElement('option');
+                                option.value = user.value;
+                                option.textContent = user.text;
+                                approveToUserIdSelect.appendChild(option);
+                            });
+                            approveToUserIdSelect.disabled = false;
+                            approveButton.disabled = false;
+                            nextApproverSelectionDiv.style.display = 'block';
+                            approveToUserIdSelect.setAttribute('required', 'required');
+                        } else {
+                            nextApproverSelectionDiv.style.display = 'none';
+                            approveToUserIdSelect.disabled = true;
+                            approveToUserIdSelect.removeAttribute('required');
+                            approveButton.disabled = false;
+                            if (typeof toastr !== 'undefined') {
+                                toastr.info('No further approvers found. This will be the final approval.');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching next approvers:', error);
+                        approveToUserIdSelect.innerHTML = '<option value="">Error loading approvers</option>';
+                        approveToUserIdSelect.disabled = true;
+                        approveButton.disabled = true;
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error('An unexpected error occurred while loading approvers.');
+                        }
+                    });
+            });
+        }
+
+            // --- SCRIPT FOR THE EDIT MODAL (CORRECTED LOGIC) ---
+            window.attachPurchaseRequestEditFormSubmissionHandler = function() {
+                const editForm = document.getElementById('purchaseRequestEditForm');
+                if (editForm) {
+                    $(editForm).off('submit', handlePurchaseRequestEditFormSubmit);
+                    $(editForm).on('submit', handlePurchaseRequestEditFormSubmit);
+                    if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                        jQuery(editForm).removeData("validator");
+                        jQuery(editForm).removeData("unobtrusiveValidation");
+                        jQuery.validator.unobtrusive.parse(editForm);
+                    }
+                }
+            };
+
+            async function handlePurchaseRequestEditFormSubmit(event) {
+                event.preventDefault();
+
+                const form = event.target;
+                if (window.jQuery && window.jQuery.validator && !jQuery(form).valid()) {
+                    return;
+                }
+
+                const formData = new FormData(form);
+                const modalBodyElement = document.getElementById('purchaseRequestEditModalBody');
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                    });
+
+                    const contentType = response.headers.get("content-type");
+
+                    if (contentType && contentType.includes("application/json")) {
+                        const jsonResponse = await response.json();
+                        if (jsonResponse.success) {
+                            const modalInstance = bootstrap.Modal.getInstance(document.getElementById('purchaseRequestEditModal'));
+                            if (modalInstance) {
+                                modalInstance.hide();
+                            }
+                            if (typeof toastr !== 'undefined') {
+                                toastr.success(jsonResponse.message || "Purchase request updated successfully!");
+                            }
+                            if (jsonResponse.redirectUrl) {
+                                window.location.href = jsonResponse.redirectUrl;
+                            } else {
+                                window.location.reload();
+                            }
+                        } else {
+                            if (typeof toastr !== 'undefined') {
+                                toastr.error(jsonResponse.message || "An error occurred.");
+                            }
+                        }
+                    } else if (contentType && contentType.includes("text/html")) {
+                        const responseHtml = await response.text();
+                        if (modalBodyElement) {
+                            modalBodyElement.innerHTML = responseHtml;
+                            window.initializePurchaseRequestFormForModal(modalBodyElement);
+                        }
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error("Please correct the validation errors.");
+                        }
+                    } else {
+                        console.error("Unexpected server response content type:", contentType);
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error("Server error: " + (response.statusText || "Unknown error"));
+                        }
+                    }
+                } catch (error) {
+                    console.error("AJAX submission failed:", error);
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error("An unexpected error occurred during submission.");
+                    }
+                }
+            };
+
+            window.initializePurchaseRequestFormForModal = function(modalBody) {
+                const $loadedForm = $(modalBody).find('#purchaseRequestEditForm');
+                if ($loadedForm.length > 0) {
+                    const formDom = $loadedForm.get(0);
+                    $(formDom).off('submit', window.handlePurchaseRequestEditFormSubmit);
+                    $(formDom).on('submit', window.handlePurchaseRequestEditFormSubmit);
+                    if (typeof window.initializePurchaseRequestForm === 'function') {
+                        const initialItemCount = $loadedForm.find('#purchaseRequisitionDetailsContainer .purchase-request-item-row').length;
+                        window.initializePurchaseRequestForm($loadedForm, initialItemCount);
+                    }
+                    if (window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive) {
+                        $loadedForm.removeData("validator").removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse($loadedForm);
+                    }
+                } else {
+                    console.error("Loaded HTML does not contain #purchaseRequestEditForm.");
+                    if (modalBody) {
+                        modalBody.innerHTML = `<div class="alert alert-danger" role="alert">Failed to load edit form content.</div>`;
+                    }
+                }
+            };
+
+            $(document).ready(function () {
+                $('#purchaseRequestEditModal').on('show.bs.modal', async function (event) {
+                    const button = event.relatedTarget;
+                    const purchaseRequestId = button.getAttribute('data-id');
+                    const url = getUrl('Procurement', 'PurchaseRequest', 'Edit', purchaseRequestId);
+                    const modalBody = this.querySelector('#purchaseRequestEditModalBody');
+
+                    if (modalBody) {
+                        modalBody.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Loading...</div>';
+                    }
+
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            throw new Error('Failed to load edit form.');
+                        }
+                        const html = await response.text();
+                        if (modalBody) {
+                            modalBody.innerHTML = html;
+                            setTimeout(window.initializePurchaseRequestFormForModal, 50, modalBody);
+                        }
+                    } catch (error) {
+                        console.error('Error loading purchase request edit form:', error);
+                        if (modalBody) {
+                            modalBody.innerHTML = `<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle me-2"></i> Failed to load the edit form. Please try again.</div>`;
+                        }
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error("Failed to load edit form.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

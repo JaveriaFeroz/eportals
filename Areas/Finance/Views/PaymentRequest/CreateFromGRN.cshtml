@@ -1,0 +1,170 @@
+﻿@using ProcureToPay.Areas.Finance.ViewModels
+@model ProcureToPay.Areas.Finance.ViewModels.CreatePaymentRequestFromGRNViewModel
+
+@{
+    ViewData["Title"] = "Select GRN for Payment Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<style>
+    /* Ensure the action button is always visible */
+    .action-btn {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        transition: none !important;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-hand-pointer me-2"></i> Select Goods Receipt Note (GRN)
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    @TempData["Info"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <p class="mb-3 text-muted">Select an acknowleged Goods Receipt Note (GRN) below with a pending amount to create a new Payment Request.</p>
+
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="grnNumberSearch"
+                                   placeholder="GRN Number">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="poNumberSearch"
+                                   placeholder="PO Number">
+                        </div>
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>GRN NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PO NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>GRN DATE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-truck text-dark me-2"></i>SUPPLIER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-money-bill-wave text-dark me-2"></i>TOTAL AMOUNT</div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center"><i class="fas fa-tasks text-dark me-2"></i>STATUS</div>
+            </div>
+
+            @if (Model.EligibleGRNs != null && Model.EligibleGRNs.Any())
+            {
+                @foreach (var grn in Model.EligibleGRNs)
+                {
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0" data-grn-number="@grn.GRNNumber.ToLower()" data-supplier="@grn.SupplierName.ToLower()">
+                        <div class="col-12 col-md-2" data-column-value="grnNumber">
+                            <strong class="fw-bold">
+                                <a href="@Url.Action("Details", "GRN", new { area = "Receiving", id = grn.Id })" class="text-decoration-none" @* target="_blank" *@>
+                                    @grn.GRNNumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-12 col-md-2" data-column-value="poNumber">
+                            <strong class="fw-bold">
+                                <a href="@Url.Action("Details", "PurchaseOrder", new { area = "Procurement", id = grn.POId })" class="text-decoration-none" @* target="_blank" *@>
+                                    @grn.PONumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-6 col-md-2">@grn.ReceiptDate.ToString("dd MMM yyyy")</div>
+                        <div class="col-6 col-md-2">@grn.SupplierName</div>
+                        <div class="col-6 col-md-2 text-md-center"><strong>@grn.TotalAmount.ToString("C")</strong></div>
+                        <div class="col-6 col-md-2 text-md-center">
+                            <span class="badge status-badge bg-success">@grn.StateName</span>
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i><br>No acknowledged Goods Receipt Notes currently eligible for Payment Request (PRQ) creation.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const grnNumberSearch = document.getElementById('grnNumberSearch');
+            const poNumberSearch = document.getElementById('poNumberSearch');
+            const clearButton = document.querySelector('.clear-button');
+            const rows = document.querySelectorAll('.user-row');
+
+            function filterRows() {
+                const grnNumberValue = grnNumberSearch.value.toLowerCase();
+                const poNumberValue = poNumberSearch.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const grnNumberText = row.querySelector('[data-column-value="grnNumber"]').textContent.trim().toLowerCase();
+                    const poNumberText = row.querySelector('[data-column-value="poNumber"]').textContent.trim().toLowerCase();
+
+                    const grnMatch = grnNumberValue === '' || grnNumberText.includes(grnNumberValue);
+                    const poMatch = poNumberValue === '' || poNumberText.includes(poNumberValue);
+
+                    if (grnMatch && poMatch) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            grnNumberSearch.addEventListener('input', filterRows);
+            poNumberSearch.addEventListener('input', filterRows);
+
+            clearButton.addEventListener('click', function () {
+                grnNumberSearch.value = '';
+                poNumberSearch.value = '';
+                filterRows(); // Re-run the filter to show all rows
+            });
+        });
+    </script>
+}

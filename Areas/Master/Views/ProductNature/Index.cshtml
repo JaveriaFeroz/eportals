@@ -10,12 +10,6 @@
 
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-area="Master" asp-controller="ProductNature" asp-action="Index">Master</a></li>
-        <li class="breadcrumb-item active">Product Nature</li>
-    </ol>
-
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
             <h5 class="card-title text-white mb-0">
@@ -46,12 +40,16 @@
                             <span class="input-group-text" id="productNatureIcon">
                                 <i class="fas fa-filter" style="font-size: 1rem;"></i>
                             </span>
-                            <input type="text" class="form-control form-control-sm underline-input" id="productNatureSearch" placeholder="Product Nature Name">
+                            <input type="text" class="form-control form-control-sm underline-input"
+                                   id="natureNameSearch" placeholder="Product Nature Name"
+                                   data-filter="natureName"> @* Added data-filter attribute for clarity *@
                         </div>
                     </div>
 
                     <div class="col-2">
-                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                        <select class="form-select form-select-sm underline-input"
+                                id="statusSearch" data-filter="status">
+                            @* Added data-filter attribute for clarity *@
                             <option value="">All</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
@@ -94,16 +92,20 @@
             {
                 foreach (var item in Model.ProductNatures)
                 {
-                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
-                        <div class="col-4 fw-bold">@item.NatureName</div>
-                        <div class="col-2 text-center">
+                    @* Changed class from 'user-row' to a more generic 'data-row' *@
+                    <div class="row align-items-center border-bottom py-3 px-2 data-row" tabindex="0">
+                        @* Added data-filter-column="natureName" to the column to be filtered *@
+                        <div class="col-4 fw-bold" data-filter-column="natureName">@item.NatureName</div>
+                        <div class="col-2 text-center" data-filter-column="status">
                             @if (item.IsActive)
                             {
-                                <span class="badge status-badge">Active</span>
+                                @* Added data-state-value attribute for filtering *@
+                                <span class="badge status-badge" data-state-value="true">Active</span>
                             }
                             else
                             {
-                                <span class="badge status-badge bg-danger">Inactive</span>
+                                @* Added data-state-value attribute for filtering *@
+                                <span class="badge status-badge bg-danger" data-state-value="false">Inactive</span>
                             }
                         </div>
                         <div class="col-6 col-md-2 small">
@@ -123,10 +125,6 @@
                                     title="Details" data-id="@item.NatureId" data-area="Master" data-page="ProductNature">
                                 <i class="fas fa-info-circle icon-info"></i>
                             </button>
-                            <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
-                                    title="Delete" data-id="@item.NatureId" data-area="Master" data-page="ProductNature" data-name="@item.NatureName">
-                                <i class="fas fa-trash-alt icon-danger"></i>
-                            </button>
                         </div>
                     </div>
                 }
@@ -141,11 +139,6 @@
                 </div>
             }
 
-            <div class="d-flex justify-content-end mt-3">
-                <a class="btn btn-light text-primary" href="/Home/Index">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </a>
-            </div>
         </div>
 
         @* This partial view will contain the empty modal shells for Edit, Details, and Delete *@
@@ -157,6 +150,57 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    @* This script handles the modal popups *@
-    <script src="~/js/modal-handler.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Get all search/filter elements (Updated IDs)
+            const nameSearch = document.getElementById('natureNameSearch'); // Changed from serviceSearch/productNatureSearch
+            const statusSearch = document.getElementById('statusSearch');
+            const clearButton = document.querySelector('.clear-button');
+
+            // IMPORTANT: Select rows using the new, consistent class 'data-row'
+            const rows = document.querySelectorAll('.data-row');
+
+            // 2. Define the filtering function
+            function filterRows() {
+                // Get values from input/select fields and convert to lowercase/trim for case-insensitive comparison
+                const nameValue = nameSearch.value.toLowerCase().trim();
+                const statusValue = statusSearch.value.toLowerCase().trim();
+
+                rows.forEach(row => {
+                    // Get text content from corresponding data columns/attributes
+                    // Now using data-filter-column="natureName"
+                    const nameText = row.querySelector('[data-filter-column="natureName"]').textContent.trim().toLowerCase();
+
+                    // Get the status from the badge's data attribute, which is 'true' or 'false'
+                    const rowStatusValue = row.querySelector('.status-badge').getAttribute('data-state-value');
+
+                    // Check for matches
+                    const nameMatch = nameValue === '' || nameText.includes(nameValue);
+                    // Note: statusValue from select is 'true' or 'false', matching data-state-value
+                    const statusMatch = statusValue === '' || rowStatusValue === statusValue;
+
+                    // Show/hide the row based on all matches
+                    if (nameMatch && statusMatch) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            // 3. Attach event listeners
+            nameSearch.addEventListener('input', filterRows);
+            statusSearch.addEventListener('change', filterRows);
+
+            // 4. Clear button functionality
+            clearButton.addEventListener('click', function () {
+                nameSearch.value = '';
+                statusSearch.value = '';
+                filterRows(); // Re-filter to show all rows
+            });
+
+            // 5. Initial filter
+            filterRows();
+        });
+    </script>
 }

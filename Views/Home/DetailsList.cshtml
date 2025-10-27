@@ -1,0 +1,169 @@
+﻿@using ProcureToPay.Areas.Common.Enums
+@model List<ProcureToPay.ViewModels.RequestDetailViewModel>
+@{
+    ViewData["Title"] = ViewBag.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-list-alt me-2"></i> @ViewData["Title"]
+            </h5>
+        </div>
+        <div class="card-body">
+
+            <div class="search-container mb-3">
+                <form id="filterForm" method="get" action="@Url.Action("DetailsList", "Home")">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-sm-12 col-md-3">
+                            <label for="moduleSelect" class="form-label fw-bold">Filter by Module:</label>
+                            <select id="moduleSelect" name="moduleId" class="form-select">
+                                <option value="">All Modules</option>
+                                @foreach (var module in ViewBag.Modules)
+                                {
+                                    <option value="@module.Id" selected="@(ViewBag.SelectedModuleId == module.Id)">
+                                        @module.DisplayName
+                                    </option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-sm-12 col-md-3">
+                            <label for="requestNumberFilter" class="form-label fw-bold">Request Number:</label>
+                            <input type="text" id="requestNumberFilter" name="RequestNumberFilter" class="form-control" placeholder="Search by number" value="@ViewBag.RequestNumberFilter" />
+                        </div>
+
+                        <div class="col-sm-12 col-md-2">
+                            <label for="minDate" class="form-label fw-bold">From Date:</label>
+                            <input type="date" id="minDate" name="MinDate" class="form-control" value="@ViewBag.MinDate" max="@ViewBag.MaxDate" />
+                        </div>
+
+                        <div class="col-sm-12 col-md-2">
+                            <label for="maxDate" class="form-label fw-bold">To Date (Max Today):</label>
+                            <input type="date" id="maxDate" name="MaxDate" class="form-control" value="@ViewBag.MaxDate" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <input type="hidden" name="statusId" value="@ViewBag.SelectedStatusId" />
+
+                        <div class="col-sm-12 col-md-2">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-theme-blue">
+                                    <i class="fas fa-filter me-1"></i> Apply Filters
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" onclick="clearFilters()">
+                                    <i class="fas fa-times me-1"></i> Clear Filters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                    <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>REQUEST NUMBER</div>
+                    <div class="col-md-2 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>REQUEST DATE</div>
+                    <div class="col-md-2 d-flex align-items-center"><i class="fas fa-building text-dark me-2"></i>DEPARTMENT</div>
+                    <div class="col-md-2 d-flex align-items-center"><i class="fas fa-code-branch text-dark me-2"></i>BRANCH</div>
+                    <div class="col-md-2 d-flex align-items-center"><i class="fas fa-info-circle text-dark me-2"></i>STATUS</div>
+                    <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>CURRENT OWNER</div>
+                </div>
+
+                @foreach (var item in Model)
+                {
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
+                        <div class="col-12 col-md-2">
+                            <strong class="fw-bold">
+                                @{
+                                    string area = "";
+                                    string controller = "";
+                                    switch ((WorkFlowType)item.WorkFlowTypeId)
+                                    {
+                                        case WorkFlowType.PurchaseRequest: area = "Procurement"; controller = "PurchaseRequest"; break;
+                                        case WorkFlowType.PurchaseOrder: area = "Procurement"; controller = "PurchaseOrder"; break;
+                                        case WorkFlowType.PaymentRequest: area = "Finance"; controller = "PaymentRequest"; break;
+                                    }
+                                }
+                                <a href="@Url.Action("Details", controller, new { area = area, id = item.Id })" class="text-decoration-none" @* target="_blank" *@>
+                                    @item.RequestNumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-12 col-md-2">@item.RequestDate.ToString("dd MMM yyyy")</div>
+                        <div class="col-12 col-md-2">@item.Department</div>
+                        <div class="col-12 col-md-2">@item.Branch</div>
+                        <div class="col-12 col-md-2">
+                            @{
+                                string statusBadgeClass = "";
+                                string statusText = "";
+                                switch (item.Status)
+                                {
+                                    case "1": statusBadgeClass = "bg-secondary"; statusText = "Saved"; break;
+                                    case "2": statusBadgeClass = "bg-warning"; statusText = "Submitted"; break;
+                                    case "3": statusBadgeClass = "bg-success"; statusText = "Approved"; break;
+                                    case "4": statusBadgeClass = "bg-danger"; statusText = "Rejected"; break;
+                                    case "5": statusBadgeClass = "bg-info"; statusText = "Returned"; break;
+                                    case "10001": statusBadgeClass = "bg-dark"; statusText = "Cancelled"; break;
+                                    default: statusBadgeClass = "bg-light text-dark"; statusText = "Unknown"; break;
+                                }
+                            }
+                            <span class="badge @statusBadgeClass">@statusText</span>
+                        </div>
+                        <div class="col-12 col-md-2">@item.CurrentOwner</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-money-check-alt fa-2x mb-2"></i><br>No requests found.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Existing logic to handle immediate module change (optional, but retained for current function)
+        document.getElementById('moduleSelect').onchange = function() {
+            var form = document.getElementById('filterForm');
+
+            // Get current filter values to preserve them on module change
+            var statusId = '@(ViewBag.SelectedStatusId?.ToString() ?? "")';
+            var requestNumber = document.getElementById('requestNumberFilter').value;
+            var minDate = document.getElementById('minDate').value;
+            var maxDate = document.getElementById('maxDate').value;
+            var moduleId = this.value; // The newly selected module
+
+            var url = '@Url.Action("DetailsList", "Home")' +
+                      '?moduleId=' + moduleId +
+                      '&statusId=' + statusId +
+                      '&RequestNumberFilter=' + encodeURIComponent(requestNumber) +
+                      '&MinDate=' + minDate +
+                      '&MaxDate=' + maxDate;
+
+            window.location.href = url;
+        };
+
+        // New function to clear all filters
+        function clearFilters() {
+            var statusId = '@(ViewBag.SelectedStatusId?.ToString() ?? "")';
+
+            // Constructs the URL with *only* the statusId, resetting the other filters to their default/null state.
+            // When moduleId, RequestNumberFilter, MinDate, and MaxDate are null/empty, the C# controller will apply its default logic (e.g., all modules, default date range).
+            var url = '@Url.Action("DetailsList", "Home")' +
+                      '?statusId=' + statusId;
+
+            // If the current view is for "Today's" requests (statusId=0) or "All" (statusId is null/empty),
+            // clearing the status filter would be counter-intuitive, so we mainly clear the module/number/date filters.
+
+            window.location.href = url;
+        }
+    </script>
+}

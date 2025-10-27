@@ -1,0 +1,599 @@
+﻿@using ProcureToPay.Areas.Procurement.Models
+@using ProcureToPay.Areas.Common.Enums
+@model PurchaseOrder
+
+@{
+    ViewData["Title"] = "Create Purchase Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var prId = ViewBag.SelectedPRId ?? 0;
+    var prRequestNumber = ViewBag.PRRequestNumber ?? "N/A";
+}
+
+<style>
+    .input-group-text.custom-blue {
+        background-color: #092963;
+        color: white;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-file-invoice-dollar me-2"></i> Create Purchase Order from PR: @prRequestNumber
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.IsReorder == true)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="fas fa-redo me-2"></i>
+                    <strong>Reordering from:</strong> @ViewBag.OriginalPONumber
+                    <p class="mb-0 mt-2">
+                        All details have been pre-filled from the original order.
+                        You can adjust quantities, prices, and items as needed before creating the new order.
+                    </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="PurchaseRequestId" value="@prId" />
+                <input type="hidden" name="CreatedByUserId" value="@Model.CreatedByUserId" />
+                <input type="hidden" name="PurchaseNature" value="@((int)Model.PurchaseNature)" />
+                <input type="hidden" name="PurchaseType" value="@((int)Model.PurchaseType)" />
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Purchase Order Details
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">PO Title <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-heading"></i>
+                                    </span>
+                                    <input name="Title"
+                                           value="@Model.Title"
+                                           class="form-control"
+                                           placeholder="Enter PO title"
+                                           required
+                                           @(ViewBag.IsReorder == true ? "" : "readonly") />
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Supplier <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-truck"></i>
+                                    </span>
+                                    <select name="VendorId" class="form-control"
+                                            asp-items="@(new SelectList(ViewBag.Suppliers, "Value", "Text", Model.SupplierId))"
+                                            required
+                                            id="vendorSelect"
+                                            data-url="@Url.Action("GetSupplierDetails", "PurchaseOrder", new { area = "Procurement" })">
+                                        <option value="">-- Select Supplier --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Expected Delivery Date <span class="text-danger">*</span></label>
+                                <div class="input-group" id="expectedDeliveryDateContainer">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                    <input name="ExpectedDeliveryDate"
+                                           type="date"
+                                           id="expectedDeliveryDateInput"
+                                           value="@Model.ExpectedDeliveryDate?.ToString("yyyy-MM-dd")"
+                                           class="form-control"
+                                           required
+                                           min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Supplier Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                    <textarea name="VendorAddress" class="form-control" rows="1" placeholder="Enter vendor address" id="vendorAddressTextarea">@Model.SupplierAddress</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Supplier Contact</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-phone"></i>
+                                    </span>
+                                    <input name="VendorContact"
+                                           value="@Model.SupplierContact"
+                                           class="form-control"
+                                           id="vendorContactInput"
+                                           placeholder="e.g., 0333-1234567"
+                                           type="tel"
+                                           pattern="[0-9]{4}-[0-9]{7}"
+                                           maxlength="12"
+                                           title="A Pakistani phone number format (e.g., 0333-1234567)" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Payment Days</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                    <input type="number" name="PaymentDays" class="form-control" placeholder="Enter payment days" value="@Model.PaymentDays" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Terms & Condition</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-file-contract"></i>
+                                    </span>
+                                    <textarea name="Terms" class="form-control" rows="1" placeholder="Enter terms">@Model.Terms</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="card shadow border-0 mb-4">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0 d-flex justify-content-between align-items-center w-100">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-boxes me-2"></i> Purchase Order Items
+                            </div>
+                        </h5>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div id="poItemsContainer" class="table-responsive">
+                            @* Added table-responsive for better mobile viewing *@
+
+                            <table class="table table-sm table-borderless table-striped mb-0">
+                                <thead>
+                                    @* This replaces the original column label div *@
+
+                                    <tr class="fw-bold bg-light text-secondary small border-bottom">
+                                        @* Column Header Mapping using fixed widths to approximate the desired ratio (2:1:1:1:3:2:2) *@
+                                        <th style="width: 16%;">Item Name</th> @* ~col-md-2 (16.67%) *@
+                                        <th class="text-center" style="width: 8%;">Qty / UoM</th> @* ~col-md-1 (8.33%) *@
+                                        <th class="text-end" style="width: 8%;">Unit Price</th> @* ~col-md-1 (8.33%) *@
+                                        <th class="text-end" style="width: 8%;">Amount (Ex Tax)</th> @* ~col-md-1 (8.33%) *@
+                                        <th class="text-center" style="width: 28%;">Discount (Rate / Amt)</th> @* ~col-md-3 (25%) - Increased for spacing *@
+                                        <th class="text-center" style="width: 16%;">GST (Rate / Amt)</th> @* ~col-md-2 (16.67%) *@
+                                        <th class="text-end" style="width: 16%;">Total Price</th> @* ~col-md-2 (16.67%) *@
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @* Existing Items Loop (Data Rows) *@
+                                    @if (Model.Items != null && Model.Items.Any())
+                                    {
+                                        for (int i = 0; i < Model.Items.Count; i++)
+                                        {
+                                            @* Replaced <div class="po-item-row..."> with <tr> *@
+                                            <tr class="po-item-row border-bottom">
+                                                @* Hidden Fields (moved inside the <tr>) *@
+                                                <input type="hidden" name="Items[@i].PurchaseRequestItemId" value="@Model.Items[i].SourcePurchaseRequestItemId" />
+                                                <input type="hidden" name="Items[@i].ItemName" value="@Model.Items[i].ItemName" />
+                                                <input type="hidden" name="Items[@i].UoMId" value="@Model.Items[i].UoMId" />
+                                                <input type="hidden" name="SelectedItems[@i].PurchaseRequestItemId" value="@Model.Items[i].SourcePurchaseRequestItemId" />
+                                                @* Item Name (col-md-2) - Now a <td> *@
+                                                <td>
+                                                    <input type="text" value="@Model.Items[i].ItemName" class="form-control form-control-sm" readonly title="@Model.Items[i].ItemName" />
+                                                </td>
+
+                                                @* Quantity and UoM (col-md-1) - Now a <td> *@
+                                                <td>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="number" name="SelectedItems[@i].Quantity" value="@Model.Items[i].Quantity" class="form-control quantity-input text-end" step="0.01" min="0" required />
+                                                        <span class="input-group-text p-1 small" title="Unit of Measure">@Model.Items[i].Unit</span>
+                                                    </div>
+                                                </td>
+
+                                                @* Unit Price (col-md-1) - Now a <td> *@
+                                                <td>
+                                                    <input type="number" name="SelectedItems[@i].UnitPrice" value="@Model.Items[i].UnitPrice" class="form-control form-control-sm unit-price-input text-end" step="0.01" min="0" required data-original-price="@Model.Items[i].UnitPrice" />
+                                                </td>
+
+                                                @* Amount (Ex Tax) - Display Only (col-md-1) - Now a <td> *@
+                                                <td>
+                                                    <input type="text" name="SelectedItems[@i].AmountExclTax" value="@(Model.Items[i].Quantity * Model.Items[i].UnitPrice)" class="form-control form-control-sm amount-ex-tax-display text-end" readonly />
+                                                </td>
+
+                                                @* Discount Rate/Amt (col-md-3) - Now a <td> *@
+                                                <td>
+                                                    <div class="d-flex gap-1 align-items-center justify-content-center">
+                                                        @* Disc Rate/Type Input Group *@
+                                                        <div class="input-group input-group-sm flex-fill">
+                                                            <span class="input-group-text custom-blue p-1">
+                                                                <input class="form-check-input disc-radio me-1" type="radio" name="discountType_@i" id="discPercentRadio_@i" value="percent" @(Model.Items[i].DiscRate.HasValue && Model.Items[i].DiscRate.Value > 0 ? "checked" : "checked")>
+                                                                <label class="form-check-label small" for="discPercentRadio_@i">%</label>
+                                                            </span>
+                                                            <input type="number" name="SelectedItems[@i].DiscRate" value="@(Model.Items[i].DiscRate ?? 0)" class="form-control disc-rate-input text-end" step="0.01" min="0" max="100" />
+                                                        </div>
+
+                                                        @* Disc Amount Input Group *@
+                                                        <div class="input-group input-group-sm flex-fill">
+                                                            <span class="input-group-text custom-blue p-1">
+                                                                <input class="form-check-input disc-radio me-1" type="radio" name="discountType_@i" id="discAmountRadio_@i" value="amount" @(Model.Items[i].DiscAmount.HasValue && Model.Items[i].DiscAmount.Value > 0 && !Model.Items[i].DiscRate.HasValue ? "checked" : "")>
+                                                                <label class="form-check-label small" for="discAmountRadio_@i">$</label>
+                                                            </span>
+                                                            <input type="number" name="SelectedItems[@i].DiscAmount" value="@(Model.Items[i].DiscAmount ?? 0)" class="form-control item-disc-amount-display text-end" step="0.01" min="0" readonly />
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                @* GST Rate/Amount (col-md-2) - Now a <td> *@
+                                                <td>
+                                                    <div class="d-flex gap-1">
+                                                        @* GST Rate *@
+                                                        <div class="input-group input-group-sm flex-fill">
+                                                            <span class="input-group-text custom-blue" title="GST Rate"><i class="fas fa-percent"></i></span>
+                                                            <input type="number" name="SelectedItems[@i].GSTRate value="@(Model.Items[i].GSTRate ?? 0)" class="form-control gst-rate-input text-end" step="0.01" min="0" max="100" />
+                                                        </div>
+                                                        @* GST Amount *@
+                                                        <div class="input-group input-group-sm flex-fill">
+                                                            <span class="input-group-text custom-blue" title="GST Amount"><i class="fas fa-receipt"></i></span>
+                                                            <input type="text" name="SelectedItems[@i].GSTAmount" value="@(Model.Items[i].GSTAmount ?? 0)" class="form-control item-gst-amount-display text-end" readonly />
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" name="Items[@i].TotalPrice" value="@Model.Items[i].TotalPrice" class="form-control form-control-sm total-price-display text-end" readonly />
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="7">
+                                                <p class="alert alert-warning my-2">No items available from the selected Purchase Request with remaining quantities.</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-money-check-alt me-2"></i> Order Totals
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Total Discount Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text custom-blue"><i class="fas fa-tags"></i></span>
+                                        <input type="text" value="0" class="form-control" id="totalDiscountAmountDisplay" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Total GST Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text custom-blue"><i class="fas fa-receipt"></i></span>
+                                        <input type="text" value="0" class="form-control" id="totalGstAmountDisplay" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Grand Total</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text custom-blue"><i class="fas fa-funnel-dollar"></i></span>
+                                        <input type="text" value="@Model.GrandTotal" class="form-control" id="grandTotalDisplay" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="MappedAmount" value="@Model.TotalAmount" id="mappedAmountHidden" />
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create Purchase Order
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const poItemsContainer = document.getElementById('poItemsContainer');
+            const totalDiscountAmountDisplay = document.getElementById('totalDiscountAmountDisplay');
+            const totalGstAmountDisplay = document.getElementById('totalGstAmountDisplay');
+            const grandTotalDisplay = document.getElementById('grandTotalDisplay');
+            const mappedAmountHidden = document.getElementById('mappedAmountHidden');
+
+            const vendorSelect = document.getElementById('vendorSelect');
+            const vendorAddressTextarea = document.getElementById('vendorAddressTextarea');
+            const vendorContactInput = document.getElementById('vendorContactInput');
+
+            const dateInput = document.getElementById('expectedDeliveryDateInput');
+            const dateContainer = dateInput.closest('.input-group');
+
+            function handleSupplierChange() {
+                const supplierId = vendorSelect.value;
+                const url = vendorSelect.dataset.url;
+
+                if (supplierId) {
+                    fetch(`${url}?supplierId=${supplierId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                vendorAddressTextarea.value = data.address || '';
+                                vendorContactInput.value = data.contact || '';
+                                vendorAddressTextarea.setAttribute('readonly', 'readonly');
+                                vendorContactInput.setAttribute('readonly', 'readonly');
+                            } else {
+                                console.error('Failed to fetch supplier details:', data.message);
+                                vendorAddressTextarea.value = '';
+                                vendorContactInput.value = '';
+                                vendorAddressTextarea.removeAttribute('readonly');
+                                vendorContactInput.removeAttribute('readonly');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error during fetch:', error);
+                            vendorAddressTextarea.value = '';
+                            vendorContactInput.value = '';
+                            vendorAddressTextarea.removeAttribute('readonly');
+                            vendorContactInput.removeAttribute('readonly');
+                        });
+                } else {
+                    vendorAddressTextarea.value = '';
+                    vendorContactInput.value = '';
+                    vendorAddressTextarea.removeAttribute('readonly');
+                    vendorContactInput.removeAttribute('readonly');
+                }
+            }
+
+            // --- NEW VALIDATION FUNCTION FOR UNIT PRICE ---
+            function validateUnitPrice(itemRow) {
+                const unitPriceInput = itemRow.querySelector('.unit-price-input');
+                const newPrice = parseFloat(unitPriceInput.value) || 0;
+                // Read the original price from the data attribute (which must be set in the HTML)
+                const originalPrice = parseFloat(unitPriceInput.dataset.originalPrice) || 0;
+
+                // Enforce price cannot be raised
+                if (newPrice > originalPrice) {
+                    alert('Please raise bid to increase the price. The unit price cannot be increased above the original price: ' + originalPrice.toFixed(2));
+                    // Revert the value to the original price
+                    unitPriceInput.value = originalPrice.toFixed(2);
+                } else if (newPrice < 0) {
+                    // Prevent negative prices
+                    unitPriceInput.value = '0.00';
+                }
+
+                // Proceed with calculating totals using the (potentially corrected) price
+                calculateItemTotalPrice(itemRow);
+            }
+
+            function updateDiscountFields(itemRow) {
+                const discRateInput = itemRow.querySelector('.disc-rate-input');
+                const discAmountInput = itemRow.querySelector('.item-disc-amount-display');
+
+                // Safely get the value of the checked radio button or default to 'percent'
+                const selectedRadio = itemRow.querySelector('input[name^="discountType"]:checked');
+                const isPercentSelected = selectedRadio?.value === 'percent';
+
+                if (isPercentSelected) {
+                    discRateInput.removeAttribute('readonly');
+                    discAmountInput.setAttribute('readonly', 'readonly');
+                } else {
+                    discAmountInput.removeAttribute('readonly');
+                    discRateInput.setAttribute('readonly', 'readonly');
+                }
+
+                calculateDiscountValues(itemRow);
+            }
+
+            function calculateDiscountValues(itemRow) {
+                const discRateInput = itemRow.querySelector('.disc-rate-input');
+                const discAmountInput = itemRow.querySelector('.item-disc-amount-display');
+                const amountExclTax = parseFloat(itemRow.querySelector('.amount-ex-tax-display').value) || 0;
+
+                // Safely get the value of the checked radio button
+                const selectedRadio = itemRow.querySelector('input[name^="discountType"]:checked');
+                const isPercentSelected = selectedRadio?.value === 'percent';
+
+                let calculatedDiscAmount = 0;
+
+                if (isPercentSelected) {
+                    const discRate = parseFloat(discRateInput.value) || 0;
+                    calculatedDiscAmount = amountExclTax * (discRate / 100);
+                } else {
+                    calculatedDiscAmount = parseFloat(discAmountInput.value) || 0;
+                }
+
+                if (calculatedDiscAmount > amountExclTax) {
+                    calculatedDiscAmount = amountExclTax;
+                    alert('Discount amount cannot exceed the amount excluding tax.');
+                }
+
+                discAmountInput.value = calculatedDiscAmount.toFixed(2);
+
+                const newDiscRate = (amountExclTax > 0) ? (calculatedDiscAmount / amountExclTax) * 100 : 0;
+                discRateInput.value = isFinite(newDiscRate) ? newDiscRate.toFixed(2) : 0;
+
+                calculateItemTotalPrice(itemRow);
+            }
+
+            function calculateItemTotalPrice(itemRow) {
+                const quantityInput = itemRow.querySelector('.quantity-input');
+                const unitPriceInput = itemRow.querySelector('.unit-price-input');
+                const discAmountInput = itemRow.querySelector('.item-disc-amount-display');
+                const gstRateInput = itemRow.querySelector('.gst-rate-input');
+
+                const amountExclTaxDisplay = itemRow.querySelector('.amount-ex-tax-display');
+                const itemDiscAmountDisplay = itemRow.querySelector('.item-disc-amount-display');
+                const itemGstAmountDisplay = itemRow.querySelector('.item-gst-amount-display');
+                const totalPriceDisplay = itemRow.querySelector('.total-price-display');
+
+                const quantity = parseFloat(quantityInput.value) || 0;
+                const unitPrice = parseFloat(unitPriceInput.value) || 0;
+                const discAmount = parseFloat(discAmountInput.value) || 0;
+
+                // New validation for GST Rate
+                let gstRate = parseFloat(gstRateInput.value) || 0;
+                if (gstRate < 0 || gstRate > 100) {
+                    alert('GST Rate must be between 0 and 100.');
+                    gstRate = Math.min(Math.max(gstRate, 0), 100); // Clamp the value
+                    gstRateInput.value = gstRate;
+                }
+
+                const amountExclTax = quantity * unitPrice;
+                const subtotalAfterDiscount = amountExclTax - discAmount;
+                const gstAmount = subtotalAfterDiscount * (gstRate / 100.00);
+                const totalAmount = subtotalAfterDiscount + gstAmount;
+
+                amountExclTaxDisplay.value = amountExclTax.toFixed(2);
+                itemDiscAmountDisplay.value = discAmount.toFixed(2);
+                itemGstAmountDisplay.value = gstAmount.toFixed(2);
+                totalPriceDisplay.value = totalAmount.toFixed(2);
+
+                updateOverallTotals();
+            }
+
+            function updateOverallTotals() {
+                let totalDiscount = 0;
+                let totalGst = 0;
+                let grandTotal = 0;
+
+                document.querySelectorAll('.po-item-row').forEach(row => {
+                    totalDiscount += parseFloat(row.querySelector('.item-disc-amount-display').value) || 0;
+                    totalGst += parseFloat(row.querySelector('.item-gst-amount-display').value) || 0;
+                    grandTotal += parseFloat(row.querySelector('.total-price-display').value) || 0;
+                });
+
+                totalDiscountAmountDisplay.value = totalDiscount.toFixed(2);
+                totalGstAmountDisplay.value = totalGst.toFixed(2);
+                grandTotalDisplay.value = grandTotal.toFixed(2);
+                mappedAmountHidden.value = grandTotal.toFixed(2);
+            }
+
+            function setupItemRowEvents(itemRow) {
+                const quantityInput = itemRow.querySelector('.quantity-input');
+                const unitPriceInput = itemRow.querySelector('.unit-price-input');
+                const discRateInput = itemRow.querySelector('.disc-rate-input');
+                const gstRateInput = itemRow.querySelector('.gst-rate-input');
+                const discRadios = itemRow.querySelectorAll('.disc-radio');
+                const discAmountInput = itemRow.querySelector('.item-disc-amount-display');
+
+                if (quantityInput) {
+                    quantityInput.addEventListener('input', () => calculateItemTotalPrice(itemRow));
+                }
+
+                // *** UNIT PRICE VALIDATION/CALCULATION ***
+                if (unitPriceInput) {
+                    unitPriceInput.addEventListener('input', () => validateUnitPrice(itemRow));
+                    unitPriceInput.addEventListener('blur', () => validateUnitPrice(itemRow));
+                }
+                // ****************************************
+
+                if (gstRateInput) {
+                    gstRateInput.addEventListener('input', () => calculateItemTotalPrice(itemRow));
+                    gstRateInput.addEventListener('blur', () => calculateItemTotalPrice(itemRow));
+                }
+
+                discRadios.forEach(radio => {
+                    radio.addEventListener('change', () => updateDiscountFields(itemRow));
+                });
+
+                discRateInput.addEventListener('input', () => calculateDiscountValues(itemRow));
+                discAmountInput.addEventListener('input', () => calculateDiscountValues(itemRow));
+
+                discRateInput.addEventListener('blur', function() {
+                    const value = parseFloat(this.value);
+                    if (value === 0) {
+                        this.value = '0';
+                    } else if (value % 1 === 0) {
+                        this.value = value.toFixed(0);
+                    } else {
+                        this.value = value.toFixed(2);
+                    }
+                    calculateDiscountValues(itemRow);
+                });
+
+                discAmountInput.addEventListener('blur', function() {
+                    const value = parseFloat(this.value);
+                    const max = parseFloat(itemRow.querySelector('.amount-ex-tax-display').value) || 0;
+
+                    if (value > max) {
+                        this.value = max.toFixed(2);
+                        alert('Discount amount cannot exceed the amount excluding tax.');
+                    } else if (isNaN(value) || value === 0) {
+                        this.value = '0';
+                    } else if (value % 1 === 0) {
+                        this.value = value.toFixed(0);
+                    } else {
+                        this.value = value.toFixed(2);
+                    }
+                    calculateDiscountValues(itemRow);
+                });
+
+                updateDiscountFields(itemRow);
+            }
+
+            if (vendorSelect) {
+                vendorSelect.addEventListener('change', handleSupplierChange);
+                if (vendorSelect.value) {
+                    // Only call if a vendor is already selected on page load (e.g., reorder scenario)
+                    handleSupplierChange();
+                }
+            }
+
+            if (dateContainer && dateInput) {
+                // Allows clicking anywhere on the input group to open the date picker
+                dateContainer.addEventListener('click', function () {
+                    dateInput.showPicker();
+                });
+            }
+
+            document.querySelectorAll('.po-item-row').forEach(setupItemRowEvents);
+            updateOverallTotals();
+        });
+    </script>
+}

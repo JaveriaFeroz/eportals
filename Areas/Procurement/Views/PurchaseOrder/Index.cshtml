@@ -1,0 +1,270 @@
+﻿@using ProcureToPay.Areas.Procurement.Models
+@model IEnumerable<PurchaseOrder>
+
+@{
+    ViewData["Title"] = "Purchase Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int>;
+    bool canCreatePO = currentUserRoles != null && currentUserRoles.Contains(26);
+
+}
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<style>
+    /* Ensure action buttons are always visible */
+    .action-btn {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-file-invoice me-2"></i> Purchase Order
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    @TempData["Info"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="poNumberSearch"
+                                   placeholder="PO Number">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="prNumberSearch"
+                                   placeholder="PR Number">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="completionStatusSearch">
+                            <option value="">All</option>
+                            <option value="open">Open</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                            <option value="">All Statuses</option>
+                            <option value="1">Saved</option>
+                            <option value="2">Submit For Approval</option>
+                            <option value="3">Approved</option>
+                            <option value="4">Rejected</option>
+                            <option value="5">Returned</option>
+                            <option value="10001">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+                    @if (canCreatePO)
+                    {
+                        <div class="col-auto ms-auto">
+                            <div class="create-user-container">
+                                <button class="action-button create-user-text"
+                                        data-url="@Url.Action("CreateFromPR", "PurchaseOrder", new { area = "Procurement" })"
+                                        style="background-color: #092963;" require-permission="Add">
+                                    <i class="fas fa-plus"></i>
+                                    <span class="button-text"> Select PR</span>
+                                </button>
+                                <a href="#" class="btn btn-sm create-user-icon">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PO NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PR NUMBER</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>PO DATE</div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center"><i class="fas fa-info-circle text-dark me-2"></i>STATE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>OWNER</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-boxes text-dark me-2"></i>QTY</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-sync-alt text-dark me-2"></i>BALANCED QTY</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-check-circle text-dark me-2"></i>STATUS</div>
+            </div>
+
+            @if (Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    // Calculate the sum of all item quantities for the PO
+                    decimal totalQuantity = item.Items?.Sum(i => i.Quantity) ?? 0;
+                    decimal totalUpdatedQuantity = item.Items?.Sum(i => i.UpdatedQuantity) ?? 0;
+
+                    // Determine the completion status of the entire PO
+                    bool poIsCompleted = item.Items?.All(i => i.IsCompleted) ?? false;
+
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0" data-completion-status="@(poIsCompleted ? "completed" : "open")">
+                        <div class="col-12 col-md-2" data-column-value="poNumber">
+                            <strong class="fw-bold">
+                                <a href="@Url.Action("Details", "PurchaseOrder", new { area = "Procurement", id = item.Id })" class="text-decoration-none" @* target="_blank" *@>
+                                    @item.PONumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-12 col-md-2" data-column-value="prNumber">
+                            <strong class="fw-bold">
+                                <a href="@Url.Action("Details", "PurchaseRequest", new { area = "Procurement", id = item.Items.FirstOrDefault()?.SourcePurchaseRequestItem?.PurchaseRequest?.Id })" class="text-decoration-none" @* target="_blank" *@>
+                                    @item.Items.FirstOrDefault()?.SourcePurchaseRequestItem?.PurchaseRequest?.RequestNumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-6 col-md-1">@item.PODate.ToString("dd MMM yyyy")</div>
+                        <div class="col-6 col-md-2 text-md-center" data-column-value="status">
+                            @{
+                                string statusBadgeClass = "";
+                                string statusText = item.Status.ToString(); // Default to enum name
+                                switch (item.StateId)
+                                {
+                                    case 1:
+                                        statusBadgeClass = "bg-secondary";
+                                        statusText = "Saved";
+                                        break;
+                                    case 2:
+                                        statusBadgeClass = "bg-warning";
+                                        statusText = "Submit For Approval";
+                                        break;
+                                    case 3:
+                                        statusBadgeClass = "bg-success";
+                                        statusText = "Approved";
+                                        break;
+                                    case 4:
+                                        statusBadgeClass = "bg-danger";
+                                        statusText = "Rejected";
+                                        break;
+                                    case 5:
+                                        statusBadgeClass = "bg-info";
+                                        statusText = "Returned";
+                                        break;
+                                    case 10001:
+                                        statusBadgeClass = "bg-dark";
+                                        statusText = "Cancelled";
+                                        break;
+                                    default:
+                                        statusBadgeClass = "bg-light text-dark";
+                                        statusText = "Unknown";
+                                        break;
+                                }
+                            }
+                            <span class="badge status-badge @statusBadgeClass" data-state-id="@item.StateId">@statusText</span>
+                        </div>
+                        <div class="col-6 col-md-2">@item.Owner</div>
+                        <div class="col-6 col-md-1">@totalQuantity</div>
+                        <div class="col-6 col-md-1">@totalUpdatedQuantity</div>
+                        <div class="col-6 col-md-1" data-column-value="completionStatus">
+                            @{
+                                string completionStatusText = poIsCompleted ? "Completed" : "Open";
+                                string completionBadgeClass = poIsCompleted ? "bg-success" : "bg-primary";
+                            }
+                            <span class="badge @completionBadgeClass">@completionStatusText</span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i><br>No purchase orders found.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const poNumberSearch = document.getElementById('poNumberSearch');
+        const prNumberSearch = document.getElementById('prNumberSearch');
+        const completionStatusSearch = document.getElementById('completionStatusSearch');
+        const statusSearch = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const rows = document.querySelectorAll('.user-row');
+
+        function filterRows() {
+            const poNumberValue = poNumberSearch.value.toLowerCase();
+            const prNumberValue = prNumberSearch.value.toLowerCase();
+            const completionStatusValue = completionStatusSearch.value;
+            const statusValue = statusSearch.value;
+
+            rows.forEach(row => {
+                const poNumberText = row.querySelector('[data-column-value="poNumber"]').textContent.trim().toLowerCase();
+                const prNumberText = row.querySelector('[data-column-value="prNumber"]').textContent.trim().toLowerCase();
+                const rowCompletionStatus = row.dataset.completionStatus;
+                const rowStatusId = row.querySelector('.status-badge').getAttribute('data-state-id');
+
+                const poMatch = poNumberValue === '' || poNumberText.includes(poNumberValue);
+                const prMatch = prNumberValue === '' || prNumberText.includes(prNumberValue);
+                const completionMatch = completionStatusValue === '' || rowCompletionStatus === completionStatusValue;
+                const statusMatch = statusValue === '' || rowStatusId === statusValue;
+
+                if (poMatch && prMatch && completionMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Event Listeners ---
+        poNumberSearch.addEventListener('input', filterRows);
+        prNumberSearch.addEventListener('input', filterRows);
+        completionStatusSearch.addEventListener('change', filterRows);
+        statusSearch.addEventListener('change', filterRows);
+
+        clearButton.addEventListener('click', function () {
+            poNumberSearch.value = '';
+            prNumberSearch.value = '';
+            completionStatusSearch.value = '';
+            statusSearch.value = '';
+            filterRows();
+        });
+
+        // --- Initial Filter on Load ---
+        // This hides the 'completed' records when the page first loads.
+        rows.forEach(row => {
+            if (row.dataset.completionStatus === 'completed') {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>

@@ -1,0 +1,430 @@
+﻿@model ProcureToPay.Areas.Procurement.ViewModels.CreatePurchaseRequestFleetViewModel
+@{
+    ViewData["Title"] = "Create Purchase Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-0">Create Purchase Request</h2>
+            <small class="text-muted">Create a new fleet purchase request</small>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle"></i> Please correct the errors below and try again.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data" id="createForm">
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Basic Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="CompanyCode" class="form-label required"></label>
+                                    <select asp-for="CompanyCode" class="form-select" required>
+                                        <option value="">Select Company</option>
+                                        {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                                    </select>
+                                    <span asp-validation-for="CompanyCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="BranchCode" class="form-label required"></label>
+                                    <select asp-for="BranchCode" class="form-select" required>
+                                        <option value="">Select Branch</option>
+                                        {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                                    </select>
+                                    <span asp-validation-for="BranchCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="DepartmentCode" class="form-label required"></label>
+                                    <select asp-for="DepartmentCode" class="form-select" required>
+                                        <option value="">Select Department</option>
+                                        {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                                    </select>
+                                    <span asp-validation-for="DepartmentCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Owner" class="form-label required"></label>
+                                    <input asp-for="Owner" class="form-control" required />
+                                    <span asp-validation-for="Owner" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="RequiredBy" class="form-label required"></label>
+                                    <input asp-for="RequiredBy" class="form-control" type="date" required />
+                                    <span asp-validation-for="RequiredBy" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="ProductNatureId" class="form-label"></label>
+                                    <select asp-for="ProductNatureId" class="form-select">
+                                        <option value="">Select Product Nature</option>
+                                        {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                                    </select>
+                                    <span asp-validation-for="ProductNatureId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="ServiceNatureId" class="form-label"></label>
+                                    <select asp-for="ServiceNatureId" class="form-select">
+                                        <option value="">Select Service Nature</option>
+                                        {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                                    </select>
+                                    <span asp-validation-for="ServiceNatureId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Justification" class="form-label required"></label>
+                            <textarea asp-for="Justification" class="form-control" rows="4" required placeholder="Provide detailed justification for this purchase request"></textarea>
+                            <span asp-validation-for="Justification" class="text-danger"></span>
+                            <div class="form-text">Maximum 1000 characters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Budget Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="BudgetAmount" class="form-label"></label>
+                                    <input asp-for="BudgetAmount" class="form-control" type="number" step="0.01" min="0" />
+                                    <span asp-validation-for="BudgetAmount" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="BudgetRemarks" class="form-label"></label>
+                            <textarea asp-for="BudgetRemarks" class="form-control" rows="3" placeholder="Additional budget remarks"></textarea>
+                            <span asp-validation-for="BudgetRemarks" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Purchase Request Details</h5>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="addDetailRow()">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="detailsContainer">
+                            {{-- Details will be added here dynamically --}}
+                        </div>
+                        <div class="text-center py-3" id="noDetailsMessage">
+                            <p class="text-muted mb-0">No items added yet. Click "Add Item" to start.</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <strong>Summary:</strong>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <div><strong>Total Amount: <span id="totalAmount">₹0.00</span></strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Attachments</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="AttachmentTypeId" class="form-label"></label>
+                            <select asp-for="AttachmentTypeId" class="form-select">
+                                <option value="">Select Attachment Type</option>
+                                {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                            </select>
+                            <span asp-validation-for="AttachmentTypeId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Attachments" class="form-label"></label>
+                            <input asp-for="Attachments" class="form-control" type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+                            <span asp-validation-for="Attachments" class="text-danger"></span>
+                            <div class="form-text">Supported formats: PDF, DOC, DOCX, JPG, PNG</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Create Purchase Request
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="saveDraft()">
+                                <i class="fas fa-file-alt"></i> Save as Draft
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-danger">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<template id="detailRowTemplate">
+    <div class="detail-row border rounded p-3 mb-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Product/Service</label>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="itemType_INDEX" id="product_INDEX" value="product">
+                        <label class="btn btn-outline-primary" for="product_INDEX">Product</label>
+                        <input type="radio" class="btn-check" name="itemType_INDEX" id="service_INDEX" value="service">
+                        <label class="btn btn-outline-primary" for="service_INDEX">Service</label>
+                    </div>
+                </div>
+                <div class="mb-3 product-section" style="display: none;">
+                    <select name="Details[INDEX].ProductId" class="form-select">
+                        <option value="">Select Product</option>
+                        {{-- Options will be populated via JavaScript or AJAX --}}
+                    </select>
+                </div>
+                <div class="mb-3 service-section" style="display: none;">
+                    <select name="Details[INDEX].ServiceId" class="form-select">
+                        <option value="">Select Service</option>
+                        {{-- Options will be populated via JavaScript or AJAX --}}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input name="Details[INDEX].ProductName" class="form-control" placeholder="Product/Service Name" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input name="Details[INDEX].Quantity" class="form-control quantity-input" type="number" step="0.01" min="0.01" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">UoM</label>
+                            <select name="Details[INDEX].UoMId" class="form-select">
+                                <option value="">Select UoM</option>
+                                {{-- Options will be populated via JavaScript or ViewBag/ViewData --}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">Unit Price</label>
+                            <input name="Details[INDEX].Price" class="form-control price-input" type="number" step="0.01" min="0.01" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">GST Rate (%)</label>
+                            <input name="Details[INDEX].GSTRate" class="form-control gst-input" type="number" step="0.01" min="0" max="100" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Remarks</label>
+                    <textarea name="Details[INDEX].Remarks" class="form-control" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <small class="text-muted">
+                    Gross: <span class="gross-amount">₹0.00</span> |
+                    GST: <span class="gst-amount">₹0.00</span> |
+                    <strong>Net: <span class="net-amount">₹0.00</span></strong>
+                </small>
+            </div>
+            <div class="col-md-4 text-end">
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeDetailRow(this)">
+                    <i class="fas fa-trash"></i> Remove
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    let detailIndex = 0;
+
+    function addDetailRow() {
+        const template = document.getElementById('detailRowTemplate');
+        const clone = template.content.cloneNode(true);
+
+        // Replace INDEX placeholders with actual index
+        const html = clone.firstElementChild.outerHTML.replace(/INDEX/g, detailIndex);
+
+        document.getElementById('detailsContainer').insertAdjacentHTML('beforeend', html);
+        document.getElementById('noDetailsMessage').style.display = 'none';
+
+        // Attach event listeners to the new row
+        attachDetailRowEvents(detailIndex);
+
+        detailIndex++;
+        updateTotalAmount();
+    }
+
+    function removeDetailRow(button) {
+        button.closest('.detail-row').remove();
+
+        if (document.querySelectorAll('.detail-row').length === 0) {
+            document.getElementById('noDetailsMessage').style.display = 'block';
+        }
+
+        updateTotalAmount();
+    }
+
+    function attachDetailRowEvents(index) {
+        const row = document.querySelector(`[name="itemType_${index}"]`).closest('.detail-row');
+
+        // Item type radio buttons
+        row.querySelectorAll(`[name="itemType_${index}"]`).forEach(radio => {
+            radio.addEventListener('change', function() {
+                const productSection = row.querySelector('.product-section');
+                const serviceSection = row.querySelector('.service-section');
+
+                if (this.value === 'product') {
+                    productSection.style.display = 'block';
+                    serviceSection.style.display = 'none';
+                    // Optional: Clear service selection if it was active
+                    row.querySelector(`[name="Details[${index}].ServiceId"]`).value = "";
+                } else {
+                    productSection.style.display = 'none';
+                    serviceSection.style.display = 'block';
+                    // Optional: Clear product selection if it was active
+                    row.querySelector(`[name="Details[${index}].ProductId"]`).value = "";
+                }
+            });
+        });
+
+        // Calculation inputs
+        const quantityInput = row.querySelector('.quantity-input');
+        const priceInput = row.querySelector('.price-input');
+        const gstInput = row.querySelector('.gst-input');
+
+        [quantityInput, priceInput, gstInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', () => calculateRowAmounts(row));
+            }
+        });
+
+        // Initial calculation
+        calculateRowAmounts(row);
+    }
+
+    function calculateRowAmounts(row) {
+        const quantity = parseFloat(row.querySelector('.quantity-input').value) || 0;
+        const price = parseFloat(row.querySelector('.price-input').value) || 0;
+        const gstRate = parseFloat(row.querySelector('.gst-input').value) || 0;
+
+        const grossAmount = quantity * price;
+        const gstAmount = (grossAmount * gstRate) / 100;
+        const netAmount = grossAmount + gstAmount;
+
+        row.querySelector('.gross-amount').textContent = `₹${grossAmount.toFixed(2)}`;
+        row.querySelector('.gst-amount').textContent = `₹${gstAmount.toFixed(2)}`;
+        row.querySelector('.net-amount').textContent = `₹${netAmount.toFixed(2)}`;
+
+        updateTotalAmount();
+    }
+
+    function updateTotalAmount() {
+        let total = 0;
+
+        document.querySelectorAll('.detail-row').forEach(row => {
+            const netAmountText = row.querySelector('.net-amount').textContent;
+            // Remove '₹' and any thousands separators (like comma if present in other locales)
+            const netAmount = parseFloat(netAmountText.replace('₹', '').replace(/,/g, '')) || 0;
+            total += netAmount;
+        });
+
+        document.getElementById('totalAmount').textContent = `₹${total.toFixed(2)}`;
+    }
+
+    function saveDraft() {
+        // Create a hidden input to indicate saving as draft
+        const form = document.getElementById('createForm');
+        const draftInput = document.createElement('input');
+        draftInput.type = 'hidden';
+        draftInput.name = 'SaveAsDraft'; // This name should be handled in your C# controller action
+        draftInput.value = 'true';
+        form.appendChild(draftInput);
+
+        // Submit the form
+        form.submit();
+    }
+
+    // Initialize with one detail row when the document is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        addDetailRow();
+    });
+</script>
+
+<style>
+    .required::after {
+        content: " *";
+        color: red;
+    }
+
+    .detail-row {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    /* Styles for Bootstrap radio buttons acting as toggles */
+    .btn-check:checked + .btn {
+        background-color: #0d6efd; /* Bootstrap primary color */
+        border-color: #0d6efd;
+        color: white;
+    }
+</style>

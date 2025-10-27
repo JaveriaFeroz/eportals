@@ -54,11 +54,13 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Helper function to build URLs
-        function getUrl(area, page, action, id) {
+           function getUrl(area, page, action, id) {
+            let baseUrl = '@Url.Content("~/")';
+
             if (id) {
-                return `/${area}/${page}/${action}/${id}`;
+                return `${baseUrl}${area}/${page}/${action}/${id}`;
             }
-            return `/${area}/${page}/${action}`;
+            return `${baseUrl}${area}/${page}/${action}`;
         }
 
         // --- Function to attach/re-attach form submission handler for the Branch Edit modal ---
@@ -206,8 +208,8 @@
         document.querySelectorAll('.branch-edit-btn').forEach(function (button) {
             button.addEventListener('click', async function () {
                 const id = this.getAttribute('data-id');
-                const area = 'UserManagement'; // Fixed area for Branches
-                const page = 'Branches'; // Fixed page for Branches
+                const area = this.getAttribute('data-area'); // Read from data attribute
+                const page = this.getAttribute('data-page'); // Read from data attribute
                 const url = getUrl(area, page, 'Edit', id);
 
                 try {
@@ -218,8 +220,6 @@
                     const branchEditModal = new bootstrap.Modal(document.getElementById('branchEditModal'));
                     branchEditModal.show();
 
-                    // IMPORTANT: Now attach the form submission handler to the newly loaded form
-                    // Adding a small timeout can sometimes help Bootstrap modals fully render.
                     setTimeout(attachBranchEditFormSubmissionHandler, 50);
 
                 } catch (error) {
@@ -237,8 +237,8 @@
         document.querySelectorAll('.branch-details-btn').forEach(function (button) {
             button.addEventListener('click', async function () {
                 const id = this.getAttribute('data-id');
-                const area = 'UserManagement'; // Fixed area for Branches
-                const page = 'Branches'; // Fixed page for Branches
+                const area = this.getAttribute('data-area'); // Read from data attribute
+                const page = this.getAttribute('data-page'); // Read from data attribute
                 const url = getUrl(area, page, 'Details', id);
 
                 try {

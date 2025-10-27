@@ -62,20 +62,20 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
                 return NotFound();
             }
 
-            // Get permissions with their modules
+            // Get all available permissions with their modules
             var permissionsByModule = await _context.Permissions
                 .Include(p => p.Module)
                 .OrderBy(p => p.Module.DisplayName)
                 .ThenBy(p => p.Name)
                 .ToListAsync();
 
-            // Get modules for grouping
+            // Get a distinct list of module names for creating tabs
             var modules = permissionsByModule
                 .Select(p => p.Module.DisplayName)
                 .Distinct()
                 .ToList();
 
-            // Get assigned permission IDs for this role
+            // Get the IDs of permissions currently assigned to this role
             var assignedPermissionIds = await _context.RolePermissions
                 .Where(rp => rp.RoleId == id)
                 .Select(rp => rp.PermissionId)

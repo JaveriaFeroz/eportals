@@ -1,0 +1,258 @@
+﻿@using ProcureToPay.Areas.Finance.ViewModels
+@model ProcureToPay.Areas.Finance.ViewModels.PaymentRequestIndexViewModel
+@{
+    ViewData["Title"] = "Payment Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int> ?? new List<int>();
+
+    bool canCreatePRFromGRN = currentUserRoles.Contains(26);
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-money-check-alt me-2"></i> Payment Requests
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    @TempData["Info"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="prqNumberSearch"
+                                   placeholder="PRQ Number">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="grnNumberSearch"
+                                   placeholder="GRN Number">
+                        </div>
+                    </div>
+                   
+                    <div class="col-2">
+                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                            <option value="">All Statuses</option>
+                            <option value="1">Saved</option>
+                            <option value="2">Submit For Review</option>
+                            <option value="3">Approved</option>
+                            <option value="4">Rejected</option>
+                            <option value="5">Returned</option>
+                            <option value="10001">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+                    @if (canCreatePRFromGRN)
+                    {
+                        <div class="col-auto ms-auto">
+                            <div class="create-user-container d-flex">
+                                <a asp-area="Finance" asp-controller="PaymentRequest" asp-action="CreateFromGRN"
+                                   class="action-button create-user-text"
+                                   style="background-color: #092963; text-decoration: none;" require-permission="Add">
+                                    <i class="fas fa-plus"></i>
+                                    <span class="button-text"> Select GRN</span>
+                                </a>
+                                <a asp-area="Finance" asp-controller="PaymentRequest" asp-action="CreateDirect"
+                                   class="action-button create-user-text"
+                                   style="background-color: #092963; text-decoration: none;" require-permission="Add">
+                                    <i class="fas fa-plus"></i>
+                                    <span class="button-text"> Create New Payment Request</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-auto ms-auto">
+                            <div class="create-user-container">
+                                <a asp-area="Finance" asp-controller="PaymentRequest" asp-action="CreateDirect"
+                                   class="action-button create-user-text"
+                                   style="background-color: #092963; text-decoration: none;" require-permission="Add">
+                                    <i class="fas fa-plus"></i>
+                                    <span class="button-text"> Create New Payment Request</span>
+                                </a>
+                                <a href="#" class="btn btn-sm create-user-icon">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>PRQ NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>GRN NUMBER</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-building text-dark me-2"></i>PAYEE / TYPE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>PRQ DATE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>REQUIRED DATE</div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center"><i class="fas fa-info-circle text-dark me-2"></i>STATE</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>OWNER / AMOUNT</div>
+            </div>
+
+            @if (Model.PaymentRequests.Any())
+            {
+                @foreach (var item in Model.PaymentRequests)
+                {
+                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
+                        <div class="col-12 col-md-2" data-column-value="prqNumber">
+                            <strong class="fw-bold">
+                                <a href="@Url.Action("Details", "PaymentRequest", new { area = "Finance", id = item.Id })" class="text-decoration-none" @* target="_blank" *@>
+                                    @item.PRQNumber
+                                </a>
+                            </strong>
+                        </div>
+                        <div class="col-12 col-md-2" data-column-value="grnNumber">
+                            @if (item.GRNId.HasValue)
+                            {
+                                <strong class="fw-bold">
+                                    <a href="@Url.Action("Details", "GRN", new { area = "Receiving", id = item.GRNId })" class="text-decoration-none" @* target="_blank" *@>
+                                        @item.GRNNumber
+                                    </a>
+                                </strong>
+                            }
+                            else
+                            {
+                                <small class="text-muted">Direct Payment Request</small>
+                            }
+                        </div>
+                        <div class="col-6 col-md-1">
+                            @item.PayeeName
+                            <br /><small class="text-muted">@item.PaymentType</small>
+                        </div>
+                        <div class="col-6 col-md-2">@item.CreatedOn.ToString("dd MMM yyyy")</div>
+                        <div class="col-6 col-md-2">@item.RequiredDate.ToString("dd MMM yyyy")</div>
+                        <div class="col-6 col-md-2 text-md-center">
+                            @{
+                                string statusBadgeClass = "";
+                                string statusText = item.StateName;
+                                switch (item.StateId)
+                                {
+                                    case 1:
+                                        statusBadgeClass = "bg-secondary";
+                                        statusText = "Saved";
+                                        break;
+                                    case 2:
+                                        statusBadgeClass = "bg-warning";
+                                        statusText = "Submit For Review";
+                                        break;
+                                    case 3:
+                                        statusBadgeClass = "bg-success";
+                                        statusText = "Approved";
+                                        break;
+                                    case 4:
+                                        statusBadgeClass = "bg-danger";
+                                        statusText = "Rejected";
+                                        break;
+                                    case 5:
+                                        statusBadgeClass = "bg-info";
+                                        statusText = "Returned";
+                                        break;
+                                    case 10001:
+                                        statusBadgeClass = "bg-dark";
+                                        statusText = "Cancelled";
+                                        break;
+                                    default:
+                                        statusBadgeClass = "bg-light text-dark";
+                                        statusText = "Unknown";
+                                        break;
+                                }
+                            }
+                            <span class="badge status-badge @statusBadgeClass" data-state-id="@item.StateId">@statusText</span>
+                        </div>
+                        <div class="col-6 col-md-1">
+                            @item.Owner
+                            <br /><small class="text-muted">@item.TotalAmount.ToString("C")</small>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-money-check-alt fa-2x mb-2"></i><br>No payment requests found.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const prqNumberSearch = document.getElementById('prqNumberSearch');
+        const grnNumberSearch = document.getElementById('grnNumberSearch');
+        const statusSearch = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const rows = document.querySelectorAll('.user-row');
+
+        function filterRows() {
+            const prqNumberValue = prqNumberSearch.value.toLowerCase();
+            const grnNumberValue = grnNumberSearch.value.toLowerCase();
+            const statusValue = statusSearch.value;
+
+            rows.forEach(row => {
+                const prqNumberText = row.querySelector('[data-column-value="prqNumber"]').textContent.trim().toLowerCase();
+                const grnNumberText = row.querySelector('[data-column-value="grnNumber"]').textContent.trim().toLowerCase();
+                const rowStatusId = row.querySelector('.status-badge').getAttribute('data-state-id');
+
+                const prqMatch = prqNumberValue === '' || prqNumberText.includes(prqNumberValue);
+                const grnMatch = grnNumberValue === '' || grnNumberText.includes(grnNumberValue);
+                const statusMatch = statusValue === '' || rowStatusId === statusValue;
+
+                // FIX: Include the statusMatch condition in the final check
+                if (prqMatch && grnMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        prqNumberSearch.addEventListener('input', filterRows);
+        grnNumberSearch.addEventListener('input', filterRows);
+        statusSearch.addEventListener('change', filterRows);
+
+        clearButton.addEventListener('click', function () {
+            prqNumberSearch.value = '';
+            grnNumberSearch.value = '';
+            statusSearch.value = '';
+            filterRows(); // Re-run the filter to show all rows
+        });
+    });
+</script>

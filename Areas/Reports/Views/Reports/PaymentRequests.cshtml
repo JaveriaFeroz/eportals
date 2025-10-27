@@ -1,0 +1,355 @@
+﻿@model ProcureToPay.Areas.Reports.Models.PaymentRequestReportFilter
+
+@{
+    ViewData["Title"] = "Payment Requests Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-file-invoice-dollar me-2"></i> Payment Requests Report
+            </h5>
+        </div>
+        <div class="card-body">
+            <form id="filterForm" method="get">
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="FromDate" class="form-label"></label>
+                        <input asp-for="FromDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ToDate" class="form-label"></label>
+                        <input asp-for="ToDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="DepartmentId" class="form-label"></label>
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments">
+                            <option value="">All Departments</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="BranchId" class="form-label"></label>
+                        <select asp-for="BranchId" class="form-select" asp-items="ViewBag.Branches">
+                            <option value="">All Branches</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="PRQNumber" class="form-label"></label>
+                        <input asp-for="PRQNumber" class="form-control" placeholder="Enter PRQ number" />
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="RequestedByUserId" class="form-label"></label>
+                        <select asp-for="RequestedByUserId" class="form-select" asp-items="ViewBag.Users">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="StateId" class="form-label"></label>
+                        <select asp-for="StateId" class="form-select" asp-items="ViewBag.States">
+                            <option value="">All States</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="PaymentNatureId" class="form-label"></label>
+                        <select asp-for="PaymentNatureId" class="form-select" asp-items="ViewBag.PaymentNatures">
+                            <option value="">All Payment Natures</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label asp-for="PaymentSubNatureId" class="form-label"></label>
+                        <select asp-for="PaymentSubNatureId" class="form-select" asp-items="ViewBag.PaymentSubNatures">
+                            <option value="">All Sub Natures</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="InvoiceNumber" class="form-label"></label>
+                        <input asp-for="InvoiceNumber" class="form-control" placeholder="Enter Invoice Number" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="IsGRNBased" class="form-label"></label>
+                        <select asp-for="IsGRNBased" class="form-select">
+                            <option value="">All</option>
+                            <option value="true">GRN Based</option>
+                            <option value="false">Non-GRN Based</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-check pt-4">
+                            <input asp-for="OnlyMyRequests" class="form-check-input" type="checkbox" />
+                            <label asp-for="OnlyMyRequests" class="form-check-label">Only My Requests</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3 d-flex align-items-end justify-content-start">
+                        <button type="button" class="btn btn-primary me-2 d-flex align-items-center" onclick="applyFilters()" style="background-color: #092963;">
+                            <i class="fas fa-search me-2"></i> Apply
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary me-2 d-flex align-items-center" onclick="clearFilters()">
+                            <i class="fas fa-times me-2"></i> Clear
+                        </button>
+                        <button type="button" class="btn btn-success d-flex align-items-center" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel me-2"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-table me-2"></i> Report Results
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="paymentRequestsTable" class="table table-bordered table-striped w-100">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>PRQ Number</th>
+                            <th>GRN Number</th>
+                            <th>Payee Name</th>
+                            <th>Required Date</th>
+                            <th>Department</th>
+                            <th>Branch</th>
+                            <th>Payment Nature</th>
+                            <th>Sub Nature</th>
+                            <th>Status</th>
+                            <th>Total Amount</th>
+                            <th>Created By</th>
+                            <th>Invoice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="exportForm" asp-action="ExportPaymentRequestsToExcel" asp-area="Reports" method="post" style="display: none;">
+    <input type="hidden" name="FromDate" value="" />
+    <input type="hidden" name="ToDate" value="" />
+    <input type="hidden" name="DepartmentId" value="" />
+    <input type="hidden" name="BranchId" value="" />
+    <input type="hidden" name="PRQNumber" value="" />
+    <input type="hidden" name="RequestedByUserId" value="" />
+    <input type="hidden" name="StateId" value="" />
+    <input type="hidden" name="PaymentNatureId" value="" />
+    <input type="hidden" name="MinAmount" value="" />
+    <input type="hidden" name="MaxAmount" value="" />
+    <input type="hidden" name="IsGRNBased" value="" />
+    <input type="hidden" name="OnlyMyRequests" value="false" />
+</form>
+
+
+@section Scripts {
+    <script>
+        var table;
+        // FIX: Dynamic URL template banaya gaya. '_ID_' placeholder hai.
+        var detailsUrlTemplate = "@Url.Action("Details", "PaymentRequest", new { area = "Finance", id = "_ID_" })";
+
+        $(document).ready(function() {
+            console.log('Initializing Payment Requests DataTable...');
+
+            table = $('#paymentRequestsTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "searching": false,
+                "paging": true,
+                "pageLength": 10,
+                "lengthChange": true,
+                "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                "ajax": {
+                    "url": "@Url.Action("PaymentRequests", "Reports", new { area = "Reports" })",
+                    "type": "GET",
+                    "data": function(d) {
+                        console.log('Payment Request DataTables request data (Page Index):', Math.floor(d.start / d.length));
+                        console.log('Payment Request DataTables request data (Start Record Index):', d.start);
+
+                        // Filters aur Pagination Parameters
+                        return {
+                            FromDate: $('#FromDate').val(),
+                            ToDate: $('#ToDate').val(),
+                            DepartmentId: $('#DepartmentId').val(),
+                            BranchId: $('#BranchId').val(),
+                            PRQNumber: $('#PRQNumber').val(),
+                            RequestedByUserId: $('#RequestedByUserId').val(),
+                            StateId: $('#StateId').val(),
+                            PaymentNatureId: $('#PaymentNatureId').val(),
+                            MinAmount: $('#MinAmount').val(),
+                            MaxAmount: $('#MaxAmount').val(),
+                            PaymentSubNatureId: $('#PaymentSubNatureId').val(),
+                            InvoiceNumber: $('#InvoiceNumber').val(),
+                            IsGRNBased: $('#IsGRNBased').val(),
+                            OnlyMyRequests: $('#OnlyMyRequests').is(':checked'),
+
+                            // DataTables pagination/sorting parameters
+                            start: d.start,
+                            length: d.length,
+                            draw: d.draw,
+
+                            PageIndex: Math.floor(d.start / d.length),
+                            PageSize: d.length,
+                            SearchValue: d.search ? d.search.value : '',
+                            SortColumnIndex: (d.order && d.order.length > 0) ? d.order[0].column : 3,
+                            SortDirection: (d.order && d.order.length > 0) ? d.order[0].dir : 'desc',
+                        };
+                    },
+                    "dataSrc": function(json) {
+                        console.log('Payment Request Server response:', json);
+                        return json.data;
+                    },
+                    "error": function(xhr, error, code) {
+                        console.error('DataTable AJAX Error:', error);
+                        console.error('Status:', xhr.status);
+                        console.error('Response Text:', xhr.responseText);
+
+                        try {
+                            var errorResponse = JSON.parse(xhr.responseText);
+                            alert('Error loading data: ' + (errorResponse.message || error));
+                        } catch(e) {
+                            alert('Error loading data. Check console for details.');
+                        }
+                    }
+                },
+                "columns": [
+                    {
+                        "data": "prqNumber",
+                        // FIX APPLIED HERE: Using the dynamic detailsUrlTemplate
+                        "render": function(data, type, row) {
+                            if (!row.id) return data;
+                            // Placeholder ko actual ID se replace kiya gaya
+                            var url = detailsUrlTemplate.replace('_ID_', row.id);
+                            return `<a href="${url}" class="text-decoration-none">${data}</a>`;
+                        }
+                    },
+                    {
+                        "data": "grnNumber",
+                        "defaultContent": "N/A"
+                    },
+                    { "data": "payeeName" },
+                    {
+                        "data": "requiredDate",
+                        "render": function(data) {
+                            if (!data) return '';
+                            return new Date(data).toLocaleDateString();
+                        }
+                    },
+                    { "data": "departmentName" },
+                    { "data": "branchName" },
+                    { "data": "paymentNature" },
+                    { "data": "paymentSubNature" },
+                    {
+                        "data": "statusName",
+                        "render": function(data, type, row) {
+                            var badgeClass = getStatusBadgeClass(data);
+                            return '<span class="badge ' + badgeClass + '">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "totalAmount",
+                        "render": function(data) {
+                            return 'Rs.' + parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2 });
+                        }
+                    },
+                    { "data": "requestedByUserName" },
+                    {
+                        "data": "invoiceDisplay",
+                        "defaultContent": "N/A"
+                    }
+
+                ],
+                "order": [[3, "desc"]],
+                "drawCallback": function(settings) {
+                    console.log('DataTable draw complete. Rows:', settings.aoData.length);
+                }
+            });
+        });
+
+        function applyFilters() {
+            console.log('Applying filters...');
+            if (table) {
+                table.ajax.reload();
+            }
+        }
+
+        function clearFilters() {
+            console.log('Clearing filters...');
+            $('#filterForm')[0].reset();
+            if (table) {
+                table.ajax.reload();
+            }
+        }
+
+        function exportToExcel() {
+            var exportForm = $('#exportForm');
+            exportForm.find('input[name="FromDate"]').val($('#FromDate').val());
+            exportForm.find('input[name="ToDate"]').val($('#ToDate').val());
+            exportForm.find('input[name="DepartmentId"]').val($('#DepartmentId').val());
+            exportForm.find('input[name="BranchId"]').val($('#BranchId').val());
+            exportForm.find('input[name="PRQNumber"]').val($('#PRQNumber').val());
+            exportForm.find('input[name="RequestedByUserId"]').val($('#RequestedByUserId').val());
+            exportForm.find('input[name="StateId"]').val($('#StateId').val());
+            exportForm.find('input[name="PaymentNatureId"]').val($('#PaymentNatureId').val());
+            exportForm.find('input[name="MinAmount"]').val($('#MinAmount').val());
+            exportForm.find('input[name="MaxAmount"]').val($('#MaxAmount').val());
+            exportForm.find('input[name="PaymentSubNatureId"]').val($('#PaymentSubNatureId').val());
+            exportForm.find('input[name="InvoiceNumber"]').val($('#InvoiceNumber').val());
+            exportForm.find('input[name="IsGRNBased"]').val($('#IsGRNBased').val());
+            exportForm.find('input[name="OnlyMyRequests"]').val($('#OnlyMyRequests').is(':checked') ? 'True' : 'False');
+            exportForm.submit();
+        }
+
+        function getStatusBadgeClass(status) {
+            switch(status) {
+                case 'Saved':
+                case 'Draft':
+                    return 'bg-secondary';
+                case 'Submitted':
+                case 'In Approval':
+                    return 'bg-warning text-dark';
+                case 'Approved':
+                case 'Completed':
+                    return 'bg-success';
+                case 'Rejected':
+                    return 'bg-danger';
+                case 'Returned':
+                    return 'bg-info text-dark';
+                case 'Cancelled':
+                    return 'bg-dark';
+                default:
+                    return 'bg-light text-dark';
+            }
+        }
+    </script>
+}

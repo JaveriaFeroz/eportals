@@ -1,0 +1,77 @@
+﻿@model ProcureToPay.Areas.Master.ViewModels.SubNatureViewModel
+@{
+    ViewData["Title"] = "Create Sub Nature";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-plus me-2"></i> Create New Sub Nature
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" action="@Url.Action("Create", "SubNature", new { area = "Master" })">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Sub Nature Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="SubNatureName" class="form-label">Sub Nature Name <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" style="background-color: #092963; color: white;">
+                                        <i class="fas fa-cube"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="SubNatureNameInput"
+                                           name="SubNatureName"
+                                           class="form-control"
+                                           placeholder="Enter SubNature name"
+                                           value="@Model?.SubNatureName"
+                                           required />
+                                </div>
+                                @if (ViewData.ModelState["TypeName"]?.Errors.Any() == true)
+                                {
+                                    <span class="text-danger">@ViewData.ModelState["SubNatureName"].Errors.First().ErrorMessage</span>
+                                }
+                                <div id="typeNameError" class="text-danger" style="display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                        <i class="fas fa-save me-1"></i> Create Sub Nature
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

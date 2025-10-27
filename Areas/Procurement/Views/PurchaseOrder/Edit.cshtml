@@ -1,0 +1,265 @@
+﻿@using ProcureToPay.Areas.Procurement.Models
+@using ProcureToPay.Areas.Common.Enums
+@model PurchaseOrder
+
+<form method="post" asp-action="Edit" asp-controller="PurchaseOrder" asp-area="Procurement" id="purchaseOrderEditForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+    @* Hidden fields for workflow state and other non-editable properties *@
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="PurchaseRequestId" />
+    <input type="hidden" asp-for="CreatedByUserId" />
+    <input type="hidden" asp-for="PurchaseNature" />
+    <input type="hidden" asp-for="PurchaseType" />
+    <input type="hidden" asp-for="WorkFlowTypeId" />
+    <input type="hidden" asp-for="CurrentApprovalSequence" />
+    <input type="hidden" asp-for="StateId" />
+    <input type="hidden" asp-for="Status" />
+    <input type="hidden" asp-for="Owner" />
+    <input type="hidden" asp-for="CompanyCode" />
+    <input type="hidden" asp-for="CreatedOn" />
+
+    <div class="card mb-4 border-0">
+        <div class="card-header bg-light">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-info-circle me-2"></i> Purchase Order Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Title" class="form-label">PO Title <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text custom-blue"><i class="fas fa-heading"></i></span>
+                        <input asp-for="Title" class="form-control" placeholder="Enter PO title" required readonly/>
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="SupplierId" class="form-label">Supplier <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text custom-blue"><i class="fas fa-truck"></i></span>
+                        <select asp-for="SupplierId" class="form-control"
+                                asp-items="ViewBag.Suppliers"
+                                required
+                                id="vendorSelect"
+                                data-url="@Url.Action("GetSupplierDetails", "PurchaseOrder", new { area = "Procurement" })">
+                            @if (Model.Supplier.SupplierId == 0)
+                            {
+                                <option value="">-- Select Supplier --</option>
+                            }
+                        </select>
+                    </div>
+                    <span asp-validation-for="SupplierId" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ExpectedDeliveryDate" class="form-label">Expected Delivery Date <span class="text-danger">*</span></label>
+                    <div class="input-group" id="expectedDeliveryDateContainer">
+                        <span class="input-group-text custom-blue"><i class="fas fa-calendar-alt"></i></span>
+                        <input asp-for="ExpectedDeliveryDate" type="date" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="ExpectedDeliveryDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label asp-for="SupplierAddress" class="form-label">Supplier Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text custom-blue"><i class="fas fa-map-marker-alt"></i></span>
+                        <textarea asp-for="SupplierAddress" class="form-control" rows="1" placeholder="Enter vendor address" id="vendorAddressTextarea"></textarea>
+                    </div>
+                    <span asp-validation-for="SupplierAddress" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="SupplierContact" class="form-label">Supplier Contact</label>
+                    <div class="input-group">
+                        <span class="input-group-text custom-blue"><i class="fas fa-phone"></i></span>
+                        <input asp-for="SupplierContact" class="form-control" placeholder="e.g., 0333-1234567" type="tel" pattern="[0-9]{4}-[0-9]{7}" maxlength="12" title="A Pakistani phone number format (e.g., 0333-1234567)" id="vendorContactInput" />
+                    </div>
+                    <span asp-validation-for="SupplierContact" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="PaymentDays" class="form-label">Payment Days</label>
+                    <div class="input-group">
+                        <span class="input-group-text custom-blue"><i class="fas fa-calendar-alt"></i></span>
+                        <input asp-for="PaymentDays" type="number" class="form-control" placeholder="Enter payment days" />
+                    </div>
+                    <span asp-validation-for="PaymentDays" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Terms" class="form-label">Terms & Condition</label>
+                    <div class="input-group">
+                        <span class="input-group-text custom-blue"><i class="fas fa-file-contract"></i></span>
+                        <textarea asp-for="Terms" class="form-control" rows="1" placeholder="Enter terms"></textarea>
+                    </div>
+                    <span asp-validation-for="Terms" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow border-0 mb-4">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0 d-flex justify-content-between align-items-center w-100">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-boxes me-2"></i> Purchase Order Items
+                </div>
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+            <div id="poItemsContainer" class="table-responsive">
+
+                <table class="table table-sm table-borderless table-striped mb-0">
+                    <thead>
+                        <tr class="fw-bold bg-light text-secondary small border-bottom">
+                            <th style="width: 16%;">Item Name</th>
+                            <th class="text-center" style="width: 8%;">Qty / UoM</th>
+                            <th class="text-end" style="width: 8%;">Unit Price</th>
+                            <th class="text-end" style="width: 8%;">Amount (Ex Tax)</th>
+                            <th class="text-center" style="width: 28%;">Discount (Rate / Amt)</th>
+                            <th class="text-center" style="width: 16%;">GST (Rate / Amt)</th>
+                            <th class="text-end" style="width: 16%;">Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null && Model.Items.Any())
+                        {
+                            for (int i = 0; i < Model.Items.Count; i++)
+                            {
+                                <tr class="po-item-row border-bottom">
+                                    @* Hidden Fields: All consistently named "Items[@i]" *@
+                                    <input type="hidden" name="Items[@i].Id" value="@Model.Items[i].Id" />
+                                    <input type="hidden" name="Items[@i].SourcePurchaseRequestItemId" value="@Model.Items[i].SourcePurchaseRequestItemId" />
+                                    <input type="hidden" name="Items[@i].POId" value="@Model.Items[i].Id" />
+                                    <input type="hidden" name="Items[@i].ItemName" value="@Model.Items[i].ItemName" />
+                                    <input type="hidden" name="Items[@i].Unit" value="@Model.Items[i].Unit" />
+
+                                    @* 1. Item Name (Readonly) *@
+                                    <td>
+                                        <input type="text" value="@Model.Items[i].ItemName" class="form-control form-control-sm" readonly title="@Model.Items[i].ItemName" />
+                                    </td>
+
+                                    @* 2. Quantity and UoM (Input) *@
+                                    <td>
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" name="Items[@i].Quantity" value="@Model.Items[i].Quantity" class="form-control quantity-input text-end" step="0.01" min="0" required />
+                                            <span class="input-group-text p-1 small" title="Unit of Measure">@Model.Items[i].Unit</span>
+                                        </div>
+                                    </td>
+
+                                    @* 3. Unit Price (Input) *@
+                                    <td>
+                                        <input type="number" name="Items[@i].UnitPrice" value="@Model.Items[i].UnitPrice" class="form-control form-control-sm unit-price-input text-end" step="0.01" min="0" required data-original-price="@Model.Items[i].UnitPrice" />
+                                    </td>
+
+                                    @* 4. Amount (Ex Tax) (Display) *@
+                                    <td>
+                                        <input type="text" name="Items[@i].AmountExclTax" value="@(Model.Items[i].Quantity * Model.Items[i].UnitPrice)" class="form-control form-control-sm amount-ex-tax-display text-end" readonly />
+                                    </td>
+
+                                    @* 5. Discount Rate/Amt (Input Group) *@
+                                    <td>
+                                        <div class="d-flex gap-1 align-items-center justify-content-center">
+                                            @* Disc Rate Input Group *@
+                                            <div class="input-group input-group-sm flex-fill">
+                                                <span class="input-group-text custom-blue p-1">
+                                                    <input class="form-check-input disc-radio me-1" type="radio" name="discountType_@i" id="discPercentRadio_@i" value="percent" @(Model.Items[i].DiscRate.HasValue && Model.Items[i].DiscRate.Value > 0 ? "checked" : "checked")>
+                                                    <label class="form-check-label small" for="discPercentRadio_@i">%</label>
+                                                </span>
+                                                <input type="number" name="Items[@i].DiscRate" value="@(Model.Items[i].DiscRate ?? 0)" class="form-control disc-rate-input text-end" step="0.01" min="0" max="100" />
+                                            </div>
+
+                                            @* Disc Amount Input Group *@
+                                            <div class="input-group input-group-sm flex-fill">
+                                                <span class="input-group-text custom-blue p-1">
+                                                    <input class="form-check-input disc-radio me-1" type="radio" name="discountType_@i" id="discAmountRadio_@i" value="amount" @(Model.Items[i].DiscAmount.HasValue && Model.Items[i].DiscAmount.Value > 0 && !Model.Items[i].DiscRate.HasValue ? "checked" : "")>
+                                                    <label class="form-check-label small" for="discAmountRadio_@i">$</label>
+                                                </span>
+                                                <input type="number" name="Items[@i].DiscAmount" value="@(Model.Items[i].DiscAmount ?? 0)" class="form-control item-disc-amount-display text-end" step="0.01" min="0" readonly />
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    @* 6. GST Rate/Amount (Input/Display) *@
+                                    <td>
+                                        <div class="d-flex gap-1">
+                                            @* GST Rate *@
+                                            <div class="input-group input-group-sm flex-fill">
+                                                <span class="input-group-text custom-blue" title="GST Rate"><i class="fas fa-percent"></i></span>
+                                                <input type="number" name="Items[@i].GSTRate" value="@(Model.Items[i].GSTRate ?? 0)" class="form-control gst-rate-input text-end" step="0.01" min="0" max="100" />
+                                            </div>
+                                            @* GST Amount *@
+                                            <div class="input-group input-group-sm flex-fill">
+                                                <span class="input-group-text custom-blue" title="GST Amount"><i class="fas fa-receipt"></i></span>
+                                                <input type="text" name="Items[@i].GSTAmount" value="@(Model.Items[i].GSTAmount ?? 0)" class="form-control item-gst-amount-display text-end" readonly />
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    @* 7. Total Price (Display) *@
+                                    <td>
+                                        <input type="text" name="Items[@i].TotalPrice" value="@Model.Items[i].TotalPrice" class="form-control form-control-sm total-price-display text-end" readonly />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7">
+                                    <p class="alert alert-warning my-2">No items are attached to this Purchase Order.</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 border-0">
+        <div class="card-header bg-light">
+            <h6 class="m-0 fw-bold" style="color: #092963;"><i class="fas fa-money-check-alt me-2"></i> Order Totals</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Total Discount Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-tags"></i></span>
+                            <input type="text" value="0" class="form-control" id="totalDiscountAmountDisplay" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Total GST Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-receipt"></i></span>
+                            <input type="text" value="0" class="form-control" id="totalGstAmountDisplay" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Grand Total</label>
+                        <div class="input-group">
+                            <span class="input-group-text custom-blue"><i class="fas fa-funnel-dollar"></i></span>
+                            <input type="text" value="@Model.GrandTotal" class="form-control" id="grandTotalDisplay" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn" style="background-color: #092963; color: white;">
+            <i class="fas fa-save me-1" style="color: white;"></i> Save Changes
+        </button>
+    </div>
+</form>

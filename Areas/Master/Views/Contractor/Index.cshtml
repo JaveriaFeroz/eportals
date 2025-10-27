@@ -10,12 +10,6 @@
 
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-area="Master" asp-controller="Contractor" asp-action="Index">Master</a></li>
-        <li class="breadcrumb-item active">Contractor</li>
-    </ol>
-
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
             <h5 class="card-title text-white mb-0">
@@ -123,10 +117,10 @@
                                     title="Details" data-id="@item.ContractorId" data-area="Master" data-page="Contractor">
                                 <i class="fas fa-info-circle icon-info"></i>
                             </button>
-                            <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
+                          @*   <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
                                     title="Delete" data-id="@item.ContractorId" data-area="Master" data-page="Contractor" data-name="@item.ContractorName">
                                 <i class="fas fa-trash-alt icon-danger"></i>
-                            </button>
+                            </button> *@
                         </div>
                     </div>
                 }
@@ -141,11 +135,6 @@
                 </div>
             }
 
-            <div class="d-flex justify-content-end mt-3">
-                <a class="btn btn-light text-primary" href="/Home/Index">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </a>
-            </div>
         </div>
 
         @* This partial view will contain the empty modal shells for Edit, Details, and Delete *@

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels;
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -122,8 +123,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.City.CreatedBy = currentUserId;
                     viewModel.City.UpdatedBy = currentUserId;
-                    viewModel.City.CreatedOn = DateTime.UtcNow;
-                    viewModel.City.UpdatedOn = DateTime.UtcNow;
+                    viewModel.City.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                    viewModel.City.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     // 4. Attempt to save the data.
                     var success = await _cityService.SaveCityAsync(viewModel.City);

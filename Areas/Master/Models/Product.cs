@@ -17,11 +17,7 @@ namespace ProcureToPay.Areas.Master.Models
 
         [Required(ErrorMessage = "Purchase Price is required")]
         [Display(Name = "Purchase Price")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Purchase Price must be greater than 0")]
-        public double PurchasePrice { get; set; }
-
-        [Display(Name = "Product Type")]
-        public short? ProductTypeId { get; set; }
+        public double UnitPrice { get; set; }
 
         [Display(Name = "UOM")]
         public short? UoMId { get; set; }
@@ -31,10 +27,6 @@ namespace ProcureToPay.Areas.Master.Models
 
         [Display(Name = "Active")]
         public bool IsActive { get; set; } = true;
-
-        // Navigation properties
-        [ForeignKey("ProductTypeId")]
-        public virtual ProductType ProductType { get; set; }
 
         [ForeignKey("UoMId")]
         public virtual UoM UoM { get; set; }

@@ -1,0 +1,66 @@
+﻿/* --- Custom Pagination Styles --- */
+/* Yeh CSS pagination ko ek modern aur khoobsurat look dega. */
+
+/* Main container ke liye spacing */
+#pagination-container .pagination {
+    gap: 0.3rem; /* Buttons ke beech mein thodi si jagah */
+}
+
+.page-link {
+    border-radius: 0.375rem !important; /* Thode gol corners */
+    border: 1px solid #dee2e6;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    min-width: 42px; /* Thodi si zyada chaurai */
+    height: 42px; /* Height bhi same */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    /* Hover effect */
+    .page-link:hover {
+        background-color: #e9ecef;
+        color: #092963; /* Aapka theme color */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+/* Active page ka style */
+.page-item.active .page-link {
+    background-color: #092963; /* Aapka theme color */
+    border-color: #092963;
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(9, 41, 99, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Disabled button ka style */
+.page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    color: #adb5bd;
+    pointer-events: none; /* Click disable karein */
+    box-shadow: none;
+}
+
+/* Previous/Next button ka style */
+#prev-page .page-link, #next-page .page-link {
+    font-weight: bold;
+}
+
+/* Ellipsis (...) ka style */
+.page-item.disabled .page-link:not([id='prev-page'] .page-link):not([id='next-page'] .page-link) {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* "Showing results" text ka style */
+#pagination-info {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+}

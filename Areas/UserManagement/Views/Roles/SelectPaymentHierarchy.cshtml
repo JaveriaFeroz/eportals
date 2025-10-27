@@ -1,0 +1,139 @@
+﻿@model ProcureToPay.Areas.UserManagement.ViewModels.SelectPaymentHierarchyViewModel
+
+@{
+    ViewData["Title"] = $"Select Hierarchy for {Model.ModuleDisplayName}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-cubes me-2"></i> Select Hierarchy for @Model.ModuleDisplayName
+            </h5>
+        </div>
+
+        <div class="card-body">
+            <p class="text-muted mb-4">
+                Use the filters below to quickly locate the specific hierarchy combination you wish to manage.
+            </p>
+
+            @if (!Model.PaymentNatures.Any() || !Model.PaymentSubNatures.Any())
+            {
+                <div class="alert alert-info" role="alert">
+                    Payment Natures or Sub Natures not found. Please add them first.
+                </div>
+            }
+            else
+            {
+                <div class="row g-3 mb-5 p-3 border rounded shadow-sm">
+                    <div class="col-md-4">
+                        <label for="filterNatureId" class="form-label fw-bold">Filter Nature</label>
+                        <select id="filterNatureId" class="form-select">
+                            <option value="">All Natures</option>
+                            @foreach (var nature in Model.PaymentNatures)
+                            {
+                                <option value="@nature.PaymentNatureId">@nature.PaymentNatureName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="filterSubNatureId" class="form-label fw-bold">Filter Sub Nature</label>
+                        <select id="filterSubNatureId" class="form-select">
+                            <option value="">All Sub Natures</option>
+                            @foreach (var subNature in Model.PaymentSubNatures)
+                            {
+                                <option value="@subNature.SubNatureId">@subNature.SubNatureName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div id="hierarchyContainer" class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (var nature in Model.PaymentNatures)
+                    {
+                        @foreach (var subNature in Model.PaymentSubNatures)
+                        {
+                            var hasHierarchy = Model.ExistingHierarchies.ContainsKey(((short)nature.PaymentNatureId, (short)subNature.SubNatureId));
+                            var buttonText = hasHierarchy ? "Edit Hierarchy" : "Create New Hierarchy";
+                            var cardClass = hasHierarchy ? "border-success" : "border-secondary";
+
+                            <div class="col hierarchy-card"
+                                 data-nature-id="@nature.PaymentNatureId"
+                                 data-subnature-id="@subNature.SubNatureId">
+                                <div class="card h-100 shadow-sm @cardClass">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">@nature.PaymentNatureName</h5>
+                                        <p class="card-text text-muted">Sub Nature: @subNature.SubNatureName</p>
+                                        @if (hasHierarchy)
+                                        {
+                                            <span class="badge bg-success">Hierarchy Exists</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">No Hierarchy Set</span>
+                                        }
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0">
+                                        <a href="@Url.Action("ManagePaymentRequestHierarchy", "Roles", new { area = "UserManagement", moduleName = Model.ModuleName, paymentNatureId = nature.PaymentNatureId, paymentSubNatureId = subNature.SubNatureId })"
+                                           class="btn btn-primary w-100" style="background-color: #092963">
+                                            <i class="fas fa-sitemap me-2"></i> @buttonText
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // Function to filter the cards based on dropdown selections
+            function filterCards() {
+                const selectedNatureId = $('#filterNatureId').val();
+                const selectedSubNatureId = $('#filterSubNatureId').val();
+                const container = $('#hierarchyContainer');
+
+                // Har card par iterate karein aur filter lagaein
+                container.find('.hierarchy-card').each(function() {
+                    const card = $(this);
+                    const cardNatureId = card.data('nature-id').toString();
+                    const cardSubNatureId = card.data('subnature-id').toString();
+
+                    let showCard = true;
+
+                    // Filter by Payment Nature
+                    if (selectedNatureId && selectedNatureId !== cardNatureId) {
+                        showCard = false;
+                    }
+
+                    // Filter by Payment Sub Nature
+                    if (selectedSubNatureId && selectedSubNatureId !== cardSubNatureId) {
+                        showCard = false;
+                    }
+
+                    // Card ko show ya hide karein
+                    if (showCard) {
+                        card.show();
+                    } else {
+                        card.hide();
+                    }
+                });
+            }
+
+            // Bind filterCards function to change events of both dropdowns
+            $('#filterNatureId, #filterSubNatureId').on('change', filterCards);
+
+            // Optional: Initially filter to handle any pre-selected values (though none expected here)
+            filterCards();
+        });
+    </script>
+}

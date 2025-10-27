@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using ProcureToPay.Helpers;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +33,7 @@ namespace ProcureToPay.Areas.UserManagement.Models
             public bool ForcePasswordChange { get; set; } = true;
 
             [Display(Name = "Created Date")]
-            public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+            public DateTime CreatedDate { get; set; } = DateTimeHelper.GetPakistanStandardTime();
 
             [Display(Name = "Last Login")]
             public DateTime? LastLoginDate { get; set; }

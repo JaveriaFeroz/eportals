@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProcureToPay.Areas.Auth.Models
 {
-    public class LoginViewModel
+    public class LoginViewModel : AuthViewModelBase
     {
         [Required(ErrorMessage = "The Username field is required.")]
         public string Username { get; set; }
@@ -14,6 +14,5 @@ namespace ProcureToPay.Areas.Auth.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-        public List<Update> Updates { get; set; } = new List<Update>();
     }
 }

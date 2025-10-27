@@ -1,0 +1,189 @@
+﻿@using ProcureToPay.Areas.Receiving.ViewModels
+@model ProcureToPay.Areas.Receiving.ViewModels.GRNIndexViewModel
+@{
+    ViewData["Title"] = "Goods Receipt Notes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int>;
+    bool canCreatePO = currentUserRoles != null && currentUserRoles.Contains(26);
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-file-invoice me-2"></i> GRN Management
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    @TempData["Info"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="search-container mb-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="grnNumberSearch"
+                                   placeholder="GRN Number">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <input type="text" class="form-control form-control-sm underline-input" id="poNumberSearch"
+                                   placeholder="PO Number">
+                        </div>
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
+                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                            <span>Clear</span>
+                            <i class="fas fa-times" style="font-size: 1rem;"></i>
+                        </button>
+                    </div>
+                    @if (canCreatePO)
+                    {
+                    <div class="col-auto ms-auto">
+                        <div class="create-user-container">
+                            <button class="action-button create-user-text"
+                                    data-url="@Url.Action("CreateFromPO", "GRN", new { area = "Receiving" })"
+                                        style="background-color: #092963;" require-permission="Add">
+                                <i class="fas fa-plus"></i>
+                                <span class="button-text"> Select PO</span>
+                            </button>
+                            <a href="#" class="btn btn-sm create-user-icon">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary d-none d-md-flex">
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-hashtag text-dark me-2"></i>GRN NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-file-invoice"></i></i>PO NUMBER</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-calendar-alt text-dark me-2"></i>GRN DATE</div>
+                <div class="col-md-2 d-flex align-items-center"><i class="fas fa-building text-dark me-2"></i>SUPPLIER</div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center"><i class="fas fa-info-circle text-dark me-2"></i>STATE</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>OWNER</div>
+                <div class="col-md-1 d-flex align-items-center"><i class="fas fa-user text-dark me-2"></i>Total Amount</div>
+            </div>
+
+            <div id="grn-list-container">
+                @if (Model.GRNs.Any())
+                {
+                    @foreach (var item in Model.GRNs)
+                    {
+                        <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
+                            <div class="col-12 col-md-2" data-column-value="grnNumber">
+                                <strong class="fw-bold">
+                                    <a href="@Url.Action("Details", "GRN", new { area = "Receiving", id = item.Id })" class="text-decoration-none" @* target="_blank" *@>
+                                        @item.GRNNumber
+                                    </a>
+                                </strong>
+                            </div>
+                            <div class="col-12 col-md-2" data-column-value="poNumber">
+                                <strong class="fw-bold">
+                                    <a href="@Url.Action("Details", "PurchaseOrder", new { area = "Procurement", id = item.POId })" class="text-decoration-none" @* target="_blank" *@>
+                                        @item.PONumber
+                                    </a>
+                                </strong>
+                            </div>
+                            <div class="col-6 col-md-2">@item.ReceiptDate.ToString("dd MMM yyyy")</div>
+                            <div class="col-6 col-md-2">@item.SupplierName</div>
+                            <div class="col-6 col-md-2 text-md-center">
+                                @{
+                                    string statusBadgeClass = "";
+                                    string statusText = item.Status.ToString(); // Default to enum name
+                                    switch (item.StateId)
+                                    {
+                                        case 1:
+                                            statusBadgeClass = "bg-success";
+                                            statusText = "Acknowledged";
+                                            break;
+                                        default:
+                                            statusBadgeClass = "bg-light text-dark";
+                                            statusText = "Unknown";
+                                            break;
+                                    }
+                                }
+                                <span class="badge status-badge @statusBadgeClass">@statusText</span>
+                            </div>
+                            <div class="col-6 col-md-1">@item.Owner</div>
+                            <div class="col-6 col-md-1">@item.TotalAmount</div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12 text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-2"></i><br>No goods receipt notes found.
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const grnNumberSearch = document.getElementById('grnNumberSearch');
+        const poNumberSearch = document.getElementById('poNumberSearch');
+        const clearButton = document.querySelector('.clear-button');
+        const rows = document.querySelectorAll('.user-row');
+
+        function filterRows() {
+            const grnNumberValue = grnNumberSearch.value.toLowerCase();
+            const poNumberValue = poNumberSearch.value.toLowerCase();
+
+            rows.forEach(row => {
+                const grnNumberText = row.querySelector('[data-column-value="grnNumber"]').textContent.trim().toLowerCase();
+                const poNumberText = row.querySelector('[data-column-value="poNumber"]').textContent.trim().toLowerCase();
+
+                const grnMatch = grnNumberValue === '' || grnNumberText.includes(grnNumberValue);
+                const poMatch = poNumberValue === '' || poNumberText.includes(poNumberValue);
+
+                if (grnMatch && poMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        grnNumberSearch.addEventListener('input', filterRows);
+        poNumberSearch.addEventListener('input', filterRows);
+
+        clearButton.addEventListener('click', function () {
+            grnNumberSearch.value = '';
+            poNumberSearch.value = '';
+            filterRows(); // Re-run the filter to show all rows
+        });
+    });
+</script>

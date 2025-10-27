@@ -72,7 +72,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("DocumentTypes", (string)null);
+                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -163,6 +163,565 @@ namespace ProcureToPay.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.FormHistory", b =>
+                {
+                    b.Property<int>("FormHistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormHistoryId"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("ActionByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActionByUserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("ActionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("FormId")
+                        .HasColumnType("int");
+
+                    b.Property<short>("FromStateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("FromStateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GoodsReceiptNoteId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<short>("ToStateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ToStateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ToUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ToUserName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("FormHistoryId");
+
+                    b.HasIndex("ActionByUserId");
+
+                    b.HasIndex("GoodsReceiptNoteId");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.HasIndex("ToUserId");
+
+                    b.ToTable("FormHistory");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowApprovalSequence", b =>
+                {
+                    b.Property<int>("WorkFlowApprovalSeqID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkFlowApprovalSeqID"));
+
+                    b.Property<int>("ApprovalSeq")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CompanyCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("MaxAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal?>("MinAmount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<short?>("PaymentNatureID")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("PaymentSubNatureID")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkFlowTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkFlowApprovalSeqID");
+
+                    b.HasIndex("RoleID");
+
+                    b.HasIndex("WorkFlowTypeId");
+
+                    b.ToTable("WorkFlowApprovalSequence");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowState", b =>
+                {
+                    b.Property<int>("WorkFlowStateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkFlowStateId"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("StateName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("WorkFlowTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkFlowStateId");
+
+                    b.HasIndex("WorkFlowTypeId");
+
+                    b.ToTable("WorkFlowState");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowType", b =>
+                {
+                    b.Property<int>("WorkFlowTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowGroupId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("WorkFlowName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("WorkFlowShortName")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("WorkFlowTypeId");
+
+                    b.ToTable("WorkFlowType");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.AttachmentType", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("Id"));
+
+                    b.Property<int>("AllowedSizeKB")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMandatory")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<short?>("PaymentNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("AttachmentTypes");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CSNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CompanyCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short?>("CurrencyId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("CurrentApprovalSequence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GoodsReceiptNoteId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PIVNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PRQNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PayeeName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short?>("PaymentModeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("PaymentNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("PaymentSubNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("PaymentTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
+
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("RequiredDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("SelfApplicant")
+                        .HasColumnType("bit");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("GoodsReceiptNoteId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PaymentRequests");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequestAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<short>("AttachmentTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("FileContent")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileContentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<decimal>("FileSizeKB")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PaymentRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttachmentTypeId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("PaymentRequestId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PaymentRequestAttachments");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequestCostAllocation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BranchCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("BranchName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartmentCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("PaymentRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Rate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("PaymentRequestId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PaymentRequestCostAllocations");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequestDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("AmountExTax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ChargeCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ChargeName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("InvoiceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InvoiceNo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("JobNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("OtherTax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PayeeName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("PaymentRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("STRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("PaymentRequestId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PaymentRequestDetails");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Insurance.Models.InsuranceCompany", b =>
                 {
                     b.Property<short>("CompanyId")
@@ -199,7 +758,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("InsuranceCompanies", (string)null);
+                    b.ToTable("InsuranceCompanies");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Insurance.Models.InsuranceType", b =>
@@ -243,103 +802,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("InsuranceTypes", (string)null);
-                });
-
-            modelBuilder.Entity("ProcureToPay.Areas.Inventory.Models.PurchaseRequisition", b =>
-                {
-                    b.Property<int>("PRNo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PRNo"));
-
-                    b.Property<bool?>("Approved")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("BudgetAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("BudgetRemarks")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<bool?>("Budgeted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("CompanyCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Justification")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Owner")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<short?>("ProductNatureId")
-                        .HasColumnType("smallint");
-
-                    b.Property<bool?>("Rejected")
-                        .HasColumnType("bit");
-
-                    b.Property<short?>("RequestTypeId")
-                        .HasColumnType("smallint");
-
-                    b.Property<DateTime?>("RequiredBy")
-                        .HasColumnType("datetime2");
-
-                    b.Property<short?>("ServiceNatureId")
-                        .HasColumnType("smallint");
-
-                    b.Property<short?>("StateId")
-                        .HasColumnType("smallint");
-
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<short?>("WorkFlowId")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("PRNo");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("CreatedOn");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("ProductNatureId");
-
-                    b.HasIndex("ServiceNatureId");
-
-                    b.HasIndex("UpdatedByUserId");
-
-                    b.ToTable("PurchaseRequisitions", (string)null);
+                    b.ToTable("InsuranceTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AccessorialCharge", b =>
@@ -386,7 +849,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AccessorialCharges", (string)null);
+                    b.ToTable("AccessorialCharges");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Activity", b =>
@@ -431,7 +894,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Activities", (string)null);
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Asset", b =>
@@ -559,7 +1022,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Assets", (string)null);
+                    b.ToTable("Assets");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetDocument", b =>
@@ -645,7 +1108,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AssetDocuments", (string)null);
+                    b.ToTable("AssetDocuments");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetStatus", b =>
@@ -696,7 +1159,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AssetStatuses", (string)null);
+                    b.ToTable("AssetStatuses");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetType", b =>
@@ -742,7 +1205,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("AssetTypes", (string)null);
+                    b.ToTable("AssetTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.AssetTyre", b =>
@@ -806,7 +1269,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("AssetId", "IsActive");
 
-                    b.ToTable("AssetTyres", (string)null);
+                    b.ToTable("AssetTyres");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Base", b =>
@@ -852,7 +1315,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Bases", (string)null);
+                    b.ToTable("Bases");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Capacity", b =>
@@ -898,7 +1361,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Capacities", (string)null);
+                    b.ToTable("Capacities");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Charge", b =>
@@ -944,7 +1407,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Charges", (string)null);
+                    b.ToTable("Charges");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.City", b =>
@@ -1005,7 +1468,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("RegionId", "IsActive");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Client", b =>
@@ -1154,7 +1617,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "IsActive");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ClientInvoiceFormat", b =>
@@ -1198,7 +1661,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("ClientId", "FormatId")
                         .IsUnique();
 
-                    b.ToTable("ClientInvoiceFormats", (string)null);
+                    b.ToTable("ClientInvoiceFormats");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Company", b =>
@@ -1326,7 +1789,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Complainant", b =>
@@ -1365,7 +1828,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Complainants", (string)null);
+                    b.ToTable("Complainants");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Consignee", b =>
@@ -1444,7 +1907,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Consignees", (string)null);
+                    b.ToTable("Consignees");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Contractor", b =>
@@ -1483,7 +1946,46 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Contractors", (string)null);
+                    b.ToTable("Contractors");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Currency", b =>
+                {
+                    b.Property<short>("CurrencyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("CurrencyId"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrencyName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CurrencyId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Detention", b =>
@@ -1525,7 +2027,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Detentions", (string)null);
+                    b.ToTable("Detentions");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Driver", b =>
@@ -1658,7 +2160,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Drivers", (string)null);
+                    b.ToTable("Drivers");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.IndustryVertical", b =>
@@ -1704,7 +2206,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("IndustryVerticals", (string)null);
+                    b.ToTable("IndustryVerticals");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.InsuranceDocumentType", b =>
@@ -1743,7 +2245,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("InsuranceDocumentTypes", (string)null);
+                    b.ToTable("InsuranceDocumentTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.InvoiceFormat", b =>
@@ -1771,7 +2273,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("IsActive");
 
-                    b.ToTable("InvoiceFormats", (string)null);
+                    b.ToTable("InvoiceFormats");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.LeaseType", b =>
@@ -1810,7 +2312,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("LeaseTypes", (string)null);
+                    b.ToTable("LeaseTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Make", b =>
@@ -1849,7 +2351,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Makes", (string)null);
+                    b.ToTable("Makes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PaymentMode", b =>
@@ -1895,7 +2397,85 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("PaymentModes", (string)null);
+                    b.ToTable("PaymentModes");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PaymentNature", b =>
+                {
+                    b.Property<short>("PaymentNatureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("PaymentNatureId"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PaymentNatureName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PaymentNatureId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PaymentNatures");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PaymentType", b =>
+                {
+                    b.Property<short>("PaymentTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("PaymentTypeId"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PaymentTypeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PaymentTypeId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PaymentTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Priority", b =>
@@ -1937,7 +2517,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Priorities", (string)null);
+                    b.ToTable("Priorities");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Product", b =>
@@ -1965,10 +2545,7 @@ namespace ProcureToPay.Migrations
                     b.Property<short?>("ProductNatureId")
                         .HasColumnType("smallint");
 
-                    b.Property<short?>("ProductTypeId")
-                        .HasColumnType("smallint");
-
-                    b.Property<double>("PurchasePrice")
+                    b.Property<double>("UnitPrice")
                         .HasColumnType("float");
 
                     b.Property<short?>("UoMId")
@@ -1988,13 +2565,11 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("ProductNatureId");
 
-                    b.HasIndex("ProductTypeId");
-
                     b.HasIndex("UoMId");
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ProductNature", b =>
@@ -2039,7 +2614,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("ProductNatures", (string)null);
+                    b.ToTable("ProductNatures");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ProductType", b =>
@@ -2078,7 +2653,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("ProductTypes", (string)null);
+                    b.ToTable("ProductTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Qualification", b =>
@@ -2120,7 +2695,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Qualifications", (string)null);
+                    b.ToTable("Qualifications");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.RateType", b =>
@@ -2162,7 +2737,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("RateTypes", (string)null);
+                    b.ToTable("RateTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Region", b =>
@@ -2213,7 +2788,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Regions", (string)null);
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Relation", b =>
@@ -2252,7 +2827,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Relations", (string)null);
+                    b.ToTable("Relations");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKU", b =>
@@ -2310,7 +2885,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("SKUTypeId", "IsActive");
 
-                    b.ToTable("SKU", (string)null);
+                    b.ToTable("SKU");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUCategory", b =>
@@ -2363,7 +2938,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "IsActive");
 
-                    b.ToTable("SKUCategories", (string)null);
+                    b.ToTable("SKUCategories");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUCategoryClient", b =>
@@ -2407,7 +2982,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("CategoryId", "ClientId")
                         .IsUnique();
 
-                    b.ToTable("SKUCategoryClients", (string)null);
+                    b.ToTable("SKUCategoryClients");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUClient", b =>
@@ -2451,7 +3026,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("SKUId", "ClientId")
                         .IsUnique();
 
-                    b.ToTable("SKUClient", (string)null);
+                    b.ToTable("SKUClient");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SKUType", b =>
@@ -2497,7 +3072,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SKUTypes", (string)null);
+                    b.ToTable("SKUTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SeparationType", b =>
@@ -2543,7 +3118,59 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SeparationTypes", (string)null);
+                    b.ToTable("SeparationTypes");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Service", b =>
+                {
+                    b.Property<short>("ServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ServiceId"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ServiceName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short?>("ServiceNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<double>("UnitPrice")
+                        .HasColumnType("float");
+
+                    b.Property<short?>("UoMId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ServiceId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("ServiceNatureId");
+
+                    b.HasIndex("UoMId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ServiceNature", b =>
@@ -2588,7 +3215,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("ServiceNatures", (string)null);
+                    b.ToTable("ServiceNatures");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Shipper", b =>
@@ -2660,7 +3287,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "IsActive");
 
-                    b.ToTable("Shippers", (string)null);
+                    b.ToTable("Shippers");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SubCategory", b =>
@@ -2706,7 +3333,46 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SubNature", b =>
+                {
+                    b.Property<short>("SubNatureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("SubNatureId"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SubNatureName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("SubNatureId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("SubNatures");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Supplier", b =>
@@ -2809,7 +3475,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("SupplierTypeId", "IsActive");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierRate", b =>
@@ -2854,7 +3520,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("SupplierId", "IsActive");
 
-                    b.ToTable("SupplierRates", (string)null);
+                    b.ToTable("SupplierRates");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierRateDetail", b =>
@@ -2872,7 +3538,7 @@ namespace ProcureToPay.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<double>("FuelRate")
                         .HasColumnType("float");
@@ -2886,7 +3552,7 @@ namespace ProcureToPay.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("UpdatedByUserId")
                         .HasColumnType("int");
@@ -2918,7 +3584,7 @@ namespace ProcureToPay.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_SupplierRateDetail_UniqueRate");
 
-                    b.ToTable("SupplierRateDetails", (string)null);
+                    b.ToTable("SupplierRateDetails");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierType", b =>
@@ -2964,7 +3630,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("SupplierTypes", (string)null);
+                    b.ToTable("SupplierTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Trailer", b =>
@@ -3010,7 +3676,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Trailers", (string)null);
+                    b.ToTable("Trailers");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.UoM", b =>
@@ -3056,7 +3722,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("UoMs", (string)null);
+                    b.ToTable("UoMs");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.VehicleGroup", b =>
@@ -3102,7 +3768,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("VehicleGroup", (string)null);
+                    b.ToTable("VehicleGroup");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.WHTaxExemption", b =>
@@ -3157,7 +3823,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("CompanyId", "DateFrom", "DateTo");
 
-                    b.ToTable("WHTaxExemptions", (string)null);
+                    b.ToTable("WHTaxExemptions");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.WarningType", b =>
@@ -3203,7 +3869,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("WarningTypes", (string)null);
+                    b.ToTable("WarningTypes");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.ApprovalLevel", b =>
@@ -3249,7 +3915,535 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("RequiredRole");
 
-                    b.ToTable("ApprovalLevels", (string)null);
+                    b.ToTable("ApprovalLevels");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.Bid", b =>
+                {
+                    b.Property<int>("BidId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BidId"));
+
+                    b.Property<int>("BidNo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DeliveryDays")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("GrandTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsResponsive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MeetsRequirements")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PaymentTerms")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("QuotationDocumentPath")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("QuotationNumber")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("Rank")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("SubmissionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("SupplierId")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ValidityPeriod")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BidId");
+
+                    b.HasIndex("BidNo");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Bids", "Procurement");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.BidEvaluation", b =>
+                {
+                    b.Property<int>("BidNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BidNo"));
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BidEvaluationNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentApprovalSequence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("EstimatedAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("EvaluationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Justification")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("PRNo")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
+
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("SelectedBidId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SelectionJustification")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime?>("SubmissionDeadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("BidNo");
+
+                    b.HasIndex("BidEvaluationNumber")
+                        .IsUnique();
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PRNo");
+
+                    b.HasIndex("SelectedBidId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("BidEvaluations", "Procurement");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.BidItem", b =>
+                {
+                    b.Property<int>("BidItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BidItemId"));
+
+                    b.Property<int>("BidId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("MeetsSpecifications")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("PurchaseRequestItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Specifications")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UOM")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<short?>("UoMId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("BidItemId");
+
+                    b.HasIndex("BidId");
+
+                    b.HasIndex("PurchaseRequestItemId");
+
+                    b.HasIndex("UoMId");
+
+                    b.ToTable("BidItems", "Procurement");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("BidEvaluationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentApprovalSequence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime?>("ExpectedDeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("GrandTotal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PODate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PONumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short?>("PaymentDays")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("PurchaseNature")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseType")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SupplierAddress")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SupplierContact")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("SupplierId")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("TaxAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Terms")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("VendorId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("WinningBidId")
+                        .HasColumnType("int");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BidEvaluationId");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PODate");
+
+                    b.HasIndex("PONumber")
+                        .IsUnique();
+
+                    b.HasIndex("PurchaseRequestId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.HasIndex("VendorId");
+
+                    b.HasIndex("WinningBidId");
+
+                    b.ToTable("PurchaseOrders");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseOrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal?>("DiscAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("DiscRate")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<DateTime?>("ExpectedDeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("GSTAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("GSTRate")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ItemCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("PurchaseOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("SourcePurchaseRequestItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("TaxAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TaxRate")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<short?>("UoMId")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("UpdatedQuantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.HasIndex("SourcePurchaseRequestItemId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("UoMId");
+
+                    b.ToTable("PurchaseOrderItems");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", b =>
@@ -3264,19 +4458,42 @@ namespace ProcureToPay.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("ApprovedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ApprovedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("BranchId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<string>("CompanyCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CurrentApprovalSequence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("DepartmentId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -3284,39 +4501,67 @@ namespace ProcureToPay.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<string>("Purpose")
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Owner")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<short?>("ProductNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("PurchaseItemType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseNatureType")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("RequestNumber")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("RequestedByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("RequiredDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
+
+                    b.Property<short?>("ServiceNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("TotalAmount")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
@@ -3324,58 +4569,412 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("BranchId");
 
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("ProductNatureId");
 
                     b.HasIndex("RequestDate");
 
                     b.HasIndex("RequestNumber")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[RequestNumber] IS NOT NULL");
 
                     b.HasIndex("RequestedByUserId");
 
+                    b.HasIndex("ServiceNatureId");
+
                     b.HasIndex("Status");
 
-                    b.ToTable("PurchaseRequests", (string)null);
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PurchaseRequests");
                 });
 
-            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem", b =>
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestAttachment", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<short>("AttachmentTypeId")
+                        .HasColumnType("smallint");
 
-                    b.Property<string>("ItemName")
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("FileContent")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileContentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<decimal>("FileSizeKB")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("PurchaseRequestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("UpdatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Unit")
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("PurchaseRequestId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PurchaseRequestAttachments");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestDetailFleet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DetailId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("GSTAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("GSTRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("GrossAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PRFleetId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<short?>("ProductId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<short?>("ServiceId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ServiceName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short?>("UoMId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("UoMName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("PRFleetId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PurchaseRequestDetailFleet");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem", b =>
+                {
+                    b.Property<int>("DetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("DetailId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetailId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("GSTAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("GSTRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Narration")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("OrderedQuantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<short?>("ProductId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("PurchaseRequestId")
+                        .HasColumnType("int")
+                        .HasColumnName("PRNo");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<short?>("ServiceId")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("ItemId");
+                    b.Property<short?>("UoMId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("VATAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VATRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("DetailId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("PurchaseRequestId");
 
-                    b.ToTable("PurchaseRequestItems", (string)null);
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("UoMId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PurchaseRequestDetails");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestOrderMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("MappedAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("PurchaseOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseRequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.HasIndex("PurchaseRequestId");
+
+                    b.HasIndex("PurchaseRequestId", "PurchaseOrderId")
+                        .IsUnique();
+
+                    b.ToTable("PurchaseRequestOrderMappings");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestsFleet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal?>("BudgetAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("BudgetRemarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("Budgeted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CompanyCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentApprovalSequence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Justification")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("PRNo")
+                        .HasColumnType("int");
+
+                    b.Property<short?>("ProductNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
+
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime?>("RequiredBy")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<short?>("ServiceNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("ProductNatureId");
+
+                    b.HasIndex("ServiceNatureId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("PurchaseRequestsFleet");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.RequestApproval", b =>
@@ -3422,7 +5021,210 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("PurchaseRequestId", "ApprovalLevelId")
                         .IsUnique();
 
-                    b.ToTable("RequestApprovals", (string)null);
+                    b.ToTable("RequestApprovals");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("BillDCDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BillDCNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("CurrencyId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("CurrentApprovalSequence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ExRate")
+                        .HasColumnType("float");
+
+                    b.Property<string>("GRNNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool?>("GRNVaryFromPO")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("GRNVaryRate")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsImported")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short?>("PrincipalId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("PurchaseOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReceiptDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReceivedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<short?>("RequestNatureId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("RequestTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("StateId")
+                        .HasColumnType("smallint");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("WorkFlowTypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CreatedOn");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.HasIndex("ReceivedByUserId");
+
+                    b.HasIndex("UpdatedByUserId");
+
+                    b.ToTable("GoodsReceiptNotes");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNoteItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DiscRate")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("GRNVaryFromPO")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("GSTAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<double>("GSTRate")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("GSTonRP")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("GoodsReceiptNoteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Narration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("POQuantity")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("PurchaseOrderItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseOrderItemId1")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ReceivedQuantity")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<double>("RetailPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UOM")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodsReceiptNoteId");
+
+                    b.HasIndex("PurchaseOrderItemId");
+
+                    b.HasIndex("PurchaseOrderItemId1");
+
+                    b.ToTable("GoodsReceiptNoteItems");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Branch", b =>
@@ -3451,7 +5253,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("BranchId");
 
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Department", b =>
@@ -3480,7 +5282,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Module", b =>
@@ -3508,7 +5310,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Modules", (string)null);
+                    b.ToTable("Modules");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.ModuleRoleHierarchy", b =>
@@ -3534,7 +5336,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("RoleId", "ModuleName")
                         .IsUnique();
 
-                    b.ToTable("ModuleRoleHierarchies", (string)null);
+                    b.ToTable("ModuleRoleHierarchies");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Permission", b =>
@@ -3566,7 +5368,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("ModuleId", "Name")
                         .IsUnique();
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Role", b =>
@@ -3623,7 +5425,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("RolePermissions", (string)null);
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Update", b =>
@@ -3665,7 +5467,7 @@ namespace ProcureToPay.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Updates", (string)null);
+                    b.ToTable("Updates");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.User", b =>
@@ -3858,7 +5660,7 @@ namespace ProcureToPay.Migrations
                     b.HasIndex("WorkOrderTypeName")
                         .IsUnique();
 
-                    b.ToTable("WorkOrderTypes", (string)null);
+                    b.ToTable("WorkOrderTypes");
                 });
 
             modelBuilder.Entity("DocumentType", b =>
@@ -3915,6 +5717,212 @@ namespace ProcureToPay.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.FormHistory", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "ActionByUser")
+                        .WithMany()
+                        .HasForeignKey("ActionByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNote", null)
+                        .WithMany("FormHistory")
+                        .HasForeignKey("GoodsReceiptNoteId");
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", null)
+                        .WithMany("FormHistory")
+                        .HasForeignKey("PurchaseOrderId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "ToUser")
+                        .WithMany()
+                        .HasForeignKey("ToUserId");
+
+                    b.Navigation("ActionByUser");
+
+                    b.Navigation("ToUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowApprovalSequence", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Common.Models.WorkFlowType", "WorkFlowType")
+                        .WithMany("ApprovalSequences")
+                        .HasForeignKey("WorkFlowTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("WorkFlowType");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowState", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Common.Models.WorkFlowType", "WorkFlowType")
+                        .WithMany("States")
+                        .HasForeignKey("WorkFlowTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkFlowType");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowType", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Module", "Module")
+                        .WithOne("WorkFlowType")
+                        .HasForeignKey("ProcureToPay.Areas.Common.Models.WorkFlowType", "WorkFlowTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.AttachmentType", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequest", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNote", "GoodsReceiptNote")
+                        .WithMany()
+                        .HasForeignKey("GoodsReceiptNoteId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("GoodsReceiptNote");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequestAttachment", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Finance.Models.AttachmentType", "AttachmentType")
+                        .WithMany("PaymentRequestAttachments")
+                        .HasForeignKey("AttachmentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Finance.Models.PaymentRequest", "PaymentRequest")
+                        .WithMany("Attachments")
+                        .HasForeignKey("PaymentRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("AttachmentType");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PaymentRequest");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequestCostAllocation", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Finance.Models.PaymentRequest", "PaymentRequest")
+                        .WithMany("CostAllocations")
+                        .HasForeignKey("PaymentRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PaymentRequest");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequestDetail", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Finance.Models.PaymentRequest", "PaymentRequest")
+                        .WithMany("Details")
+                        .HasForeignKey("PaymentRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PaymentRequest");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Insurance.Models.InsuranceCompany", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
@@ -3955,52 +5963,6 @@ namespace ProcureToPay.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("CreatedByUser");
-
-                    b.Navigation("UpdatedByUser");
-                });
-
-            modelBuilder.Entity("ProcureToPay.Areas.Inventory.Models.PurchaseRequisition", b =>
-                {
-                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProcureToPay.Areas.Master.Models.ProductNature", "ProducNature")
-                        .WithMany()
-                        .HasForeignKey("ProductNatureId");
-
-                    b.HasOne("ProcureToPay.Areas.Master.Models.ServiceNature", "ServiceNature")
-                        .WithMany()
-                        .HasForeignKey("ServiceNatureId");
-
-                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Branch");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("Department");
-
-                    b.Navigation("ProducNature");
-
-                    b.Navigation("ServiceNature");
 
                     b.Navigation("UpdatedByUser");
                 });
@@ -4510,6 +6472,24 @@ namespace ProcureToPay.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Currency", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Detention", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
@@ -4662,6 +6642,42 @@ namespace ProcureToPay.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PaymentNature", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.PaymentType", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Priority", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
@@ -4692,10 +6708,6 @@ namespace ProcureToPay.Migrations
                         .WithMany()
                         .HasForeignKey("ProductNatureId");
 
-                    b.HasOne("ProcureToPay.Areas.Master.Models.ProductType", "ProductType")
-                        .WithMany()
-                        .HasForeignKey("ProductTypeId");
-
                     b.HasOne("ProcureToPay.Areas.Master.Models.UoM", "UoM")
                         .WithMany()
                         .HasForeignKey("UoMId");
@@ -4708,8 +6720,6 @@ namespace ProcureToPay.Migrations
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("ProductNature");
-
-                    b.Navigation("ProductType");
 
                     b.Navigation("UoM");
 
@@ -4979,6 +6989,36 @@ namespace ProcureToPay.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Service", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.ServiceNature", "ServiceNature")
+                        .WithMany()
+                        .HasForeignKey("ServiceNatureId");
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.UoM", "UoM")
+                        .WithMany()
+                        .HasForeignKey("UoMId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ServiceNature");
+
+                    b.Navigation("UoM");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.ServiceNature", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
@@ -5055,6 +7095,24 @@ namespace ProcureToPay.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SubNature", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Supplier", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.Master.Models.City", "City")
@@ -5097,7 +7155,7 @@ namespace ProcureToPay.Migrations
                         .IsRequired();
 
                     b.HasOne("ProcureToPay.Areas.Master.Models.Supplier", "Supplier")
-                        .WithMany()
+                        .WithMany("SupplierRates")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -5256,6 +7314,182 @@ namespace ProcureToPay.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.Bid", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.BidEvaluation", "BidEvaluation")
+                        .WithMany("Bids")
+                        .HasForeignKey("BidNo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BidEvaluation");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.BidEvaluation", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", "PurchaseRequest")
+                        .WithMany("BidEvaluations")
+                        .HasForeignKey("PRNo")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.Bid", "SelectedBid")
+                        .WithMany()
+                        .HasForeignKey("SelectedBidId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("PurchaseRequest");
+
+                    b.Navigation("SelectedBid");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.BidItem", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.Bid", "Bid")
+                        .WithMany("BidItems")
+                        .HasForeignKey("BidId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem", "PurchaseRequestItem")
+                        .WithMany()
+                        .HasForeignKey("PurchaseRequestItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.UoM", "UoM")
+                        .WithMany()
+                        .HasForeignKey("UoMId");
+
+                    b.Navigation("Bid");
+
+                    b.Navigation("PurchaseRequestItem");
+
+                    b.Navigation("UoM");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.BidEvaluation", "BidEvaluation")
+                        .WithMany()
+                        .HasForeignKey("BidEvaluationId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", "PurchaseRequest")
+                        .WithMany()
+                        .HasForeignKey("PurchaseRequestId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.Supplier", "Supplier")
+                        .WithMany("PurchaseOrders")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.Bid", "WinningBid")
+                        .WithMany()
+                        .HasForeignKey("WinningBidId");
+
+                    b.Navigation("BidEvaluation");
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("PurchaseRequest");
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("UpdatedByUser");
+
+                    b.Navigation("WinningBid");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseOrderItem", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("Items")
+                        .HasForeignKey("PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem", "SourcePurchaseRequestItem")
+                        .WithMany()
+                        .HasForeignKey("SourcePurchaseRequestItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.UoM", "UoM")
+                        .WithMany()
+                        .HasForeignKey("UoMId");
+
+                    b.Navigation("PurchaseOrder");
+
+                    b.Navigation("SourcePurchaseRequestItem");
+
+                    b.Navigation("UoM");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", b =>
                 {
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "ApprovedByUser")
@@ -5266,12 +7500,24 @@ namespace ProcureToPay.Migrations
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.Branch", "Branch")
                         .WithMany()
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.ProductNature", "ProducNature")
+                        .WithMany()
+                        .HasForeignKey("ProductNatureId");
 
                     b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "RequestedByUser")
                         .WithMany()
@@ -5279,24 +7525,183 @@ namespace ProcureToPay.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ProcureToPay.Areas.Master.Models.ServiceNature", "ServiceNature")
+                        .WithMany()
+                        .HasForeignKey("ServiceNatureId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("ApprovedByUser");
 
                     b.Navigation("Branch");
 
+                    b.Navigation("CreatedByUser");
+
                     b.Navigation("Department");
 
+                    b.Navigation("ProducNature");
+
                     b.Navigation("RequestedByUser");
+
+                    b.Navigation("ServiceNature");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestAttachment", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", "PurchaseRequest")
+                        .WithMany("Attachments")
+                        .HasForeignKey("PurchaseRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PurchaseRequest");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestDetailFleet", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequestsFleet", "PRFleet")
+                        .WithMany("Details")
+                        .HasForeignKey("PRFleetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PRFleet");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem", b =>
                 {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
                     b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", "PurchaseRequest")
                         .WithMany("Items")
                         .HasForeignKey("PurchaseRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProcureToPay.Areas.Master.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId");
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.UoM", "UoM")
+                        .WithMany()
+                        .HasForeignKey("UoMId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Product");
+
                     b.Navigation("PurchaseRequest");
+
+                    b.Navigation("Service");
+
+                    b.Navigation("UoM");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestOrderMapping", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("PurchaseRequestMappings")
+                        .HasForeignKey("PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", "PurchaseRequest")
+                        .WithMany("PurchaseRequestMappings")
+                        .HasForeignKey("PurchaseRequestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PurchaseOrder");
+
+                    b.Navigation("PurchaseRequest");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestsFleet", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.ProductNature", "ProductNature")
+                        .WithMany()
+                        .HasForeignKey("ProductNatureId");
+
+                    b.HasOne("ProcureToPay.Areas.Master.Models.ServiceNature", "ServiceNature")
+                        .WithMany()
+                        .HasForeignKey("ServiceNatureId");
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("ProductNature");
+
+                    b.Navigation("ServiceNature");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.RequestApproval", b =>
@@ -5324,6 +7729,63 @@ namespace ProcureToPay.Migrations
                     b.Navigation("Approver");
 
                     b.Navigation("PurchaseRequest");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNote", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", "PurchaseOrder")
+                        .WithMany()
+                        .HasForeignKey("PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "ReceivedByUser")
+                        .WithMany()
+                        .HasForeignKey("ReceivedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.UserManagement.Models.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("PurchaseOrder");
+
+                    b.Navigation("ReceivedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNoteItem", b =>
+                {
+                    b.HasOne("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNote", "GoodsReceiptNote")
+                        .WithMany("Items")
+                        .HasForeignKey("GoodsReceiptNoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseOrderItem", "PurchaseOrderItem")
+                        .WithMany()
+                        .HasForeignKey("PurchaseOrderItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProcureToPay.Areas.Procurement.Models.PurchaseOrderItem", null)
+                        .WithMany("GoodsReceiptNoteItems")
+                        .HasForeignKey("PurchaseOrderItemId1");
+
+                    b.Navigation("GoodsReceiptNote");
+
+                    b.Navigation("PurchaseOrderItem");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.ModuleRoleHierarchy", b =>
@@ -5426,6 +7888,27 @@ namespace ProcureToPay.Migrations
                     b.Navigation("AssetDocuments");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Common.Models.WorkFlowType", b =>
+                {
+                    b.Navigation("ApprovalSequences");
+
+                    b.Navigation("States");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.AttachmentType", b =>
+                {
+                    b.Navigation("PaymentRequestAttachments");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Finance.Models.PaymentRequest", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("CostAllocations");
+
+                    b.Navigation("Details");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Asset", b =>
                 {
                     b.Navigation("AssetTyres");
@@ -5461,6 +7944,13 @@ namespace ProcureToPay.Migrations
                     b.Navigation("SKUs");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Master.Models.Supplier", b =>
+                {
+                    b.Navigation("PurchaseOrders");
+
+                    b.Navigation("SupplierRates");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Master.Models.SupplierRate", b =>
                 {
                     b.Navigation("Details");
@@ -5471,9 +7961,51 @@ namespace ProcureToPay.Migrations
                     b.Navigation("RequestApprovals");
                 });
 
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.Bid", b =>
+                {
+                    b.Navigation("BidItems");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.BidEvaluation", b =>
+                {
+                    b.Navigation("Bids");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseOrder", b =>
+                {
+                    b.Navigation("FormHistory");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("PurchaseRequestMappings");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseOrderItem", b =>
+                {
+                    b.Navigation("GoodsReceiptNoteItems");
+                });
+
             modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequest", b =>
                 {
                     b.Navigation("Approvals");
+
+                    b.Navigation("Attachments");
+
+                    b.Navigation("BidEvaluations");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("PurchaseRequestMappings");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Procurement.Models.PurchaseRequestsFleet", b =>
+                {
+                    b.Navigation("Details");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.Receiving.Models.GoodsReceiptNote", b =>
+                {
+                    b.Navigation("FormHistory");
 
                     b.Navigation("Items");
                 });
@@ -5486,6 +8018,11 @@ namespace ProcureToPay.Migrations
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Department", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Module", b =>
+                {
+                    b.Navigation("WorkFlowType");
                 });
 
             modelBuilder.Entity("ProcureToPay.Areas.UserManagement.Models.Role", b =>

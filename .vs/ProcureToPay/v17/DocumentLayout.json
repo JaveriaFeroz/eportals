@@ -1,85 +1,234 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\ProcureToPay-Procurement\\",
+  "WorkspaceRootPath": "C:\\Users\\Home\\Downloads\\P2P\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\views\\purchaserequisition\\_purchaserequisitiondetailrow.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\views\\purchaserequisition\\_purchaserequisitiondetailrow.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\views\\bidevaluation\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\views\\bidevaluation\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\models\\purchaserequisitiondetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\models\\purchaserequisitiondetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\controllers\\bidevaluationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\controllers\\bidevaluationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\views\\purchaserequisition\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\views\\purchaserequisition\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\finance\\controllers\\paymentrequestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\finance\\controllers\\paymentrequestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|d:\\procuretopay-procurement\\areas\\inventory\\services\\ipurchaserequisitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\inventory\\services\\ipurchaserequisitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\controllers\\purchaseordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\controllers\\purchaseordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\common\\services\\iworkflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\common\\services\\iworkflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\wwwroot\\js\\procurement\\bidevaluationreturn.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:wwwroot\\js\\procurement\\bidevaluationreturn.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\views\\bidevaluation\\_workflowactionmodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\views\\bidevaluation\\_workflowactionmodals.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\wwwroot\\js\\procurement\\purchaseorderreturn.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:wwwroot\\js\\procurement\\purchaseorderreturn.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\views\\bidevaluation\\addbid.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\views\\bidevaluation\\addbid.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\viewmodels\\bidevaluationcreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\viewmodels\\bidevaluationcreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\common\\enums\\workflowtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\common\\enums\\workflowtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|c:\\users\\home\\downloads\\p2p\\areas\\procurement\\models\\bidevaluation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D40EAEEE-6B97-43A4-B973-BF37BC7962FA}|ProcureToPay.csproj|solutionrelative:areas\\procurement\\models\\bidevaluation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 0,
+      "Orientation": 1,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "DockedHeight": 433,
+          "SelectedChildIndex": 9,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_PurchaseRequisitionDetailRow.cshtml",
-              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Views\\PurchaseRequisition\\_PurchaseRequisitionDetailRow.cshtml",
-              "RelativeDocumentMoniker": "Areas\\Inventory\\Views\\PurchaseRequisition\\_PurchaseRequisitionDetailRow.cshtml",
-              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Views\\PurchaseRequisition\\_PurchaseRequisitionDetailRow.cshtml",
-              "RelativeToolTip": "Areas\\Inventory\\Views\\PurchaseRequisition\\_PurchaseRequisitionDetailRow.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-15T10:25:54.602Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Views\\PurchaseRequisition\\Create.cshtml",
-              "RelativeDocumentMoniker": "Areas\\Inventory\\Views\\PurchaseRequisition\\Create.cshtml",
-              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Views\\PurchaseRequisition\\Create.cshtml",
-              "RelativeToolTip": "Areas\\Inventory\\Views\\PurchaseRequisition\\Create.cshtml",
-              "ViewState": "AgIAALMAAAAAAAAAAAAswLsAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-15T10:16:26.105Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PurchaseRequisitionDetail.cs",
-              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Models\\PurchaseRequisitionDetail.cs",
-              "RelativeDocumentMoniker": "Areas\\Inventory\\Models\\PurchaseRequisitionDetail.cs",
-              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Models\\PurchaseRequisitionDetail.cs",
-              "RelativeToolTip": "Areas\\Inventory\\Models\\PurchaseRequisitionDetail.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBIAAAAlAAAAAAAAAA==",
+              "Title": "BidEvaluationController.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Controllers\\BidEvaluationController.cs",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Controllers\\BidEvaluationController.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Controllers\\BidEvaluationController.cs",
+              "RelativeToolTip": "Areas\\Procurement\\Controllers\\BidEvaluationController.cs",
+              "ViewState": "AgIAAOQEAACA0MzMzMwUwCkFAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T09:04:46.423Z"
+              "WhenOpened": "2025-10-24T04:20:48.432Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "bidEvaluationReturn.js",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\wwwroot\\js\\Procurement\\bidEvaluationReturn.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Procurement\\bidEvaluationReturn.js",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\wwwroot\\js\\Procurement\\bidEvaluationReturn.js",
+              "RelativeToolTip": "wwwroot\\js\\Procurement\\bidEvaluationReturn.js",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwBoAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-24T12:58:18.821Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "purchaseOrderReturn.js",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\wwwroot\\js\\Procurement\\purchaseOrderReturn.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Procurement\\purchaseOrderReturn.js",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\wwwroot\\js\\Procurement\\purchaseOrderReturn.js",
+              "RelativeToolTip": "wwwroot\\js\\Procurement\\purchaseOrderReturn.js",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAwwPgAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-24T12:56:46.25Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Bid.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Models\\Bid.cs",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Models\\Bid.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Models\\Bid.cs",
+              "RelativeToolTip": "Areas\\Procurement\\Models\\Bid.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAmwFYAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T12:05:16.958Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BidEvaluationCreateViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\ViewModels\\BidEvaluationCreateViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\ViewModels\\BidEvaluationCreateViewModel.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\ViewModels\\BidEvaluationCreateViewModel.cs",
+              "RelativeToolTip": "Areas\\Procurement\\ViewModels\\BidEvaluationCreateViewModel.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAuwKkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T07:25:51.063Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IPurchaseRequisitionService.cs",
-              "DocumentMoniker": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
-              "RelativeDocumentMoniker": "Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
-              "ToolTip": "D:\\ProcureToPay-Procurement\\Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
-              "RelativeToolTip": "Areas\\Inventory\\Services\\IPurchaseRequisitionService.cs",
-              "ViewState": "AgIAAPMAAAAAAAAAAAAswA8BAAAVAAAAAAAAAA==",
+              "Title": "PurchaseOrderController.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Controllers\\PurchaseOrderController.cs",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Controllers\\PurchaseOrderController.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Controllers\\PurchaseOrderController.cs",
+              "RelativeToolTip": "Areas\\Procurement\\Controllers\\PurchaseOrderController.cs",
+              "ViewState": "AgIAAF4BAAAAAAAAAAAjwMMBAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T08:49:18.408Z"
+              "WhenOpened": "2025-10-24T04:38:56.556Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IWorkflowService.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Common\\Services\\IWorkflowService.cs",
+              "RelativeDocumentMoniker": "Areas\\Common\\Services\\IWorkflowService.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Common\\Services\\IWorkflowService.cs",
+              "RelativeToolTip": "Areas\\Common\\Services\\IWorkflowService.cs",
+              "ViewState": "AgIAACAGAAAAAAAAAAAQwCoGAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T04:35:11.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_WorkflowActionModals.cshtml",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Views\\BidEvaluation\\_WorkflowActionModals.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Views\\BidEvaluation\\_WorkflowActionModals.cshtml",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Views\\BidEvaluation\\_WorkflowActionModals.cshtml",
+              "RelativeToolTip": "Areas\\Procurement\\Views\\BidEvaluation\\_WorkflowActionModals.cshtml",
+              "ViewState": "AgIAAEgAAAAAAAAAAIAwwNEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-24T04:48:27.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Views\\BidEvaluation\\Details.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Views\\BidEvaluation\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Views\\BidEvaluation\\Details.cshtml",
+              "RelativeToolTip": "Areas\\Procurement\\Views\\BidEvaluation\\Details.cshtml",
+              "ViewState": "AgIAABYBAAAAAAAAAAAcwCcBAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-24T04:42:05.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AddBid.cshtml",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Views\\BidEvaluation\\AddBid.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Views\\BidEvaluation\\AddBid.cshtml",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Views\\BidEvaluation\\AddBid.cshtml",
+              "RelativeToolTip": "Areas\\Procurement\\Views\\BidEvaluation\\AddBid.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAADUAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-24T06:07:59.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PaymentRequestController.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Finance\\Controllers\\PaymentRequestController.cs",
+              "RelativeDocumentMoniker": "Areas\\Finance\\Controllers\\PaymentRequestController.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Finance\\Controllers\\PaymentRequestController.cs",
+              "RelativeToolTip": "Areas\\Finance\\Controllers\\PaymentRequestController.cs",
+              "ViewState": "AgIAAJAIAACAZGZmZuYRwJYIAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T04:38:56.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WorkFlowType.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Common\\Enums\\WorkFlowType.cs",
+              "RelativeDocumentMoniker": "Areas\\Common\\Enums\\WorkFlowType.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Common\\Enums\\WorkFlowType.cs",
+              "RelativeToolTip": "Areas\\Common\\Enums\\WorkFlowType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T05:00:30.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BidEvaluation.cs",
+              "DocumentMoniker": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Models\\BidEvaluation.cs",
+              "RelativeDocumentMoniker": "Areas\\Procurement\\Models\\BidEvaluation.cs",
+              "ToolTip": "C:\\Users\\Home\\Downloads\\P2P\\Areas\\Procurement\\Models\\BidEvaluation.cs",
+              "RelativeToolTip": "Areas\\Procurement\\Models\\BidEvaluation.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAzwGQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T04:43:17.629Z"
             }
           ]
         }

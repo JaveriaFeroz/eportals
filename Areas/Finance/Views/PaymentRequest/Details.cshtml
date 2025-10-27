@@ -1,0 +1,1164 @@
+﻿@using ProcureToPay.Areas.Finance.ViewModels;
+@using ProcureToPay.Areas.Common.Models;
+@model ProcureToPay.Areas.Finance.ViewModels.PaymentRequestDetailsViewModel
+
+@{
+    ViewData["Title"] = "Payment Request Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var workflowHistory = ViewBag.WorkflowHistory as List<FormHistory>;
+    var currentStateName = ViewBag.CurrentStateName as string;
+    var currentUserId = ViewBag.CurrentUserId;
+    var currentUserName = ViewBag.CurrentUserName;
+    var currentUserRoles = ViewBag.CurrentUserRoles as List<int> ?? new List<int>();
+    bool hasAttachments = Model.Attachments != null && Model.Attachments.Any();
+    bool canAddPiVNo = (currentUserRoles.Contains(23));
+    bool canAddCSNo = (currentUserRoles.Contains(29));
+}
+
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<script src="~/js/scripts.js" asp-append-version="true"></script>
+
+<div class="container-fluid px-4 py-4">
+    <div class="row">
+        <div class="col-12">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@TempData["Error"]
+                </div>
+            }
+            @if (TempData["Info"] != null)
+            {
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>@TempData["Info"]
+                </div>
+            }
+            @if (!hasAttachments)
+            {
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Add Attachment To Submit!
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-money-check-alt me-2"></i> Payment Request Details
+                    </h5>
+                    <div>
+                        <span class="badge bg-info fs-6">@Model.StateName</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">PRQ Number:</dt>
+                                <dd class="col-sm-8">@Model.PRQNumber</dd>
+
+                                <dt class="col-sm-4">Payee Name:</dt>
+                                <dd class="col-sm-8">@Model.PayeeName</dd>
+
+                                <dt class="col-sm-4">Required Date:</dt>
+                                <dd class="col-sm-8">@Model.RequiredDate.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4">Payment Nature:</dt>
+                                <dd class="col-sm-8">@Model.PaymentNatureName</dd>
+
+                                <dt class="col-sm-4">Payment Sub-Nature:</dt>
+                                <dd class="col-sm-8">@Model.PaymentSubNatureName</dd>
+
+                                <dt class="col-sm-4">Branch:</dt>
+                                <dd class="col-sm-8">@Model.BranchName</dd>
+
+                                <dt class="col-sm-4">Department:</dt>
+                                <dd class="col-sm-8">@Model.DepartmentName</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">GRN Number:</dt>
+                                <dd class="col-sm-8">
+                                    @if (!string.IsNullOrEmpty(Model.GRNNumber))
+                                    {
+                                        <a asp-area="Receiving" asp-controller="GRN" asp-action="Details" asp-route-id="@Model.GRNId" class="text-decoration-none" @* target="_blank" *@>
+                                            @Model.GRNNumber
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span>N/A</span>
+                                    }
+                                </dd>
+
+                                <dt class="col-sm-4">Created On:</dt>
+                                <dd class="col-sm-8">@Model.CreatedOn.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-4">Created By:</dt>
+                                <dd class="col-sm-8">@Model.CreatedByUserName</dd>
+
+                                <dt class="col-sm-4">Remarks:</dt>
+                                <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Remarks) ? "N/A" : Model.Remarks)</dd>
+
+
+
+                                @if (!string.IsNullOrEmpty(Model.SupplierName))
+                                {
+                                    <dt class="col-sm-4">Supplier:</dt>
+                                    <dd class="col-sm-8">@Model.SupplierName</dd>
+                                }
+
+                                @if (!string.IsNullOrEmpty(Model.PIVNo))
+                                {
+                                    <dt class="col-sm-4">PIV No:</dt>
+                                    <dd class="col-sm-8">@Model.PIVNo</dd>
+                                }
+
+                                @if (!string.IsNullOrEmpty(Model.CSNo))
+                                {
+                                    <dt class="col-sm-4">CS No:</dt>
+                                    <dd class="col-sm-8">@Model.CSNo</dd>
+                                }
+                            </dl>
+                        </div>
+                    </div>
+                    @if (Model.StateId == 1 && Model.CreatedByUserName == currentUserName)
+                    {
+                        <hr />
+                        <div class="card shadow border-0 mt-3">
+                            <div class="card-header" style="background-color: #092963;">
+                                <h5 class="card-title text-white mb-0">
+                                    <i class="fas fa-plus me-2"></i> Add New Attachments
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form asp-action="AddAttachments" asp-controller="PaymentRequest" asp-area="Finance" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="paymentRequestId" value="@Model.Id" />
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label asp-for="AttachmentTypeId" class="form-label">Attachment Type <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <span class="input-group-text custom-blue">
+                                                    <i class="fas fa-tags"></i>
+                                                </span>
+                                                <select asp-for="AttachmentTypeId" class="form-select" asp-items="@Model.AttachmentTypes">
+                                                    <option value="">-Select Attachment Type-</option>
+                                                </select>
+                                            </div>
+                                            <span asp-validation-for="AttachmentTypeId" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fileInput" class="form-label">Attachments <span class="text-danger">*</span></label>
+                                            <input type="file" id="fileInput" name="Attachments" multiple class="form-control" required>
+                                        </div>
+                                        
+                                        <div class="col-md-3 mb-3 d-flex align-items-end">
+                                            <button type="submit" class="btn btn-primary w-100" style="background-color: #092963;">
+                                                <i class="fas fa-upload me-2"></i> Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+           
+            <div class="card shadow border-0 mt-3">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-list-alt me-2"></i> Request Details
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Details != null && Model.Details.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>Invoice No</th>
+                                        <th>Invoice Date</th>
+                                        <th>Description</th>
+                                        <th>Amount (Ex Tax)</th>
+                                        <th>ST Rate %</th>
+                                        <th>Other Tax</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Details)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.InvoiceNo)</td>
+                                            <td>@(item.InvoiceDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                            <td>@item.AmountExTax.ToString("C")</td>
+                                            <td>@item.STRate.ToString("N2")%</td>
+                                            <td>@item.OtherTax.ToString("C")</td>
+                                            <td>@item.TotalAmount.ToString("C")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-info text-end">
+                                        <th colspan="7">Grand Total: <strong>@Model.TotalAmount.ToString("C")</strong></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No details found for this Payment Request.</p>
+                    }
+                </div>
+            </div>
+
+            @if (string.IsNullOrEmpty(Model.GRNNumber) || Model.GRNNumber == "N/A")
+            {
+                <div class="card shadow border-0 mt-3">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-list-alt me-2"></i> CostAllocations
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.CostAllocations != null && Model.CostAllocations.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Department</th>
+                                            <th>Rate %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ca in Model.CostAllocations)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => ca.DepartmentName)</td>
+                                                <td>@Html.DisplayFor(modelItem => ca.Rate)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No details found for this Payment Request.</p>
+                        }
+                    </div>
+                </div>
+            }
+            @if (Model.Attachments != null && Model.Attachments.Any())
+            {
+                <div class="card shadow border-0 mt-3">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead style="background-color: #0d47a1;">
+                                    <tr style="background-color: #092963;">
+                                        <th scope="col" class="py-3 px-4 text-white">Attachment Type</th>
+                                        <th scope="col" class="py-3 px-4 text-white">Attachment</th>
+                                        <th scope="col" class="py-3 px-4 text-end text-white">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var attachment in Model.Attachments)
+                                    {
+                                        <tr class="align-middle">
+                                            <td class="px-4">
+                                                <span class="badge badge-custom-theme">@attachment.AttachmentTypeName</span>
+                                            </td>
+                                            <td class="px-4">
+                                                <i class="fas fa-file me-2 text-custom-theme"></i>
+                                                <strong>@attachment.FileName</strong>
+                                                <small class="text-muted ms-2">(@(attachment.FileSizeKB) KB)</small>
+                                            </td>
+                                            <td class="px-4 text-end">
+                                                <div class="btn-group" role="group">
+                                                    @* View Button *@
+                                                    <a href="@Url.Action("ViewAttachment", "PaymentRequest", new { area = "Finance", id = attachment.Id })"
+                                                       class="btn btn-sm btn-outline-custom-theme me-1"
+                                                       target="_blank"
+                                                       title="View">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    @* Download Button *@
+                                                    <a href="@Url.Action("DownloadAttachment", "PaymentRequest", new { area = "Finance", id = attachment.Id })"
+                                                       class="btn btn-sm btn-outline-custom-theme"
+                                                       target="_blank"
+                                                       title="Download">
+                                                        <i class="fas fa-download"></i>
+                                                    </a>
+
+                                                    @* Delete Button with correct styling *@
+                                                    @if (Model.StateId == 1 && Model.CreatedByUserName == currentUserName)
+                                                    {
+                                                        <form asp-action="DeleteAttachment"
+                                                              asp-controller="PaymentRequest"
+                                                              asp-area="Finance"
+                                                              method="post"
+                                                              style="display:inline;"
+                                                              onsubmit="return confirm('Are you sure you want to delete this attachment?');">
+
+                                                            <input type="hidden" name="id" value="@attachment.Id" />
+                                                            <input type="hidden" name="paymentRequestId" value="@Model.Id" />
+
+                                                            <button type="submit"
+                                                                    class="btn btn-sm btn-outline-custom-theme ms-1"
+                                                                    title="Delete">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-4">
+            @{
+                // The "Actions" card should be shown by default, unless specific conditions are met.
+                bool showActionsCard = true;
+
+                // Condition 1: Hide the card if the current user is the requester AND the state is 'Submitted'.
+                // This prevents the requester from acting on their own pending request.
+                if (Model.StateId == 2 && Model.CreatedByUserName == currentUserName)
+                {
+                    showActionsCard = false;
+                }
+
+                // Condition 2: Hide the card if the state is 'Approved' (3), 'Rejected' (4), or 'Cancelled' (10001).
+                // These are final states where no further action is possible.
+                else if (Model.StateId == 3 || Model.StateId == 4 || Model.StateId == 10001)
+                {
+                    showActionsCard = false;
+                }
+
+                // Condition 3: Hide the card if the current user is NOT the owner, and the state is 'Submitted' or 'Returned'.
+                // This prevents users who are not the current assignee from taking action.
+                else if (Model.Owner != currentUserName && (Model.StateId == 2 || Model.StateId == 5))
+                {
+                    showActionsCard = false;
+                }
+
+                else if (Model.StateId == 5 && Model.Owner == currentUserName)
+                {
+                        showActionsCard = true;
+                }
+
+                // Condition 4: You cannot edit or submit if you are not the creator, even in a saved/returned state.
+                else if (Model.StateId == 1 || Model.StateId == 5)
+                {
+                    if (currentUserId != Model.CreatedByUserId)
+                    {
+                        showActionsCard = false;
+                    }
+                }
+                else if (Model.StateId == 3)
+                {
+                    showActionsCard = false;
+                }
+            }
+
+            @if (showActionsCard)
+            {
+                <div class="card shadow border-0">
+                    <div class="card-header" style="background-color: #092963;">
+                        <h5 class="card-title text-white mb-0">
+                            <i class="fas fa-cogs me-2"></i> Actions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            @* Edit button *@
+                            @if (!string.IsNullOrEmpty(Model.GRNNumber))
+                            {
+                                @if ((Model.StateId == 1 || Model.StateId == 5) && (currentUserId == Model.CreatedByUserId))
+                                {
+                                    <button type="button" class="btn action-button-alt"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#paymentRequestEditModal"
+                                            data-id="@Model.Id"
+                                            data-area="Finance"
+                                            data-controller="PaymentRequest"
+                                            data-action-name="EditGRNBased">
+                                        <i class="fas fa-edit me-2"></i> Edit PRQ
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                @if ((Model.StateId == 1 || Model.StateId == 5) && (currentUserId == Model.CreatedByUserId))
+                                {
+                                    <button type="button" class="btn action-button-alt"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#paymentRequestEditModal"
+                                            data-id="@Model.Id"
+                                            data-area="Finance"
+                                            data-controller="PaymentRequest"
+                                            data-action-name="EditDirect">
+                                        <i class="fas fa-edit me-2"></i> Edit PRQ
+                                    </button>
+                                }
+                            }
+
+                            @* Submit button *@
+                            @if ((Model.StateId == 1 && currentUserId == Model.CreatedByUserId) || (Model.StateId == 5 && currentUserId == Model.CreatedByUserId))
+                            {
+                                // User is eligible to submit, now check for attachments
+                                @if (hasAttachments)
+                                {
+                                    <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#submitModal">
+                                        <i class="fas fa-paper-plane me-2"></i> <span class="button-text">Submit for Approval</span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    // The button is shown but disabled, and the modal target is removed
+                                    <button type="button" class="btn action-button-alt disabled" disabled aria-disabled="true">
+                                        <i class="fas fa-paper-plane me-2"></i> <span class="button-text">Submit for Approval</span>
+                                    </button>
+                                }
+                            }
+                            @* Approval actions *@
+                            @if (canAddPiVNo && (currentUserName == Model.Owner))
+                            {
+                                @if (canAddPiVNo) // Add this check for the 'Recording Desk' role.
+                                {
+                                    if (string.IsNullOrEmpty(Model.PIVNo))
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#pivModal">
+                                            <i class="fas fa-check me-2"></i> <span class="button-text">Add PIV Number</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#pivModal" data-pivno="@Model.PIVNo">
+                                            <i class="fas fa-edit me-2"></i> <span class="button-text">Edit PIV Number</span>
+                                        </button>
+
+                                        // Only show the Approve button after the PIV number is added.
+                                        @if (Model.StateId == 2 && (currentUserName == Model.Owner))
+                                        {
+                                            <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                                <i class="fas fa-check me-2"></i> <span class="button-text">Approve</span>
+                                            </button>
+                                        }
+                                    }
+                                }
+                                else // Existing logic for all other users who are owners
+                                {
+                                    if (!string.IsNullOrEmpty(Model.PIVNo))
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#pivModal" data-pivno="@Model.PIVNo">
+                                            <i class="fas fa-edit me-2"></i> <span class="button-text">Edit PIV Number</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#pivModal">
+                                            <i class="fas fa-check me-2"></i> <span class="button-text">Add PIV Number</span>
+                                        </button>
+                                    }
+                                }
+                            }
+
+                            @if (canAddCSNo && (currentUserName == Model.Owner))
+                            {
+                                @if (canAddCSNo)
+                                {
+                                    if (string.IsNullOrEmpty(Model.CSNo))
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#csModal">
+                                            <i class="fas fa-check me-2"></i> <span class="button-text">Add CS Number</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#csModal" data-csno="@Model.CSNo">
+                                            <i class="fas fa-edit me-2"></i> <span class="button-text">Edit CS Number</span>
+                                        </button>
+
+                                        // Only show the Approve button after the CS number is added.
+                                        @if (Model.StateId == 2 && (currentUserName == Model.Owner))
+                                        {
+                                            <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                                <i class="fas fa-check me-2"></i> <span class="button-text">Approve</span>
+                                            </button>
+                                        }
+                                    }
+                                }
+                                else // Existing logic for all other users who are owners
+                                {
+                                    if (!string.IsNullOrEmpty(Model.CSNo))
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#csModal" data-csno="@Model.CSNo">
+                                            <i class="fas fa-edit me-2"></i> <span class="button-text">Edit CS Number</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#csModal">
+                                            <i class="fas fa-check me-2"></i> <span class="button-text">Add CS Number</span>
+                                        </button>
+                                    }
+                                }
+                            }
+                            @if (((Model.StateId == 5 && currentUserId != Model.CreatedByUserId) || Model.StateId == 2) && (currentUserName == Model.Owner)) // Hide the approve button for Recording Desk here
+                            {
+                                @if (!canAddPiVNo && !canAddCSNo)
+                                {
+                                    <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                        <i class="fas fa-check me-2"></i> <span class="button-text">Approve</span>
+                                    </button>
+                                }
+                                <button type="button" class="btn action-button-alt"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#returnToSpecificUserModal"
+                                        data-payment-request-id="@Model.Id"
+                                        id="returnButton">
+                                    <i class="fas fa-undo me-2"></i> <span class="button-text">Return</span>
+                                </button>
+                                <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                    <i class="fas fa-times me-2"></i> <span class="button-text">Reject</span>
+                                </button>
+                            }
+                            @* Cancel and Return actions *@
+                            @if (Model.StateId == 1 || Model.StateId == 4 || (Model.StateId == 5 && currentUserId == Model.CreatedByUserId))
+                            {
+                                @if (currentUserId == Model.CreatedByUserId || currentUserName == Model.Owner)
+                                {
+                                    <button type="button" class="btn action-button-alt" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                        <i class="fas fa-ban me-2"></i> <span class="button-text">Cancel PRQ</span>
+                                    </button>
+                                }
+                                @if (currentUserName == Model.Owner && Model.StateId != 1 && Model.StateId != 5)
+                                {
+                                    <button type="button" class="btn action-button-alt"
+                                            data-bs-toggle="modal" data-bs-target="#returnToSpecificUserModal"
+                                            data-purchase-order-id="@Model.Id" id="returnButton">
+                                        <i class="fas fa-undo me-2"></i> <span class="button-text">Return</span>
+                                    </button>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="card shadow border-0">
+                <div class="card-header" style="background-color: #092963;">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-history me-2"></i> Workflow History
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.WorkflowHistory != null && Model.WorkflowHistory.Any())
+                    {
+                        <div class="timeline">
+                            @foreach (var history in Model.WorkflowHistory.OrderByDescending(h => h.ActionDate))
+                            {
+                                <div class="timeline-item mb-3">
+                                    <div class="timeline-marker">
+                                        @switch (history.ActionName?.ToLower())
+                                        {
+                                            case "created":
+                                                <i class="fas fa-plus text-primary"></i>
+                                                break;
+                                            case "submit":
+                                                <i class="fas fa-paper-plane text-info"></i>
+                                                break;
+                                            case "approve":
+                                                <i class="fas fa-check text-success"></i>
+                                                break;
+                                            case "reject":
+                                                <i class="fas fa-times text-danger"></i>
+                                                break;
+                                            case "return":
+                                                <i class="fas fa-undo text-warning"></i>
+                                                break;
+                                            case "cancel":
+                                                <i class="fas fa-ban text-dark"></i>
+                                                break;
+                                            default:
+                                                <i class="fas fa-circle text-muted"></i>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h6 class="mb-1">@history.ActionName</h6>
+                                        <p class="text-muted mb-1">
+                                            @history.FromStateName &rarr; @history.ToStateName
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            From: <strong>@history.ActionByUserName</strong> To: <strong>@(history.ToUserName ?? history.ActionByUserName)</strong>
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            By: <strong>@history.ActionByUserName</strong> on <strong>@history.ActionDate.ToString("dd/MM/yyyy HH:mm tt")</strong>
+                                        </p>
+                                        @if (!string.IsNullOrEmpty(history.Comments))
+                                        {
+                                            <p class="mt-2 text-muted"><em>"@history.Comments"</em></p>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No workflow history available for this payment request.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_WorkflowActionModals", Model)
+
+<style>
+    /* ------------------------------------------- */
+    /* 1. Base Action Button Styles and Hover Effects */
+    /* ------------------------------------------- */
+    .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease-in-out;
+        color: white; /* Default text color for dark backgrounds */
+        border: 1px solid transparent;
+    }
+
+        .action-button i {
+            margin-right: 0.5rem;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+
+    /* ------------------------------------------- */
+    /* 2. Custom Theme Variables (Blue: #092963) */
+    /* ------------------------------------------- */
+    .custom-theme-blue {
+        background-color: #092963;
+        border-color: #092963;
+        color: white;
+    }
+
+    .custom-theme-blue-hover {
+        background-color: #07204d !important;
+        border-color: #07204d !important;
+        color: white !important;
+    }
+
+    /* Input group text/icon style */
+    .input-group-text.custom-blue {
+        background-color: #092963;
+        color: white;
+    }
+
+    /* Form Checkbox/Switch style */
+    .form-check-input:checked {
+        background-color: #092963;
+        border-color: #092963;
+    }
+
+    /* ------------------------------------------- */
+    /* 3. Action Button Theme Overrides */
+    /* ------------------------------------------- */
+
+    /* Custom Theme Buttons (Primary, Success, Outline-Primary, Outline-Dark, Custom-Theme) */
+    .btn-outline-primary.action-button,
+    .btn-success.action-button,
+    .btn-outline-dark.action-button, /* Merged Outline-Dark, Outline-Primary */
+    .btn-primary.action-button, /* Added missing Bootstrap primary */
+    .btn-info.action-button, /* Added missing Bootstrap info */
+    .btn-secondary.action-button, /* Added missing Bootstrap secondary */
+    .btn-custom-theme { /* Merged Custom-Theme */
+        background-color: #092963;
+        border-color: #092963;
+        color: white !important; /* Ensure white text for all dark buttons */
+    }
+
+        .btn-outline-primary.action-button:hover,
+        .btn-success.action-button:hover,
+        .btn-outline-dark.action-button:hover,
+        .btn-primary.action-button:hover,
+        .btn-info.action-button:hover,
+        .btn-secondary.action-button:hover,
+        .btn-custom-theme:hover,
+        .btn-custom-theme:focus {
+            background-color: #07204d !important;
+            border-color: #07204d !important;
+            color: white !important;
+        }
+
+    /* Warning Button (Kept standard warning colors) */
+    .btn-warning.action-button {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: #212529;
+    }
+
+        .btn-warning.action-button:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+    /* Danger Button (Kept standard danger colors) */
+    .btn-danger.action-button {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger.action-button:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+
+    /* Custom Outlined Button (Non-action-button style, using theme colors) */
+    .btn-outline-custom-theme {
+        color: #092963;
+        border-color: #092963;
+    }
+
+        .btn-outline-custom-theme:hover,
+        .btn-outline-custom-theme:focus {
+            background-color: #092963;
+            color: #fff;
+        }
+
+    /* ------------------------------------------- */
+    /* 4. Text and Badge Styles */
+    /* ------------------------------------------- */
+    .badge-custom-theme {
+        background-color: #092963 !important;
+        color: #fff;
+    }
+
+    .text-custom-theme {
+        color: #092963 !important;
+    }
+
+    .status-badge {
+        padding: 0.5em 0.75em;
+        border-radius: 0.5rem;
+        font-size: 0.85em;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* ------------------------------------------- */
+    /* 5. Timeline Styles */
+    /* ------------------------------------------- */
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+
+    .timeline-item {
+        position: relative;
+        border-left: 2px solid #e9ecef;
+        padding-left: 20px;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+    }
+
+    .timeline-content {
+        padding-bottom: 20px;
+    }
+</style>
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var baseUrl = '@Url.Content("~/")';
+    </script>
+        {{-- Assuming these script paths are correct for your application --}}
+    <script src="~/js/Finance/paymentRequestReturn.js" asp-append-version="true"></script>
+    <script src="~/js/Finance/EditGRNBased.js" asp-append-version="true"></script>
+    <script src="~/js/Finance/EditDirect.js" asp-append-version="true"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Helper function to serialize data from the C# Model for JavaScript consumption.
+        // This MUST be done inside the Razor view to access the @Model properties.
+        const serializeModelData = () => {
+
+            const departments = @Html.Raw(Json.Serialize(Model.Departments));
+        const branches = @Html.Raw(Json.Serialize(Model.Branches));
+
+        // 2. Serialize Details and CostAllocations data
+        //    These lists contain the existing data for the table rows.
+        const details = @Html.Raw(Json.Serialize(Model.Details));
+        const costAllocations = @Html.Raw(Json.Serialize(Model.CostAllocations));
+
+        // 3. Serialize simple properties
+        const simpleData = {
+            // Use Model.CreatedByUserName for the self-payee logic, as seen in your CreateDirect example
+            currentUserName: '@Model.CreatedByUserName',
+            initialPayeeName: '@Model.PayeeName',
+            paymentNatureId: @Model.PaymentNatureId,
+            // Use the null-coalescing operator `??` for nullable value types like decimals/int?
+            grnTotalAmount: @(Model.GRNTotalAmount ?? 0),
+        };
+
+             return {
+                // Dropdown Options
+                departments: departments,
+                branches: branches,
+
+                // Details and Allocations Data
+                details: details,
+                costAllocations: costAllocations,
+
+                // Simple Properties
+                currentUserName: '@Model.CreatedByUserName', // Used for self-applicant payee name
+                initialPayeeName: '@Model.PayeeName',
+                paymentNatureId: @Model.PaymentNatureId,
+                grnTotalAmount: @(Model.GRNTotalAmount ?? 0),
+            };
+        };
+
+
+        $(document).ready(function () {
+            // Helper function to build URLs
+            function getUrl(area, page, action, id) {
+                let baseUrl = '@Url.Content("~/")';
+                return id ? `${baseUrl}${area}/${page}/${action}/${id}` : `${baseUrl}${area}/${page}/${action}`;
+            }
+
+            const paymentRequestId = @Model.Id;
+            const currentApprovalSeq = @(Model.CurrentApprovalSequence);
+
+            // --- Function to handle form submission via AJAX (handlePaymentRequestEditFormSubmit) ---
+            async function handlePaymentRequestEditFormSubmit(event) {
+                event.preventDefault();
+                const form = event.target;
+                const modalBodyElement = document.getElementById('paymentRequestEditModalBody');
+
+                if (window.jQuery && window.jQuery.validator && !$(form).valid()) {
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error("Please correct the validation errors.");
+                    }
+                    return;
+                }
+
+                const originalContent = modalBodyElement.innerHTML;
+                modalBodyElement.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Submitting...</div>';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: new FormData(form),
+                    });
+
+                    const contentType = response.headers.get("content-type");
+
+                    if (response.ok) {
+                        if (contentType && contentType.includes("application/json")) {
+                            const jsonResponse = await response.json();
+                            if (jsonResponse.success) {
+                                const modalInstance = bootstrap.Modal.getInstance(document.getElementById('paymentRequestEditModal'));
+                                if (modalInstance) {
+                                    modalInstance.hide();
+                                }
+                                if (typeof toastr !== 'undefined') {
+                                    toastr.success(jsonResponse.message || "Payment request updated successfully!");
+                                }
+                                if (jsonResponse.redirectUrl) {
+                                    window.location.href = jsonResponse.redirectUrl;
+                                } else {
+                                    window.location.reload();
+                                }
+                            } else {
+                                if (typeof toastr !== 'undefined') {
+                                    toastr.error(jsonResponse.message || "An error occurred.");
+                                }
+                                modalBodyElement.innerHTML = await response.text();
+                                window.attachDynamicFormHandlers(modalBodyElement);
+                            }
+                        }
+                    } else {
+                        const errorMessage = await response.text();
+                        modalBodyElement.innerHTML = `<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle me-2"></i> ${errorMessage}</div>`;
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(errorMessage || "Server error.");
+                        }
+                    }
+                } catch (error) {
+                    console.error("AJAX submission failed:", error);
+                    modalBodyElement.innerHTML = originalContent;
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error("An unexpected error occurred during submission.");
+                    }
+                }
+            }
+            // End handlePaymentRequestEditFormSubmit
+
+            // --- SCRIPT FOR THE EDIT MODAL (Handles loading of EditDirect/EditGRNBased Partial Views) ---
+            $('#paymentRequestEditModal').on('show.bs.modal', async function (event) {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-id');
+                const actionName = button.getAttribute('data-action-name');
+                const url = getUrl('Finance', 'PaymentRequest', actionName, id);
+                const modalBody = this.querySelector('#paymentRequestEditModalBody');
+
+                if (modalBody) {
+                    modalBody.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Loading...</div>';
+                }
+
+                try {
+                    const response = await fetch(url, {
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
+
+                    if (response.ok) {
+                        const html = await response.text();
+                        if (modalBody) {
+                            modalBody.innerHTML = html;
+
+                            // ⭐ CRITICAL FIX IMPLEMENTED HERE ⭐
+                            // The serialized data now contains the dropdown lists from the Model.
+                            const initialData = serializeModelData();
+
+                            const initFunctionName = actionName === "EditGRNBased"
+                                ? 'initializeEditGRNBasedPaymentRequest'
+                                : 'initializeEditDirectPaymentRequest';
+
+                            if (typeof window[initFunctionName] === 'function') {
+                                // The EditDirect.js script must define window.initializeEditDirectPaymentRequest
+                                window[initFunctionName](initialData);
+                            }
+
+                            // Re-attach handlers and validation to the newly loaded content
+                            const form = modalBody.querySelector('form');
+                            if (form) {
+                                form.addEventListener('submit', handlePaymentRequestEditFormSubmit);
+                                // Re-run client-side validation setup on the new form content
+                                $.validator.unobtrusive.parse(form);
+                            }
+                            // Assuming window.attachDynamicFormHandlers is defined externally
+                            if(typeof window.attachDynamicFormHandlers === 'function') {
+                                window.attachDynamicFormHandlers(modalBody);
+                            }
+                        }
+                    } else {
+                        const errorMessage = await response.text();
+                        modalBody.innerHTML = `<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle me-2"></i> ${errorMessage}</div>`;
+                        if (typeof toastr !== 'undefined') {
+                            toastr.error(errorMessage || "Server error.");
+                        }
+                    }
+                } catch (error) {
+                    console.error("AJAX modal load failed:", error);
+                    modalBody.innerHTML = `<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle me-2"></i> An unexpected error occurred while loading the edit form.</div>`;
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error("Failed to load edit form.");
+                    }
+                }
+            });
+            // End Edit Modal Script
+
+            // --- The rest of your existing modal scripts (Submit, Approve, PIV, CS) ---
+
+            // --- SCRIPT FOR THE SUBMIT MODAL ---
+            const submitModal = document.getElementById('submitModal');
+            const submitToUserIdSelect = document.getElementById('submitToUserId');
+            const submitButton = document.getElementById('submitButton');
+
+            if (submitModal) {
+                submitModal.addEventListener('show.bs.modal', function () {
+                    // ... (your existing submit modal logic) ...
+                    submitToUserIdSelect.innerHTML = '<option value="">Loading users...</option>';
+                    submitToUserIdSelect.disabled = true;
+                    submitButton.disabled = true;
+
+                    const nextApprovalSeqForSubmit = 1;
+                    const url = getUrl('Finance', 'PaymentRequest', 'GetApprovers') + `?paymentRequestId=${paymentRequestId}&approvalSeq=${nextApprovalSeqForSubmit}`;
+
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                submitToUserIdSelect.innerHTML = '';
+                                const defaultOption = document.createElement('option');
+                                defaultOption.value = '';
+                                defaultOption.textContent = '-- Select an Approver --';
+                                submitToUserIdSelect.appendChild(defaultOption);
+                                data.users.forEach(user => {
+                                    const option = document.createElement('option');
+                                    option.value = user.value;
+                                    option.textContent = user.text;
+                                    submitToUserIdSelect.appendChild(option);
+                                });
+                                submitToUserIdSelect.disabled = false;
+                                submitButton.disabled = false;
+                            } else {
+                                submitToUserIdSelect.innerHTML = `<option value="">${data.message}</option>`;
+                                submitToUserIdSelect.disabled = true;
+                                submitButton.disabled = true;
+                                if (typeof toastr !== 'undefined') {
+                                    toastr.error(data.message || 'No approvers found for this step.');
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching users:', error);
+                            submitToUserIdSelect.innerHTML = '<option value="">Error loading users</option>';
+                            submitToUserIdSelect.disabled = true;
+                            submitButton.disabled = true;
+                            if (typeof toastr !== 'undefined') {
+                                toastr.error('An unexpected error occurred while loading approvers.');
+                            }
+                        });
+                });
+            }
+
+            // --- SCRIPT FOR THE APPROVE MODAL ---
+            const approveModal = document.getElementById('approveModal');
+            const approveToUserIdSelect = document.getElementById('approveToUserId');
+            const approveButton = document.getElementById('approveButton');
+            const nextApproverSelectionDiv = document.getElementById('approverSelection-approve');
+
+            if (approveModal) {
+                approveModal.addEventListener('show.bs.modal', function () {
+                    // ... (your existing approve modal logic) ...
+                    approveToUserIdSelect.innerHTML = '<option value="">Loading next approvers...</option>';
+                    approveToUserIdSelect.disabled = true;
+                    approveButton.disabled = true;
+
+                    const nextApprovalSeqForApprove = currentApprovalSeq + 1;
+                    const url = getUrl('Finance', 'PaymentRequest', 'GetApprovers') + `?paymentRequestId=${paymentRequestId}&approvalSeq=${nextApprovalSeqForApprove}`;
+
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success && data.users.length > 0) {
+                                approveToUserIdSelect.innerHTML = '';
+                                const defaultOption = document.createElement('option');
+                                defaultOption.value = '';
+                                defaultOption.textContent = '-- Select Next Approver --';
+                                approveToUserIdSelect.appendChild(defaultOption);
+
+                                data.users.forEach(user => {
+                                    const option = document.createElement('option');
+                                    option.value = user.value;
+                                    option.textContent = user.text;
+                                    approveToUserIdSelect.appendChild(option);
+                                });
+                                approveToUserIdSelect.disabled = false;
+                                approveButton.disabled = false;
+                                nextApproverSelectionDiv.style.display = 'block';
+                                approveToUserIdSelect.setAttribute('required', 'required');
+                            } else {
+                                nextApproverSelectionDiv.style.display = 'none';
+                                approveToUserIdSelect.disabled = true;
+                                approveToUserIdSelect.removeAttribute('required');
+                                approveButton.disabled = false;
+                                if (typeof toastr !== 'undefined') {
+                                    toastr.info('No further approvers found. This will be the final approval.');
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching next approvers:', error);
+                            approveToUserIdSelect.innerHTML = '<option value="">Error loading approvers</option>';
+                            approveToUserIdSelect.disabled = true;
+                            approveButton.disabled = true;
+                            if (typeof toastr !== 'undefined') {
+                                toastr.error('An unexpected error occurred while loading approvers.');
+                            }
+                        });
+                });
+            }
+
+            // --- SCRIPT FOR PIV MODAL ---
+            document.addEventListener('DOMContentLoaded', function() {
+                var pivModal = document.getElementById('pivModal');
+                if (pivModal) {
+                    pivModal.addEventListener('show.bs.modal', function(event) {
+                        var button = event.relatedTarget;
+                        var pivNumber = button.getAttribute('data-pivno');
+                        var pivInput = pivModal.querySelector('#PIVNo');
+                        if (pivInput) {
+                            pivInput.value = pivNumber || '';
+                        }
+                    });
+                }
+            });
+
+            // --- SCRIPT FOR CS MODAL ---
+            document.addEventListener('DOMContentLoaded', function() {
+                var csModal = document.getElementById('csModal');
+                if (csModal) {
+                    csModal.addEventListener('show.bs.modal', function(event) {
+                        var button = event.relatedTarget;
+                        var csNumber = button.getAttribute('data-csno');
+                        var csInput = csModal.querySelector('#CSNo');
+                        if (csInput) {
+                            csInput.value = csNumber || '';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

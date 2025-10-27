@@ -1,10 +1,23 @@
-﻿<!DOCTYPE html>
+﻿@inject ProcureToPay.Utilities.NavigationHelper NavigationHelper
+@inject Microsoft.AspNetCore.Identity.SignInManager<ProcureToPay.Areas.UserManagement.Models.User> SignInManager
+
+@{
+    var menuItems = new List<ProcureToPay.Utilities.NavigationMenuItem>();
+    if (SignInManager.IsSignedIn(User))
+    {
+        menuItems = await NavigationHelper.GetUserMenuItemsAsync();
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ePortal</title>
-
+    <script>
+        window.basePath = '@Url.Content("~/")';
+    </script>
     <script>
         // Apply theme immediately to prevent flash of incorrect theme
         (function() {
@@ -12,6 +25,7 @@
             document.documentElement.setAttribute('data-bs-theme', savedTheme);
         })();
     </script>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     @* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> *@
@@ -27,16 +41,130 @@
         @await Html.PartialAsync("_Navbar")
     </header>
 
-    <main role="main" class="w-100 p-0">
+    <main role="main" class="pb-3 main-content-wrapper">
+        @* <div class="breadcrumb-wrapper" style="background-color: var(--bs-light); border-bottom: 1px solid var(--bs-border-color); padding: 1rem 12px;">
+            <div style="padding-left: 15px;">
+                @await Component.InvokeAsync("Breadcrumb")
+            </div>
+        </div> *@
         @RenderBody()
-    </main>
+        </main>
     <div id="pagination-controls"></div>
     @await Html.PartialAsync("_Footer")
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
+
+    @* Ensure these files are present and in this order *@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the modal container and its content area
+            const changePasswordModal = document.getElementById('changePasswordModal');
+            const modalContent = changePasswordModal.querySelector('.modal-content');
+
+            // Event listener for when the modal is first shown
+            changePasswordModal.addEventListener('show.bs.modal', function () {
+                // Fetch and load the initial modal content (the empty form)
+                const url = document.getElementById('changePasswordLink').getAttribute('data-url');
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        modalContent.innerHTML = html;
+                        // Re-enable client-side validation for the new form content
+                        $.validator.unobtrusive.parse(document.getElementById('changePasswordForm'));
+                    });
+            });
+
+            // Event delegation for form submission inside the modal
+            modalContent.addEventListener('submit', function (e) {
+                // Only act if the submitted form has the ID 'changePasswordForm'
+                if (e.target.id === 'changePasswordForm') {
+                    e.preventDefault(); // Prevent default form submission
+                    const form = e.target;
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                        headers: {
+                            'RequestVerificationToken': formData.get('__RequestVerificationToken')
+                        }
+                    })
+                    .then(response => {
+                        // Check if the response is a redirect
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                            return;
+                        }
+
+                        // The core fix: Check the content type regardless of response.ok
+                        const contentType = response.headers.get("content-type");
+                        if (contentType && contentType.indexOf("application/json") !== -1) {
+                            return response.json(); // It's a JSON response
+                        } else {
+                            // Assume it's HTML for validation errors or other content
+                            return response.text();
+                        }
+                    })
+                    .then(data => {
+                        // This block now handles both HTML and JSON data.
+                        if (typeof data === 'string') {
+                            // If 'data' is a string, it's HTML from a PartialView. Re-inject it.
+                            modalContent.innerHTML = data;
+                            // Re-enable client-side validation for the new form content
+                            $.validator.unobtrusive.parse(document.getElementById('changePasswordForm'));
+                        }
+                        else if (typeof data === 'object') {
+                            // If 'data' is an object, it's a JSON response.
+                            const modalBody = modalContent.querySelector('.modal-body');
+
+                            // Remove any existing alerts to avoid duplicates
+                            const existingAlert = modalBody.querySelector('.alert');
+                            if (existingAlert) {
+                                existingAlert.remove();
+                            }
+
+                            // Handle the JSON error
+                            let errorMessages = data.message;
+                            if (data.errors && data.errors.length > 0) {
+                                errorMessages += '<ul>' + data.errors.map(err => `<li>${err}</li>`).join('') + '</ul>';
+                            }
+                            const alertHtml = `<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Error:</strong> ${errorMessages}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                            modalBody.insertAdjacentHTML('afterbegin', alertHtml);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('An unexpected error occurred:', error);
+                        const alertHtml = `<div class="alert alert-danger" role="alert">An unexpected error occurred.</div>`;
+                        const modalBody = modalContent.querySelector('.modal-body');
+                        modalBody.insertAdjacentHTML('afterbegin', alertHtml);
+                    });
+                }
+            });
+        });
+
+            document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.querySelector('.navbar.fixed-top');
+            const mainContent = document.querySelector('main[role="main"]');
+            if (navbar && mainContent) {
+                const navbarHeight = navbar.offsetHeight;
+                mainContent.style.paddingTop = navbarHeight + 'px';
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

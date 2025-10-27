@@ -1,0 +1,123 @@
+﻿.create-user-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.create-user-text {
+    display: none;
+    align-items: center;
+    background-color: #092963;
+    color: white; /* Default text color is white */
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 0.5rem; /* Keeps space between the button and icon */
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
+    transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+    .create-user-text i {
+        margin-right: 0.25rem;
+    }
+
+.create-user-icon {
+    background-color: #092963; /* Dark blue background */
+    color: white; /* White icon color */
+    width: 40px; /* Set width for rounded circle */
+    height: 40px; /* Set height for rounded circle */
+    display: flex; /* Flexbox to center content */
+    align-items: center; /* Vertically center the icon */
+    justify-content: center; /* Horizontally center the icon */
+    border-radius: 50%; /* Makes the shape a circle */
+    transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Smooth transition for opacity, background-color, and icon color */
+}
+
+    .create-user-icon i {
+        font-size: 18px; /* Icon size */
+        width: 18px; /* Ensure the icon size fits the circle */
+        height: 18px; /* Same size as width for a proper fit */
+        transition: color 0.3s ease; /* Smooth transition for icon color */
+    }
+
+    .create-user-icon:hover {
+        opacity: 0.7; /* Slightly reduce opacity on hover */
+        cursor: pointer; /* Pointer cursor for better interaction */
+        background-color: #071e49; /* Darker background color on hover */
+        color: white; /* Icon color turns white on hover */
+    }
+
+        .create-user-icon:hover i {
+            color: white; /* Change the icon color to white on hover */
+        }
+
+.create-user-text:hover {
+    background-color: #071e49; /* Slightly darken the background color */
+    cursor: pointer; /* Pointer cursor for better interaction */
+    color: white; /* Change text color to white on hover */
+}
+
+.search-container {
+    margin-bottom: 1.5rem;
+}
+
+.status-badge, .action-btn {
+    font-size: 0.85rem;
+    padding: 0.4em 0.75em;
+    border-radius: 0.5rem;
+    height: 40px;
+    min-width: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-badge {
+    background-color: #092963;
+    color: #fff;
+}
+
+.action-btn {
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    min-width: 40px;
+    font-size: 20px;
+}
+
+.icon-warning {
+    color: #ffc107; /* Bootstrap warning color */
+}
+
+.icon-info {
+    color: #092963;
+}
+
+.icon-danger {
+    color: #dc3545; /* Bootstrap danger color */
+}
+
+.underline-input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+    .underline-input:focus {
+        outline: none;
+        border-bottom: 2px solid #092963;
+        box-shadow: none;
+    }
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+}

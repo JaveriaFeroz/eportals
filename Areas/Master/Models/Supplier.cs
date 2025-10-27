@@ -1,4 +1,5 @@
 ﻿using ProcureToPay.Areas.Common.Models;
+using ProcureToPay.Areas.Procurement.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -74,5 +75,9 @@ namespace ProcureToPay.Areas.Master.Models
 
         [ForeignKey("CityId")]
         public virtual City? City { get; set; }
+      
+        public virtual ICollection<SupplierRate> SupplierRates { get; set; } = new List<SupplierRate>();
+
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; } = new List<PurchaseOrder>();
     }
 }

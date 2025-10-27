@@ -1,0 +1,1653 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ProcureToPay
+build_property.RootNamespace = ProcureToPay
+build_property.ProjectDir = D:\P2P\P2P\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\P2P\P2P
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XEFjY2Vzc0RlbmllZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XENoYW5nZVBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/ChangePasswordPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XENoYW5nZVBhc3N3b3JkUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XEZvcmdvdFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/ForgotPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XEZvcmdvdFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/Lockout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XExvY2tvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xBY2NvdW50XExvZ291dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Auth/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQXV0aFxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/CreateDirect.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxDcmVhdGVEaXJlY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/CreateFromGRN.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxDcmVhdGVGcm9tR1JOLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/CreateGRNBased.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxDcmVhdGVHUk5CYXNlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/EditDirect.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxFZGl0RGlyZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/EditGRNBased.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxFZGl0R1JOQmFzZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/PaymentRequest/_WorkflowActionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xQYXltZW50UmVxdWVzdFxfV29ya2Zsb3dBY3Rpb25Nb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Finance/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmluYW5jZVxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceCompany/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZUNvbXBhbnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceCompany/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZUNvbXBhbnlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceCompany/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZUNvbXBhbnlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceCompany/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZUNvbXBhbnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceCompany/_InsuranceCompanyModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZUNvbXBhbnlcX0luc3VyYW5jZUNvbXBhbnlNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/RequiredDocument.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcUmVxdWlyZWREb2N1bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/_InsuranceTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcX0luc3VyYW5jZVR5cGVNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/InsuranceType/_RequiredDocumentModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXEluc3VyYW5jZVR5cGVcX1JlcXVpcmVkRG9jdW1lbnRNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Insurance/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW5zdXJhbmNlXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Inventory/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSW52ZW50b3J5XFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AccessorialCharge/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjY2Vzc29yaWFsQ2hhcmdlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AccessorialCharge/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjY2Vzc29yaWFsQ2hhcmdlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AccessorialCharge/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjY2Vzc29yaWFsQ2hhcmdlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AccessorialCharge/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjY2Vzc29yaWFsQ2hhcmdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AccessorialCharge/_AccessorialChargeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjY2Vzc29yaWFsQ2hhcmdlXF9BY2Nlc3NvcmlhbENoYXJnZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Activity/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjdGl2aXR5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Activity/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjdGl2aXR5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Activity/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjdGl2aXR5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Activity/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjdGl2aXR5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Activity/_ActivityModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFjdGl2aXR5XF9BY3Rpdml0eU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetStatus/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0U3RhdHVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetStatus/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0U3RhdHVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetStatus/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0U3RhdHVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetStatus/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0U3RhdHVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetStatus/_AssetStatusModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0U3RhdHVzXF9Bc3NldFN0YXR1c01vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0VHlwZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0VHlwZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0VHlwZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0VHlwZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/AssetType/_AssetTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0VHlwZVxfQXNzZXRUeXBlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Asset/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Asset/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Asset/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Asset/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Asset/_AssetModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEFzc2V0XF9Bc3NldE1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Base/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEJhc2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Base/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEJhc2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Base/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEJhc2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Base/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEJhc2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Base/_BaseModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEJhc2VcX0Jhc2VNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Capacity/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENhcGFjaXR5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Capacity/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENhcGFjaXR5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Capacity/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENhcGFjaXR5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Capacity/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENhcGFjaXR5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Capacity/_CapacityModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENhcGFjaXR5XF9DYXBhY2l0eU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Charge/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENoYXJnZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Charge/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENoYXJnZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Charge/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENoYXJnZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Charge/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENoYXJnZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Charge/_ChargeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENoYXJnZVxfQ2hhcmdlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/City/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENpdHlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/City/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENpdHlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/City/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENpdHlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/City/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENpdHlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/City/_CityModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENpdHlcX0NpdHlNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Client/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENsaWVudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Client/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENsaWVudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Client/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENsaWVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Client/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENsaWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Client/_ClientModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENsaWVudFxfQ2xpZW50TW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Company/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBhbnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Company/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBhbnlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Company/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBhbnlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Company/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBhbnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Company/_CompanyModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBhbnlcX0NvbXBhbnlNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Complainant/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBsYWluYW50XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Complainant/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBsYWluYW50XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Complainant/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBsYWluYW50XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Complainant/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBsYWluYW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Complainant/_ComplainantModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbXBsYWluYW50XF9Db21wbGFpbmFudE1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Consignee/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnNpZ25lZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Consignee/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnNpZ25lZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Consignee/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnNpZ25lZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Consignee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnNpZ25lZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Consignee/_ConsigneeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnNpZ25lZVxfQ29uc2lnbmVlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Contractor/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnRyYWN0b3JcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Contractor/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnRyYWN0b3JcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Contractor/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnRyYWN0b3JcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Contractor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnRyYWN0b3JcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Contractor/_ContractorModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXENvbnRyYWN0b3JcX0NvbnRyYWN0b3JNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Currency/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEN1cnJlbmN5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Currency/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEN1cnJlbmN5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Currency/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEN1cnJlbmN5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Currency/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEN1cnJlbmN5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Currency/_CurrencyModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEN1cnJlbmN5XF9DdXJyZW5jeU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Detention/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERldGVudGlvblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Detention/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERldGVudGlvblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Detention/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERldGVudGlvblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Detention/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERldGVudGlvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Detention/_DetentionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERldGVudGlvblxfRGV0ZW50aW9uTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Driver/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERyaXZlclxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Driver/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERyaXZlclxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Driver/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERyaXZlclxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Driver/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERyaXZlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Driver/_DriverModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXERyaXZlclxfRHJpdmVyTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/IndustryVertical/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluZHVzdHJ5VmVydGljYWxcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/IndustryVertical/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluZHVzdHJ5VmVydGljYWxcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/IndustryVertical/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluZHVzdHJ5VmVydGljYWxcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/IndustryVertical/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluZHVzdHJ5VmVydGljYWxcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/IndustryVertical/_IndustryVerticalModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluZHVzdHJ5VmVydGljYWxcX0luZHVzdHJ5VmVydGljYWxNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/InsuranceDocumentType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluc3VyYW5jZURvY3VtZW50VHlwZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/InsuranceDocumentType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluc3VyYW5jZURvY3VtZW50VHlwZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/InsuranceDocumentType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluc3VyYW5jZURvY3VtZW50VHlwZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/InsuranceDocumentType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluc3VyYW5jZURvY3VtZW50VHlwZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/InsuranceDocumentType/_InsuranceDocumentTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXEluc3VyYW5jZURvY3VtZW50VHlwZVxfSW5zdXJhbmNlRG9jdW1lbnRUeXBlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/LeaseType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXExlYXNlVHlwZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/LeaseType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXExlYXNlVHlwZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/LeaseType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXExlYXNlVHlwZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/LeaseType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXExlYXNlVHlwZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/LeaseType/_LeaseTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXExlYXNlVHlwZVxfTGVhc2VUeXBlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Make/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXE1ha2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Make/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXE1ha2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Make/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXE1ha2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Make/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXE1ha2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Make/_MakeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXE1ha2VcX01ha2VNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentMode/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRNb2RlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentMode/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRNb2RlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentMode/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRNb2RlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentMode/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRNb2RlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentMode/_PaymentModeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRNb2RlXF9QYXltZW50TW9kZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentNature/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnROYXR1cmVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentNature/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnROYXR1cmVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentNature/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnROYXR1cmVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentNature/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnROYXR1cmVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentNature/_PaymentNatureModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnROYXR1cmVcX1BheW1lbnROYXR1cmVNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRUeXBlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRUeXBlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRUeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRUeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/PaymentType/_PaymentTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFBheW1lbnRUeXBlXF9QYXltZW50VHlwZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Priority/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByaW9yaXR5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Priority/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByaW9yaXR5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Priority/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByaW9yaXR5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Priority/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByaW9yaXR5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Priority/_PriorityModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByaW9yaXR5XF9Qcmlvcml0eU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductNature/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3ROYXR1cmVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductNature/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3ROYXR1cmVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductNature/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3ROYXR1cmVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductNature/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3ROYXR1cmVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductNature/_ProductNatureModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3ROYXR1cmVcX1Byb2R1Y3ROYXR1cmVNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RUeXBlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RUeXBlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RUeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RUeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ProductType/_ProductTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RUeXBlXF9Qcm9kdWN0VHlwZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Product/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Product/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Product/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Product/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Product/_ProductModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFByb2R1Y3RcX1Byb2R1Y3RNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Qualification/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFF1YWxpZmljYXRpb25cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Qualification/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFF1YWxpZmljYXRpb25cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Qualification/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFF1YWxpZmljYXRpb25cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Qualification/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFF1YWxpZmljYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Qualification/_QualificationModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFF1YWxpZmljYXRpb25cX1F1YWxpZmljYXRpb25Nb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/RateType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJhdGVUeXBlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/RateType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJhdGVUeXBlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/RateType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJhdGVUeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/RateType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJhdGVUeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/RateType/_RateTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJhdGVUeXBlXF9SYXRlVHlwZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Region/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlZ2lvblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Region/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlZ2lvblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Region/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlZ2lvblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Region/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlZ2lvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Region/_RegionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlZ2lvblxfUmVnaW9uTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Relation/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlbGF0aW9uXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Relation/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlbGF0aW9uXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Relation/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlbGF0aW9uXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Relation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlbGF0aW9uXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Relation/_RelationModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFJlbGF0aW9uXF9SZWxhdGlvbk1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SeparationType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcGFyYXRpb25UeXBlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SeparationType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcGFyYXRpb25UeXBlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SeparationType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcGFyYXRpb25UeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SeparationType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcGFyYXRpb25UeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SeparationType/_SeparationTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcGFyYXRpb25UeXBlXF9TZXBhcmF0aW9uVHlwZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ServiceNature/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ServiceNature/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ServiceNature/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ServiceNature/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/ServiceNature/_ServiceNatureModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VOYXR1cmVcX1NlcnZpY2VOYXR1cmVNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Service/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Service/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Service/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Service/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Service/_ServiceModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNlcnZpY2VcX1NlcnZpY2VNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Shipper/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNoaXBwZXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Shipper/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNoaXBwZXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Shipper/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNoaXBwZXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Shipper/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNoaXBwZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Shipper/_ShipperModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNoaXBwZXJcX1NoaXBwZXJNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUCategory/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVUNhdGVnb3J5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUCategory/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVUNhdGVnb3J5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUCategory/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVUNhdGVnb3J5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUCategory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVUNhdGVnb3J5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUCategory/_SKUCategoryModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVUNhdGVnb3J5XF9TS1VDYXRlZ29yeU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVR5cGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVR5cGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVR5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVR5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKUType/_SKUTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVR5cGVcX1NLVVR5cGVNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKU/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKU/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKU/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKU/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SKU/_SKUModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFNLVVxfU0tVTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubCategory/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1YkNhdGVnb3J5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubCategory/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1YkNhdGVnb3J5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubCategory/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1YkNhdGVnb3J5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubCategory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1YkNhdGVnb3J5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubCategory/_SubCategoryModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1YkNhdGVnb3J5XF9TdWJDYXRlZ29yeU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubNature/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1Yk5hdHVyZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubNature/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1Yk5hdHVyZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubNature/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1Yk5hdHVyZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubNature/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1Yk5hdHVyZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SubNature/_SubNatureModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1Yk5hdHVyZVxfU3ViTmF0dXJlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SupplierType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyVHlwZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SupplierType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyVHlwZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SupplierType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyVHlwZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SupplierType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyVHlwZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/SupplierType/_SupplierTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyVHlwZVxfU3VwcGxpZXJUeXBlTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Supplier/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Supplier/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Supplier/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Supplier/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Supplier/_SupplierModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFN1cHBsaWVyXF9TdXBwbGllck1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Trailer/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFRyYWlsZXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Trailer/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFRyYWlsZXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Trailer/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFRyYWlsZXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Trailer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFRyYWlsZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/Trailer/_TrailerModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFRyYWlsZXJcX1RyYWlsZXJNb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/UoM/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFVvTVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/UoM/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFVvTVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/UoM/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFVvTVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/UoM/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFVvTVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/UoM/_UoMModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFVvTVxfVW9NTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/VehicleGroup/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFZlaGljbGVHcm91cFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/VehicleGroup/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFZlaGljbGVHcm91cFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/VehicleGroup/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFZlaGljbGVHcm91cFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/VehicleGroup/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFZlaGljbGVHcm91cFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/VehicleGroup/_VehicleGroupModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFZlaGljbGVHcm91cFxfVmVoaWNsZUdyb3VwTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WarningType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdhcm5pbmdUeXBlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WarningType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdhcm5pbmdUeXBlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WarningType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdhcm5pbmdUeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WarningType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdhcm5pbmdUeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WarningType/_WarningTypeModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdhcm5pbmdUeXBlXF9XYXJuaW5nVHlwZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WHTaxExemption/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdIVGF4RXhlbXB0aW9uXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WHTaxExemption/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdIVGF4RXhlbXB0aW9uXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WHTaxExemption/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdIVGF4RXhlbXB0aW9uXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WHTaxExemption/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdIVGF4RXhlbXB0aW9uXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/WHTaxExemption/_WHTaxExemptionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXFdIVGF4RXhlbXB0aW9uXF9XSFRheEV4ZW1wdGlvbk1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Master/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFzdGVyXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/AssetSwaps/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEFzc2V0U3dhcHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/AssetSwaps/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEFzc2V0U3dhcHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/AssetSwaps/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEFzc2V0U3dhcHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/AssetSwaps/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEFzc2V0U3dhcHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/CancelTripEvents/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENhbmNlbFRyaXBFdmVudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/CancelTripEvents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENhbmNlbFRyaXBFdmVudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/CancelTripEvents/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENhbmNlbFRyaXBFdmVudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/CancelTripEvents/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENhbmNlbFRyaXBFdmVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/ChangeAssetStatus/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENoYW5nZUFzc2V0U3RhdHVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/ChangeAssetStatus/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENoYW5nZUFzc2V0U3RhdHVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/ChangeAssetStatus/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENoYW5nZUFzc2V0U3RhdHVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/ChangeAssetStatus/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXENoYW5nZUFzc2V0U3RhdHVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/JobClosures/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYkNsb3N1cmVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/JobClosures/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYkNsb3N1cmVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/JobClosures/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYkNsb3N1cmVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/JobClosures/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYkNsb3N1cmVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/Job/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYlxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/Job/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYlxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/Job/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYlxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/Job/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXEpvYlxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RoadWayBills/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJvYWRXYXlCaWxsc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RoadWayBills/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJvYWRXYXlCaWxsc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RoadWayBills/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJvYWRXYXlCaWxsc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RoadWayBills/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJvYWRXYXlCaWxsc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbEvents/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV2ZW50c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbEvents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV2ZW50c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbEvents/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV2ZW50c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbEvents/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV2ZW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbExpenses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV4cGVuc2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbExpenses/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV4cGVuc2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbExpenses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV4cGVuc2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/RwbExpenses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFJ3YkV4cGVuc2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/TripUpdates/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFRyaXBVcGRhdGVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/TripUpdates/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFRyaXBVcGRhdGVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/TripUpdates/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFRyaXBVcGRhdGVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Operation/Views/TripUpdates/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcT3BlcmF0aW9uXFZpZXdzXFRyaXBVcGRhdGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/AddBid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxBZGRCaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/CompareBids.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxDb21wYXJlQmlkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/CreateFromPR.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxDcmVhdGVGcm9tUFIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/SelectPurchaseRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxTZWxlY3RQdXJjaGFzZVJlcXVlc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/BidEvaluation/_WorkflowActionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcQmlkRXZhbHVhdGlvblxfV29ya2Zsb3dBY3Rpb25Nb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/CreateFromPR.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxDcmVhdGVGcm9tUFIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/CreateReorder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxDcmVhdGVSZW9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseOrder/_WorkflowActionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VPcmRlclxfV29ya2Zsb3dBY3Rpb25Nb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequestFleet/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0RmxlZXRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequestFleet/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0RmxlZXRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequestFleet/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0RmxlZXRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequest/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequest/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequest/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequest/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequest/_PurchaseRequestDetailRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XF9QdXJjaGFzZVJlcXVlc3REZXRhaWxSb3cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/PurchaseRequest/_WorkflowActionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcUHVyY2hhc2VSZXF1ZXN0XF9Xb3JrZmxvd0FjdGlvbk1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Procurement/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvY3VyZW1lbnRcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Receiving/Views/GRN/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjZWl2aW5nXFZpZXdzXEdSTlxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Receiving/Views/GRN/CreateFromPO.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjZWl2aW5nXFZpZXdzXEdSTlxDcmVhdGVGcm9tUE8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Receiving/Views/GRN/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjZWl2aW5nXFZpZXdzXEdSTlxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Receiving/Views/GRN/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjZWl2aW5nXFZpZXdzXEdSTlxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Receiving/Views/GRN/_WorkflowActionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjZWl2aW5nXFZpZXdzXEdSTlxfV29ya2Zsb3dBY3Rpb25Nb2RhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Receiving/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjZWl2aW5nXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/PaymentRequests.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXFBheW1lbnRSZXF1ZXN0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/POReorders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXFBPUmVvcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/ProcurementSummary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXFByb2N1cmVtZW50U3VtbWFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/PurchaseOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXFB1cmNoYXNlT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/PurchaseRequests.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXFB1cmNoYXNlUmVxdWVzdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/Reports/WorkflowAnalysis.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xSZXBvcnRzXFdvcmtmbG93QW5hbHlzaXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/Reports/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVwb3J0c1xWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Branches/BranchModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcQnJhbmNoZXNcQnJhbmNoTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Branches/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcQnJhbmNoZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Branches/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcQnJhbmNoZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Branches/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcQnJhbmNoZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Branches/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcQnJhbmNoZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Departments/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcRGVwYXJ0bWVudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Departments/DepartmentModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcRGVwYXJ0bWVudHNcRGVwYXJ0bWVudE1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Departments/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcRGVwYXJ0bWVudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Departments/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcRGVwYXJ0bWVudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Departments/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcRGVwYXJ0bWVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Modules/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcTW9kdWxlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Modules/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcTW9kdWxlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Modules/GeneratePermissions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcTW9kdWxlc1xHZW5lcmF0ZVBlcm1pc3Npb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Modules/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcTW9kdWxlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Permissions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUGVybWlzc2lvbnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Permissions/CreateSimple.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUGVybWlzc2lvbnNcQ3JlYXRlU2ltcGxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Permissions/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUGVybWlzc2lvbnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Permissions/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUGVybWlzc2lvbnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Permissions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUGVybWlzc2lvbnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Permissions/PermissionModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUGVybWlzc2lvbnNcUGVybWlzc2lvbk1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/RolePermissions/Compare.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZVBlcm1pc3Npb25zXENvbXBhcmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/RolePermissions/CompareRoles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZVBlcm1pc3Npb25zXENvbXBhcmVSb2xlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/RolePermissions/CopyPermissions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZVBlcm1pc3Npb25zXENvcHlQZXJtaXNzaW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/RolePermissions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZVBlcm1pc3Npb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/RolePermissions/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZVBlcm1pc3Npb25zXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/AssignUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcQXNzaWduVXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/ManageHierarchy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcTWFuYWdlSGllcmFyY2h5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/ManageModuleHierarchy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcTWFuYWdlTW9kdWxlSGllcmFyY2h5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/ManagePaymentRequestHierarchy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcTWFuYWdlUGF5bWVudFJlcXVlc3RIaWVyYXJjaHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/RoleModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcUm9sZU1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/SelectModule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcU2VsZWN0TW9kdWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Roles/SelectPaymentHierarchy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcUm9sZXNcU2VsZWN0UGF5bWVudEhpZXJhcmNoeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Updates/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXBkYXRlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Updates/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXBkYXRlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Updates/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXBkYXRlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Users/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Users/Debug.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXNlcnNcRGVidWcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Users/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXNlcnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Users/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXNlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/Users/UserModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcVXNlcnNcVXNlck1vZGFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Areas/UserManagement/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlck1hbmFnZW1lbnRcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Home/DetailsList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWxzTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Home/Maintenance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNYWludGVuYW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/Components/Breadcrumb/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQnJlYWRjcnVtYlxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_AuthLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BdXRoTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_Greeting.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9HcmVldGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/P2P/P2P/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-k9f23m22qg

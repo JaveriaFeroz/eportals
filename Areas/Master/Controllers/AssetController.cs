@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels; // Ensure you have a using for ViewModels
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -148,8 +149,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         model.Asset.CreatedBy = currentUserId;
                         model.Asset.UpdatedBy = currentUserId;
-                        model.Asset.CreatedOn = DateTime.UtcNow;
-                        model.Asset.UpdatedOn = DateTime.UtcNow;
+                        model.Asset.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                        model.Asset.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                         // Pass the correct object (model.Asset) to the service
                         var success = await _assetService.SaveAssetAsync(model.Asset);
@@ -219,7 +220,7 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.Asset.UpdatedBy = currentUserId;
-                    viewModel.Asset.UpdatedOn = DateTime.UtcNow;
+                    viewModel.Asset.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     var success = await _assetService.SaveAssetAsync(viewModel.Asset);
 

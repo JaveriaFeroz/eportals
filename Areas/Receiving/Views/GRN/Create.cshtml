@@ -1,0 +1,365 @@
+﻿@model ProcureToPay.Areas.Receiving.ViewModels.CreateGRNViewModel
+@{
+    ViewData["Title"] = "Create Goods Receipt Note";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .input-group-text.custom-blue {
+        background-color: #092963;
+        color: white;
+    }
+
+    .form-check-input:checked {
+        background-color: #092963;
+        border-color: #092963;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow border-0">
+        <div class="card-header" style="background-color: #092963;">
+            <h5 class="card-title text-white mb-0">
+                <i class="fas fa-file-invoice-dollar me-2"></i> Create Goods Receipt Note for PO: @Model.PONumber
+            </h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" id="grnForm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="PurchaseOrderId" />
+                <input type="hidden" asp-for="ReceivedByUserId" />
+                <input type="hidden" asp-for="IsImported" />
+                <input type="hidden" asp-for="CurrencyId" />
+                <input type="hidden" asp-for="ExRate" />
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        @TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                @if (TempData["Info"] != null)
+                {
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        @TempData["Info"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-info-circle me-2"></i> Purchase Order Details
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">PO Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-receipt"></i>
+                                    </span>
+                                    <input type="text" class="form-control" value="@Model.PONumber" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Supplier</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-truck"></i>
+                                    </span>
+                                    <input type="text" class="form-control" value="@Model.SupplierName" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="ReceiptDate" class="form-label">Receipt Date <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                    <input asp-for="ReceiptDate" class="form-control" type="date" required readonly />
+                                </div>
+                                <span asp-validation-for="ReceiptDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BillDCNo" class="form-label">DC No.</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </span>
+                                    <input asp-for="BillDCNo" class="form-control" />
+                                </div>
+                                <span asp-validation-for="BillDCNo" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BillDCDate" class="form-label">DC Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </span>
+                                    <input asp-for="BillDCDate" class="form-control" type="date" />
+                                </div>
+                                <span asp-validation-for="BillDCDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Received By</label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-blue">
+                                        <i class="fas fa-user-circle"></i>
+                                    </span>
+                                    <input type="text" class="form-control" value="@Model.ReceivedByUserName" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold" style="color: #092963;">
+                            <i class="fas fa-boxes me-2"></i> Good Receipts Notes Items
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="grnItemsContainer" class="mb-3">
+                            @if (Model.ReceivedItems != null && Model.ReceivedItems.Any())
+                            {
+                                for (int i = 0; i < Model.ReceivedItems.Count; i++)
+                                {
+                                    <div class="card card-body mb-2 grn-item-row">
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Item Name</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-box"></i>
+                                                        </span>
+                                                        <input type="text" value="@Model.ReceivedItems[i].ItemName" class="form-control" readonly />
+                                                        <input type="hidden" asp-for="ReceivedItems[i].PurchaseOrderItemId" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">PO Qty</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-receipt"></i>
+                                                        </span>
+                                                        <input type="text" value="@Model.ReceivedItems[i].POQuantity" class="form-control" readonly />
+                                                        <input type="hidden" asp-for="ReceivedItems[i].POQuantity" class="po-qty-hidden" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Remaining Qty</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-cubes"></i>
+                                                        </span>
+                                                        <input type="text" value="@Model.ReceivedItems[i].RemainingQuantity" class="form-control" readonly />
+                                                    </div>
+                                                    <input type="hidden" asp-for="ReceivedItems[i].RemainingQuantity" class="remaining-qty-hidden" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Received Qty <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-box-open"></i>
+                                                        </span>
+                                                        <input type="number" name="ReceivedItems[@i].Quantity" class="form-control received-qty-input" required min="0" value="@Model.ReceivedItems[i].RemainingQuantity" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">UoM</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-balance-scale"></i>
+                                                        </span>
+                                                        <input type="text" name="ReceivedItems[@i].UnitOfMeasure" class="form-control" value="@Model.ReceivedItems[i].UnitOfMeasure" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">PO Unit Price</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                        <input type="text" value="@Model.ReceivedItems[i].UnitPrice.ToString("C")" class="form-control" readonly />
+                                                        <input type="hidden" asp-for="ReceivedItems[i].UnitPrice" class="unit-price-hidden" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-2 mb-3">
+                                                <div class="form-group">
+                                                    <label asp-for="ReceivedItems[i].GSTRate" class="form-label">GST Rate (%)</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-percent"></i>
+                                                        </span>
+                                                        <input type="text" value="@Model.ReceivedItems[i].GSTRate.ToString("N2")" class="form-control" readonly />
+                                                        <input type="hidden" asp-for="ReceivedItems[i].GSTRate" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <div class="form-group">
+                                                    <label asp-for="ReceivedItems[i].GSTAmount" class="form-label">GST Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-receipt"></i>
+                                                        </span>
+                                                        <input type="text" class="form-control item-gst-amount-display" readonly />
+                                                        <input type="hidden" asp-for="ReceivedItems[i].GSTAmount" class="gst-amount-hidden" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <div class="form-group">
+                                                    <label asp-for="ReceivedItems[i].Narration" class="form-label">Narration</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue">
+                                                            <i class="fas fa-comment-dots"></i>
+                                                        </span>
+                                                        <input type="text" name="ReceivedItems[@i].Narration" class="form-control" readonly value="@Model.ReceivedItems[i].Narration" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Total Price</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text custom-blue"><i class="fas fa-funnel-dollar"></i></span>
+                                                        <input type="text" class="form-control total-price-display" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="alert alert-warning">No items available to receive for this Purchase Order.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <div class="btn-group">
+                        <button type="submit" class="btn" style="background-color: #092963; color: white;" id="submitBtn">
+                            <i class="fas fa-check me-1"></i> Create GRN
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+               // In your <script> section
+        document.addEventListener('DOMContentLoaded', function () {
+            const grnItemsContainer = document.getElementById('grnItemsContainer');
+
+            // Function to format the price display
+            function formatCurrency(value) {
+                if (value === null || value === undefined || isNaN(value)) return '0.00';
+                return parseFloat(value).toFixed(2);
+            }
+
+            // Function to calculate and update a single item's totals
+            function calculateItemTotalPrice(itemRow) {
+                const receivedQtyInput = itemRow.querySelector('.received-qty-input');
+                const remainingQtyHidden = itemRow.querySelector('.remaining-qty-hidden'); // The hidden input with RemainingQuantity
+                const unitPriceHidden = itemRow.querySelector('.unit-price-hidden');
+                const gstRateHidden = itemRow.querySelector('input[name$="].GSTRate"]');
+                const gstAmountHidden = itemRow.querySelector('input[name$="].GSTAmount"]');
+
+                const itemGstAmountDisplay = itemRow.querySelector('.item-gst-amount-display');
+                const totalPriceDisplay = itemRow.querySelector('.total-price-display');
+
+                // 🎯 Use the value from the 'remaining-qty-hidden' input for validation
+                const remainingQuantity = parseFloat(remainingQtyHidden.value) || 0;
+
+                let receivedQuantity = parseFloat(receivedQtyInput.value) || 0;
+                const unitPrice = parseFloat(unitPriceHidden.value) || 0;
+                const gstRate = parseFloat(gstRateHidden.value) || 0;
+
+                // 🎯 UPDATED VALIDATION LOGIC: Check against the dynamic RemainingQuantity
+                if (receivedQuantity > remainingQuantity) {
+                    alert(`Received quantity cannot be greater than the remaining quantity of ${remainingQuantity}.`);
+                    receivedQtyInput.value = remainingQuantity;
+                    receivedQuantity = remainingQuantity;
+                }
+
+                // Calculate line item totals
+                const subtotal = receivedQuantity * unitPrice;
+                const gstAmount = subtotal * (gstRate / 100.00);
+                const totalAmount = subtotal + gstAmount;
+
+                // Update display fields
+                itemGstAmountDisplay.value = formatCurrency(gstAmount);
+                totalPriceDisplay.value = formatCurrency(totalAmount);
+
+                // Also update the hidden GSTAmount field for form submission
+                gstAmountHidden.value = formatCurrency(gstAmount);
+            }
+
+            // Function to set up event listeners for a single item row
+            function setupItemRowEvents(itemRow) {
+                const receivedQtyInput = itemRow.querySelector('.received-qty-input');
+                receivedQtyInput.addEventListener('input', () => calculateItemTotalPrice(itemRow));
+
+                // To ensure the max attribute is respected, a blur event can also be useful
+                receivedQtyInput.addEventListener('blur', () => calculateItemTotalPrice(itemRow));
+            }
+
+            // This is the primary entry point on page load.
+            document.querySelectorAll('.grn-item-row').forEach(itemRow => {
+                setupItemRowEvents(itemRow);
+                calculateItemTotalPrice(itemRow); // Initial calculation
+            });
+        });
+    </script>
+}

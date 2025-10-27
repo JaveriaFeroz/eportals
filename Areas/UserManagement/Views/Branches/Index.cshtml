@@ -7,11 +7,7 @@
 <script src="~/js/scripts.js" asp-append-version="true"></script>
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-action="Index">Branches</a></li>
-        <li class="breadcrumb-item active">Index</li>
-    </ol>
+
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
             <h5 class="card-title text-white mb-0">
@@ -46,7 +42,7 @@
                     </div>
                     <div class="col-1">
                         <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
-                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
                             <span>Clear</span>
                             <i class="fas fa-times" style="font-size: 1rem;"></i>
                         </button>
@@ -55,8 +51,8 @@
                     <div class="col-auto ms-auto">
                         <div class="create-user-container">
                             <button class="action-button create-user-text"
-                                    data-url="@Url.Action("Create", "Branches", new { area = "UserManagement" })"
-                                    style="background-color: #092963; transition: background-color 0.3s ease;">
+                                                      data-url="@Url.Action("Create", "Branches", new { area = "UserManagement" })"
+                                                      style="background-color: #092963; transition: background-color 0.3s ease;">
                                 <i class="fas fa-plus"></i>
                                 <span class="button-text"> Create Branch</span>
                             </button>
@@ -69,70 +65,150 @@
             </div>
 
             <div class="row fw-bold bg-light border-bottom py-3 px-2 text-secondary">
-                <div class="col-2 d-flex align-items-center">
+                <div class="col-2 d-flex align-items-center" data-header-column="code">
                     <i class="fas fa-barcode me-1 text-dark"></i> BRANCH CODE
                 </div>
-                <div class="col-3 d-flex align-items-center">
+                <div class="col-3 d-flex align-items-center" data-header-column="name">
                     <i class="fas fa-code-branch me-1 text-dark"></i> BRANCH NAME
                 </div>
-                <div class="col-1 text-center d-flex align-items-center justify-content-center">
+                <div class="col-1 text-center d-flex align-items-center justify-content-center" data-header-column="status">
                     <i class="fas fa-toggle-on me-1 text-dark"></i> STATUS
                 </div>
                 <div class="col-6 text-center d-flex align-items-center justify-content-center">
                     <i class="fas fa-cogs me-1 text-dark"></i> ACTIONS
                 </div>
             </div>
-            @foreach (var branch in Model)
-            {
-                <div class="row align-items-center border-bottom py-3 px-2" tabindex="0">
-                    <div class="col-2 fw-bold">
-                        @branch.BranchCode
+
+            <div id="branchListContainer">
+                @if (Model.Any())
+                {
+                    foreach (var branch in Model)
+                    {
+                        <div class="row align-items-center border-bottom py-3 px-2 data-row" tabindex="0">
+                            <div class="col-2 fw-bold" data-filter-column="code">
+                                @branch.BranchCode
+                            </div>
+                            <div class="col-3 text-start" data-filter-column="name">
+                                @branch.BranchName
+                            </div>
+                            <div class="col-1 text-center">
+                                @if (branch.IsActive)
+                                {
+                                    <span class="badge status-badge" data-state-value="true">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge status-badge bg-danger" data-state-value="false">Inactive</span>
+                                }
+                            </div>
+
+                            <div class="col-6 d-flex justify-content-center gap-1">
+                                <button type="button" class="btn btn-sm text-warning branch-edit-btn action-btn" title="Edit"
+                                                        data-id="@branch.BranchId" data-area="UserManagement" data-page="Branches">
+                                    <i class="fas fa-edit icon-warning"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-sm text-info branch-details-btn action-btn" title="Details"
+                                                        data-id="@branch.BranchId" data-area="UserManagement" data-page="Branches">
+                                    <i class="fas fa-info-circle icon-info"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    <div class="row d-none" id="noFilterResults">
+                        <div class="col-12 text-center text-muted py-4">
+                            <i class="fas fa-search-minus fa-2x mb-2"></i>
+                            <br>No branches found matching your current filter criteria.
+                        </div>
                     </div>
-                    <div class="col-3 text-start">
-                        @branch.BranchName
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12 text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-2"></i>
+                            <br>No branches found.
+                        </div>
                     </div>
-                    <div class="col-1 text-center">
-                        @if (branch.IsActive)
-                        {
-                            <span class="badge status-badge">Active</span>
-                        }
-                        else
-                        {
-                            <span class="badge status-badge bg-danger">Inactive</span>
-                        }
-                    </div>
-
-                    <div class="col-6 d-flex justify-content-center gap-1">
-                        <!-- Edit Button with Modal Trigger -->
-                        <button type="button" class="btn btn-sm text-warning branch-edit-btn action-btn" title="Edit"
-                                data-id="@branch.BranchId" data-area="UserManagement" data-page="Branches">
-                            <i class="fas fa-edit icon-warning"></i>
-                        </button>
-
-                        <!-- Details Button with Modal Trigger -->
-                        <button type="button" class="btn btn-sm text-info branch-details-btn action-btn" title="Details"
-                                data-id="@branch.BranchId" data-area="UserManagement" data-page="Branches">
-                            <i class="fas fa-info-circle icon-info"></i>
-                        </button>
-
-
-                        <!-- Delete Button with Modal Trigger -->
-                        <button type="button" class="btn btn-sm text-danger branch-delete-btn action-btn" title="Delete"
-                                data-id="@branch.BranchId" data-area="UserManagement" data-page="Branches"
-                                data-branch-name="@branch.BranchName">
-                            <i class="fas fa-trash-alt icon-danger"></i>
-                        </button>
-                    </div>
-
-
-                </div>
-            }
-            <div class="d-flex justify-content-end mt-3">
-                <a class="btn btn-light text-primary" href="/Home/Index">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </a>
-            </div>
+                }
+            </div> @* Closes branchListContainer *@
         </div>
         @await Html.PartialAsync("BranchModals")
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 1. Get all search/filter elements
+        const codeInput = document.getElementById('codeSearch');
+        const nameInput = document.getElementById('nameSearch');
+        const statusSelect = document.getElementById('statusSearch');
+        const clearButton = document.querySelector('.clear-button');
+
+        // Select rows using the consistent class 'data-row'
+        const rows = document.querySelectorAll('.data-row');
+        const noResultsMessage = document.getElementById('noFilterResults');
+
+        if (rows.length === 0) return;
+
+        // 2. Define the filtering function
+        function filterData() {
+            let visibleRowCount = 0;
+
+            // Get query values
+            const codeQuery = (codeInput?.value || '').trim().toLowerCase();
+            const nameQuery = (nameInput?.value || '').trim().toLowerCase();
+            const statusQuery = statusSelect ? statusSelect.value : ''; // 'true', 'false', or ''
+
+            rows.forEach(row => {
+                // FIX: Use data-filter-column attributes for robust data extraction
+                const code = row.querySelector('[data-filter-column="code"]')?.textContent.trim().toLowerCase() || '';
+                const name = row.querySelector('[data-filter-column="name"]')?.textContent.trim().toLowerCase() || '';
+
+                // Get the status from the badge's data attribute, e.g., "true" or "false"
+                const statusElement = row.querySelector('.status-badge');
+                const rowStatusValue = statusElement ? statusElement.getAttribute('data-state-value') : '';
+
+                // Check for matches
+                const codeMatch = codeQuery === '' || code.includes(codeQuery);
+                const nameMatch = nameQuery === '' || name.includes(nameQuery);
+                const statusMatch = statusQuery === '' || rowStatusValue === statusQuery;
+
+                // Adjust visibility based on all active filters
+                const isMatch = codeMatch && nameMatch && statusMatch;
+                row.style.display = isMatch ? '' : 'none';
+
+                if (isMatch) {
+                    visibleRowCount++;
+                }
+            });
+
+            // FIX: Toggle visibility of the "No filter results" message
+            if (noResultsMessage) {
+                if (visibleRowCount === 0) {
+                    noResultsMessage.classList.remove('d-none');
+                } else {
+                    noResultsMessage.classList.add('d-none');
+                }
+            }
+        }
+
+        // 3. Add event listeners for filtering
+        if (codeInput) codeInput.addEventListener('input', filterData);
+        if (nameInput) nameInput.addEventListener('input', filterData);
+        if (statusSelect) statusSelect.addEventListener('change', filterData);
+
+        // 4. Clear button functionality
+        if (clearButton) {
+            clearButton.addEventListener('click', () => {
+                if (codeInput) codeInput.value = '';
+                if (nameInput) nameInput.value = '';
+                if (statusSelect) statusSelect.value = '';
+                filterData();
+            });
+        }
+
+        // 5. Initial filter when DOM is loaded
+        filterData();
+    });
+</script>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels; // Ensure you have a using for ViewModels
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -103,8 +104,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         model.Consignee.CreatedBy = currentUserId;
                         model.Consignee.UpdatedBy = currentUserId;
-                        model.Consignee.CreatedOn = DateTime.UtcNow;
-                        model.Consignee.UpdatedOn = DateTime.UtcNow;
+                        model.Consignee.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                        model.Consignee.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                         // Pass the correct object (model.Consignee) to the service
                         var success = await _consigneeService.SaveConsigneeAsync(model.Consignee);
@@ -174,7 +175,7 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.Consignee.UpdatedBy = currentUserId;
-                    viewModel.Consignee.UpdatedOn = DateTime.UtcNow;
+                    viewModel.Consignee.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     var success = await _consigneeService.SaveConsigneeAsync(viewModel.Consignee);
 

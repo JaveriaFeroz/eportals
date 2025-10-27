@@ -13,6 +13,7 @@ namespace ProcureToPay.Areas.Master.Services
         Task<bool> SaveProductAsync(ProductViewModel model);
         Task<bool> DeleteProductAsync(short id);
         Task<bool> ProductExistsAsync(string productName, short? excludeId = null);
+        Task<ProductPriceUpdateResult> UpdateProductPricesFromBidAsync(int selectedBidId, int userId);
         Task<ProductLookupsViewModel> GetLookupsAsync();
     }
 
@@ -32,7 +33,6 @@ namespace ProcureToPay.Areas.Master.Services
             try
             {
                 var query = _context.Products
-                    .Include(x => x.ProductType)
                     .Include(x => x.UoM)
                     .Include(x => x.ProductNature)
                     .Include(x => x.CreatedByUser)
@@ -55,8 +55,7 @@ namespace ProcureToPay.Areas.Master.Services
                     {
                         ProductId = x.ProductId,
                         ProductName = x.ProductName,
-                        PurchasePrice = x.PurchasePrice,
-                        ProductTypeName = x.ProductType != null ? x.ProductType.TypeName : "",
+                        UnitPrice = x.UnitPrice,
                         UoMName = x.UoM != null ? x.UoM.UoMName : "",
                         ProductNatureName = x.ProductNature != null ? x.ProductNature.NatureName : "",
                         IsActive = x.IsActive,
@@ -81,7 +80,6 @@ namespace ProcureToPay.Areas.Master.Services
             try
             {
                 var entity = await _context.Products
-                    .Include(x => x.ProductType)
                     .Include(x => x.UoM)
                     .Include(x => x.ProductNature)
                     .Include(x => x.CreatedByUser)
@@ -94,8 +92,7 @@ namespace ProcureToPay.Areas.Master.Services
                 {
                     ProductId = entity.ProductId,
                     ProductName = entity.ProductName,
-                    PurchasePrice = entity.PurchasePrice,
-                    ProductTypeId = entity.ProductTypeId,
+                    UnitPrice = entity.UnitPrice,
                     UoMId = entity.UoMId,
                     ProductNatureId = entity.ProductNatureId,
                     IsActive = entity.IsActive,
@@ -130,8 +127,7 @@ namespace ProcureToPay.Areas.Master.Services
                     if (entity == null) return false;
 
                     entity.ProductName = model.ProductName;
-                    entity.PurchasePrice = model.PurchasePrice;
-                    entity.ProductTypeId = model.ProductTypeId;
+                    entity.UnitPrice = model.UnitPrice;
                     entity.UoMId = model.UoMId;
                     entity.ProductNatureId = model.ProductNatureId;
                     entity.IsActive = model.IsActive;
@@ -143,8 +139,7 @@ namespace ProcureToPay.Areas.Master.Services
                     entity = new Product
                     {
                         ProductName = model.ProductName,
-                        PurchasePrice = model.PurchasePrice,
-                        ProductTypeId = model.ProductTypeId,
+                        UnitPrice = model.UnitPrice,
                         UoMId = model.UoMId,
                         ProductNatureId = model.ProductNatureId,
                         IsActive = model.IsActive
@@ -201,23 +196,97 @@ namespace ProcureToPay.Areas.Master.Services
             }
         }
 
+        public async Task<ProductPriceUpdateResult> UpdateProductPricesFromBidAsync(int selectedBidId, int userId)
+        {
+            var result = new ProductPriceUpdateResult { Success = false };
+
+            try
+            {
+                // Get the selected bid with all related data
+                var selectedBid = await _context.Bids
+                    .Include(b => b.BidItems)
+                        .ThenInclude(bi => bi.PurchaseRequestItem)
+                            .ThenInclude(pri => pri.Product)
+                    .FirstOrDefaultAsync(b => b.BidId == selectedBidId);
+
+                if (selectedBid == null)
+                {
+                    result.Message = "Selected bid not found.";
+                    return result;
+                }
+
+                var changes = new List<ProductPriceChange>();
+
+                foreach (var bidItem in selectedBid.BidItems)
+                {
+
+                    if (bidItem.PurchaseRequestItem?.ProductId != null &&
+                        bidItem.PurchaseRequestItem.ProductId > 0)
+                    {
+                        var productId = bidItem.PurchaseRequestItem.ProductId.Value;
+                        var product = await _context.Products
+                            .FirstOrDefaultAsync(p => p.ProductId == productId);
+
+                        if (product != null)
+                        {
+
+                            var oldPrice = (decimal)product.UnitPrice;
+                            var newPrice = bidItem.UnitPrice;
+
+
+                            if (Math.Abs(oldPrice - newPrice) > 0.01m)
+                            {
+
+                                product.UnitPrice = (double)newPrice;
+                                product.UpdatedByUserId = userId;
+                                product.UpdatedOn = DateTime.Now;
+
+                                changes.Add(new ProductPriceChange
+                                {
+                                    ProductId = product.ProductId,
+                                    ProductName = product.ProductName,
+                                    OldPrice = oldPrice,
+                                    NewPrice = newPrice
+                                });
+
+                                _logger.LogInformation(
+                                    $"Updated product price: ProductId={productId}, " +
+                                    $"Name={product.ProductName}, " +
+                                    $"OldPrice={oldPrice}, " +
+                                    $"NewPrice={newPrice}");
+                            }
+                        }
+                    }
+                }
+
+                if (changes.Any())
+                {
+                    await _context.SaveChangesAsync();
+                    result.Success = true;
+                    result.Changes = changes;
+                    result.Message = $"Successfully updated {changes.Count} product price(s).";
+                }
+                else
+                {
+                    result.Success = true;
+                    result.Message = "No product prices needed updating (no products linked to PR items or prices unchanged).";
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating product prices from bid {BidId}", selectedBidId);
+                result.Message = $"Error updating prices: {ex.Message}";
+                return result;
+            }
+        }
         public async Task<ProductLookupsViewModel> GetLookupsAsync()
         {
             try
             {
                 var lookups = new ProductLookupsViewModel
                 {
-                    ProductTypes = await _context.ProductTypes
-                        .Where(x => x.IsActive)
-                        .OrderBy(x => x.TypeName)
-                        .Select(x => new ProductTypeListViewModel
-                        {
-                            TypeId = x.TypeId,
-                            TypeName = x.TypeName,
-                            IsActive = x.IsActive
-                        })
-                        .ToListAsync(),
-
                     UoMs = await _context.UoMs
                         .Where(x => x.IsActive)
                         .OrderBy(x => x.UoMName)
@@ -254,7 +323,6 @@ namespace ProcureToPay.Areas.Master.Services
         {
             var lookups = await GetLookupsAsync();
 
-            model.ProductTypes = new SelectList(lookups.ProductTypes, "TypeId", "TypeName", model.ProductTypeId);
             model.UoMs = new SelectList(lookups.UoMs, "UoMId", "UoMName", model.UoMId);
             model.ProductNatures = new SelectList(lookups.ProductNatures, "NatureId", "NatureName", model.ProductNatureId);
         }

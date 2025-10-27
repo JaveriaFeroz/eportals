@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcureToPay.Areas.Master.Models;
 using ProcureToPay.Areas.Master.Services;
 using ProcureToPay.Areas.Master.ViewModels; // Ensure you have a using for ViewModels
+using ProcureToPay.Helpers;
 using System.Security.Claims;
 
 namespace ProcureToPay.Areas.Master.Controllers
@@ -90,8 +91,8 @@ namespace ProcureToPay.Areas.Master.Controllers
                         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         model.SKUCategory.CreatedBy = currentUserId;
                         model.SKUCategory.UpdatedBy = currentUserId;
-                        model.SKUCategory.CreatedOn = DateTime.UtcNow;
-                        model.SKUCategory.UpdatedOn = DateTime.UtcNow;
+                        model.SKUCategory.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                        model.SKUCategory.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                         // Pass the correct object (model.SKUCategory) to the service
                         var success = await _skuCategoryService.SaveSKUCategoryAsync(model.SKUCategory);
@@ -161,7 +162,7 @@ namespace ProcureToPay.Areas.Master.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.SKUCategory.UpdatedBy = currentUserId;
-                    viewModel.SKUCategory.UpdatedOn = DateTime.UtcNow;
+                    viewModel.SKUCategory.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     var success = await _skuCategoryService.SaveSKUCategoryAsync(viewModel.SKUCategory);
 

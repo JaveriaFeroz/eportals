@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProcureToPay.Areas.UserManagement.Models;
+using ProcureToPay.Helpers;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcureToPay.Areas.Common.Models
@@ -7,7 +9,7 @@ namespace ProcureToPay.Areas.Common.Models
     public class WorkFlowType
     {
         [Key]
-        public short WorkFlowTypeId { get; set; }
+        public int WorkFlowTypeId { get; set; }
 
         [Required, StringLength(100)]
         public string WorkFlowName { get; set; }
@@ -17,9 +19,10 @@ namespace ProcureToPay.Areas.Common.Models
 
         public short WorkFlowGroupId { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTimeHelper.GetPakistanStandardTime();
 
         // Navigation properties
+        public virtual Module Module { get; set; }
         public virtual ICollection<WorkFlowState> States { get; set; } = new List<WorkFlowState>();
         public virtual ICollection<WorkFlowApprovalSequence> ApprovalSequences { get; set; } = new List<WorkFlowApprovalSequence>();
     }

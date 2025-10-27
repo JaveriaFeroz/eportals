@@ -8,6 +8,7 @@ using ProcureToPay.Areas.Insurance.ViewModels; // Ensure you have a using for Vi
 using ProcureToPay.Areas.Master.ViewModels;
 using ProcureToPay.Areas.Master.Services;
 using System.Security.Claims;
+using ProcureToPay.Helpers;
 
 namespace ProcureToPay.Areas.Insurance.Controllers
 {
@@ -102,8 +103,8 @@ namespace ProcureToPay.Areas.Insurance.Controllers
                         var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         model.InsuranceType.CreatedBy = currentUserId;
                         model.InsuranceType.UpdatedBy = currentUserId;
-                        model.InsuranceType.CreatedOn = DateTime.UtcNow;
-                        model.InsuranceType.UpdatedOn = DateTime.UtcNow;
+                        model.InsuranceType.CreatedOn = DateTimeHelper.GetPakistanStandardTime();
+                        model.InsuranceType.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                         // Pass the correct object (model.InsuranceType) to the service
                         var success = await _insuranceTypeService.SaveInsuranceTypeAsync(model.InsuranceType);
@@ -173,7 +174,7 @@ namespace ProcureToPay.Areas.Insurance.Controllers
                     // Set the audit properties for the update
                     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     viewModel.InsuranceType.UpdatedBy = currentUserId;
-                    viewModel.InsuranceType.UpdatedOn = DateTime.UtcNow;
+                    viewModel.InsuranceType.UpdatedOn = DateTimeHelper.GetPakistanStandardTime();
 
                     var success = await _insuranceTypeService.SaveInsuranceTypeAsync(viewModel.InsuranceType);
 

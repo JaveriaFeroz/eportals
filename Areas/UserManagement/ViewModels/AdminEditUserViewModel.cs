@@ -23,6 +23,7 @@ namespace ProcureToPay.Areas.UserManagement.ViewModels
         public IEnumerable<SelectListItem> BranchesList { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> DepartmentsList { get; set; }
+        public bool IsLockedOut { get; set; }
 
         // Constructor
         public AdminEditUserViewModel()

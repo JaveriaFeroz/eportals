@@ -1,0 +1,157 @@
+﻿@model ProcureToPay.Areas.Procurement.Models.PurchaseRequestItem
+
+@{
+    var index = ViewData["index"] as int? ?? 0;
+}
+
+<div class="row gx-2 mb-3 align-items-end purchase-request-item-row" data-row-index="@index">
+    @* Hidden fields for DetailId and PurchaseRequestId *@
+    @Html.HiddenFor(model => model.DetailId, new { name = $"Items[{index}].DetailId" })
+    @Html.HiddenFor(model => model.PurchaseRequestId, new { name = $"Items[{index}].PurchaseRequestId" })
+
+    @* Hidden fields for the calculated amounts to be submitted to the server *@
+    <input type="hidden" name="Items[@index].GrossAmount" class="gross-amount-hidden" value="@(Model.Amount.ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+    <input type="hidden" name="Items[@index].GSTAmount" class="gst-amount-hidden" value="@(Model.GSTAmount.ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+    <input type="hidden" name="Items[@index].VATAmount" class="vat-amount-hidden" value="@(Model.VATAmount.ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+    <input type="hidden" name="Items[@index].TotalAmount" class="total-price-hidden" value="@(Model.TotalAmount.ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+
+    @* Hidden fields for ItemName, ItemCode, and OrderedQuantity *@
+    <input type="hidden" id="Items_@(index)__ItemName" name="Items[@index].ItemName" class="item-name-input" value="@Model.ItemName" />
+
+    @* Hidden field for the foreign key UoMId *@
+    <input type="hidden" id="Items_@(index)__UoMId" name="Items[@index].UoMId" class="uom-id-hidden" value="@(Model.UoMId?.ToString() ?? "")" />
+
+    @* UoM - Readonly *@
+    <div class="col-md-1">
+        <div class="form-group">
+            <label for="Items_@(index)__UoMName" class="form-label">UoM</label>
+            <input type="text"
+                             id="Items_@(index)__UoMName"
+                             class="form-control uom-name"
+                             value="@(Model.UoM?.UoMName ?? "")"
+                             readonly />
+        </div>
+    </div>
+
+    @* Product Dropdown Container *@
+    <div class="col-md-2 product-group-item-row">
+        <div class="form-group">
+            <label for="Items_@(index)__ProductId" class="form-label">Product <span class="text-danger">*</span></label>
+            <select id="Items_@(index)__ProductId" name="Items[@index].ProductId" class="form-select product-dropdown"
+                                data-val="true" data-val-required="Product is required.">
+                <option value="">-- Select Product --</option>
+                @if (Model.ProductId.HasValue && Model.ProductId.Value > 0)
+                {
+                    <option value="@Model.ProductId" selected>@Model.ItemName</option>
+                }
+            </select>
+            <span class="text-danger" data-valmsg-for="Items[@index].ProductId" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    @* Service Dropdown Container (Starts hidden and disabled) *@
+    <div class="col-md-2 service-group-item-row" style="display: none;">
+        <div class="form-group">
+            <label for="Items_@(index)__ServiceId" class="form-label">Service <span class="text-danger">*</span></label>
+            <select id="Items_@(index)__ServiceId" name="Items[@index].ServiceId" class="form-select service-dropdown"
+                    data-val="true" data-val-required="Service is required." disabled>
+                <option value="">-- Select Service --</option>
+                @if (Model.ServiceId.HasValue && Model.ServiceId.Value > 0)
+                {
+                    <option value="@Model.ServiceId" selected>@Model.ItemName</option>
+                }
+            </select>
+            <span class="text-danger" data-valmsg-for="Items[@index].ServiceId" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    @* Quantity *@
+    <div class="col-md-1">
+        <div class="form-group">
+            <label for="Items_@(index)__Quantity" class="form-label">Qty <span class="text-danger">*</span></label>
+            <input type="number" step="0.01" min="0" id="Items_@(index)__Quantity" name="Items[@index].Quantity" class="form-control quantity-input" value="@(Model.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+            <span class="text-danger" data-valmsg-for="Items[@index].Quantity" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    @* Unit Price *@
+    <div class="col-md-1">
+        <div class="form-group">
+            <label for="Items_@(index)__UnitPrice" class="form-label">Unit Price <span class="text-danger">*</span></label>
+            <input type="number" step="0.01" id="Items_@(index)__UnitPrice" name="Items[@index].UnitPrice" class="form-control unit-price-input" value="@(Model.UnitPrice.ToString(System.Globalization.CultureInfo.InvariantCulture))" readonly />
+            <span class="text-danger" data-valmsg-for="Items[@index].UnitPrice" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    @* Gross Amount *@
+    <div class="col-md-1">
+        <div class="form-group">
+            <label for="Items_@(index)__GrossAmountDisplay" class="form-label">Gross Amt</label>
+            <input type="text" id="Items_@(index)__GrossAmountDisplay" class="form-control gross-amount-display" value="@(Model.Amount.ToString("N2"))" readonly />
+        </div>
+    </div>
+
+    @* GST % *@
+    <div class="col-md-1">
+        <div class="form-group">
+            <label for="Items_@(index)__GSTRate" class="form-label">GST %</label>
+            <input type="number" step="0.01" min="0" id="Items_@(index)__GSTRate" name="Items[@index].GSTRate" class="form-control gst-rate-input" value="@(Model.GSTRate.ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+            <span class="text-danger" data-valmsg-for="Items[@index].GSTRate" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    @* GST Amount *@
+    <div class="col-md-1">
+        <div class="form-group">
+            <label for="Items_@(index)__GSTAmountDisplay" class="form-label">GST Amt</label>
+            <input type="text" id="Items_@(index)__GSTAmountDisplay" class="form-control gst-amount-display" value="@(Model.GSTAmount.ToString("N2"))" readonly />
+        </div>
+    </div>
+
+    @* Remarks *@
+    <div class="col-md-2">
+        <div class="form-group d-flex flex-column h-100">
+            <label for="Items_@(index)__Narration" class="form-label">Remarks</label>
+            <input type="text"
+                   id="Items_@(index)__Narration"
+                   name="Items[@index].Narration"
+                   class="form-control narration-input"
+                   value="@Model.Narration"
+                   placeholder="Enter remarks if no product/service" />
+            <span class="text-danger mt-auto" data-valmsg-for="Items[@index].Narration" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    @* Net Amount and Remove Button *@
+    <div class="col-md-2">
+        <div class="form-group d-flex flex-column h-100">   
+            <label for="Items_@(index)__NetAmountDisplay" class="form-label">Net Amt</label>
+            <div class="input-group">
+                <input type="text" id="Items_@(index)__NetAmountDisplay" class="form-control net-amount-output" value="@(Model.TotalAmount.ToString("N2"))" readonly />
+                <button type="button" class="btn btn-danger remove-detail-row-btn" style="width: 38px;"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <style>
+    /* Fix for validation message overflow */
+    .form-group .field-validation-error {
+        /* Position the error message relative to its form group */
+        position: absolute;
+        /* Move it below the input field */
+        top: 100%;
+        /* Keep the text within the column */
+        width: 100%;
+        /* Allow text to wrap */
+        word-wrap: break-word;
+        /* Optional: add some padding and font size for better readability */
+        font-size: 0.75rem;
+        padding-top: 0.25rem;
+    }
+
+    /* Ensure the form group is positioned correctly for the absolute span */
+    .form-group {
+        position: relative;
+    }
+            </style>

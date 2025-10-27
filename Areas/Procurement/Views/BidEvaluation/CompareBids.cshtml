@@ -1,0 +1,470 @@
+﻿@model ProcureToPay.Areas.Procurement.ViewModels.BidComparisonViewModel
+
+@{
+    ViewData["Title"] = "Compare Bids";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .bg-success-subtle {
+        background-color: rgba(25, 135, 84, 0.1) !important;
+    }
+
+    .bg-danger-subtle {
+        background-color: rgba(220, 53, 69, 0.1) !important;
+    }
+
+    /* Consistent card styling */
+    .card {
+        border-radius: 8px;
+    }
+
+    .card-header {
+        padding: 1rem 1.25rem;
+    }
+
+    /* Consistent table header styling */
+    .table th {
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        color: #6c757d;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.03);
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .alert {
+        border-radius: 8px;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+</style>
+
+<div class="container-fluid px-4 py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold m-0">@ViewData["Title"]</h3>
+            <p class="text-muted">Bid Evaluation: <strong>@Model.BidEvaluationNumber</strong></p>
+        </div>
+        
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (!Model.Bids.Any())
+    {
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> No bids have been submitted yet.
+            <a asp-action="Details" asp-route-id="@Model.BidEvaluationId" class="alert-link">Go back to add bids</a>
+        </div>
+    }
+    else
+    {
+        @if (Model.SelectedBidId.HasValue)
+        {
+            var winner = Model.Bids.FirstOrDefault(b => b.BidId == Model.SelectedBidId);
+            <div class="alert alert-success d-flex justify-content-between align-items-center mb-4 shadow-sm border-0">
+                <div>
+                    <i class="bi bi-trophy-fill me-2"></i>
+                    <strong>Winner Selected:</strong> @winner?.SupplierName - @winner?.GrandTotal.ToString("N2")
+                    <span class="ms-3 text-muted">|</span>
+                    <small class="ms-3">@Model.SelectionJustification</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="changeSelection()">
+                    Change
+                </button>
+            </div>
+        }
+
+        <div class="card shadow border-0 mb-4">
+            <div class="card-header" style="background-color: #092963;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title text-white mb-0">
+                        <i class="fas fa-list-alt me-2"></i> Bid Summary
+                    </h5>
+                    <span class="badge bg-light text-dark ms-3">@Model.Bids.Count Bid(s)</span>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 60px;" class="text-center">Rank</th>
+                                <th>Supplier</th>
+                                <th style="width: 120px;" class="text-end">Total Amount</th>
+                                <th style="width: 100px;" class="text-end">Tax</th>
+                                <th style="width: 130px;" class="text-end">Grand Total</th>
+                                <th style="width: 100px;" class="text-center">Delivery</th>
+                                <th style="width: 110px;" class="text-center">Compliance</th>
+                                <th style="width: 100px;" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bid in Model.Bids)
+                            {
+                                var isWinner = bid.BidId == Model.SelectedBidId;
+                                var isLowestPrice = bid.GrandTotal == Model.Bids.Min(b => b.GrandTotal);
+                                var priceDiff = bid.GrandTotal - Model.Bids.Min(b => b.GrandTotal);
+
+                                <tr class="@(isWinner ? "table-success" : "")">
+                                    <td class="text-center">
+                                        @if (bid.Rank == 1)
+                                        {
+                                            <span class="badge bg-success">1st</span>
+                                        }
+                                        else if (bid.Rank == 2)
+                                        {
+                                            <span class="badge bg-warning text-dark">2nd</span>
+                                        }
+                                        else if (bid.Rank == 3)
+                                        {
+                                            <span class="badge bg-info">3rd</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">@(bid.Rank)th</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <strong>@bid.SupplierName</strong>
+                                        @if (isWinner)
+                                        {
+                                            <i class="bi bi-trophy-fill text-warning ms-1"></i>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="text-muted">@bid.TotalAmount.ToString("N2")</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <small class="text-muted">@bid.TaxAmount.ToString("N2")</small>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong class="@(isLowestPrice ? "text-success" : "")">
+                                            @bid.GrandTotal.ToString("N2")
+                                        </strong>
+                                        @if (priceDiff > 0)
+                                        {
+                                            <br />
+
+                                            <small class="text-danger">+@priceDiff.ToString("N2")</small>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <small>@bid.DeliveryDays days</small>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (bid.MeetsRequirements && bid.IsResponsive)
+                                        {
+                                            <span class="badge bg-success-subtle text-success border border-success">
+                                                <i class="bi bi-check-circle"></i> Yes
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger-subtle text-danger border border-danger">
+                                                <i class="bi bi-x-circle"></i> No
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if (isWinner)
+                                        {
+                                            <span class="badge bg-success">
+                                                <i class="bi bi-trophy"></i> Selected
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-primary px-3"
+                                                    onclick="selectBid(@bid.BidId, '@bid.SupplierName')">
+                                                Select
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <td colspan="5" class="text-end"><strong>Price Range:</strong></td>
+                                <td class="text-end">
+                                    <strong>@((Model.Bids.Max(b => b.GrandTotal) - Model.Bids.Min(b => b.GrandTotal)).ToString("N2"))</strong>
+                                </td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow border-0">
+            <div class="card-header border-bottom" style="background-color: #092963;">
+                <h6 class="card-title text-white mb-0">Item-wise Price Comparison</h6>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 30%;">Item Name</th>
+                                <th style="width: 80px;" class="text-center">Quantity</th>
+                                @foreach (var bid in Model.Bids)
+                                {
+                                    var isWinner = bid.BidId == Model.SelectedBidId;
+                                    <th colspan="2" class="text-center border-start @(isWinner ? "table-success" : "")">
+                                        <div class="d-flex align-items-center justify-content-center gap-2">
+                                            <strong>@bid.SupplierName</strong>
+                                            @if (isWinner)
+                                            {
+                                                <i class="bi bi-trophy-fill text-warning"></i>
+                                            }
+                                        </div>
+                                        <small class="text-muted">Rank: @bid.Rank</small>
+                                    </th>
+                                }
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                @foreach (var bid in Model.Bids)
+                                {
+                                    var isWinner = bid.BidId == Model.SelectedBidId;
+                                    <th class="text-end border-start @(isWinner ? "table-success" : "")">
+                                        <small>Unit Price</small>
+                                    </th>
+                                    <th class="text-end @(isWinner ? "table-success" : "")">
+                                        <small>Total</small>
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var itemName in Model.ItemNames)
+                            {
+                                var firstBidItem = Model.Bids.FirstOrDefault()?.Items.FirstOrDefault(i => i.ItemName == itemName);
+                                var minPrice = Model.Bids
+                                .SelectMany(b => b.Items)
+                                .Where(i => i.ItemName == itemName)
+                                .Min(i => i.UnitPrice);
+
+                                <tr>
+                                    <td>
+                                        <strong>@itemName</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-light text-dark">@firstBidItem?.Quantity</span>
+                                    </td>
+
+                                    @foreach (var bid in Model.Bids)
+                                    {
+                                        var item = bid.Items.FirstOrDefault(i => i.ItemName == itemName);
+                                        var isLowest = item != null && item.UnitPrice == minPrice;
+                                        var isWinner = bid.BidId == Model.SelectedBidId;
+
+                                        <td class="text-end border-start @(isWinner ? "table-success" : "") @(isLowest && item != null ? "bg-success-subtle" : "")">
+                                            @if (item != null)
+                                            {
+                                                <span class="@(isLowest ? "fw-bold text-success" : "")">
+                                                    @item.UnitPrice.ToString("N2")
+                                                    @if (isLowest)
+                                                    {
+                                                        <i class="bi bi-arrow-down-circle-fill"></i>
+                                                    }
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">—</span>
+                                            }
+                                        </td>
+                                        <td class="text-end @(isWinner ? "table-success" : "")">
+                                            @if (item != null)
+                                            {
+                                                @item.TotalPrice.ToString("N2")
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">—</span>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr class="fw-bold">
+                                <td colspan="2" class="text-end">GRAND TOTAL:</td>
+                                @foreach (var bid in Model.Bids)
+                                {
+                                    var isWinner = bid.BidId == Model.SelectedBidId;
+                                    <td colspan="2" class="text-end border-start @(isWinner ? "table-success" : "")">
+                                        <strong class="fs-5">@bid.GrandTotal.ToString("N2")</strong>
+                                    </td>
+                                }
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        @if (!Model.SelectedBidId.HasValue && Model.Bids.Any())
+        {
+            <div class="alert alert-warning mt-4 d-flex align-items-center shadow-sm border-0">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span>Please select a winning bid to proceed</span>
+            </div>
+        }
+    }
+</div>
+
+<div class="modal fade" id="selectWinnerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="SelectWinner" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="bidEvaluationId" value="@Model.BidEvaluationId" />
+                <input type="hidden" name="selectedBidId" id="selectedBidId" />
+
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title">
+                        <i class="bi bi-trophy text-warning me-2"></i>
+                        Select Winning Bid
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-light border">
+                        <strong>Selected Supplier:</strong>
+                        <span id="selectedSupplierName" class="text-primary"></span>
+                    </div>
+
+                    <div class="alert alert-info mb-3" role="alert">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+                            <div>
+                                <strong>Automatic Price Update</strong>
+                                <p class="mb-0 small">Product Master prices will be automatically updated with the winning bid prices for all linked products.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="selectionJustification" class="form-label fw-semibold">
+                            Justification for Selection <span class="text-danger">*</span>
+                        </label>
+                        <textarea class="form-control" id="selectionJustification" name="selectionJustification"
+                                  rows="4" required
+                                  placeholder="Explain the reasoning behind this selection (e.g., competitive pricing, quality, delivery schedule, past performance, etc.)">@Model.SelectionJustification</textarea>
+                        <div class="form-text">
+                            Provide a clear and detailed explanation for audit purposes
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle me-1"></i> Confirm Selection
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function selectBid(bidId, supplierName) {
+            document.getElementById('selectedBidId').value = bidId;
+            document.getElementById('selectedSupplierName').textContent = supplierName;
+
+            // Clear the justification only if no winner was previously selected, otherwise keep the existing justification for 'Change'
+            if (!@Model.SelectedBidId.HasValue.ToString().ToLower()) {
+                 document.getElementById('selectionJustification').value = '';
+            }
+
+            var modal = new bootstrap.Modal(document.getElementById('selectWinnerModal'));
+            modal.show();
+        }
+
+        function changeSelection() {
+            // Re-use the selectBid function to open the modal, passing the currently selected bid ID and name
+            // The actual logic for clearing the justification on 'Change' is now handled inside the selectBid function
+            // to re-populate the model's existing justification if we're just editing it.
+
+            // To ensure all bids can be selected when clicking 'Change', we can clear the selectedBidId temporarily
+            // and force the modal open for selection.
+
+            // NOTE: The current implementation of the 'Change' button only re-opens the modal with the existing
+            // justification. If you want to force the user to pick a *new* bid, you'd need to clear the ID here.
+
+            // For now, let's just re-open the modal with the *current* winner's details filled in.
+
+            var winnerBid = @Json.Serialize(Model.Bids.FirstOrDefault(b => b.BidId == Model.SelectedBidId));
+            if (winnerBid) {
+                document.getElementById('selectedBidId').value = winnerBid.BidId;
+                document.getElementById('selectedSupplierName').textContent = winnerBid.SupplierName;
+            }
+
+            var modal = new bootstrap.Modal(document.getElementById('selectWinnerModal'));
+            modal.show();
+        }
+
+        // Enhanced form submission with confirmation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('#selectWinnerModal form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const supplierName = document.getElementById('selectedSupplierName').textContent;
+                    const justification = document.getElementById('selectionJustification').value.trim();
+
+                    if (!justification) {
+                        e.preventDefault();
+                        alert('Please provide a justification for your selection.');
+                        return false;
+                    }
+
+                    const confirmMessage = `Are you sure you want to select ${supplierName} as the winner?\n\n⚠️ This will automatically update Product Master prices with the winning bid prices.\n\nThis action cannot be easily undone.`;
+
+                    if (!confirm(confirmMessage)) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            }
+        });
+    </script>
+}

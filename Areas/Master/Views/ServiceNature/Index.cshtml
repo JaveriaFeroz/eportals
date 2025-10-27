@@ -10,11 +10,6 @@
 
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a asp-area="Master" asp-controller="ServiceNature" asp-action="Index">Master</a></li>
-        <li class="breadcrumb-item active">Service Nature</li>
-    </ol>
 
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
@@ -46,12 +41,15 @@
                             <span class="input-group-text" id="serviceNatureIcon">
                                 <i class="fas fa-filter" style="font-size: 1rem;"></i>
                             </span>
-                            <input type="text" class="form-control form-control-sm underline-input" id="serviceNatureSearch" placeholder="Service Nature Name">
+                            <input type="text" class="form-control form-control-sm underline-input"
+                                                              id="natureNameSearch" placeholder="Service Nature Name"
+                                                              data-filter="natureName">
                         </div>
                     </div>
 
                     <div class="col-2">
-                        <select class="form-select form-select-sm underline-input" id="statusSearch">
+                        <select class="form-select form-select-sm underline-input"
+                                                        id="statusSearch" data-filter="status">
                             <option value="">All</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
@@ -59,7 +57,7 @@
                     </div>
                     <div class="col-1">
                         <button class="btn btn-outline-secondary clear-button d-flex justify-content-between align-items-center"
-                                style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
+                                                        style="padding: 0.5rem 1rem; font-size: 1rem; width: 100%; min-width: 120px;">
                             <span>Clear</span>
                             <i class="fas fa-times" style="font-size: 1rem;"></i>
                         </button>
@@ -68,8 +66,8 @@
                     <div class="col-auto ms-auto">
                         <div class="create-user-container">
                             <button class="action-button create-user-text"
-                                    data-url="@Url.Action("Create", "ServiceNature", new { area = "Master" })"
-                                    style="background-color: #092963;">
+                                                               data-url="@Url.Action("Create", "ServiceNature", new { area = "Master" })"
+                                                               style="background-color: #092963;">
                                 <i class="fas fa-plus"></i>
                                 <span class="button-text"> Add New Nature</span>
                             </button>
@@ -90,62 +88,64 @@
                 <div class="col-2 text-center d-flex align-items-center justify-content-center"><i class="fas fa-cogs me-2 text-dark"></i> ACTIONS</div>
             </div>
 
-            @if (Model.ServiceNatures.Any())
-            {
-                foreach (var item in Model.ServiceNatures)
+            @* FIX: Container for filterable rows and "No results" message *@
+            <div id="serviceNatureListContainer">
+                @if (Model.ServiceNatures.Any())
                 {
-                    <div class="row align-items-center border-bottom py-3 px-2 user-row" tabindex="0">
-                        <div class="col-4 fw-bold">@item.NatureName</div>
-                        <div class="col-2 text-center">
-                            @if (item.IsActive)
-                            {
-                                <span class="badge status-badge">Active</span>
-                            }
-                            else
-                            {
-                                <span class="badge status-badge bg-danger">Inactive</span>
-                            }
+                    foreach (var item in Model.ServiceNatures)
+                    {
+                        <div class="row align-items-center border-bottom py-3 px-2 data-row" tabindex="0">
+                            <div class="col-4 fw-bold" data-filter-column="natureName">@item.NatureName</div>
+                            <div class="col-2 text-center">
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge status-badge" data-state-value="true">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge status-badge bg-danger" data-state-value="false">Inactive</span>
+                                }
+                            </div>
+                            <div class="col-6 col-md-2 small">
+                                <div title="Created by"><i class="fas fa-user-edit me-1 text-muted"></i> @item.CreatedBy</div>
+                                <div title="Created on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @item.CreatedOn.ToString("dd MMM yyyy")</div>
+                            </div>
+                            <div class="col-6 col-md-2 small">
+                                <div title="Updated by"><i class="fas fa-user-edit me-1 text-muted"></i> @(item.UpdatedBy ?? "N/A")</div>
+                                <div title="Updated on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @(item.UpdatedOn?.ToString("dd MMM yyyy") ?? "N/A")</div>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center gap-1">
+                                <button type="button" class="btn btn-sm text-warning edit-btn action-btn"
+                                                                   title="Edit" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature">
+                                    <i class="fas fa-edit icon-warning"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm text-info details-btn action-btn"
+                                                                   title="Details" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature">
+                                    <i class="fas fa-info-circle icon-info"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-6 col-md-2 small">
-                            <div title="Created by"><i class="fas fa-user-edit me-1 text-muted"></i> @item.CreatedBy</div>
-                            <div title="Created on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @item.CreatedOn.ToString("dd MMM yyyy")</div>
-                        </div>
-                        <div class="col-6 col-md-2 small">
-                            <div title="Updated by"><i class="fas fa-user-edit me-1 text-muted"></i> @(item.UpdatedBy ?? "N/A")</div>
-                            <div title="Updated on" class="text-muted"><i class="fas fa-calendar-alt me-1"></i> @(item.UpdatedOn?.ToString("dd MMM yyyy") ?? "N/A")</div>
-                        </div>
-                        <div class="col-2 d-flex justify-content-center gap-1">
-                            <button type="button" class="btn btn-sm text-warning edit-btn action-btn"
-                                    title="Edit" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature">
-                                <i class="fas fa-edit icon-warning"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm text-info details-btn action-btn"
-                                    title="Details" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature">
-                                <i class="fas fa-info-circle icon-info"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
-                                    title="Delete" data-id="@item.NatureId" data-area="Master" data-page="ServiceNature" data-name="@item.NatureName">
-                                <i class="fas fa-trash-alt icon-danger"></i>
-                            </button>
+                    }
+
+                    @* FIX: Message for when no items are returned from the filter *@
+                    <div class="row d-none" id="noFilterResults">
+                        <div class="col-12 text-center text-muted py-4">
+                            <i class="fas fa-search-minus fa-2x mb-2"></i>
+                            <br>No service natures found matching your current filter criteria.
                         </div>
                     </div>
                 }
-            }
-            else
-            {
-                <div class="row">
-                    <div class="col-12 text-center text-muted py-4">
-                        <i class="fas fa-inbox fa-2x mb-2"></i>
-                        <br>No service types found.
+                else
+                {
+                    @* FIX: This displays only if the model list is EMPTY initially *@
+                    <div class="row">
+                        <div class="col-12 text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-2x mb-2"></i>
+                            <br>No service types found.
+                        </div>
                     </div>
-                </div>
-            }
-
-            <div class="d-flex justify-content-end mt-3">
-                <a class="btn btn-light text-primary" href="/Home/Index">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </a>
-            </div>
+                }
+            </div> @* Closes serviceNatureListContainer *@
         </div>
 
         @* This partial view will contain the empty modal shells for Edit, Details, and Delete *@
@@ -159,4 +159,71 @@
     }
     @* This script handles the modal popups *@
     <script src="~/js/modal-handler.js" asp-append-version="true"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Get all search/filter elements
+            const nameSearch = document.getElementById('natureNameSearch');
+            const statusSearch = document.getElementById('statusSearch');
+            const clearButton = document.querySelector('.clear-button');
+
+            // Select rows using the consistent class 'data-row'
+            const rows = document.querySelectorAll('.data-row');
+            // Get the no results message element
+            const noResultsMessage = document.getElementById('noFilterResults');
+
+            // If there are no rows at all (initial empty state), we skip the filter logic
+            if (rows.length === 0) return;
+
+            // 2. Define the filtering function
+            function filterRows() {
+                let visibleRowCount = 0;
+
+                // Get values from input/select fields
+                const nameValue = nameSearch.value.toLowerCase().trim();
+                const statusValue = statusSearch.value.toLowerCase().trim(); // 'true', 'false', or ''
+
+                rows.forEach(row => {
+                    // Get text content from corresponding data columns/attributes
+                    const nameText = row.querySelector('[data-filter-column="natureName"]').textContent.trim().toLowerCase();
+                    const statusElement = row.querySelector('.status-badge');
+                    // Ensure statusElement exists before trying to get attribute
+                    const rowStatusValue = statusElement ? statusElement.getAttribute('data-state-value') : '';
+
+                    // Check for matches
+                    const nameMatch = nameValue === '' || nameText.includes(nameValue);
+                    const statusMatch = statusValue === '' || rowStatusValue === statusValue;
+
+                    // Show/hide the row based on all matches
+                    if (nameMatch && statusMatch) {
+                        row.style.display = '';
+                        visibleRowCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // FIX: Toggle visibility of the "No filter results" message
+                if (visibleRowCount === 0) {
+                    noResultsMessage.classList.remove('d-none');
+                } else {
+                    noResultsMessage.classList.add('d-none');
+                }
+            }
+
+            // 3. Attach event listeners
+            nameSearch.addEventListener('input', filterRows);
+            statusSearch.addEventListener('change', filterRows);
+
+            // 4. Clear button functionality
+            clearButton.addEventListener('click', function () {
+                nameSearch.value = '';
+                statusSearch.value = '';
+                filterRows(); // Re-filter to show all rows
+            });
+
+            // 5. Initial filter
+            filterRows();
+        });
+    </script>
 }

@@ -8,11 +8,6 @@
 <script src="~/js/scripts.js" asp-append-version="true"></script>
 
 <div class="container-fluid px-4 py-4">
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-        <li class="breadcrumb-item">Master</li>
-        <li class="breadcrumb-item active">Drivers</li>
-    </ol>
 
     <div class="card shadow border-0">
         <div class="card-header" style="background-color: #092963; display: flex; justify-content: space-between; align-items: center;">
@@ -152,10 +147,10 @@
                                     title="Details" data-id="@item.DriverId" data-area="Master" data-page="Driver">
                                 <i class="fas fa-info-circle icon-info"></i>
                             </button>
-                            <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
+                         @*    <button type="button" class="btn btn-sm text-danger delete-btn action-btn"
                                     title="Delete" data-id="@item.DriverId" data-area="Master" data-page="Driver" data-name="@item.DriverName">
                                 <i class="fas fa-trash-alt icon-danger"></i>
-                            </button>
+                            </button> *@
                         </div>
                     </div>
                 }

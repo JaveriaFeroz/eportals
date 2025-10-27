@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ProcureToPay.Areas.Common.Models;
 
 namespace ProcureToPay.Areas.UserManagement.Controllers
 {
@@ -41,10 +42,40 @@ namespace ProcureToPay.Areas.UserManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(module);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                using (var transaction = await _context.Database.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        // Step 1: Add the new Module.
+                        _context.Modules.Add(module);
+                        await _context.SaveChangesAsync();
+
+                        // Step 2: Create the corresponding WorkFlowType using the new Module's ID.
+                        var newWorkFlowType = new WorkFlowType
+                        {
+                            WorkFlowTypeId = module.Id,
+                            WorkFlowName = module.Name,
+                            WorkFlowShortName = new string(module.Name.Take(10).ToArray()),
+                            WorkFlowGroupId = 1, // You'll need to define this logic
+                            CreatedOn = DateTime.UtcNow
+                        };
+                        _context.WorkFlowTypes.Add(newWorkFlowType);
+
+                        await _context.SaveChangesAsync(); // Save WorkFlowType and WorkFlowStates.
+
+                        await transaction.CommitAsync();
+
+                        TempData["Success"] = "Module, WorkFlowType, and default states created successfully.";
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        // ... (error handling)
+                    }
+                }
             }
+
             return View(module);
         }
 
